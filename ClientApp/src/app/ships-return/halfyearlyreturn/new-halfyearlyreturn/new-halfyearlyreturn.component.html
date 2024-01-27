@@ -1,0 +1,257 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">{{pageTitle}}</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Half Yearly Return</a>
+              </li>
+              <li class="breadcrumb-item active">{{destination}}</li>
+            </ul>
+          </div> 
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="HalfYearlyReturnForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div *ngIf="role != userRole.ShipStaff && role != userRole.LOEO" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Ship Name </mat-label>
+                      <mat-select formControlName="baseSchoolNameId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="HalfYearlyReturnForm.get('baseSchoolNameId').hasError('required')">
+                        Ship Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Equipment Category </mat-label>
+                      <mat-select formControlName="equipmentCategoryId" (selectionChange)="onEquipmentCategorySelectionChange()" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedEquipmentCategory" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="HalfYearlyReturnForm.get('equipmentCategoryId').hasError('required')">
+                        Equipment Category is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Equipment Name </mat-label>
+                      <mat-select formControlName="equpmentNameId" (selectionChange)="onShipEquipmentInfoList()" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedEquipmentNameByCategory" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="HalfYearlyReturnForm.get('equpmentNameId').hasError('required')">
+                        Equipment Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div *ngIf="isShown" class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 ex-mrk-entry-li">
+                      <div class="card">
+  
+                        <div class="body table-responsive">
+                          <table class="table ex-mrk-entry issue-res">
+                            <thead>
+                              <tr>
+                                <th class="cl-srl">
+                                  <h5>Ser</h5>
+                                </th>                         
+  
+                                <th class="cl-mrk">
+                                  <h5>Model/Type</h5>
+                                </th>
+  
+                                <th class="cl-mrk">
+                                  <h5>Input Power Supply</h5>
+                                </th>
+                                <th class="cl-mrk">
+                                  <h5>State of Equipment</h5>
+                                </th>
+                                <th class="cl-nm-rnk">
+                                  <h5>Qty</h5>
+                                </th>
+                                <th class="cl-mrk">
+                                  <h5>Half Yearly Running Time(Hours)</h5>
+                                </th>
+                                <th class="cl-mrk">
+                                  <h5>Total Running Time(Hours)</h5>
+                                </th>
+                                
+                                <th class="cl-nm-rnk">
+                                  <h5>Half Yearly Problem</h5>
+                                </th>
+  
+                               
+                                <th class="cl-nm-rnk">
+                                  <h5>Power Supply Unit</h5>
+                                </th>
+                                
+                               <!--  <th class="cl-nm-rnk">
+                                  <h5>Status</h5>
+                                </th> -->
+                             
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let unit of HalfYearlyReturnForm.get('shipEquipmentInfoList')['controls']; let i = index"
+                                [formGroup]="unit">
+                                <th class="cl-srl" scope="row">{{i+1}}</th>
+                                <td class="cl-nm-rnk">
+                                  {{getControlLabel(i,'model')}} - {{getControlLabel(i,'type')}}
+                                </td>
+                                <td class="cl-nm-rnk">
+                                  {{getControlLabel(i,'powerSupply')}}
+                                </td>
+                                <td class="cl-nm-rnk">
+                                  {{getControlLabel(i,'stateOfEquipment')}} 
+                                </td>
+                                <td class="cl-nm-rnk">
+                                  {{getControlLabel(i,'qty')}}
+                                </td>
+                               
+                                <td class="cl-mrk">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <input matInput type="text" formControlName="halfYearlyRunningTime"/>
+                                  </mat-form-field>
+                                </td>
+                                <td class="cl-mrk">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <input matInput type="text" formControlName="totalRunningTime"/>
+                                  </mat-form-field>
+                                </td>
+                                <td class="cl-mrk">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <textarea matInput type="text" formControlName="halfYearlyProblem"></textarea>
+                                  </mat-form-field>
+                                </td>   
+                                <td class="cl-mrk">
+                                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <input matInput type="text" formControlName="powerSupplyUnit"/>
+                                  </mat-form-field>
+                                </td>          
+                              </tr>
+  
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                     
+                    </div>
+                     
+                    </div>
+                  </div>
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Brand </mat-label>
+                      <mat-select formControlName="brandId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedBrand" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="HalfYearlyReturnForm.get('brandId').hasError('required')">
+                        Brand is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Input Power Supply</mat-label>
+                      <input matInput formControlName="inputPowerSupply" required>
+                      <mat-error *ngIf="HalfYearlyReturnForm.get('inputPowerSupply').hasError('required')">
+                        Input Power Supply is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Equipment Status</mat-label>
+                      <mat-select formControlName="operationalStatusId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedOperationalStatus" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="HalfYearlyReturnForm.get('operationalStatusId').hasError('required')">
+                        Equipment Status is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Half Yearly Running Time</mat-label>
+                      <mat-select formControlName="halfYearlyRunningTimeId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedHalfYearlyRunningTime" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="HalfYearlyReturnForm.get('halfYearlyRunningTimeId').hasError('required')">
+                        Half Yearly Running Time is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Total Running Time</mat-label>
+                      <input matInput formControlName="totalRunningTime" required>
+                      <mat-error *ngIf="HalfYearlyReturnForm.get('totalRunningTime').hasError('required')">
+                        Total Running Time is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Power Supply Unit</mat-label>
+                      <input matInput formControlName="powerSupplyUnit" required>
+                      <mat-error *ngIf="HalfYearlyReturnForm.get('powerSupplyUnit').hasError('required')">
+                        Power Supply Unit is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Remarks</mat-label>
+                      <input matInput formControlName="remarks">
+                    </mat-form-field>
+                  </div> -->
+                  
+                  
+                
+               
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" [disabled]="!HalfYearlyReturnForm.valid " mat-raised-button
+                      color="primary">{{btnText}}</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

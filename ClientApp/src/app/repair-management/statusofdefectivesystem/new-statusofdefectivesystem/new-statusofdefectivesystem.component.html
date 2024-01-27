@@ -1,0 +1,278 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">{{pageTitle}}</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Status Of Defective System/Equipment</a>
+              </li>
+              <li class="breadcrumb-item active">{{destination}}</li>
+            </ul>
+          </div> 
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="OperationalStateForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Equipment Name </mat-label>
+                      <mat-select formControlName="equipmentNameId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedEquipmentName" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="OperationalStateForm.get('equipmentNameId').hasError('required')">
+                        Equipment Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Operational Status</mat-label>
+                      <mat-select formControlName="operationalStatusId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedOperationalStatus" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="OperationalStateForm.get('operationalStatusId').hasError('required')">
+                        Operational Status is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Date Of Defect</mat-label>
+                      <input matInput [matDatepicker]="dateOfDefect" formControlName="dateOfDefect" required>
+                      <mat-datepicker-toggle matSuffix [for]="dateOfDefect"></mat-datepicker-toggle>
+                      <mat-datepicker #dateOfDefect></mat-datepicker>
+                      <mat-error *ngIf="OperationalStateForm.get('dateOfDefect').hasError('required')">
+                        Date Of Defect is Required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Duration Of Defect</mat-label>
+                      <input matInput formControlName="durationOfDefect" required>
+                      <mat-error *ngIf="OperationalStateForm.get('durationOfDefect').hasError('required')">
+                        Duration Of Defect is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Causes Of Defect</mat-label>
+                      <input matInput formControlName="causesOfDefect" required>
+                      <mat-error *ngIf="OperationalStateForm.get('causesOfDefect').hasError('required')">
+                        Causes Of Defect is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Steps Taken By Ships Staff</mat-label>
+                      <input matInput formControlName="stepsTakenByShipsStaff" required>
+                      <mat-error *ngIf="OperationalStateForm.get('stepsTakenByShipsStaff').hasError('required')">
+                        Steps Taken By Ships Staff is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Steps Taken By BN Dockyard</mat-label>
+                      <input matInput formControlName="stepTakenByDockyard" required>
+                      <mat-error *ngIf="OperationalStateForm.get('stepTakenByDockyard').hasError('required')">
+                        Steps Taken By BN Dockyard is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Steps Taken By NHQ</mat-label>
+                      <input matInput formControlName="stepTakenByDockyard" required>
+                      <mat-error *ngIf="OperationalStateForm.get('stepTakenByDockyard').hasError('required')">
+                        Steps Taken By NHQ is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Steps Taken By OEM</mat-label>
+                      <input matInput formControlName="stepTakenByDockyard" required>
+                      <mat-error *ngIf="OperationalStateForm.get('stepTakenByDockyard').hasError('required')">
+                        Steps Taken By OEM is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Requirment Of Spares With Part/Pattern No</mat-label>
+                      <input matInput formControlName="partNo" required>
+                      <mat-error *ngIf="OperationalStateForm.get('partNo').hasError('required')">
+                        Steps Taken By OEM is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Spare Parts Held In Ship/NSD</mat-label>
+                      <input matInput formControlName="sparePartsHeldIn" required>
+                      <mat-error *ngIf="OperationalStateForm.get('sparePartsHeldIn').hasError('required')">
+                        Steps Taken By OEM is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Procurement Status Of Spares</mat-label>
+                      <input matInput formControlName="procurementStatusOfSpare" required>
+                      <mat-error *ngIf="OperationalStateForm.get('procurementStatusOfSpare').hasError('required')">
+                        Steps Taken By OEM is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Impact on Other System/Equipment</mat-label>
+                      <input matInput formControlName="impactOnOtherSyatem" required>
+                      <mat-error *ngIf="OperationalStateForm.get('impactOnOtherSyatem').hasError('required')">
+                        Steps Taken By OEM is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Requirment of the ship </mat-label>
+                      <input matInput formControlName="requirmentOfTheShip" required>
+                      <mat-error *ngIf="OperationalStateForm.get('requirmentOfTheShip').hasError('required')">
+                        Steps Taken By OEM is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Remarks</mat-label>
+                      <input matInput formControlName="remarks" required>
+                      <mat-error *ngIf="OperationalStateForm.get('remarks').hasError('required')">
+                        Remarks is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description Of Defect</mat-label>
+                      <input matInput formControlName="descriptionOfDefect" required>
+                      <mat-error *ngIf="OperationalStateForm.get('descriptionOfDefect').hasError('required')">
+                        Description Of Defect is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+
+                  <!--sparePartsHeldIn procurementStatusOfSpare <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">partNo
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Reporting Month</mat-label>
+                      <mat-select formControlName="reportingMonthId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedReportingMonth" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="OperationalStateForm.get('reportingMonthId').hasError('required')">
+                        Reporting Month is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Damage Description</mat-label>
+                      <textarea matInput formControlName="damageDescription" required></textarea>
+                      <mat-error *ngIf="OperationalStateForm.get('damageDescription').hasError('required')">
+                        Damage Description is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Return Type</mat-label>
+                      <mat-select formControlName="returnTypeId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedReturnType" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="OperationalStateForm.get('returnTypeId').hasError('required')">
+                        Return Type is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description of Present Condition</mat-label>
+                      <textarea matInput formControlName="presentCondition" required></textarea>
+                      <mat-error *ngIf="OperationalStateForm.get('presentCondition').hasError('required')">
+                        Damage Description is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Time Of Defect</mat-label>
+                      <input matInput [matDatepicker]="timeOfDefect" formControlName="timeOfDefect" required>
+                      <mat-datepicker-toggle matSuffix [for]="timeOfDefect"></mat-datepicker-toggle>
+                      <mat-datepicker #timeOfDefect></mat-datepicker>
+                      <mat-error *ngIf="OperationalStateForm.get('timeOfDefect').hasError('required')">
+                        Time Of Defect is Required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Operational Status</mat-label>
+                      <mat-select formControlName="operationalStatusId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedOperationalStatus" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="OperationalStateForm.get('operationalStatusId').hasError('required')">
+                        Operational Status is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+                </div>
+               
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" [disabled]="!OperationalStateForm.valid " mat-raised-button
+                      color="primary">{{btnText}}</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

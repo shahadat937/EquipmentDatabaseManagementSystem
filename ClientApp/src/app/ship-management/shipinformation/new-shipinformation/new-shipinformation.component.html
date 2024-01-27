@@ -1,0 +1,413 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">{{pageTitle}}</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">ShipInformation</a>
+              </li>
+              <li class="breadcrumb-item active">{{destination}}</li>
+            </ul>
+          </div> 
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="ShipInformationForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Control Code</mat-label>
+                      <input matInput formControlName="controlCode" required>
+                      <mat-error *ngIf="ShipInformationForm.get('controlCode').hasError('required')">
+                        Control Code is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Organization</mat-label>
+                      <input matInput formControlName="baseNameId" required>
+                      <mat-error *ngIf="ShipInformationForm.get('baseNameId').hasError('required')">
+                        Organization is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+
+                  <div *ngIf="role != userRole.ShipStaff && role != userRole.LOEO" class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Commending Area</mat-label>                       
+                        <mat-select formControlName="authorityId" (selectionChange)="onCommendingAreaSelectionChangeGetBaseName()">
+                            <mat-option *ngFor="let code of selectedCommendingArea" [value]="code.value">
+                                {{code.text}}
+                              </mat-option>                          
+                        </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div *ngIf="role != userRole.ShipStaff && role != userRole.LOEO" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Base Name </mat-label>
+                      <mat-select formControlName="baseNameId" (selectionChange)="onOrganizationSelectionChange()" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedBaseName" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="ShipInformationForm.get('baseNameId').hasError('required')">
+                        Organization is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div *ngIf="role != userRole.ShipStaff && role != userRole.LOEO" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Ship Name </mat-label>
+                      <mat-select formControlName="baseSchoolNameId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="ShipInformationForm.get('baseSchoolNameId').hasError('required')">
+                        Ship Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Call Sign</mat-label>
+                      <input matInput formControlName="callSign" required>
+                      <mat-error *ngIf="ShipInformationForm.get('callSign').hasError('required')">
+                        Call Sign is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>SQN</mat-label>
+                      <mat-select formControlName="sqnId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedSqn" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="ShipInformationForm.get('sqnId').hasError('required')">
+                        SQN is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Operational Status</mat-label>
+                      <mat-select formControlName="operationalStatusId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedOperationalStatus" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="ShipInformationForm.get('operationalStatusId').hasError('required')">
+                        Operational Status is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">selectedOperationalStatus
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>SQN</mat-label>
+                      <input matInput formControlName="sqnId" required>
+                      <mat-error *ngIf="ShipInformationForm.get('sqnId').hasError('required')">
+                        SQN is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Operational Status</mat-label>
+                      <input matInput formControlName="operationalStatusId" required>
+                      <mat-error *ngIf="ShipInformationForm.get('operationalStatusId').hasError('required')">
+                        Operational Status is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Nick Name</mat-label>
+                      <input matInput formControlName="nickName" required>
+                      <mat-error *ngIf="ShipInformationForm.get('nickName').hasError('required')">
+                        Nick Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Ship Type</mat-label>
+                      <input matInput formControlName="shipTypeId" required>
+                      <mat-error *ngIf="ShipInformationForm.get('shipTypeId').hasError('required')">
+                        Ship Type is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Ship Type</mat-label>
+                      <mat-select formControlName="shipTypeId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedShipType" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="ShipInformationForm.get('shipTypeId').hasError('required')">
+                        Operational Status is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Class</mat-label>
+                      <input matInput formControlName="class" required>
+                      <mat-error *ngIf="ShipInformationForm.get('class').hasError('required')">
+                        Class is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>File Upload</mat-label>
+                      <input matInput formControlName="fileUpload">
+                    </mat-form-field>
+                  </div> -->
+
+              
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Displacement(Full Load)(Tons)</mat-label>
+                      <input matInput formControlName="displacementFullLoad" required>
+                      <mat-error *ngIf="ShipInformationForm.get('displacementFullLoad').hasError('required')">
+                        displacementFullLoad is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Manufacturer</mat-label>
+                      <input matInput formControlName="manufacturer" required>
+                      <mat-error *ngIf="ShipInformationForm.get('manufacturer').hasError('required')">
+                        Manufacturer is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Displacement(LightWeight)(Tons)</mat-label>
+                      <input matInput formControlName="displacementLightWeight" required>
+                      <mat-error *ngIf="ShipInformationForm.get('displacementLightWeight').hasError('required')">
+                        Displacement(LightWeight)(Tons) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Date Of Commission</mat-label>
+                      <input matInput [matDatepicker]="dateOfCommission" formControlName="dateOfCommission" required>
+                      <mat-datepicker-toggle matSuffix [for]="dateOfCommission"></mat-datepicker-toggle>
+                      <mat-datepicker #dateOfCommission></mat-datepicker>
+                      <mat-error *ngIf="ShipInformationForm.get('dateOfCommission').hasError('required')">
+                        Date Of Commission is Required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Length(LOA)(MTR)</mat-label>
+                      <input matInput formControlName="lengthLoa" required>
+                      <mat-error *ngIf="ShipInformationForm.get('lengthLoa').hasError('required')">
+                        Length(LOA)(MTR) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Length(Height of Mast)(Mtr)</mat-label>
+                      <input matInput formControlName="lengthHom" required>
+                      <mat-error *ngIf="ShipInformationForm.get('lengthHom').hasError('required')">
+                        Length(Height of Mast)(Mtr) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Breadth(BMLD)(Mtr)</mat-label>
+                      <input matInput formControlName="breadthBmld" required>
+                      <mat-error *ngIf="ShipInformationForm.get('breadthBmld').hasError('required')">
+                        Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Depth(Mtr)</mat-label>
+                      <input matInput formControlName="depth">
+                      <!-- <mat-error *ngIf="ShipInformationForm.get('depth').hasError('required')">
+                        Depth(Mtr) is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Draft(FWD)(Mtr)</mat-label>
+                      <input matInput formControlName="draftFwd" required>
+                      <mat-error *ngIf="ShipInformationForm.get('draftFwd').hasError('required')">
+                        Draft(FWD)(Mtr) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Draft(Aft)(Mtr)</mat-label>
+                      <input matInput formControlName="draftAft" required>
+                      <mat-error *ngIf="ShipInformationForm.get('draftAft').hasError('required')">
+                        Draft(Aft)(Mtr) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Fresh Water Capacity(Tons)</mat-label>
+                      <input matInput formControlName="freshWaterCapacity" required>
+                      <mat-error *ngIf="ShipInformationForm.get('freshWaterCapacity').hasError('required')">
+                        Fresh Water Capacity(Tons) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Maximum Speed(Km)</mat-label>
+                      <input matInput formControlName="maximumSpeed" required>
+                      <mat-error *ngIf="ShipInformationForm.get('maximumSpeed').hasError('required')">
+                        Maximum Speed(Km) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Fual Capacity(Ltr)</mat-label>
+                      <input matInput formControlName="fualCapacity" required>
+                      <mat-error *ngIf="ShipInformationForm.get('fualCapacity').hasError('required')">
+                        Fual Capacity(Ltr) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Maximum Continuous Speed(km)</mat-label>
+                      <input matInput formControlName="maximumContinuousSpeed" required>
+                      <mat-error *ngIf="ShipInformationForm.get('maximumContinuousSpeed').hasError('required')">
+                        Fual Capacity(Ltr) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Luboil Capacity(Ltr)</mat-label>
+                      <input matInput formControlName="luboilCapacity" required>
+                      <mat-error *ngIf="ShipInformationForm.get('luboilCapacity').hasError('required')">
+                        Luboil Capacity(Ltr) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Fual Capacity(Ltr)</mat-label>
+                      <input matInput formControlName="fualCapacity" required>
+                      <mat-error *ngIf="ShipInformationForm.get('fualCapacity').hasError('required')">
+                        Fual Capacity(Ltr) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Cruising Speed(km)</mat-label>
+                      <input matInput formControlName="cruisingSpeed" required>
+                      <mat-error *ngIf="ShipInformationForm.get('cruisingSpeed').hasError('required')">
+                        Cruising Speed(km) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Economic Speed(Km)</mat-label>
+                      <input matInput formControlName="economicSpeed" required>
+                      <mat-error *ngIf="ShipInformationForm.get('economicSpeed').hasError('required')">
+                        Economic Speed(Km) is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Address</mat-label>
+                      <input matInput formControlName="address" required>
+                      <mat-error *ngIf="ShipInformationForm.get('address').hasError('required')">
+                        Address is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Authority</mat-label>
+                      <input matInput formControlName="authority" required>
+                      <mat-error *ngIf="ShipInformationForm.get('authority').hasError('required')">
+                        Authority is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Contact No</mat-label>
+                      <input matInput formControlName="contactNo" required>
+                      <mat-error *ngIf="ShipInformationForm.get('contactNo').hasError('required')">
+                        Contact No is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>File Upload</mat-label>
+                      <ngx-mat-file-input (change)="onFileChanged($event)"
+                        accept=".txt,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx">
+                      </ngx-mat-file-input>
+                      <mat-icon matSuffix>attachment</mat-icon>
+                    </mat-form-field>
+                  </div>
+
+                </div>
+               
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" [disabled]="!ShipInformationForm.valid " mat-raised-button
+                      color="primary">{{btnText}}</button>
+                    <button type="button" mat-button routerLink="/ship-management/shipinformation-list">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

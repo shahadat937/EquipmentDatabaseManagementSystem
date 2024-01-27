@@ -1,0 +1,187 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">{{pageTitle}}</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Daily Work State</a>
+              </li>
+              <li class="breadcrumb-item active">{{destination}}</li>
+            </ul>
+          </div> 
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="DailyWorkStateForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                 
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Letter Type</mat-label>
+                      <mat-select formControlName="letterTypeId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedLetterType" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="DailyWorkStateForm.get('letterTypeId').hasError('required')">
+                        Letter Type is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label> Date</mat-label>
+                      <input matInput [matDatepicker]="date" formControlName="date" required>
+                      <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+                      <mat-datepicker #date></mat-datepicker>
+                      <mat-error *ngIf="DailyWorkStateForm.get('date').hasError('required')">
+                         Date is Required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label> From</mat-label>
+                      <input matInput formControlName="workFrom" required>
+                      <mat-error *ngIf="DailyWorkStateForm.get('workFrom').hasError('required')">
+                         From is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label> Letter No</mat-label>
+                      <input matInput formControlName="letterNo" required>
+                      <mat-error *ngIf="DailyWorkStateForm.get('letterNo').hasError('required')">
+                        Letter No is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label> Subject</mat-label>
+                      <input matInput formControlName="subject" required>
+                      <mat-error *ngIf="DailyWorkStateForm.get('subject').hasError('required')">
+                        subject is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Dealing Officer</mat-label>
+                      <mat-select formControlName="dealingOfficerId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedDealingOfficer" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="DailyWorkStateForm.get('dealingOfficerId').hasError('required')">
+                        Dealing Officer is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label> Dealing Staff</mat-label>
+                      <input matInput formControlName="dealingStaff" required>
+                      <mat-error *ngIf="DailyWorkStateForm.get('dealingStaff').hasError('required')">
+                        Dealing Staff is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label> Dead Line</mat-label>
+                      <input matInput [matDatepicker]="deadLine" formControlName="deadLine" required>
+                      <mat-datepicker-toggle matSuffix [for]="deadLine"></mat-datepicker-toggle>
+                      <mat-datepicker #deadLine></mat-datepicker>
+                      <mat-error *ngIf="DailyWorkStateForm.get('deadLine').hasError('required')">
+                        Dead Line is Required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Action Taken </mat-label>
+                      <mat-select formControlName="actionTakenId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedActionTaken" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="DailyWorkStateForm.get('actionTakenId').hasError('required')">
+                        Action Taken is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Priority</mat-label>
+                      <mat-select formControlName="priorityId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedPriority" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="DailyWorkStateForm.get('priorityId').hasError('required')">
+                        Priority is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                 
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Remarks</mat-label>
+                      <input matInput formControlName="remarks">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline" >
+                      <mat-label>Documents(Browse)</mat-label>
+                      <ngx-mat-file-input (change)="onFileChanged($event)"
+                       accept=".txt,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx" >
+                      </ngx-mat-file-input>
+                      <mat-icon matSuffix>attachment</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Documents</mat-label>
+                      <input matInput formControlName="fileUpload">
+                    </mat-form-field>
+                  </div> -->
+                  
+
+                 
+
+                </div>
+               
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" [disabled]="!DailyWorkStateForm.valid " mat-raised-button
+                      color="primary">{{btnText}}</button>
+                    <button type="button" mat-button routerLink="/dailywork-management/dailyworkstate-list">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

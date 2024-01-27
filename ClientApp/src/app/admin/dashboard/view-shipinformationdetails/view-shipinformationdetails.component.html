@@ -1,0 +1,243 @@
+
+
+<section class="content db-course-list">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">Ship Information Details</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/admin/dashboard/main"><i class="fas fa-home"></i></a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Ship Information Details</a>
+            </li>
+            <li class="breadcrumb-item active">All</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="responsive_table"> 
+              <div class="materialTableHeader"> 
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ml-0">
+                      <li class="dropdown">  </li>
+                      <!-- <li class="dropdown">
+                        <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
+                        aria-label="Search box">
+                      </li>
+                      <li> 
+                        <div class="icon-button-demo m-l-10">
+                          <button mat-mini-fab color="accent" (click)="applyFilter(searchText)">
+                            <mat-icon class="col-white">search</mat-icon>
+                          </button>
+                        </div>                                                  
+                      </li> -->
+                    </ul>
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="icon-button-demo">
+                          <button  *ngIf="this.dbType==0" class="btn-space"  mat-raised-button
+                          color="primary" routerLink="/admin/dashboard/ship-dashboard"> Back
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                          </button>
+                          <button  *ngIf="this.dbType==1" class="btn-space"  mat-raised-button
+                          color="primary" routerLink="/admin/dashboard/shipinformationbytype-list"> Back
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                          </button>
+                          <button *ngIf="this.dbType==2" class="btn-space"  mat-raised-button
+                          color="primary" routerLink="/ship-management/shipinformation-list"> Back
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                          </button>
+                          <button *ngIf="this.dbType==3" class="btn-space"  mat-raised-button
+                          color="primary" routerLink="/admin/dashboard/boatinformationbytype-list"> Back
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                          </button>
+                          <button *ngIf="this.dbType==4" class="btn-space"  mat-raised-button
+                          color="primary" routerLink="/admin/dashboard/establishmentbytype-list"> Back
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-8 div-left">
+                    <h3> Ship Information Details</h3>
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="icon-button-demo">
+                          <!-- <button *ngIf="courseTypeId === 20"  class="btn-space"  mat-raised-button
+                          color="warn" [routerLink]="['/admin/dashboard/view-runningcourses',courseTypeId]"> 
+                          <mat-icon class="col-white">keyboard_backspace</mat-icon> Back
+                        </button> -->
+                          <!-- <button *ngIf="courseTypeId != 0 && courseTypeId != 100" class="btn-space"  mat-raised-button
+                            color="warn" [routerLink]="['/admin/dashboard/view-runningcourses',courseTypeId]"> 
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon> Back
+                          </button>
+                          <button *ngIf="courseTypeId === 0 && schoolDb ===0" class="btn-space"  mat-raised-button
+                            color="warn" [routerLink]="['/admin/dashboard/upcomingcourse-list']"> 
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon> Back
+                          </button>
+                          <button *ngIf="courseTypeId === 100" class="btn-space"  mat-raised-button
+                            color="warn" [routerLink]="['/course-management/localcourse-list']"> 
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon> Back
+                          </button>
+                          <button *ngIf="schoolDb === 1 && role != 'Foreign Training'" class="btn-space"  mat-raised-button
+                            color="warn" [routerLink]="['/admin/dashboard/school-dashboard']"> 
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon> Back
+                          </button>
+                          <button *ngIf="role == userRole.CO" class="btn-space"  mat-raised-button
+                            color="warn" [routerLink]="['/admin/dashboard/school-dashboard']"> 
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon> Back
+                          </button>
+                          <button *ngIf="role == 'Foreign Training'" class="btn-space"  mat-raised-button
+                            color="warn" [routerLink]="['/admin/dashboard/foreigntraining-dashboard']"> 
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon> Back
+                          </button> -->
+                        </div>
+                      </li>                     
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div id="print-routine">
+              <table class="tabledetails">
+                <thead></thead>
+                <tbody>
+                  <tr>
+                    <th class="headerrow" scope="row">Authority</th>
+                    <td class="headerdata">{{authorityName}}</td>
+                    <th class="headerrow" scope="row">Base Name</th>
+                    <td class="headerdata">{{baseName}}</td>
+                  </tr>
+                  <tr>
+                    <th class="headerrow" scope="row">Ship Name</th>
+                    <td class="headerdata">{{baseSchoolName}}</td>
+                    <th class="headerrow" scope="row">Operational Status</th>
+                    <td class="headerdata">{{operationalStatus}}</td>
+                  </tr>
+
+                  <tr>
+                    <th class="headerrow" scope="row">Ship Type</th>
+                    <td class="headerdata">{{shipType}}</td>
+                    <th class="headerrow" scope="row">Sqn Name</th>
+                    <td class="headerdata">{{sqnName}}</td>
+                  </tr>
+
+                  <tr>
+                    <th class="headerrow" scope="row">Address</th>
+                    <td class="headerdata">{{address}}</td>
+                    <th class="headerrow" scope="row">Breadth(BMLD)(Mtr)</th>
+                    <td class="headerdata">{{breadthBmld}}</td>
+                  </tr>
+                  <tr>                    
+                    <th class="headerrow" scope="row">Call Sign</th>
+                    <td class="headerdata">{{callSign}}</td>
+                    <th class="headerrow" scope="row">Class</th>
+                    <td class="headerdata">{{class}}</td>
+                  </tr>
+                  <tr>                      
+                    <th class="headerrow" scope="row">Contact No</th>
+                    <td class="headerdata">{{contactNo}}</td>
+                    <th class="headerrow" scope="row">Cruising Speed(Kn)</th>
+                    <td class="headerdata">{{cruisingSpeed}}</td>
+                  </tr>
+                  <tr>
+                    <th class="headerrow" scope="row">Date Of Commission</th>
+                    <td class="headerdata">{{dateOfCommission  | date:'mediumDate'}}</td>
+                    <th class="headerrow" scope="row">Depth(Mtr)</th>
+                    <td class="headerdata">{{depth}}</td>
+                  </tr>        
+
+                  <tr>
+                    <th class="headerrow" scope="row">Displacement(FullLoad)(Tons)</th>
+                    <td class="headerdata">{{displacementFullLoad}}</td>
+                    <th class="headerrow" scope="row">Depth</th>
+                    <td class="headerdata">{{depth}}</td>
+                  </tr>      
+                  <tr>
+                    <th class="headerrow" scope="row">Manufacturer</th>
+                    <td class="headerdata">{{manufacturer}}</td>
+                    <th class="headerrow" scope="row">Draft(Aft)(Mtr)</th>
+                    <td class="headerdata">{{draftAft}}</td>
+                  </tr>            
+                  <tr>
+                    <th class="headerrow" scope="row">Displacement(LightWeight)(Tons)</th>
+                    <td class="headerdata">{{displacementLightWeight}}</td>
+                    <th class="headerrow" scope="row">Draft(FWD)(Mtr)</th>
+                    <td class="headerdata">{{draftFwd}}</td>
+                  </tr>      
+                  <tr>
+                    <th class="headerrow" scope="row">Economic Speed(Kn)</th>
+                    <td class="headerdata">{{economicSpeed}}</td>
+                    <th  class="headerrow" scope="row">Fresh Water Capacity(Tons)</th>
+                    <td class="headerdata">{{freshWaterCapacity}}</td>
+                  </tr>   
+                  <tr>
+                    <th class="headerrow" scope="row">Fual Capacity(Ltr)</th>
+                    <td class="headerdata">{{fualCapacity}}</td>
+                    <th class="headerrow" scope="row">Length(Height of Mast)(Mtr)</th>
+                    <td class="headerdata">{{lengthHom}}</td>
+                  </tr>     
+                  <tr>
+                    <th class="headerrow" scope="row">Length(LOA)(MTR)</th>
+                    <td class="headerdata">{{lengthLoa}}</td>
+                    <th class="headerrow" scope="row">Luboil Capacity(Ltr)</th>
+                    <td class="headerdata">{{luboilCapacity}}</td>
+                  </tr>    
+                  <tr>
+                    <th class="headerrow" scope="row">Nick Name</th>
+                    <td class="headerdata">{{nickName}}</td>
+                    <th class="headerrow" scope="row">Maximum Continuous Speed(Kn)</th>
+                    <td class="headerdata">{{maximumContinuousSpeed}}</td>
+                  </tr>     
+                  <tr>
+                    <th class="headerrow" scope="row">Maximum Speed(Kn)</th>
+                    <td class="headerdata">{{maximumSpeed}}</td>
+                    <th class="headerrow" scope="row">Remarks</th>
+                    <td class="headerdata">{{remarks}}</td>
+                  </tr>     
+                  <tr>
+                    <th class="headerrow" scope="row">Image</th>
+                    <td class="headerdata"><img class="img-size-view" [src]="fileUpload" /></td>
+                    <th class="headerrow" scope="row"></th>
+                    <td class="headerdata"></td>
+                  </tr>                   
+
+                </tbody>
+              </table>   
+              </div>   
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 div-class div-left m-t-20">
+                <button class="btn-space"  mat-raised-button color="primary" (click)="printSingle()"> Print
+                  <mat-icon class="col-white">print</mat-icon>
+                </button>
+              </div>        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+              
+  
+  
+  
+  
+   
+
+

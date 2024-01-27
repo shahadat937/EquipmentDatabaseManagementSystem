@@ -1,0 +1,97 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">BN FLEET UNDER ADMIN AUTHORITY</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/admin/dashboard/main">
+                <i class="fas fa-home"></i> </a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Ship Information</a>
+            </li>
+            <li class="breadcrumb-item active">All</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <!-- <ul class="header-buttons-left ml-0"> -->
+                    <div class="base-name">Authority : {{this.selectedBaseName}}</div>
+                      <!-- <li class="dropdown">
+                        <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
+                          aria-label="Search box">
+                      </li> -->
+                      <!-- <li> -->
+                        <!-- <div class="icon-button-demo m-l-10">                           -->
+                          <!-- <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
+                            <mat-icon class="col-white">search</mat-icon>
+                          </button> -->
+                        <!-- </div> -->
+                      <!-- </li> -->
+                    <!-- </ul> -->
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="icon-button-demo">
+                          <button class="btn-space"  mat-raised-button
+                          color="primary" routerLink="/admin/dashboard/main"> Back
+                            <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+                <table class="table  tbl-by-group">
+                  <thead>
+                    <tr>
+                      <th class="col"><h5>Name</h5></th>
+                      <th class="col"><h5>SQN</h5></th>
+                      <th class="col"><h5>OPL/NON-OPL</h5></th>
+                      <!-- <th class="col"><h5>Displacement</h5></th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let number of shipInfoByBase;let i= index;">
+                        <td class="col">
+                          {{number.schoolName}}
+                        </td>
+                        <td class="col">
+                          {{number.sqnName}}
+                        </td>
+                        <td class="col">
+                          {{number.operationalStatus}}
+                        </td>
+                        <!-- <td class="col">
+                          {{number.displacementFullLoad}}
+                        </td> -->
+                      </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+ 

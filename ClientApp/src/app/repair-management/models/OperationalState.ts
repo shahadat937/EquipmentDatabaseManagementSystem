@@ -1,0 +1,20 @@
+export interface OperationalState {
+   operationalStateId: number,
+    equipmentNameId: number,
+    dateOfDefect: Date,
+    durationOfDefect: string,
+    causesOfDefect: string,
+    stepsTakenByShipsStaff: string,
+    stepTakenByDockyard: string,
+    stepTakenByNhq: string,
+    stepTakenByOem: string,
+    partNo: string,
+    sparePartsHeldIn: number,
+    procurementStatusOfSpare: string,
+    impactOnOtherSyatem: string,
+    requirmentOfTheShip: string,
+    remarks: string,
+    descriptionOfDefect: string,
+    menuPosition: number,
+    isActive: boolean
+}

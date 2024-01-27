@@ -1,0 +1,18 @@
+export interface DailyWorkState {
+   dailyWorkStateId: number,
+   letterTypeId: number,
+   dealingOfficerId: number,
+   actionTakenId: number,
+   priorityId: number,
+   date: Date,
+   workFrom: string,
+   letterNo: string,
+   subject: string,
+   dealingStaff: string,
+   deadLine: Date,
+   fileUpload: string,
+   remarks: string,
+   status: number,
+   menuPosition: number,
+   isActive: boolean,
+}

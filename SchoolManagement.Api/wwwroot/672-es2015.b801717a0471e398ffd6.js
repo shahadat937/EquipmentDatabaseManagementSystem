@@ -1,0 +1,1 @@
+(self.webpackChunksmart=self.webpackChunksmart||[]).push([[672],{87672:function(n,t,e){"use strict";e.d(t,{Cq:function(){return c}});var r=e(35366),s=e(61116),u=e(87064);e(19861),e(93169),e(26136);let c=(()=>{class n{}return n.\u0275fac=function(t){return new(t||n)},n.\u0275mod=r.oAB({type:n}),n.\u0275inj=r.cJS({imports:[[u.BQ,s.ez],u.BQ]}),n})()}}]);

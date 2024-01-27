@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>de9527b7-6835-4dd1-8230-23f39c36d9c0</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolManagement.Application\SchoolManagement.Application.csproj" />
+    <ProjectReference Include="..\SchoolManagement.Identity\SchoolManagement.Identity.csproj" />
+    <ProjectReference Include="..\SchoolManagement.Infrastructure\SchoolManagement.Infrastructure.csproj" />
+    <ProjectReference Include="..\SchoolManagement.Persistence\SchoolManagement.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Content\files\base-school-name\" />
+    <Folder Include="wwwroot\Content\files\course-names\" />
+    <Folder Include="wwwroot\Content\files\foreign-course-other-documents\" />
+    <Folder Include="wwwroot\Content\files\base-school-name\" />
+    <Folder Include="wwwroot\Content\files\course-names\" />
+    <Folder Include="wwwroot\Content\files\foreign-course-other-documents\" />
+    <Folder Include="wwwroot\Content\files\damage-electrical\" />
+    <Folder Include="wwwroot\Content\files\daily-work-states\" />
+    <Folder Include="wwwroot\Content\files\Bbook-user-manual\" />
+    <Folder Include="wwwroot\Content\files\ship-drowing\" />
+    <Folder Include="wwwroot\Content\files\reading-materials\" />
+    <Folder Include="wwwroot\Content\files\reading-materials\" />
+    <Folder Include="wwwroot\Content\files\user-manuals\" />
+    <Folder Include="wwwroot\Content\files\user-manuals\" />
+    <Folder Include="wwwroot\Content\images\ship-information\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Content\images\profile\1.jpeg" />
+    <None Include="wwwroot\Content\images\profile\10b61703-001c-4d5c-824f-d0c4eb014c64_icon.png" />
+    <None Include="wwwroot\Content\images\profile\903c2e67-d678-4b6c-a45a-14f08211e055_images.jpg" />
+    <None Include="wwwroot\Content\images\profile\995a0ade-0038-407f-9ee5-c0c39cd000c7_233.png" />
+    <None Include="wwwroot\Content\images\profile\9d382ded-fba6-4490-9f91-5aec4e203d02_233.png" />
+    <None Include="wwwroot\Content\images\profile\a567bfca-a0e1-41cc-977b-69c0734b1896_233.png" />
+    <None Include="wwwroot\Content\images\profile\b4b272c9-15e1-4b11-a0ad-8a01874f45fe_233.png" />
+    <None Include="wwwroot\Content\images\profile\c1d42bf9-c2c4-419c-97a2-f38a4e67de30_4.jpg" />
+    <None Include="wwwroot\Content\images\profile\d519f0c7-9e16-48f3-b77e-57a12f11f99c_3.png" />
+    <None Include="wwwroot\Content\images\profile\d875925a-1c69-42c1-8ccb-b0f0e26bc964_1.jpeg" />
+    <None Include="wwwroot\Content\images\profile\db2a059e-425e-4d7a-a47c-2ea91b0b0946_233.png" />
+    <None Include="wwwroot\Content\images\profile\f5bd730d-9989-4198-8b20-d5b75bc8f232_11.png" />
+    <None Include="wwwroot\Content\images\profile\f67c3377-97a2-4735-86cf-2b995a9582c1_download (1).jpg" />
+    <None Include="wwwroot\Content\images\profile\f9d52e46-8e68-44c1-9a60-30c7d80906cb_233.png" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,188 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">{{pageTitle}}</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Equpment Name</a>
+              </li>
+              <li class="breadcrumb-item active">{{destination}}</li>
+            </ul>
+          </div> 
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="MonthlyReturnForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                  <div *ngIf="role != userRole.ShipStaff && role != userRole.LOEO" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Ship Name </mat-label>
+                      <mat-select formControlName="baseSchoolNameId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="MonthlyReturnForm.get('baseSchoolNameId').hasError('required')">
+                        Ship Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Equipment Category </mat-label>
+                      <mat-select formControlName="equipmentCategoryId" (selectionChange)="onEquipmentCategorySelectionChange()" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedEquipmentCategory" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="MonthlyReturnForm.get('equipmentCategoryId').hasError('required')">
+                        Equipment Category is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Equipment Name </mat-label>
+                      <mat-select formControlName="equpmentNameId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedEquipmentNameByCategory" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="MonthlyReturnForm.get('equpmentNameId').hasError('required')">
+                        Equipment Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Reporting Date</mat-label>
+                      <input matInput [matDatepicker]="reportingDate" formControlName="reportingDate" required>
+                      <mat-datepicker-toggle matSuffix [for]="reportingDate"></mat-datepicker-toggle>
+                      <mat-datepicker #reportingDate></mat-datepicker>
+                      <mat-error *ngIf="MonthlyReturnForm.get('reportingDate').hasError('required')">
+                        Reporting Date is Required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Reporting Month</mat-label>
+                      <mat-select formControlName="reportingMonthId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedReportingMonth" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="MonthlyReturnForm.get('reportingMonthId').hasError('required')">
+                        Reporting Month is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Damage Description</mat-label>
+                      <textarea matInput formControlName="damageDescription" required></textarea>
+                      <mat-error *ngIf="MonthlyReturnForm.get('damageDescription').hasError('required')">
+                        Damage Description is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Return Type</mat-label>
+                      <mat-select formControlName="returnTypeId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedReturnType" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="MonthlyReturnForm.get('returnTypeId').hasError('required')">
+                        Return Type is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description of Present Condition</mat-label>
+                      <textarea matInput formControlName="presentCondition" required></textarea>
+                      <mat-error *ngIf="MonthlyReturnForm.get('presentCondition').hasError('required')">
+                        Damage Description is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Time Of Defect</mat-label>
+                      <input matInput [matDatepicker]="timeOfDefect" formControlName="timeOfDefect" required>
+                      <mat-datepicker-toggle matSuffix [for]="timeOfDefect"></mat-datepicker-toggle>
+                      <mat-datepicker #timeOfDefect></mat-datepicker>
+                      <mat-error *ngIf="MonthlyReturnForm.get('timeOfDefect').hasError('required')">
+                        Time Of Defect is Required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Time Of Defect</mat-label>
+                      <input matInput formControlName="timeOfDefect" required>
+                      <mat-error *ngIf="MonthlyReturnForm.get('timeOfDefect').hasError('required')">
+                        Time Of Defect is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div> -->
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>File Upload</mat-label>
+                      <ngx-mat-file-input (change)="onFileChanged($event)"
+                        accept=".txt,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx">
+                      </ngx-mat-file-input>
+                      <mat-icon matSuffix>attachment</mat-icon>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Operational Status</mat-label>
+                      <mat-select formControlName="operationalStatusId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedOperationalStatus" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="MonthlyReturnForm.get('operationalStatusId').hasError('required')">
+                        Operational Status is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+               
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" [disabled]="!MonthlyReturnForm.valid " mat-raised-button
+                      color="primary">{{btnText}}</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

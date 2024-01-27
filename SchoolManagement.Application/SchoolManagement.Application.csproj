@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTOs\User\Validators\**" />
+    <Compile Remove="Features\Users\**" />
+    <EmbeddedResource Remove="DTOs\User\Validators\**" />
+    <EmbeddedResource Remove="Features\Users\**" />
+    <None Remove="DTOs\User\Validators\**" />
+    <None Remove="Features\Users\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Contracts\Persistence\ILeaveTypeRepository.cs" />
+    <Compile Remove="DTOs\TdecQuationGroup\CreateTdecQuationGroupDto.cs" />
+    <Compile Remove="DTOs\TraineeBIODataGeneralInfo\Validators\UpdateTraineeBIODataGeneralInfoDtoValidator.cs" />
+    <Compile Remove="DTOs\User\IUserDto.cs" />
+    <Compile Remove="Features\TraineeAssignmentSubmits\Handlers\Queries\GetStudentAssignmentListFromSpRequestHandler.cs" />
+    <Compile Remove="Features\TraineeAssignmentSubmits\Requests\Queries\GetStudentAssignmentListFromSpRequest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+  
+    <ProjectReference Include="..\SchoolManagement.Domain\SchoolManagement.Domain.csproj" />
+  
+    <ProjectReference Include="..\SchoolManagement.Shared\SchoolManagement.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
