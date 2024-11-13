@@ -43,7 +43,7 @@ export class NewShipInformationComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
+
 
     const id = this.route.snapshot.paramMap.get('shipInformationId'); 
     if (id) {
@@ -91,8 +91,7 @@ export class NewShipInformationComponent implements OnInit {
             remarks: res.remarks,
             authorityId:res.authorityId,
           });       
-        console.log("res1");
-        console.log(res);
+ 
         this.onCommendingAreaSelectionChangeGetBaseName();
         this.onOrganizationSelectionChange();
         }
@@ -107,7 +106,7 @@ export class NewShipInformationComponent implements OnInit {
     if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){
       this.ShipInformationForm.get('baseSchoolNameId').setValue(this.branchId);
       this.BaseSchoolNameService.find(this.branchId).subscribe(res=>{
-        console.log(res);
+
         this.ShipInformationForm.get('baseNameId').setValue(res.thirdLevel);
         this.ShipInformationForm.get('authorityId').setValue(res.secondLevel);
       });
@@ -164,34 +163,27 @@ export class NewShipInformationComponent implements OnInit {
   }
   
   onOrganizationSelectionChangeGetCommendingArea(){
-    this.organizationId=MasterData.UserLevel.navy;
-    console.log(this.organizationId+" organization")    
+    this.organizationId=MasterData.UserLevel.navy;  
     this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res=>{
       this.selectedCommendingArea=res
-      console.log("selected comanding area");
-      console.log(this.selectedCommendingArea);
     });        
   }
 
   onCommendingAreaSelectionChangeGetBaseName(){
     this.commendingAreaId=this.ShipInformationForm.value['authorityId'];
-    console.log("comandinf area")
-    console.log(this.commendingAreaId);
+
     this.BaseSchoolNameService.getSelectedBaseName(this.commendingAreaId).subscribe(res=>{
-      this.selectedBaseName=res
-      console.log(this.selectedBaseName);
+      this.selectedBaseName=res;
     });  
     //this.getBaseNameList(this.commendingAreaId);
             
   }
 
   getSelectedBaseName(value){
-    console.log("444");
-    console.log(value)
+
     this.ShipInformationService.getSelectedSchoolName(value).subscribe(res=>{
       this.selectedBaseName=res
-      console.log(res)
-      console.log(res)
+
     }); 
   }
   onOrganizationSelectionChange(){
@@ -199,35 +191,33 @@ export class NewShipInformationComponent implements OnInit {
     // this.ShipInformationService.getSelectedSchoolByBranchLevelAndThirdLevel(baseNameId).subscribe(res=>{
     //   this.selectedBaseSchoolName=res
     //   console.log(res)
-    //   console.log(res)
+
     // }); 
 
    // this.baseNameId=this.UserForm.value['thirdLevel'];
-    console.log(baseNameId);
+
     this.BaseSchoolNameService.getSelectedSchoolName(baseNameId).subscribe(res=>{
       this.selectedBaseSchoolName=res
-      console.log(this.selectedBaseName);
+  
     }); 
   }
 
   getSelectedSqn(){
     this.ShipInformationService.getSelectedSqn().subscribe(res=>{
       this.selectedSqn=res
-      console.log(res)
-      console.log(res)
+    
     }); 
   }
   getSelectedOperationalStatus(){
     this.ShipInformationService.getSelectedOperationalStatus().subscribe(res=>{
       this.selectedOperationalStatus=res
-      console.log(res)
-      console.log(res)
+     
     }); 
   }
   onFileChanged(event){
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      console.log(file);
+      
       this.ShipInformationForm.patchValue({
         doc: file,
       });
@@ -237,8 +227,7 @@ export class NewShipInformationComponent implements OnInit {
   getSelectedShipType(){
     this.ShipInformationService.getSelectedShipType().subscribe(res=>{
       this.selectedShipType=res
-      console.log(res)
-      console.log(res)
+ 
     }); 
   }
 
@@ -246,15 +235,13 @@ export class NewShipInformationComponent implements OnInit {
   getSelectedOrganizationByBranch(){
     this.ShipInformationService.getSelectedOrganizationByBranchLevel().subscribe(res=>{
       this.selectedBranchLevel=res
-      console.log(res)
-      console.log(res)
+ 
     }); 
   }
   // getSelectedOrganizationByBaseNameId(){
   //   this.ShipInformationService.getSelectedOrganizationByBranchLevel().subscribe(res=>{
   //     this.selectedBranchLevel=res
-  //     console.log(res)
-  //     console.log(res)
+  //    
   //   }); 
   // }
 
@@ -263,7 +250,6 @@ export class NewShipInformationComponent implements OnInit {
 
     this.ShipInformationForm.get('dateOfCommission').setValue((new Date(this.ShipInformationForm.get('dateOfCommission').value)).toUTCString());
 
-    console.log(this.ShipInformationForm.value)
 
     const formData = new FormData();
     for (const key of Object.keys(this.ShipInformationForm.value)) {

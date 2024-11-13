@@ -100,7 +100,7 @@
                   <div *ngIf="common" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Qty</mat-label>
-                      <input matInput formControlName="qty" required>
+                      <input type="number" matInput formControlName="qty" required>
                       <mat-error *ngIf="ShipEquipmentInfoForm.get('qty').hasError('required')">
                         Qty is required
                       </mat-error>

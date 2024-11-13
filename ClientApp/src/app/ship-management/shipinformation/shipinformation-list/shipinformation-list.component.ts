@@ -62,7 +62,7 @@ export class ShipInformationListComponent implements OnInit {
   getShipInformations(shipId) {
     this.isLoading = true;
     this.ShipInformationService.getShipInformations(this.paging.pageIndex, this.paging.pageSize,this.searchText,shipId).subscribe(response => {
-      
+      console.log(response);
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;
