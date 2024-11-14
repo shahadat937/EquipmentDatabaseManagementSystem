@@ -86,7 +86,7 @@ export class NewShipInformationComponent implements OnInit {
             authority: res.authority,
             contactNo: res.contactNo,
             status: res.status,
-            menuPosition: res.menuPosition,
+            menuPosition: 0,
             isActive: res.isActive,
             remarks: res.remarks,
             authorityId:res.authorityId,
@@ -253,7 +253,11 @@ export class NewShipInformationComponent implements OnInit {
 
     const formData = new FormData();
     for (const key of Object.keys(this.ShipInformationForm.value)) {
-      const value = this.ShipInformationForm.value[key];
+      let  value = this.ShipInformationForm.value[key];
+      formData.append(key, value);
+      if(!value){
+        value = ""
+      }
       formData.append(key, value);
     }
 
