@@ -22,10 +22,12 @@ export class NewDailyWorkStateComponent implements OnInit {
   validationErrors: string[] = [];
   selectedModel:SelectedModel[]; 
   selectedLetterType:SelectedModel[];
+  selectLetterType:SelectedModel[];
   selectedDealingOfficer:SelectedModel[];
   selectedBaseSchoolName:SelectedModel[];
   selectedActionTaken:SelectedModel[];
   selectedPriority:SelectedModel[];
+  selectPriority:SelectedModel[];
   traineeId:any;
   role:any;
   branchId:any;
@@ -125,9 +127,11 @@ export class NewDailyWorkStateComponent implements OnInit {
   getSelectedLetterType(){
     this.DailyWorkStateService.getSelectedLetterType().subscribe(res=>{
       this.selectedLetterType=res
-      console.log(res)
-      console.log(res)
+      this.selectLetterType=res
     }); 
+  }
+  filterByLetterType(value:any){
+    this.selectedLetterType=this.selectLetterType.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedDealingOfficer(){
     this.DailyWorkStateService.getSelectedDealingOfficer().subscribe(res=>{
@@ -146,9 +150,11 @@ export class NewDailyWorkStateComponent implements OnInit {
   getSelectedPriority(){
     this.DailyWorkStateService.getSelectedPriority().subscribe(res=>{
       this.selectedPriority=res
-      console.log(res)
-      console.log(res)
+      this.selectLetterType=res
     }); 
+  }
+  filterByPriority(value:any){
+    this.selectedPriority=this.selectPriority.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   
 

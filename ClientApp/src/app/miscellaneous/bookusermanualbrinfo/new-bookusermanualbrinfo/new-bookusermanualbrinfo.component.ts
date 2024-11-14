@@ -24,7 +24,9 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
   validationErrors: string[] = [];
   selectedModel:SelectedModel[]; 
   selectedBaseSchoolName:SelectedModel[]; 
-  selectedBookType:SelectedModel[]; 
+  selectBaseSchoolName:SelectedModel[];
+  selectedBookType:SelectedModel[];
+  selectBookType:SelectedModel[]; 
   masterData = MasterData;
   ELEMENT_DATA: BookUserManualBRInfo[] = [];
   isLoading = false;
@@ -99,15 +101,20 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
   getSelectedSchoolByBranchLevelAndThirdLevel(){
     this.BookUserManualBRInfoService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
       this.selectedBaseSchoolName=res;
-      console.log(res);
+      this.selectBaseSchoolName=res
     }); 
+  }
+  filterByShip(value:any){
+    this.selectedBaseSchoolName=this.selectBaseSchoolName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedBookType(){
     this.BookUserManualBRInfoService.getSelectedBookType().subscribe(res=>{
       this.selectedBookType=res
-      console.log(res)
-      console.log(res)
+      this.selectBookType=res
     }); 
+  }
+  filterByBookType(value:any){
+    this.selectedBookType=this.selectBookType.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   
   pageChanged(event: PageEvent) {
