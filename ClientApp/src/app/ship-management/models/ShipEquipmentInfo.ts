@@ -17,6 +17,7 @@ export interface ShipEquipmentInfo {
    power: string,
    phase: Date,
    frequency: string,
+   kva: string,
    maximumUseableAngle: string,
    maximumRange: string,
    pf: string,

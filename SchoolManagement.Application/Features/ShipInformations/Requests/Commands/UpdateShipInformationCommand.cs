@@ -5,7 +5,7 @@ namespace SchoolManagement.Application.Features.ShipInformations.Requests.Comman
 {
     public class UpdateShipInformationCommand : IRequest<Unit>
     { 
-        public ShipInformationDto ShipInformationDto { get; set; }
+        public CreateShipInformationDto ShipInformationDto { get; set; }
     }
 }
  
