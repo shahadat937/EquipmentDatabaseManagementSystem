@@ -25,29 +25,50 @@
             
           </div>
           <div class="body">
-            <div class="row">
+            <div class="row info-card">
               <div class="col-lg-12 col-md-12 col-sm-12">
-                <button [routerLink]="['/admin/dashboard/shipinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 btnDetails" mat-flat-button color="primary">
+                <!-- <button [routerLink]="['/admin/dashboard/shipinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 btnDetails" mat-flat-button color="primary">
                   Total Ship's 
-                  <span class="shipsCount"><u>{{this.shipCount}}</u></span>
+                  <span class="shipsCount"><u>{{this.shipCount}}</u></span> -->
                   <!-- <div class="shipbtn">
                   <img class="shipimg" src="assets/images/dashboard/shipimg.jpg" alt="Ship Image" width="50" height="60">
                   Total Ship's 
                   <span class="shipsCount">{{this.shipCount}}</span>
                  </div> -->
-                </button>
+                <!-- </button>
                 <button [routerLink]="['/admin/dashboard/boatinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 btnDetails" mat-flat-button color="primary">
-                  Total Boat 
+                  Total Boat  -->
                   <!-- <a href=""> -->
-                    <span class="shipsCount"><u>{{this.boatcount}}</u></span>
+                    <!-- <span class="shipsCount"><u>{{this.boatcount}}</u></span> -->
                    
                   <!-- </a> -->
-                </button>
+                <!-- </button>
                 <button [routerLink]="['/admin/dashboard/establishmentbytype-list']" class="col-lg-4 col-md-4 col-sm-4 btnDetails" mat-flat-button color="primary">
                   Total Establishment
                   <span class="shipsCount"><u>{{this.establishmentCount}}</u></span>
-                </button>
+                </button> -->
+
+              
               </div>
+              
+                <div [routerLink]="['/admin/dashboard/shipinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 ships">
+                 
+                  <img class="images" src="/assets/images/bg/ship.svg"> 
+                  <p>Total Ship's</p>
+                  <h4>{{this.shipCount}}</h4>
+                  
+                </div>
+                <div [routerLink]="['/admin/dashboard/boatinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 boat-info">
+                  <img class="images" src="/assets/images/bg/boat.svg"> 
+                  <p>Boat Information</p>
+                  <h4>{{this.boatcount}}</h4>
+                </div>
+                <div [routerLink]="['/admin/dashboard/establishmentbytype-list']" class="col-lg-4 col-md-4 col-sm-4 eastablishment">
+                  <img class="images" src="/assets/images/bg/eastablish.svg"> 
+                  <p>Total Eastablishment</p>
+                  <h4>{{this.establishmentCount}}</h4>
+                </div>
+              
             </div>
           </div>
         

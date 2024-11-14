@@ -27,6 +27,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   selectedModel:SelectedModel[];
   selectedOperationalStatus:SelectedModel[];
   selectedEquipmentCategory:SelectedModel[];
+  selectEquipmentCategory:SelectedModel[];
   masterData = MasterData;
   ELEMENT_DATA: HalfYearlyReturn[] = [];
   halfYearlyReturnList:HalfYearlyReturn[];
@@ -40,8 +41,10 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   selectedShipEquipmentInfoList: shipEquipmentInfoList[];
   selectedHalfYearlyRunningTime:SelectedModel[];
   selectedEquipmentNameByCategory:SelectedModel[];
+  selectEquipmentNameByCategory:SelectedModel[];
   selectedBrand:SelectedModel[];
   selectedBaseSchoolName:SelectedModel[];
+  selectBaseSchool:SelectedModel[];
 
   constructor(private snackBar: MatSnackBar,private authService: AuthService,private confirmService: ConfirmService,private HalfYearlyReturnService: HalfYearlyReturnService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
 
@@ -157,16 +160,21 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   getSelectedSchoolByBranchLevelAndThirdLevel(){
     this.HalfYearlyReturnService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
       this.selectedBaseSchoolName=res;
-      console.log(res);
+      this.selectBaseSchool=res
     }); 
+  }
+  filterByShip(value:any){
+    this.selectedBaseSchoolName=this.selectBaseSchool.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   onEquipmentCategorySelectionChange(){
    var equipmentCategoryId= this.HalfYearlyReturnForm.value['equipmentCategoryId'];
    this.HalfYearlyReturnService.getSelectedEquipmentNameByCategory(equipmentCategoryId).subscribe(res=>{
     this.selectedEquipmentNameByCategory=res
-    console.log(res)
-    console.log(res)
+    this.selectEquipmentNameByCategory=res
   }); 
+  }
+  filterByEquipementName(value:any){
+    this.selectedEquipmentNameByCategory=this.selectEquipmentNameByCategory.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   onShipEquipmentInfoList(){
     this.isShown=true;
@@ -183,8 +191,11 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   getSelectedEquipmentCategory(){
     this.HalfYearlyReturnService.getSelectedEquipmentCategory().subscribe(res=>{
       this.selectedEquipmentCategory=res;
-      console.log(res)
+      this.selectEquipmentCategory=res
     }); 
+  }
+  filterByEquipmentCategory(value:any){
+    this.selectedEquipmentCategory=this.selectEquipmentCategory.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   // getSelectedHalfYearlyRunningTime(){
   //   this.HalfYearlyReturnService.getSelectedHalfYearlyRunningTime().subscribe(res=>{

@@ -29,6 +29,7 @@ export class NewMonthlyReturnComponent implements OnInit {
   selectedModel:SelectedModel[];
   selectedOperationalStatus:SelectedModel[];
   selectedEquipmentCategory:SelectedModel[];
+  selectEquipementCategory:SelectedModel[];
   masterData = MasterData;
   ELEMENT_DATA: MonthlyReturn[] = [];
   MonthlyReturnList:MonthlyReturn[];
@@ -39,9 +40,12 @@ export class NewMonthlyReturnComponent implements OnInit {
   branchId:any;
   itemCount:any =0;
   selectedReportingMonth:SelectedModel[];
+  selectReportingMonth:SelectedModel[];
   selectedEquipmentNameByCategory:SelectedModel[];
+  selectequipementName:SelectedModel[];
   selectedReturnType:SelectedModel[];
   selectedBaseSchoolName:SelectedModel[];
+  selectBaseSchoolName:SelectedModel[];
 
   constructor(private snackBar: MatSnackBar,private authService: AuthService, private baseSchoolNameService: BaseSchoolNameService,private confirmService: ConfirmService,private MonthlyReturnService: MonthlyReturnService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
 
@@ -136,30 +140,39 @@ export class NewMonthlyReturnComponent implements OnInit {
   getSelectedSchoolByBranchLevelAndThirdLevel(){
     this.MonthlyReturnService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
       this.selectedBaseSchoolName=res;
-      console.log(res);
+      this.selectBaseSchoolName=res;
     }); 
+  }
+  filterByShip(value:any){
+    this.selectedBaseSchoolName=this.selectBaseSchoolName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   onEquipmentCategorySelectionChange(){
    var equipmentCategoryId= this.MonthlyReturnForm.value['equipmentCategoryId'];
    this.MonthlyReturnService.getSelectedEquipmentNameByCategory(equipmentCategoryId).subscribe(res=>{
     this.selectedEquipmentNameByCategory=res
-    console.log(res)
-    console.log(res)
+    this.selectequipementName=res
   }); 
+  }
+  filterByEquipementName(value:any){
+    this.selectedEquipmentNameByCategory=this.selectequipementName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedEquipmentCategory(){
     this.MonthlyReturnService.getSelectedEquipmentCategory().subscribe(res=>{
       this.selectedEquipmentCategory=res
-      console.log(res)
-      console.log(res)
+      this.selectEquipementCategory=res
     }); 
+  }
+  filterByEquipementCategory(value:any){
+    this.selectedEquipmentCategory=this.selectEquipementCategory.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedReportingMonth(){
     this.MonthlyReturnService.getSelectedReportingMonth().subscribe(res=>{
       this.selectedReportingMonth=res
-      console.log(res)
-      console.log(res)
+      this.selectReportingMonth=res
     }); 
+  }
+  filterByMonth(value:any){
+    this.selectedReportingMonth=this.selectReportingMonth.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedReturnType(){
     this.MonthlyReturnService.getSelectedReturnType().subscribe(res=>{

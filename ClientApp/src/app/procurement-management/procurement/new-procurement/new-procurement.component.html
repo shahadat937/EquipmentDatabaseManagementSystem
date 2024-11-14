@@ -29,6 +29,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Procurement Method</mat-label>
                       <mat-select formControlName="procurementMethodId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByProcurementMethod($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option (onSelectionChange)="onStatus($event)" *ngFor="let dropdown of selectedProcurementMethod" [value]="dropdown.value">
                           {{dropdown.text}}
@@ -43,6 +48,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Envelope</mat-label>
                       <mat-select formControlName="envelopeId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByEnvelop($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedEnvelope" [value]="dropdown.value">
                           {{dropdown.text}}
@@ -58,6 +68,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Ship Name </mat-label>
                       <mat-select formControlName="baseSchoolNameId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByShip($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
                           {{dropdown.text}}
@@ -72,6 +87,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Procurement Type</mat-label>
                       <mat-select formControlName="procurementTypeId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByProcurementType($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedProcurementType" [value]="dropdown.value">
                           {{dropdown.text}}
@@ -87,6 +107,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Group Name</mat-label>
                       <mat-select formControlName="groupNameId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByGroupName($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedGroupName" [value]="dropdown.value">
                           {{dropdown.text}}
@@ -101,6 +126,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Name of Equipment</mat-label>
                       <mat-select formControlName="equpmentNameId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByEquipementName($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedEquipmentName" [value]="dropdown.value">
                           {{dropdown.text}}
@@ -124,6 +154,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Controlled</mat-label>
                       <mat-select formControlName="controlledId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByControlled($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedControlled" [value]="dropdown.value">
                           {{dropdown.text}}
@@ -150,6 +185,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>FC/LC</mat-label>
                       <mat-select formControlName="fcLcId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByFcLc($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedFcLc" [value]="dropdown.value">
                           {{dropdown.text}}
@@ -164,6 +204,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>DGDP/NSSD</mat-label>
                       <mat-select formControlName="dgdpNssdId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByDgdpNssd($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedDgdpNssd" [value]="dropdown.value">
                           {{dropdown.text}}
@@ -203,6 +248,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Tender Opening Date Type</mat-label>
                       <mat-select formControlName="tenderOpeningDateTypeId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedTenderOpeningDateType" [value]="dropdown.value">
                           {{dropdown.text}}

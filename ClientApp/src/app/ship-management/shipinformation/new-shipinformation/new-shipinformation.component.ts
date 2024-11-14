@@ -24,16 +24,21 @@ export class NewShipInformationComponent implements OnInit {
   validationErrors: string[] = [];
   selectedModel:SelectedModel[]; 
   selectedBaseName:SelectedModel[];
+  selectBaseName:SelectedModel[];
   selectedBranchLevel:SelectedModel[];
   selectedBaseSchoolName:SelectedModel[];
+  selectBns:SelectedModel[];
   selectedSqn:SelectedModel[];
+  selectSqn:SelectedModel[];
   selectedOperationalStatus:SelectedModel[];
   selectedShipType:SelectedModel[];
+  selectShipType:SelectedModel[];
   traineeId:any;
   role:any;
   branchId:any;
   organizationId:any;
   selectedCommendingArea:any[];
+  selectCommandingArea:SelectedModel[];
   commendingAreaId:any;
 
   constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipInformationService: ShipInformationService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
@@ -168,21 +173,23 @@ export class NewShipInformationComponent implements OnInit {
     console.log(this.organizationId+" organization")    
     this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res=>{
       this.selectedCommendingArea=res
-      console.log("selected comanding area");
-      console.log(this.selectedCommendingArea);
+      this.selectCommandingArea=res
     });        
+  }
+  filterByEquipmentCategory(value:any){
+    this.selectedCommendingArea=this.selectCommandingArea.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   onCommendingAreaSelectionChangeGetBaseName(){
     this.commendingAreaId=this.ShipInformationForm.value['authorityId'];
-    console.log("comandinf area")
-    console.log(this.commendingAreaId);
     this.BaseSchoolNameService.getSelectedBaseName(this.commendingAreaId).subscribe(res=>{
       this.selectedBaseName=res
-      console.log(this.selectedBaseName);
     });  
     //this.getBaseNameList(this.commendingAreaId);
             
+  }
+  filterBySchool(value:any){
+    this.selectedBaseName=this.selectBaseName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   getSelectedBaseName(value){
@@ -203,19 +210,24 @@ export class NewShipInformationComponent implements OnInit {
     // }); 
 
    // this.baseNameId=this.UserForm.value['thirdLevel'];
-    console.log(baseNameId);
+  
     this.BaseSchoolNameService.getSelectedSchoolName(baseNameId).subscribe(res=>{
       this.selectedBaseSchoolName=res
-      console.log(this.selectedBaseName);
+      this.selectBaseName=res
     }); 
+  }
+  filterByShip(value:any){
+    this.selectedBaseSchoolName=this.selectBaseName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   getSelectedSqn(){
     this.ShipInformationService.getSelectedSqn().subscribe(res=>{
       this.selectedSqn=res
-      console.log(res)
-      console.log(res)
+      this.selectSqn=res
     }); 
+  }
+  filterBySqn(value:any){
+    this.selectedSqn=this.selectSqn.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedOperationalStatus(){
     this.ShipInformationService.getSelectedOperationalStatus().subscribe(res=>{
@@ -237,9 +249,11 @@ export class NewShipInformationComponent implements OnInit {
   getSelectedShipType(){
     this.ShipInformationService.getSelectedShipType().subscribe(res=>{
       this.selectedShipType=res
-      console.log(res)
-      console.log(res)
+      this.selectShipType=res
     }); 
+  }
+  filterByShipType(value:any){
+    this.selectedShipType=this.selectShipType.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
 

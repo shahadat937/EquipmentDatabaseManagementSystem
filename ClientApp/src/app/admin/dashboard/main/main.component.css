@@ -1,0 +1,43 @@
+.ships{
+    background-color: #a239ed;
+    color: #fff;
+    height: fit-content;
+    padding: 10px;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.images{
+    height: 60px;
+    border: 1px solid #fff;
+    padding: 15px;
+    border-radius: 100%;
+}
+.boat-info{
+    background-color: #048c5a;
+    color: #fff;
+    padding: 10px;
+    height: fit-content;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.eastablishment{
+    background-color: #405ded;
+    color: #fff;
+    height: fit-content;
+    width: 200px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.round-design{
+    height: 25px;
+    width: 25px;
+    color: #f4e4ff;
+}
+.info-card{
+    padding: 10px;
+}
