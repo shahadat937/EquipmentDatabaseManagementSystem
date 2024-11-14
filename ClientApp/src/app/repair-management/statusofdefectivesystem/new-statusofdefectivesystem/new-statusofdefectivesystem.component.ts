@@ -39,6 +39,7 @@ export class NewStatusOfDefectiveSystemComponent implements OnInit {
   selectedEquipmentNameByCategory:SelectedModel[];
   selectedReturnType:SelectedModel[];
   selectedEquipmentName:SelectedModel[];
+  selectEquipmentName:SelectedModel[];
 
   constructor(private snackBar: MatSnackBar,private authService: AuthService,private confirmService: ConfirmService,private OperationalStateService: OperationalStateService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
 
@@ -116,9 +117,11 @@ export class NewStatusOfDefectiveSystemComponent implements OnInit {
   getSelectedEquipmentName(){
     this.OperationalStateService.getSelectedEquipmentName().subscribe(res=>{
       this.selectedEquipmentName=res
-      console.log(res)
-      console.log(res)
+      this.selectEquipmentName=res
     }); 
+  }
+  filterByEquipementName(value:any){
+    this.selectedEquipmentName=this.selectEquipmentName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   onFileChanged(event){

@@ -25,6 +25,7 @@ export class ViewAllShipInfoByBaseListComponent implements OnInit {
   operationalStatusId:any;
   shipInfoByBase:any;
   selectedBaseName:any;
+  showHideDiv: false;
   
   constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private dashboardService:dashboardService,private route: ActivatedRoute,private router: Router,private confirmService: ConfirmService) { }
   
@@ -49,6 +50,82 @@ export class ViewAllShipInfoByBaseListComponent implements OnInit {
        this.shipinfoList=response;
      })
    }
+   printSingle() {
+    this.showHideDiv = false;
+    this.print();
+  }
+
+print() { 
+  let printContents, popupWin;
+  printContents = document.getElementById('print-routine').innerHTML;
+  popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+  popupWin.document.open();
+  popupWin.document.write(`
+    <html>
+      <head>
+        <style>
+          body { width: 99%; font-family: Arial, sans-serif; }
+          label {
+            font-weight: 400;
+            font-size: 13px;
+            padding: 2px;
+            margin-bottom: 5px;
+          }
+          table, td, th {
+            border: 1px solid silver;
+            text-align: center;
+            padding: 8px;
+          }
+          table th {
+            font-size: 13px;
+            text-align: center;
+            background-color: #f2f2f2;
+            padding: 8px;
+          }
+          table td {
+            font-size: 13px;
+            text-align: left;
+            padding: 8px;
+          }
+          table {
+            border-collapse: collapse;
+            width: 98%;
+          }
+          th, td {
+            height: 26px;
+          }
+          .header-text {
+            text-align: center;
+          }
+          .header-text h3 {
+            margin: 0;
+          }
+        </style>
+      </head>
+      <body onload="window.print();window.close()">
+        <div class="header-text">
+          <h3>Ship Information Details</h3>
+        </div>
+        <br>
+        <hr>
+        <table class="table tbl-by-group">
+          <thead>
+            <tr>
+              <th><h5>Name</h5></th>
+              <th><h5>SQN</h5></th>
+              <th><h5>OPL/NON-OPL</h5></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${printContents}
+          </tbody>
+        </table>
+      </body>
+    </html>
+  `);
+  popupWin.document.close();
+}
+
 
    getShipInfoByByBase(){
     this.dashboardService.getShipInfoByBase(this.baseSchoolNameId,this.operationalStatusId).subscribe(response => {           

@@ -26,12 +26,17 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   selectedBaseName:SelectedModel[];
   selectedBranchLevel:SelectedModel[];
   selectedBaseSchoolName:SelectedModel[];
+  selectSchoolName:SelectedModel[];
   selectedEquipmentCategory:SelectedModel[];
+  selectEquipmentCategory:SelectedModel[];
   selectedEqupmentName:SelectedModel[];
+  selectEquipmentName:SelectedModel[];
   selectedBrand:SelectedModel[];
   selectedStateOfEquipment:SelectedModel[];
   selectedAcquisitionMethod:SelectedModel[];
+  selectAcuisitionMethod:SelectedModel[];
   selectedEquipmentType:SelectedModel[];
+  selectEquipmentType:SelectedModel[];
   traineeId:any;
   role:any;
   branchId:any;
@@ -487,8 +492,15 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   onEquipmentCategorySelectionChangeGetequipmentName(){
     var equipmentCategoryId = this.ShipEquipmentInfoForm.get('equipmentCategoryId').value;     
     this.ShipEquipmentInfoService.getSelectedEqupmentNameByEquepmentCategory(equipmentCategoryId).subscribe(res=>{
-      this.selectedEqupmentName=res;      
+
+      this.selectedEqupmentName=res;
+      this.selectEquipmentName=res;
+
     });
+  }
+
+  filterByEquipmentName(value:any){
+    this.selectedEqupmentName=this.selectEquipmentName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getequipmentName(){
     var equpmentNameId = this.ShipEquipmentInfoForm.get('equpmentNameId').value;  
@@ -967,23 +979,37 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     //var baseNameId = this.ShipEquipmentInfoForm.value['baseNameId'];
     this.ShipEquipmentInfoService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
       this.selectedBaseSchoolName=res;
+      this.selectSchoolName = res;
 
     }); 
+  }
+  filterBySchool(value:any){
+    this.selectedBaseSchoolName=this.selectSchoolName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   getSelectedEquipmentCategory(){
     this.ShipEquipmentInfoService.getSelectedEquipmentCategory().subscribe(res=>{
       this.selectedEquipmentCategory=res
+
+      this.selectEquipmentCategory = res
+
     }); 
+  }
+  filterByEquipmentCategory(value:any){
+    this.selectedEquipmentCategory=this.selectEquipmentCategory.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedEquipmentType(){
     this.ShipEquipmentInfoService.getSelectedEquipmentType().subscribe(res=>{
-      this.selectedEquipmentType=res
+
+      this.selectedEquipmentType=res;
+      this.selectEquipmentType=res;
     }); 
   }
-  // getSelectedEqupmentName(){
-     
-  // }
+
+  filterByEquipmentType(value:any){
+    this.selectedEquipmentType=this.selectEquipmentType.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  }
+  
   getSelectedBrand(){
     this.ShipEquipmentInfoService.getSelectedBrand().subscribe(res=>{
       this.selectedBrand=res
@@ -997,7 +1023,12 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   getSelectedAcquisitionMethod(){
     this.ShipEquipmentInfoService.getSelectedAcquisitionMethod().subscribe(res=>{
       this.selectedAcquisitionMethod=res
+      this.selectAcuisitionMethod=res
+
     }); 
+  }
+  filterByAquisitionMethod(value:any){
+    this.selectedAcquisitionMethod=this.selectAcuisitionMethod.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   // onFileChanged(event){
   //   if (event.target.files.length > 0) {

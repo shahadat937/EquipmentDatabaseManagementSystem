@@ -29,6 +29,11 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Equipment Name </mat-label>
                       <mat-select formControlName="equipmentNameId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByEquipementName($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedEquipmentName" [value]="dropdown.value">
                           {{dropdown.text}}

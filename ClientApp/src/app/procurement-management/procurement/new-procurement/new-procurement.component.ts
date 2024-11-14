@@ -25,14 +25,23 @@ export class NewProcurementComponent implements OnInit {
   selectedBaseName:SelectedModel[];
   selectedBranchLevel:SelectedModel[];
   selectedBaseSchoolName:SelectedModel[];
+  selectBaseSchoolName:SelectedModel[];
   selectedProcurementMethod:SelectedModel[];
+  selectProcurementMethod:SelectedModel[];
   selectedProcurementType:SelectedModel[];
+  selectProcurementType:SelectedModel[];
   selectedEnvelope:SelectedModel[];
+  selectEnvelop:SelectedModel[];
   selectedGroupName:SelectedModel[];
+  selectGroupName:SelectedModel[];
   selectedEquipmentName:SelectedModel[];
+  selectEquipmentName:SelectedModel[];
   selectedControlled:SelectedModel[];
+  selectControlled:SelectedModel[];
   selectedFcLc:SelectedModel[];
+  selectFcLc:SelectedModel[];
   selectedDgdpNssd:SelectedModel[];
+  selectDgdpNssd:SelectedModel[];
   selectedTec:SelectedModel[];
   selectedTenderOpeningDateType:SelectedModel[];
   selectedPaymentStatus:SelectedModel[];
@@ -184,64 +193,87 @@ export class NewProcurementComponent implements OnInit {
   getSelectedSchoolByBranchLevelAndThirdLevel(){
     this.ProcurementService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
       this.selectedBaseSchoolName=res;
-      console.log(res);
+      this.selectBaseSchoolName=res
     }); 
+  }
+  filterByShip(value:any){
+    this.selectedBaseSchoolName=this.selectBaseSchoolName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedProcurementMethod(){
     this.ProcurementService.getSelectedProcurementMethod().subscribe(res=>{
       this.selectedProcurementMethod=res
-      console.log(res)
-      console.log(res)
+      this.selectProcurementMethod=res
     }); 
+  }
+  filterByProcurementMethod(value:any){
+    this.selectedProcurementMethod=this.selectProcurementMethod.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedEnvelope(){
     this.ProcurementService.getSelectedEnvelope().subscribe(res=>{
       this.selectedEnvelope=res
-      console.log(res)
-      console.log(res)
+      this.selectEnvelop=res
     }); 
   }
+
+  filterByEnvelop(value:any){
+    this.selectedEnvelope=this.selectEnvelop.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  }
+
   getSelectedProcurementType(){
     this.ProcurementService.getSelectedProcurementType().subscribe(res=>{
       this.selectedProcurementType=res
-      console.log(res)
-      console.log(res)
+      this.selectEnvelop=res
     }); 
   }
+  filterByProcurementType(value:any){
+    this.selectedProcurementType=this.selectEnvelop.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  }
+
   getSelectedGroupName(){
     this.ProcurementService.getSelectedGroupName().subscribe(res=>{
       this.selectedGroupName=res
-      console.log(res)
-      console.log(res)
+     this.selectGroupName=res
     }); 
+  }
+  filterByGroupName(value:any){
+    this.selectedGroupName=this.selectGroupName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedEqupmentName(){
     this.ProcurementService.getSelectedEqupmentName().subscribe(res=>{
       this.selectedEquipmentName=res
-      console.log(res)
-      console.log(res)
+      this.selectEquipmentName=res
     }); 
   }
+  filterByEquipementName(value:any){
+    this.selectedEquipmentName=this.selectEquipmentName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  }
+
   getSelectedControlled(){
     this.ProcurementService.getSelectedControlled().subscribe(res=>{
       this.selectedControlled=res
-      console.log(res)
-      console.log(res)
+      this.selectControlled=res
     }); 
+  }
+  filterByControlled(value:any){
+    this.selectedControlled=this.selectControlled.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedFcLc(){
     this.ProcurementService.getSelectedFcLc().subscribe(res=>{
       this.selectedFcLc=res
-      console.log(res)
-      console.log(res)
+      this.selectFcLc=res
     }); 
+  }
+  filterByFcLc(value:any){
+    this.selectedFcLc=this.selectFcLc.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedDgdpNssd(){
     this.ProcurementService.getSelectedDgdpNssd().subscribe(res=>{
       this.selectedDgdpNssd=res
-      console.log(res)
-      console.log(res)
+      this.selectDgdpNssd=res
     }); 
+  }
+  filterByDgdpNssd(value:any){
+    this.selectedDgdpNssd=this.selectDgdpNssd.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getSelectedTec(){
     this.ProcurementService.getSelectedTec().subscribe(res=>{
