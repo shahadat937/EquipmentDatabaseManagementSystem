@@ -89,6 +89,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   SAM:boolean=false;
   FCU:boolean=false;
   TDS:boolean=false;
+  PCE : boolean = false;
   HighFrequencySet:boolean=false;
   VeryHighFrequencySet:boolean=false;
   UltraHighFrequencySet:boolean=false;
@@ -832,9 +833,19 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     else if(this.equpmentNameId == this.masterData.equepmentName.WalkieTalkieSet){
       this.allFormGroupFalse();
       this.WalkieTalkieSet=true;
-    }else{
+    }
+    else if(this.equpmentNameId == this.masterData.equepmentName.GUN){
+      this.allFormGroupFalse();
+      this.GUN=true;
+    }
+    else if(this.equpmentNameId ==  this.masterData.equepmentName.PowerConversionEquation){
+      this.allFormGroupFalse();
+      this.PCE=true;
+    }
+    else{
       this.allFormGroupFalse();
     }
+    console.log(this.equpmentNameId);
 
 
   }
