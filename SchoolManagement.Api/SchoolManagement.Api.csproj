@@ -38,6 +38,7 @@
     <Folder Include="wwwroot\Content\files\user-manuals\" />
     <Folder Include="wwwroot\Content\files\user-manuals\" />
     <Folder Include="wwwroot\Content\images\ship-information\" />
+    <Folder Include="wwwroot\Content\images\ship-information\" />
   </ItemGroup>
 
   <ItemGroup>

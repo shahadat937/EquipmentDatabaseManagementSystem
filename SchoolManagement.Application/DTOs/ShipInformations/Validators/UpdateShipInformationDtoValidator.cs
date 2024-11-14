@@ -2,7 +2,7 @@
 
 namespace SchoolManagement.Application.DTOs.ShipInformations.Validators
 {
-    public class UpdateShipInformationDtoValidator : AbstractValidator<ShipInformationDto>
+    public class UpdateShipInformationDtoValidator : AbstractValidator<CreateShipInformationDto>
     {
         public UpdateShipInformationDtoValidator() 
         {

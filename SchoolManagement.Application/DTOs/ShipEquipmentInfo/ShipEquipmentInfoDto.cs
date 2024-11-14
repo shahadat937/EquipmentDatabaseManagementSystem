@@ -20,6 +20,7 @@
         public string? Power { get; set; }
         public string? Phase { get; set; }
         public string? Frequency { get; set; }
+        public string? Kva { get; set; }
         public string? MaximumUseableAngle { get; set; }
         public string? MaximumRange { get; set; }
         public string? Pf { get; set; }

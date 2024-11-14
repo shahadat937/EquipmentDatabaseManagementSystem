@@ -44,7 +44,6 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
 
 
     if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser){
@@ -87,7 +86,6 @@ export class ShipEquipmentInfoListComponent implements OnInit {
   deleteItem(row) {
     const id = row.shipEquipmentInfoId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
       if (result) {
         this.ShipEquipmentInfoService.delete(id).subscribe(() => {
           if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){

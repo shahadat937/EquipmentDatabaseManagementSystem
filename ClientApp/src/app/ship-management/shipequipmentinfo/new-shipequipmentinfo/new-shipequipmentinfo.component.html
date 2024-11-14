@@ -123,7 +123,7 @@
                   <div *ngIf="common" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Qty</mat-label>
-                      <input matInput formControlName="qty" required>
+                      <input type="number" matInput formControlName="qty" required>
                       <mat-error *ngIf="ShipEquipmentInfoForm.get('qty').hasError('required')">
                         Qty is required
                       </mat-error>
@@ -158,7 +158,7 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div *ngIf="Generator || PMS || Battery" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="Generator || PMS || Battery || PCE" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Voltage</mat-label>
                       <input matInput formControlName="voltage">
@@ -170,19 +170,25 @@
                       <input matInput formControlName="power">
                     </mat-form-field>
                   </div>
-                  <div *ngIf="Generator || PMS || ShoreConnectionBox" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="Generator || PMS || PCE || ShoreConnectionBox" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Phase</mat-label>
                       <input matInput formControlName="phase">
                     </mat-form-field>
                   </div>
-                  <div *ngIf="Generator || IFF || TDL || PMS || GPS || EWSystem || HelControlRadar || SurveillanceRadar || SearchRadar || TrackingRadar || DegaussingSystem || Transformer || NavigationRadar || AirWhistle || ElectricHorn" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="Generator || IFF || TDL || PMS || PCE || GPS || EWSystem || HelControlRadar || SurveillanceRadar || SearchRadar || TrackingRadar || DegaussingSystem || Transformer || NavigationRadar || AirWhistle || ElectricHorn" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Frequency</mat-label>
                       <input matInput formControlName="frequency">
                     </mat-form-field>
                   </div>
-                  <div *ngIf="Generator || PMS" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="Generator || IFF || TDL || PMS || PCE || GPS || EWSystem || HelControlRadar || SurveillanceRadar || SearchRadar || TrackingRadar || DegaussingSystem || Transformer || NavigationRadar || AirWhistle || ElectricHorn" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>KVA</mat-label>
+                      <input matInput formControlName="kva">
+                    </mat-form-field>
+                  </div>
+                  <div *ngIf="Generator || PMS || PCE" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>PF</mat-label>
                       <input matInput formControlName="pf">
@@ -217,13 +223,13 @@
                       <input matInput formControlName="location">
                     </mat-form-field>
                   </div>
-                  <div *ngIf="Generator || PMS" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="Generator || PMS || PCE" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>AVR Model</mat-label>
                       <input matInput formControlName="avrmodel">
                     </mat-form-field>
                   </div>
-                  <div *ngIf="Generator || PMS" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="Generator || PMS || PCE" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>AVR Brand</mat-label>
                       <input matInput formControlName="avrbrand">
@@ -242,7 +248,7 @@
                   </div>
 
                 
-                  <div *ngIf="Generator || PMS" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="Generator || PMS || PCE" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Parallel Status</mat-label>
                       <input matInput formControlName="parallelStatus">
@@ -306,7 +312,7 @@
                       <input matInput formControlName="maximumUseableAngle">
                     </mat-form-field>
                   </div>
-                  <div *ngIf="EWSystem || NavigationRadar || WeaponGunSystem || SAM || SSM || Torpedo || UnderWaterTelephoneSet || Chaff || RDC || TrackingRadar || ECDIS || SearchRadar || HelControlRadar || SurveillanceRadar" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="EWSystem || NavigationRadar || WeaponGunSystem || SAM || SSM || Torpedo || UnderWaterTelephoneSet || Chaff || RDC || TrackingRadar || ECDIS || SearchRadar || HelControlRadar || SurveillanceRadar || GUN" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Maximum Range</mat-label>
                       <input matInput formControlName="maximumRange">
@@ -321,12 +327,12 @@
                   </div>
 
               
-                  <div *ngIf="equpmentNameId == masterData.equepmentName.ACPlant" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <!-- <div *ngIf="equpmentNameId == masterData.equepmentName.ACPlant" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Tilt Scan Range</mat-label>
                       <input matInput formControlName="tiltScanRange">
                     </mat-form-field>
-                  </div>
+                  </div> -->
                   <div *ngIf="GyroCompass || MagneticCompass" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Gyro Compass Follow up Rate</mat-label>
@@ -616,19 +622,19 @@
                       <input matInput formControlName="steeringType" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || CombatManagementSystem || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || CombatManagementSystem || WeaponGunSystem || GUN" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Service Life of Main Equipment</mat-label>
                       <input matInput formControlName="serviceLifeOfMainEquipment" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || CombatManagementSystem || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || CombatManagementSystem || WeaponGunSystem || GUN" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Name of Life Lime of Important Spares</mat-label>
                       <input matInput formControlName="nameOfLifeLimeOfImportantSpares" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || CombatManagementSystem || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || GUN ||CombatManagementSystem || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Present Running Hours</mat-label>
                       <input matInput formControlName="presentRunningHours" >
@@ -640,19 +646,19 @@
                       <input matInput formControlName="expectedLeftOverLifeTime" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || CombatManagementSystem || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || GUN || CombatManagementSystem || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Upgradation or Overhaulin Required</mat-label>
                       <input matInput formControlName="upgradationOrOverhaulinRequired" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || CombatManagementSystem || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="ESM || ECM || OFC3 || FCU || TDS || GUN ||CombatManagementSystem || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>To be Stored in NSD Ctg Latest Buy</mat-label>
                       <input matInput formControlName="tobeStoredInNsdctgLatestBuy" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="Chaff || RDC || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="Chaff || RDC || GUN || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Rate of Fire</mat-label>
                       <input matInput formControlName="rateOfFire" >
@@ -690,7 +696,7 @@
                   </div>
                   <div *ngIf="Sonar || HighFrequencySet || VeryHighFrequencySet || UltraHighFrequencySet || WalkieTalkieSet" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Operating Frequency</mat-label>
+                      <mat-label>Range</mat-label>
                       <input matInput formControlName="operatingFrequency" >
                     </mat-form-field>
                   </div>
@@ -748,7 +754,7 @@
                       <input matInput formControlName="effectiveFiringRange" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="SSM || SAM || WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="SSM || SAM || WeaponGunSystem || GUN" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Effective Range</mat-label>
                       <input matInput formControlName="effectiveRange" >
@@ -790,19 +796,19 @@
                       <input matInput formControlName="takenDataFrom" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="WeaponGunSystem || GUN" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Maximum Firing Elevation</mat-label>
                       <input matInput formControlName="maximumFiringElevation" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="WeaponGunSystem || GUN" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Muzzle Velocity</mat-label>
                       <input matInput formControlName="muzzleVelocity" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="WeaponGunSystem" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <div *ngIf="WeaponGunSystem || GUN" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Ammonation Type</mat-label>
                       <input matInput formControlName="ammonationType" >
@@ -844,12 +850,12 @@
                       <input matInput formControlName="reqShipsSpeedForOperate" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="equpmentNameId == masterData.equepmentName.ACPlant" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <!-- <div *ngIf="equpmentNameId == masterData.equepmentName.ACPlant" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Req Sea State for Operate</mat-label>
                       <input matInput formControlName="reqSeaStateForOperate" >
                     </mat-form-field>
-                  </div>
+                  </div> -->
                   <div *ngIf="FINStabilizer" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Max Rolling Angle</mat-label>
@@ -934,12 +940,12 @@
                       <input matInput formControlName="filterandwidth" >
                     </mat-form-field>
                   </div>
-                  <div *ngIf="equpmentNameId == masterData.equepmentName.ACPlant" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <!-- <div *ngIf="equpmentNameId == masterData.equepmentName.ACPlant" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Operation Range</mat-label>
                       <input matInput formControlName="operationRange" >
                     </mat-form-field>
-                  </div>
+                  </div> -->
                   <div *ngIf="HighFrequencySet || VeryHighFrequencySet || UltraHighFrequencySet || WalkieTalkieSet" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Channel</mat-label>

@@ -94,6 +94,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   SAM:boolean=false;
   FCU:boolean=false;
   TDS:boolean=false;
+  PCE : boolean = false;
   HighFrequencySet:boolean=false;
   VeryHighFrequencySet:boolean=false;
   UltraHighFrequencySet:boolean=false;
@@ -158,7 +159,6 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
 
     const id = this.route.snapshot.paramMap.get('shipEquipmentInfoId'); 
     if (id) {
@@ -167,6 +167,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
       this.btnText = 'Update';
       this.ShipEquipmentInfoService.find(+id).subscribe(
         res => {
+          console.log(res);
           this.ShipEquipmentInfoForm.patchValue({          
 
             shipEquipmentInfoId: res.shipEquipmentInfoId,
@@ -187,6 +188,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
             power: res.power,
             phase: res.phase,
             frequency: res.frequency,
+            kva: res.kva,
             maximumUseableAngle: res.maximumUseableAngle,
             maximumRange: res.maximumRange,
             pf: res.pf,
@@ -325,7 +327,6 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){
       this.ShipEquipmentInfoForm.get('baseSchoolNameId').setValue(this.branchId);
       // this.baseSchoolNameService.find(this.branchId).subscribe(res=>{
-      //   console.log(res);
       //   this.MonthlyReturnForm.get('baseNameId').setValue(res.thirdLevel);
       //   this.MonthlyReturnForm.get('authorityId').setValue(res.secondLevel);
       // });
@@ -358,6 +359,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
       power: [''],
       phase: [''],
       frequency: [''],
+      kva : [''],
       pf: [''],
       manufacturerNameAndAddress: [''],
       yearOfInstallation: [''],
@@ -488,11 +490,12 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   }
 
   onEquipmentCategorySelectionChangeGetequipmentName(){
-    var equipmentCategoryId = this.ShipEquipmentInfoForm.get('equipmentCategoryId').value;  
-    console.log(equipmentCategoryId);
+    var equipmentCategoryId = this.ShipEquipmentInfoForm.get('equipmentCategoryId').value;     
     this.ShipEquipmentInfoService.getSelectedEqupmentNameByEquepmentCategory(equipmentCategoryId).subscribe(res=>{
+
       this.selectedEqupmentName=res;
       this.selectEquipmentName=res;
+
     });
   }
 
@@ -502,7 +505,6 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   getequipmentName(){
     var equpmentNameId = this.ShipEquipmentInfoForm.get('equpmentNameId').value;  
     this.equpmentNameId = equpmentNameId;
-    console.log(this.equpmentNameId);
     this.masterData.equepmentName.ACPlant;
     this.common = true;
 
@@ -843,9 +845,19 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     else if(this.equpmentNameId == this.masterData.equepmentName.WalkieTalkieSet){
       this.allFormGroupFalse();
       this.WalkieTalkieSet=true;
-    }else{
+    }
+    else if(this.equpmentNameId == this.masterData.equepmentName.GUN){
+      this.allFormGroupFalse();
+      this.GUN=true;
+    }
+    else if(this.equpmentNameId ==  this.masterData.equepmentName.PowerConversionEquation){
+      this.allFormGroupFalse();
+      this.PCE=true;
+    }
+    else{
       this.allFormGroupFalse();
     }
+    console.log(this.equpmentNameId);
 
 
   }
@@ -958,11 +970,9 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     this.AllSupplyFanMotor=false;
   }
   getSelectedBaseName(value){
-    console.log("444");
-    console.log(value)
+  
     this.ShipEquipmentInfoService.getSelectedSchoolName(value).subscribe(res=>{
       this.selectedBaseName=res
-      console.log(res);
     }); 
   }
   getSelectedSchoolByBranchLevelAndThirdLevel(){
@@ -970,6 +980,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     this.ShipEquipmentInfoService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
       this.selectedBaseSchoolName=res;
       this.selectSchoolName = res;
+
     }); 
   }
   filterBySchool(value:any){
@@ -979,7 +990,9 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   getSelectedEquipmentCategory(){
     this.ShipEquipmentInfoService.getSelectedEquipmentCategory().subscribe(res=>{
       this.selectedEquipmentCategory=res
+
       this.selectEquipmentCategory = res
+
     }); 
   }
   filterByEquipmentCategory(value:any){
@@ -987,6 +1000,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   }
   getSelectedEquipmentType(){
     this.ShipEquipmentInfoService.getSelectedEquipmentType().subscribe(res=>{
+
       this.selectedEquipmentType=res;
       this.selectEquipmentType=res;
     }); 
@@ -999,19 +1013,18 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   getSelectedBrand(){
     this.ShipEquipmentInfoService.getSelectedBrand().subscribe(res=>{
       this.selectedBrand=res
-      console.log(res);
     }); 
   }
   getSelectedStateOfEquipment(){
     this.ShipEquipmentInfoService.getSelectedStateOfEquipment().subscribe(res=>{
-      this.selectedStateOfEquipment=res
-      console.log(res);
+      this.selectedStateOfEquipment=res;
     }); 
   }
   getSelectedAcquisitionMethod(){
     this.ShipEquipmentInfoService.getSelectedAcquisitionMethod().subscribe(res=>{
       this.selectedAcquisitionMethod=res
       this.selectAcuisitionMethod=res
+
     }); 
   }
   filterByAquisitionMethod(value:any){
@@ -1020,7 +1033,6 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   // onFileChanged(event){
   //   if (event.target.files.length > 0) {
   //     const file = event.target.files[0];
-  //     console.log(file);
   //     this.ShipEquipmentInfoForm.patchValue({
   //       doc: file,
   //     });
@@ -1033,7 +1045,6 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   getSelectedOrganizationByBranch(){
     this.ShipEquipmentInfoService.getSelectedOrganizationByBranchLevel().subscribe(res=>{
       this.selectedBranchLevel=res
-      console.log(res);
     }); 
   }
 
@@ -1041,8 +1052,6 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     const id = this.ShipEquipmentInfoForm.get('shipEquipmentInfoId').value;   
 
     //this.ShipEquipmentInfoForm.get('dateOfCommission').setValue((new Date(this.ShipEquipmentInfoForm.get('dateOfCommission').value)).toUTCString());
-
-    console.log(this.ShipEquipmentInfoForm.value)
 
     // const formData = new FormData();
     // for (const key of Object.keys(this.ShipEquipmentInfoForm.value)) {

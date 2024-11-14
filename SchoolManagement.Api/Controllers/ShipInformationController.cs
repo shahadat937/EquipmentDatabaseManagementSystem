@@ -57,7 +57,7 @@ public class ShipInformationController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-ship-information/{id}")]
-    public async Task<ActionResult> Put([FromBody] ShipInformationDto ShipInformation)
+    public async Task<ActionResult> Put([FromForm] CreateShipInformationDto ShipInformation)
     {
         var command = new UpdateShipInformationCommand { ShipInformationDto = ShipInformation };
         await _mediator.Send(command);
