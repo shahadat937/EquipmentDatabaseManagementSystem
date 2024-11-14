@@ -53,20 +53,41 @@
               
                 <div [routerLink]="['/admin/dashboard/shipinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 ships">
                  
-                  <img class="images" src="/assets/images/bg/ship.svg"> 
-                  <p>Total Ship's</p>
-                  <h4>{{this.shipCount}}</h4>
+                 <div>
+                  <img class="images" src="/assets/images/bg/ship.png"> 
+                 </div>
+                  <div>
+                    <div class="rounded-design"></div>
+                    <div class="rounded-design1"></div>
+                    <p>Total Ship</p>
+                  <h1>{{this.shipCount}}</h1>
+                  </div>
                   
                 </div>
                 <div [routerLink]="['/admin/dashboard/boatinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 boat-info">
-                  <img class="images" src="/assets/images/bg/boat.svg"> 
-                  <p>Boat Information</p>
-                  <h4>{{this.boatcount}}</h4>
+                  <div>
+                    <img class="images" src="/assets/images/bg/boat.png"> 
+                  </div>
+                  <div>
+                    <div class="rounded-design"></div>
+                    <div class="rounded-design1"></div>
+                    <p>Boat Info</p>
+                    <h1>{{this.boatcount}}</h1>
+                  </div>                  
+                  
                 </div>
                 <div [routerLink]="['/admin/dashboard/establishmentbytype-list']" class="col-lg-4 col-md-4 col-sm-4 eastablishment">
-                  <img class="images" src="/assets/images/bg/eastablish.svg"> 
-                  <p>Total Eastablishment</p>
-                  <h4>{{this.establishmentCount}}</h4>
+                  <div>
+                    <img class="images" src="/assets/images/bg/eastablish.svg"> 
+                  </div>
+                  <div>
+                    <div class="rounded-design"></div>
+                    <div class="rounded-design1"></div>
+                    <p>Total <br>Eastablish</p>
+                  <h1>{{this.establishmentCount}}</h1>
+                  </div>
+                  
+                  
                 </div>
               
             </div>
