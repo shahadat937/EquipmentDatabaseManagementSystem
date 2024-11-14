@@ -8,6 +8,7 @@ import { ConfirmService } from '../../../core/service/confirm.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { MasterData } from 'src/assets/data/master-data';
 import {BaseSchoolNameService} from '../../../../app/security/service/BaseSchoolName.service'
+import {SharedService} from 'src/app/shared/shared.service'
 
 @Component({
   selector: 'app-new-procurement',
@@ -43,7 +44,7 @@ export class NewProcurementComponent implements OnInit {
   commendingAreaId:any;
   method: any;
 
-  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ProcurementService: ProcurementService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ProcurementService: ProcurementService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService) { }
 
   ngOnInit(): void {
 
@@ -269,10 +270,86 @@ export class NewProcurementComponent implements OnInit {
 
     //this.ShipInformationForm.get('dateOfCommission').setValue((new Date(this.ShipInformationForm.get('dateOfCommission').value)).toUTCString());
 
-    console.log(this.ProcurementForm.value)
+   const sentToDgdpNssdDate = this.sharedService.formatDateTime(this.ProcurementForm.get('sentToDgdpNssdDate').value)
+   this.ProcurementForm.get('sentToDgdpNssdDate').setValue(sentToDgdpNssdDate);
 
-    // const formData = new FormData();
-    // for (const key of Object.keys(this.ShipInformationForm.value)) {
+   const tenderOpeningDate = this.sharedService.formatDateTime(this.ProcurementForm.get('tenderOpeningDate').value)
+   this.ProcurementForm.get('tenderOpeningDate').setValue(tenderOpeningDate);
+
+   const offerReceivedDate = this.sharedService.formatDateTime(this.ProcurementForm.get('offerReceivedDate').value)
+   this.ProcurementForm.get('offerReceivedDate').setValue(offerReceivedDate);
+
+   const sentForContractDate = this.sharedService.formatDateTime(this.ProcurementForm.get('sentForContractDate').value)
+   this.ProcurementForm.get('sentForContractDate').setValue(sentForContractDate);
+
+   const contractSignedDate = this.sharedService.formatDateTime(this.ProcurementForm.get('contractSignedDate').value)
+   this.ProcurementForm.get('contractSignedDate').setValue(contractSignedDate);
+   
+
+   if(this.method ===1 ){
+    const contractMinSentDate = this.sharedService.formatDateTime(this.ProcurementForm.get('contractMinSentDate').value)
+    this.ProcurementForm.get('contractMinSentDate').setValue(contractMinSentDate);
+ 
+    const contractMinReceived = this.sharedService.formatDateTime(this.ProcurementForm.get('contractMinReceived').value)
+    this.ProcurementForm.get('contractMinReceived').setValue(contractMinReceived);
+   }
+
+   if(this.method === 2){
+    const clarificationToOemSentDate = this.sharedService.formatDateTime(this.ProcurementForm.get('clarificationToOemSentDate').value)
+    this.ProcurementForm.get('clarificationToOemSentDate').setValue(clarificationToOemSentDate);
+
+    const clarificationToOemReceivedDate = this.sharedService.formatDateTime(this.ProcurementForm.get('clarificationToOemReceivedDate').value)
+    this.ProcurementForm.get('clarificationToOemReceivedDate').setValue(clarificationToOemReceivedDate);
+
+    const clarificationToUserSentDate = this.sharedService.formatDateTime(this.ProcurementForm.get('clarificationToUserSentDate').value)
+    this.ProcurementForm.get('clarificationToUserSentDate').setValue(clarificationToUserSentDate);
+
+    const clarificationToUserReceivedDate = this.sharedService.formatDateTime(this.ProcurementForm.get('clarificationToUserReceivedDate').value)
+    this.ProcurementForm.get('clarificationToUserReceivedDate').setValue(clarificationToUserReceivedDate);
+
+    const techTecSentDate = this.sharedService.formatDateTime(this.ProcurementForm.get('techTecSentDate').value)
+    this.ProcurementForm.get('techTecSentDate').setValue(techTecSentDate);
+
+    const techTecReceivedDate = this.sharedService.formatDateTime(this.ProcurementForm.get('techTecReceivedDate').value)
+    this.ProcurementForm.get('techTecReceivedDate').setValue(techTecReceivedDate);
+
+    const minForFoSentDate = this.sharedService.formatDateTime(this.ProcurementForm.get('minForFoSentDate').value)
+    this.ProcurementForm.get('minForFoSentDate').setValue(minForFoSentDate);
+
+    const sentToDtsDate = this.sharedService.formatDateTime(this.ProcurementForm.get('sentToDtsDate').value)
+    this.ProcurementForm.get('sentToDtsDate').setValue(sentToDtsDate);
+
+  
+    const foReceivedDate = this.sharedService.formatDateTime(this.ProcurementForm.get('foReceivedDate').value)
+    this.ProcurementForm.get('foReceivedDate').setValue(foReceivedDate);
+
+  
+    const foTecSentDate = this.sharedService.formatDateTime(this.ProcurementForm.get('foTecSentDate').value)
+    this.ProcurementForm.get('foTecSentDate').setValue(foTecSentDate);
+
+  
+    const foTecReceivedDate = this.sharedService.formatDateTime(this.ProcurementForm.get('foTecReceivedDate').value)
+    this.ProcurementForm.get('foTecReceivedDate').setValue(foTecReceivedDate);
+
+  
+    const finalContractMinSentDate = this.sharedService.formatDateTime(this.ProcurementForm.get('finalContractMinSentDate').value)
+    this.ProcurementForm.get('finalContractMinSentDate').setValue(finalContractMinSentDate);
+
+  
+    const minForFoReceivedDate = this.sharedService.formatDateTime(this.ProcurementForm.get('minForFoReceivedDate').value)
+    this.ProcurementForm.get('minForFoReceivedDate').setValue(minForFoReceivedDate);
+    
+    const finalContractMinReceivedDate = this.sharedService.formatDateTime(this.ProcurementForm.get('finalContractMinReceivedDate').value)
+    this.ProcurementForm.get('finalContractMinReceivedDate').setValue(finalContractMinReceivedDate);
+
+  
+
+   }
+
+   
+
+
+
     //   const value = this.ShipInformationForm.value[key];
     //   formData.append(key, value);
     // }
