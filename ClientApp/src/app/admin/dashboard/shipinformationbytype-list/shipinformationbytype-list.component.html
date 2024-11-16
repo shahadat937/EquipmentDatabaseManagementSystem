@@ -27,7 +27,9 @@
               <div class="materialTableHeader">
                 <div class="row">
                   <div class="col-8">
-                    <ul class="header-buttons-left ml-0">
+                    
+                    <ul class="header-buttons-left ml-0 text-center">
+                      <h4 class="text-center">Ship Information List</h4>
                       <!-- <li class="dropdown">
                         <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
                           aria-label="Search box">
@@ -50,17 +52,23 @@
                             <mat-icon class="col-white">keyboard_backspace</mat-icon>
                           </button>
                         </div>
+                        
+                          
+                      
+                      </li>
+                      <li>
+                        <div class="icon-button-demo m-l-10">                          
+                          <button class="btn-space" mat-raised-button  color="primary" (click)="printSingle()">
+                            <mat-icon class="col-white">print</mat-icon>
+                          </button>
+                        </div>
                       </li>
                     </ul>
                   </div>
-                  <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 mb-2 db-sh">
-                    <h3 class="btn-space"  color="primary" (click)="printSingle()">
-                      <mat-icon>local_printshop</mat-icon>
-                    </h3>
-                </div>
+                  
                 </div>
               </div>
-              <div id="print-routine">  
+              <!-- <div id="print-routine">  
                 <table class="table tbl-by-group db-li-s-in">
                   <thead>
                     <tr>
@@ -100,8 +108,33 @@
                      </ng-container>
                   </tbody>
                 </table>
-                </div>
-            </div>
+                </div> -->
+                <div id="print-routine">  
+                  <table class="table tbl-by-group db-li-s-in">
+                      <thead>
+                          <tr>
+                              <th class="cl-mrk-rmrk"><h5>Authority</h5></th>
+                              <th class="cl-mrk-rmrk"><h5>Ship Name</h5></th>
+                              <th class="cl-mrk-rmrk"><h5>SQN</h5></th>
+                              <th class="cl-mrk-rmrk"><h5>OPL/NON-OPL</h5></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <ng-container *ngFor="let data of groupArrays; let i = index;">
+                              <tr>
+                                  <td [attr.rowspan]="data.courses.length + 1">{{data.schoolName}}</td>
+                              </tr>
+                              <tr *ngFor="let number of data.courses;">
+                                  <td>{{number.shipName}}</td>
+                                  <td>{{number.sqnName}}</td>
+                                  <td>{{number.osName}}</td>
+                              </tr>
+                          </ng-container>
+                      </tbody>
+                  </table>
+              </div>
+              
+              </div>
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ export class ShipInformationListComponent implements OnInit {
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageSize: 5,
     length: 1
   }
   searchText="";
@@ -117,73 +117,118 @@ export class ShipInformationListComponent implements OnInit {
     this.showHideDiv = false;
     this.print();
   }
+  // print() {
+  //   let printContents, popupWin;
+  //   printContents = document.getElementById("print-routine").innerHTML;
+  //   popupWin = window.open( "top=0,left=0,height=100%,width=auto");
+  //   popupWin.document.open();
+  //   popupWin.document.write(`
+  //     <html>
+  //       <head>
+  //         <style>
+  //         body{  width: 99%;}
+  //           label { font-weight: 400;
+  //                   font-size: 13px;
+  //                   padding: 2px;
+  //                   margin-bottom: 5px;
+  //                 }
+  //           table, td, th {
+  //                 border: 1px solid silver;
+  //                   }
+  //                   table td {
+  //                 font-size: 13px;
+  //                   }
+  //                   .table.table.tbl-by-group.db-li-s-in tr .cl-action{
+  //                     display: none;
+  //                   }
+        
+  //                   .table.table.tbl-by-group.db-li-s-in tr td{
+  //                     text-align:center;
+  //                     padding: 0px 5px;
+  //                   }
+                    
+  //                 }
+  //                 .table.table.tbl-by-group.db-li-s-in tr .btn-tbl-edit {
+  //                   display:none;
+  //                 }
+                  
+                    
+  //                   table th {
+  //                 font-size: 13px;
+  //                   }
+  //             table {
+  //                   border-collapse: collapse;
+  //                   width: 98%;
+  //                   }
+  //               th {
+  //                   height: 26px;
+  //                   }
+  //               .header-text{
+  //                 text-align:center;
+  //               }
+  //               .header-text h3{
+  //                 margin:0;
+  //               }
+  //         </style>
+  //       </head>
+  //       <body onload="window.print();window.close()">
+  //         <div class="header-text">
+  //         <h3>Ship Info List</h3>
+          
+  //         </div>
+  //         <br>
+  //         <hr>
+  //         ${printContents}
+          
+  //       </body>
+  //     </html>`);
+  //   popupWin.document.close();
+  // }
   print() {
     let printContents, popupWin;
     printContents = document.getElementById("print-routine").innerHTML;
-    popupWin = window.open( "top=0,left=0,height=100%,width=auto");
+
+    // Remove the <img> elements and <button> elements with class 'btn-tbl-edit' and 'btn-tbl-view'
+    printContents = printContents.replace(/<img[^>]*>/g, ''); // Remove images
+    printContents = printContents.replace(/<button[^>]*class="btn-tbl-edit"[^>]*>.*?<\/button>/g, ''); // Remove edit buttons
+    printContents = printContents.replace(/<button[^>]*class="btn-tbl-view"[^>]*>.*?<\/button>/g, ''); // Remove view buttons
+
+    // Remove any content after the "OPL/NON-OPL" column
+    printContents = printContents.replace(/<td[^>]*class="cl-action"[^>]*>.*?<\/td>/g, ''); // Remove OPL/NON-OPL buttons
+
+    // Now open the popup and print
+    popupWin = window.open("", "_blank", "top=0,left=0,height=100%,width=auto");
     popupWin.document.open();
     popupWin.document.write(`
       <html>
         <head>
           <style>
-          body{  width: 99%;}
-            label { font-weight: 400;
-                    font-size: 13px;
-                    padding: 2px;
-                    margin-bottom: 5px;
-                  }
-            table, td, th {
-                  border: 1px solid silver;
-                    }
-                    table td {
-                  font-size: 13px;
-                    }
-                    .table.table.tbl-by-group.db-li-s-in tr .cl-action{
-                      display: none;
-                    }
-        
-                    .table.table.tbl-by-group.db-li-s-in tr td{
-                      text-align:center;
-                      padding: 0px 5px;
-                    }
-                    
-                  }
-                  .table.table.tbl-by-group.db-li-s-in tr .btn-tbl-edit {
-                    display:none;
-                  }
-                  
-                    
-                    table th {
-                  font-size: 13px;
-                    }
-              table {
-                    border-collapse: collapse;
-                    width: 98%;
-                    }
-                th {
-                    height: 26px;
-                    }
-                .header-text{
-                  text-align:center;
-                }
-                .header-text h3{
-                  margin:0;
-                }
+            body { width: 99%; }
+            label { font-weight: 400; font-size: 13px; padding: 2px; margin-bottom: 5px; }
+            table, td, th { border: 1px solid silver; }
+            table td { font-size: 13px; }
+            .table.table.tbl-by-group.db-li-s-in tr .cl-action { display: none; }
+            .table.table.tbl-by-group.db-li-s-in tr td { text-align: center; padding: 0px 5px; }
+            table th { font-size: 13px; }
+            table { border-collapse: collapse; width: 98%; }
+            th { height: 26px; }
+            .header-text { text-align: center; }
+            .header-text h3 { margin: 0; }
           </style>
         </head>
-        <body onload="window.print();window.close()">
+        <body onload="window.print(); window.close();">
           <div class="header-text">
-          <h3>Ship Info List</h3>
-          
+            <h3>Ship Info List</h3>
           </div>
           <br>
           <hr>
           ${printContents}
-          
         </body>
-      </html>`);
+      </html>`
+    );
     popupWin.document.close();
-  }
+}
+
   deleteItem(row) {
     const id = row.shipInformationId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
