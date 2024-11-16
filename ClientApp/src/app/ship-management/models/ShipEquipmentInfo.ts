@@ -1,4 +1,7 @@
 export interface ShipEquipmentInfo {
+  stateOfEquipment: string;
+  equpmentName: string;
+  equipmentCategory: string;
    shipEquipmentInfoId: number,
    baseSchoolNameId: number,
    equipmentCategoryId: number,
