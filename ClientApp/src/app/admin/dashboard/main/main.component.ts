@@ -92,7 +92,9 @@ export class MainComponent implements OnInit {
   boatList:any[];
   establishmentCount:any;
   establishmentList:any;
-
+  stateOfComponent : any[];
+  opl: number;
+  nonOpl : number;
   filterItems: string[] = [
     'work',
     'personal',
@@ -121,6 +123,7 @@ export class MainComponent implements OnInit {
   CountedCivilOfficer:SpOfficerDetails[];
   groupArrays:{ schoolName: string; courses: any; }[];
   baseNameListCount:any[];
+  CountShipEquipment : any [];
 
   calendarOptions: CalendarOptions;
   paging = {
@@ -129,6 +132,11 @@ export class MainComponent implements OnInit {
     length: 1
   }
   searchText="";
+  stateOfEquipment = {
+    operational: 1,
+    nonOperational : 2,
+    bothOpAndNonOpEquipment : 3
+  }
 
   displayedColumns: string[] = ['ser','schoolName','course','noOfCandidates','professional','nbcd','durationFrom','durationTo', 'remark', 'actions'];
 
@@ -160,6 +168,7 @@ export class MainComponent implements OnInit {
     this.getBoatByShipType();
     this.getEstablishmentByShipType();
     this.getBaseNameListAndCount();
+    this.getStateOfEquipments()
   }
 
   
@@ -206,10 +215,28 @@ export class MainComponent implements OnInit {
    getBaseNameListAndCount(){
     this.dashboardService.getBaseNameListAndCount().subscribe(response => {           
        this.baseNameListCount=response;
-       console.log("basenamelistcount");
-       console.log(this.baseNameListCount);
+      
      })
    }
+
+   getEquipmentCountByCategory(stateOfEquipmentId1, stateOfEquipmentId2){
+    this.dashboardService.getEquipmentCountByCategory(stateOfEquipmentId1, stateOfEquipmentId2).subscribe(response =>{
+      this.CountShipEquipment = response;   
+    })
+   }
+
+   getStateOfEquipments() {
+    this.isLoading = true;
+    this.dashboardService.getStateOfEquipments(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {      
+      this.stateOfComponent= response.items; 
+      this.nonOpl = this.stateOfComponent[0]?.stateOfEquipmentId?? 0
+      this.opl = this.stateOfComponent[1]?.stateOfEquipmentId?? 0
+      if(this.nonOpl && this.opl) {
+        this.getEquipmentCountByCategory(this.nonOpl, this.opl)
+      } 
+    })
+  }
+
 
   getnominatedCourseListFromSpRequest(){
   }

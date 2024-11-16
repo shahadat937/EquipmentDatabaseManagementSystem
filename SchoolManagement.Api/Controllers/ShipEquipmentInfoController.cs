@@ -30,6 +30,19 @@ public class ShipEquipmentInfoController : ControllerBase
         return Ok(ShipEquipmentInfos);
     }
 
+    [HttpGet]
+    [Route("get-ShipEquipmentInfos-by-CategoryId-StateOfEquipmentId")]
+    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetShipEquipmentByCategoryIdAndStateOfEquipmentId([FromQuery] QueryParams queryParams, int categoryId, int stateOfEquipmentId)
+    {
+        var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoByCategoryIdAndStateOfEquipmentIdRequest
+        {
+            QueryParams = queryParams,
+            CategoryId = categoryId,
+            StateOfEquipmentId = stateOfEquipmentId
+        });
+        return Ok(ShipEquipmentInfos);
+    }
+
 
     [HttpGet]
     [Route("get-ShipEquipmentInfoDetail/{id}")]
@@ -95,6 +108,17 @@ public class ShipEquipmentInfoController : ControllerBase
             EqupmentNameId = equpmentNameId
         });
         return Ok(selectedIssueRegister);
+    }
+
+    [HttpGet]
+    [Route("get-ship-equipment-count-by-category/{stateOfEquipmentId1}/{stateOfEquipmentId2}")]
+    public async Task<ActionResult> GetShipEquipmentByCategory(int stateOfEquipmentId1, int stateOfEquipmentId2)
+    {
+        var count = await _mediator.Send(new GetShipEquipmentCountByCategoryRequest { 
+        StateOfEquipmentId1 = stateOfEquipmentId1,
+        StateOfEquipmentId2 = stateOfEquipmentId2
+        });
+        return Ok(count);
     }
 }
 
