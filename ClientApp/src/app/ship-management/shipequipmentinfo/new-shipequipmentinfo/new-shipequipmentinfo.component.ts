@@ -1048,6 +1048,10 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     }); 
   }
 
+  getShipEquipmentByCategoryId(){
+    
+  }
+
   onSubmit() {
     const id = this.ShipEquipmentInfoForm.get('shipEquipmentInfoId').value;   
 

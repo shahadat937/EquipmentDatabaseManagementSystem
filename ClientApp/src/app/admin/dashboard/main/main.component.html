@@ -118,6 +118,7 @@
         
         </div>
       </div>
+     
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
         <div class="card">
           <div class="header">
@@ -143,52 +144,40 @@
                   <a [routerLink]="['/admin/dashboard/view-allshipinfobybaselist',number.baseSchoolNameId,2]">{{number.nonoplCount}}</a>
                 </td>            
               </tr>
-
-              <!-- <tr>
-                <th>Total Trainee</th>
-                <td>
-                  <a [routerLink]="['/admin/dashboard/view-totaltraineelist']">{{0}}</a>
-                </td>               
-              </tr>
-            <tr>
-                <th>Officers</th>
-                <td>
-                  <a [routerLink]="['/admin/dashboard/view-officerlist', masterData.TraineeStatus.officer]">{{runningOfficerCount}}</a>
-                </td>
-           </tr> -->
-              <!--   <tr>
-                <th>Sailors</th>
-                <td>
-                  <a [routerLink]="['/admin/dashboard/view-officerlist', masterData.TraineeStatus.sailor]">{{runningSailorCount}}</a>
-                </td>
-              </tr>
-              <tr>
-                <th>Civil</th>
-                <td>
-                  <a [routerLink]="['/admin/dashboard/view-officerlist', masterData.TraineeStatus.civil]">{{runningCivilCount}}</a>
-                </td>
-              </tr>
-              <tr> 
-                <th>Foreign Trainee</th>
-                <td>
-                  <a [routerLink]="['/admin/dashboard/view-totalforeigntraineelistbyschool', 0, masterData.OfficerType.Foreign]">{{foreignNomineeCount}}</a>
-                </td>
-              </tr>
-              <tr>
-                <th class="upcoming-color">Upcoming Courses</th>
-                <td>
-                  <a [routerLink]="['/admin/dashboard/upcomingcourse-list']">></a>
-                </td>
-              </tr>
-              <tr class="calendar-color">
-                <th>Event Calendar </th>
-                <td>
-                  <a [routerLink]="['/calendar']">></a>
-                </td>
-              </tr> -->
             </table>
           </div>
         </div>
+
+        <div class="card">
+          <div class="header">
+            
+          </div>
+          <div class="body db-left-info">
+            <table class="full-width col-12">
+              <tr>
+                <th>Equipment Category</th>
+                <th>Total</th>
+                <th>OPL</th>
+                <th>NON-OPL</th>
+              </tr>
+              <tr *ngFor="let shipEquipment of CountShipEquipment;let i= index;">
+                <td><b>{{shipEquipment.name}}</b></td>
+                <td>
+                  <a  [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, 0 ]">{{shipEquipment.totalCount}}</a>
+                  <!-- 0 is Passing for both non-opl and opl -->
+                </td>   
+                <td>
+                  <a [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, opl]">{{shipEquipment.totalOpl}}</a>
+                </td>            
+                <td>
+                  <a [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, nonOpl]">{{shipEquipment.totalNonOpl}}</a>
+                </td>            
+              </tr>               
+             
+            </table>
+          </div>
+        </div>
+        
       </div>
     </div>
 

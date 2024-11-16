@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Application.DTOs.ShipEquipmentInfo
 {
-    internal class ShipEquipmentCountByCategory
+    public class ShipEquipmentCountDto
     {
+        public string? EquipmentCategory { get; set; }
+        public int? OperanationalCount { get; set; }
+        public int? NonOperanationalCount { get; set; }
+        public int? TotalCount { get; set; }
     }
 }

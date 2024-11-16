@@ -34,6 +34,28 @@ export class ShipEquipmentInfoService {
     );
    
   }
+  getShipEquipmentByCategoryIdAndStateOfEquipmentStatus (pageNumber, pageSize, searchText,categoryId, stateOfEquipmentId ) { 
+    console.log(pageNumber, pageSize, searchText,categoryId, status)
+
+    let params = new HttpParams();
+
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    params = params.append('categoryId', categoryId.toString());
+    params = params.append('stateOfEquipmentId', stateOfEquipmentId.toString());
+
+    
+    return this.http.get<IShipEquipmentInfoPagination>(this.baseUrl + '/ship-equipment-info/get-ShipEquipmentInfos-by-CategoryId-StateOfEquipmentId', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.ShipEquipmentInfos = [...this.ShipEquipmentInfos, ...response.body.items];
+        this.ShipEquipmentInfoPagination = response.body;
+        return this.ShipEquipmentInfoPagination;
+      })
+    );
+   
+  }
 
   find(id: number) {
     return this.http.get<ShipEquipmentInfo>(this.baseUrl + '/ship-equipment-info/get-ShipEquipmentInfoDetail/' + id);

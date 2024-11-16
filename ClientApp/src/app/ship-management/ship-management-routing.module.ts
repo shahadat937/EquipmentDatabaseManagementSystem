@@ -29,6 +29,10 @@ const routes: Routes = [
     path: 'shipequipmentinfo-list',
     component: ShipEquipmentInfoListComponent,
   },
+  {
+    path: 'shipequipmentinfo-list/:shipequipmentCategoryId/:stateOfEquipmentId',
+    component: ShipEquipmentInfoListComponent,
+  },
   { path: 'update-shipequipmentinfo/:shipEquipmentInfoId', 
   component: NewShipEquipmentInfoComponent, 
   },
