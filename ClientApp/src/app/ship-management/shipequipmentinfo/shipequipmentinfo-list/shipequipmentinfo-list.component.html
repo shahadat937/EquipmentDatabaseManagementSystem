@@ -49,13 +49,16 @@
                             color="primary" routerLink="/ship-management/add-shipequipmentinfo"> Add
                               <mat-icon class="col-white">add</mat-icon>
                             </button>
+                            <button class="btn-space" mat-raised-button  color="primary" (click)="printSingle()">
+                              <mat-icon class="col-white">print</mat-icon>
+                            </button>
                           </div>
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
-                <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                <mat-table #table [dataSource]="dataSource" matSort class="mat-cell" id="show-shipInfo">
                   <ng-container matColumnDef="ser">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Ser. </mat-header-cell>
                     <mat-cell *matCellDef="let element; let i = index;"> {{ ((paging.pageIndex-1) *  paging.pageSize) + i+1}} </mat-cell>

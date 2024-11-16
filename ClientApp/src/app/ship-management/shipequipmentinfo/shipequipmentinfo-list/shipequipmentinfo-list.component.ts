@@ -21,10 +21,10 @@ export class ShipEquipmentInfoListComponent implements OnInit {
   masterData = MasterData;
   ELEMENT_DATA: ShipEquipmentInfo[] = [];
   isLoading = false;
-
-  traineeId: any;
-  role: any;
-  branchId: any;
+  showHideDiv = false;
+  traineeId:any;
+  role:any;
+  branchId:any;
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
@@ -93,7 +93,100 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     } else {
       this.getShipEquipmentInfos(0);
     }
+  } 
+  printSingle() {
+    this.showHideDiv = false;
+    this.print();
   }
+ 
+print() {
+  const dataSource = this.dataSource.data; // Access your mat-table dataSource
+  if (!dataSource || dataSource.length === 0) {
+    console.error('No data available for printing!');
+    return;
+  }
+
+  const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+  if (!popupWin) {
+    console.error('Failed to open popup for printing!');
+    return;
+  }
+
+  // Generate headers dynamically
+  const tableHeaders = `
+    <tr>
+      <th>Ser.</th>
+      <th>Equipment Category</th>
+      <th>Equipment Name</th>
+      <th>State of Equipment</th>
+      <th>Qty</th>
+      <th>Model</th>
+    </tr>`;
+
+  // Generate rows dynamically
+  const tableRows = dataSource
+    .map((row, index) => {
+      return `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${row.equipmentCategory || ''}</td>
+          <td>${row.equpmentName || ''}</td>
+          <td>${row.stateOfEquipment || ''}</td>
+          <td>${row.qty || ''}</td>
+          <td>${row.model || ''}</td>
+        </tr>`;
+    })
+    .join('');
+
+  // Write the content to the popup
+  popupWin.document.open();
+  popupWin.document.write(`
+    <html>
+      <head>
+        <title>Print Routine</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+          }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+          }
+          th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+          }
+          .header-text {
+            text-align: center;
+            margin-bottom: 20px;
+          }
+          .header-text h3 {
+            margin: 0;
+          }
+        </style>
+      </head>
+      <body onload="window.print();window.close()">
+        <div class="header-text">
+          <h3>Ship Info List</h3>
+        </div>
+        <hr>
+        <table>
+          <thead>${tableHeaders}</thead>
+          <tbody>${tableRows}</tbody>
+        </table>
+      </body>
+    </html>
+  `);
+  popupWin.document.close();
+}
+
+
+
 
   deleteItem(row) {
     const id = row.shipEquipmentInfoId;

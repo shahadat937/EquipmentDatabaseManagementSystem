@@ -1,3 +1,4 @@
+import { SharedService } from './../../../shared/shared.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -41,7 +42,8 @@ export class NewShipInformationComponent implements OnInit {
   selectCommandingArea:SelectedModel[];
   commendingAreaId:any;
 
-  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipInformationService: ShipInformationService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipInformationService: ShipInformationService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService
+  ) { }
 
   ngOnInit(): void {
 
@@ -276,8 +278,10 @@ export class NewShipInformationComponent implements OnInit {
   onSubmit() {
     const id = this.ShipInformationForm.get('shipInformationId').value;   
 
-    this.ShipInformationForm.get('dateOfCommission').setValue((new Date(this.ShipInformationForm.get('dateOfCommission').value)).toUTCString());
-
+    // this.ShipInformationForm.get('dateOfCommission').setValue((new Date(this.ShipInformationForm.get('dateOfCommission').value)));
+    // this.ShipInformationForm.get('dateOfCommission').setValue(dateOfCommission);
+    const dateOfCommission = this.sharedService.formatDateTime(this.ShipInformationForm.get('dateOfCommission').value)
+    this.ShipInformationForm.get('dateOfCommission').setValue(dateOfCommission);
 
     const formData = new FormData();
     for (const key of Object.keys(this.ShipInformationForm.value)) {

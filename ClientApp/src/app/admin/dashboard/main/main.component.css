@@ -66,3 +66,20 @@
 .info-card{
     padding: 10px;
 }
+.row{
+    display: flex;
+    justify-content: center;
+}
+
+.btnDetails{
+    background-color: #405ded;
+    height: 80px;
+    width: 150px;
+    justify-content: center;
+    color: #fff;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    border-radius: 10%;
+    cursor: pointer;
+}
