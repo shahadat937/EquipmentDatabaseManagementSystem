@@ -8,6 +8,7 @@ import { ConfirmService } from '../../../core/service/confirm.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { MasterData } from 'src/assets/data/master-data';
 import {BaseSchoolNameService} from '../../../../app/security/service/BaseSchoolName.service'
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-dailyworkstate',
@@ -35,7 +36,7 @@ export class NewDailyWorkStateComponent implements OnInit {
   selectedCommendingArea:any[];
   commendingAreaId:any;
 
-  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private DailyWorkStateService: DailyWorkStateService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private DailyWorkStateService: DailyWorkStateService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService) { }
 
   ngOnInit(): void {
 
@@ -104,7 +105,7 @@ export class NewDailyWorkStateComponent implements OnInit {
       document:[''],
       remarks: [''],
       status: [0],
-      menuPosition: [''],
+      menuPosition: [0],
       isActive: [true],
       
     })
@@ -160,10 +161,13 @@ export class NewDailyWorkStateComponent implements OnInit {
 
   onSubmit() {
     const id = this.DailyWorkStateForm.get('dailyWorkStateId').value; 
-    console.log(this.DailyWorkStateForm.value)
-    this.DailyWorkStateForm.get("date").setValue( new Date(this.DailyWorkStateForm.get("date").value).toUTCString());
-    this.DailyWorkStateForm.get("deadLine").setValue( new Date(this.DailyWorkStateForm.get("deadLine").value).toUTCString());
-    console.log(this.DailyWorkStateForm.value);
+
+    const date = this.sharedService.formatDateTime(this.DailyWorkStateForm.get('date').value);
+    this.DailyWorkStateForm.get('date').setValue(date);
+    
+    const deadLine = this.sharedService.formatDateTime(this.DailyWorkStateForm.get('deadLine').value);
+    this.DailyWorkStateForm.get('deadLine').setValue(deadLine);
+    
 
     const formData = new FormData();
     for (const key of Object.keys(this.DailyWorkStateForm.value)) {

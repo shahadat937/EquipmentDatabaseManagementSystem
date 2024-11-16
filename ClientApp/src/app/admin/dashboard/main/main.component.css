@@ -82,4 +82,5 @@
     align-items: center;
     border-radius: 10%;
     cursor: pointer;
+    z-index: 1;
 }

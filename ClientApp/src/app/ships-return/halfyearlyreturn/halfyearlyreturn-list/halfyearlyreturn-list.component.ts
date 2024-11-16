@@ -25,7 +25,7 @@ export class HalfYearlyReturnListComponent implements OnInit {
   itemCount:any =0;
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageSize: 5,
     length: 1
   }
   searchText="";

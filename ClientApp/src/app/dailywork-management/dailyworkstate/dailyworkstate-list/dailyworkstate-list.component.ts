@@ -26,7 +26,7 @@ export class DailyWorkStateListComponent implements OnInit {
   noCount:any =0;
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageSize: 5,
     length: 1
   }
   searchText="";
@@ -50,10 +50,9 @@ export class DailyWorkStateListComponent implements OnInit {
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;
-      console.log(this.dataSource.data);
+     
       this.noCount = response.items.length;
-      console.log("No Count");
-      console.log(this.noCount);
+      
 
       //  // this gives an object with dates as keys
       //  const groups = this.dataSource.data.reduce((groups, courses) => {
@@ -78,12 +77,7 @@ export class DailyWorkStateListComponent implements OnInit {
     this.isLoading = true;
     this.DailyWorkStateService.getDailyWorkStatesListByNoAction().subscribe(response => {
       this.dailyWorkStateList=response;
-     
-      console.log(this.dailyWorkStateList);
-      this.yesCount = response.length;
-      console.log("Yes Count");
-      console.log(this.yesCount);
-
+      this.yesCount = response.length;    
     })
   }
 
