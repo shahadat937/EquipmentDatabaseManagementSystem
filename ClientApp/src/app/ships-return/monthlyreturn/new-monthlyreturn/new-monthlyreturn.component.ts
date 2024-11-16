@@ -13,6 +13,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { Role } from 'src/app/core/models/role';
 import { BaseSchoolNameService } from 'src/app/security/service/BaseSchoolName.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-monthlyreturn',
@@ -47,7 +48,7 @@ export class NewMonthlyReturnComponent implements OnInit {
   selectedBaseSchoolName:SelectedModel[];
   selectBaseSchoolName:SelectedModel[];
 
-  constructor(private snackBar: MatSnackBar,private authService: AuthService, private baseSchoolNameService: BaseSchoolNameService,private confirmService: ConfirmService,private MonthlyReturnService: MonthlyReturnService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private authService: AuthService, private baseSchoolNameService: BaseSchoolNameService,private confirmService: ConfirmService,private MonthlyReturnService: MonthlyReturnService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService) { }
 
   ngOnInit(): void {
     this.role = this.authService.currentUserValue.role.trim();
@@ -215,8 +216,13 @@ export class NewMonthlyReturnComponent implements OnInit {
 
   onSubmit() {
     const id = this.MonthlyReturnForm.get('monthlyReturnId').value;  
-    this.MonthlyReturnForm.get('reportingDate').setValue((new Date(this.MonthlyReturnForm.get('reportingDate').value)).toUTCString());
-    this.MonthlyReturnForm.get('timeOfDefect').setValue((new Date(this.MonthlyReturnForm.get('timeOfDefect').value)).toUTCString());
+    // this.MonthlyReturnForm.get('reportingDate').setValue((new Date(this.MonthlyReturnForm.get('reportingDate').value)).toUTCString());
+
+    const reportingDate = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('reportingDate').value)
+    this.MonthlyReturnForm.get('reportingDate').setValue(reportingDate);
+
+    const timeOfDefect = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('timeOfDefect').value)
+    this.MonthlyReturnForm.get('timeOfDefect').setValue(timeOfDefect);
 
     const formData = new FormData();
     for (const key of Object.keys(this.MonthlyReturnForm.value)) {
