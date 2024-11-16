@@ -53,8 +53,7 @@ export class NewEqupmentNameComponent implements OnInit {
   ngOnInit(): void {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
-    this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
+    this.branchId =  this.authService.currentUserValue.branchId.trim(); 
     const id = this.route.snapshot.paramMap.get('equpmentNameId'); 
     if (id) {
       this.pageTitle = 'Edit Equpment Name';
@@ -109,8 +108,7 @@ export class NewEqupmentNameComponent implements OnInit {
   getSelectedEquipmentCategory(){
     this.EqupmentNameService.getSelectedEquipmentCategory().subscribe(res=>{
       this.selectedOperationalStatus=res
-      console.log(res)
-      console.log(res)
+ 
     }); 
   }
   pageChanged(event: PageEvent) {
@@ -156,12 +154,8 @@ export class NewEqupmentNameComponent implements OnInit {
     this.isLoading = true;
     this.EqupmentNameService.getEqupmentNamesWhitoutPage().subscribe(response => {
       
-      this.equpmentNameList = response;
-      console.log("Equipment data") 
-      console.log(response)
+      this.equpmentNameList = response;     
       this.itemCount = response.length;
-      console.log("total data=") 
-      console.log(this.equpmentNameList)
 
       //this.paging.length = response.totalItemsCount    
       this.isLoading = false;
@@ -195,7 +189,6 @@ export class NewEqupmentNameComponent implements OnInit {
   deleteItem(row) {
     const id = row.equpmentNameId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
       if (result) {
         this.EqupmentNameService.delete(id).subscribe(() => {
           //this.getEqupmentNames();

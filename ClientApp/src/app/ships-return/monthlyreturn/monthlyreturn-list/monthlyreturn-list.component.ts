@@ -47,11 +47,9 @@ export class MonthlyReturnListComponent implements OnInit {
       
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    
-      this.isLoading = false;
-      console.log(this.dataSource.data);
+      this.isLoading = false;  
       this.itemCount = response.items.length;
-      console.log("itemCountdata");
-      console.log(this.dataSource.data);
+     
 
        // this gives an object with dates as keys
       //  const groups = this.dataSource.data.reduce((groups, courses) => {
@@ -161,7 +159,7 @@ export class MonthlyReturnListComponent implements OnInit {
   deleteItem(row) {
     const id = row.monthlyReturnId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+  
       if (result) {
         this.MonthlyReturnService.delete(id).subscribe(() => {
           this.getMonthlyReturns();

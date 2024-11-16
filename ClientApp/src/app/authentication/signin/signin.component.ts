@@ -82,8 +82,7 @@ export class SigninComponent
                 horizontalPosition: 'right',
                 panelClass: 'snackbar-success'
               });
-              console.log("signin res");
-              console.log(res);
+             
 
   
              // setTimeout(() => {
@@ -102,10 +101,7 @@ export class SigninComponent
               const traineeId =  this.authService.currentUserValue.traineeId.trim();
               const branchId =  this.authService.currentUserValue.branchId  ? this.authService.currentUserValue.branchId.trim() : "";
 
-              
-
-              console.log(traineeId); 
-              console.log(branchId);
+           
                 if (role === Role.All || role === Role.MasterAdmin || role === Role.Director || role === Role.DNWNEEOfficeStaff || role === Role.StaffOfficer  || role === Role.DD) {
                   this.router.navigate(['/admin/dashboard/main']);
                 }else if (role === Role.ShipUser || role === Role.CO || role === Role.EXO || role === Role.ShipStaff || role === Role.LOEO) {

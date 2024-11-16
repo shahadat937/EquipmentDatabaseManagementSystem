@@ -66,8 +66,7 @@ export class ViewShipDrowingListComponent implements OnInit {
     this.ShipDrowingService.getShipDrowings(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
       
       this.shipDrawingList = response.items;
-      console.log("ddddddd"); 
-console.log(this.shipDrawingList)
+
       const groups =  this.shipDrawingList.reduce((groups, courses) => {
         const schoolName = courses.authority;
         if (!groups[schoolName]) {
@@ -84,9 +83,7 @@ console.log(this.shipDrawingList)
           courses: groups[authority]
         };
       });
-     console.log(this.shipinfoList);
-      console.log("data---");
-      console.log(this.groupArrays)
+   
       // this.paging.length = response.totalItemsCount    
       // this.isLoading = false;
     })

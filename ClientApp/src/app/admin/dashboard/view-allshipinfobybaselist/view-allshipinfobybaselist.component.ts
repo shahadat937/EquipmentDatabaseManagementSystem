@@ -40,8 +40,7 @@ export class ViewAllShipInfoByBaseListComponent implements OnInit {
   getBaseName(){
     this.BaseSchoolNameService.find(this.baseSchoolNameId).subscribe(res=>{
       this.selectedBaseName=res.schoolName
-      console.log(this.selectedBaseName)
-      console.log(res)
+   
     }); 
   }
 

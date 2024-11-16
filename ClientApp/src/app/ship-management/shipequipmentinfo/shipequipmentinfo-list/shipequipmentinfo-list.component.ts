@@ -48,7 +48,6 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     this.branchId = this.authService.currentUserValue.branchId.trim();
     this.equipmentCategoryId = this.route.snapshot.paramMap.get("shipequipmentCategoryId");
     this.stateOfEquipmentId = this.route.snapshot.paramMap.get("stateOfEquipmentId");
-    console.log(this.equipmentCategoryId, this.stateOfEquipmentId)
 
     if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
       this.getShipEquipmentInfos(this.branchId);

@@ -113,7 +113,7 @@ export class NewFcLcComponent implements OnInit {
   deleteItem(row) {
     const id = row.fcLcId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+
       if (result) {
         this.FcLcService.delete(id).subscribe(() => {
           this.getFcLcs();
