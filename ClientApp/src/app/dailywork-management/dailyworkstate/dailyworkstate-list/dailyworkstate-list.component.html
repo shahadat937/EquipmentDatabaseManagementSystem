@@ -28,11 +28,11 @@
                   <div class="row">
                     <div class="col-8">
                       <ul class="header-buttons-left ml-0">
-                       <li><h5 class="count-value">No of Items: - {{ noCount }}</h5></li>
+                       <!-- <li><h5 class="count-value">No of Items: - {{ noCount }}</h5></li> -->
                          
                       
                         <li class="dropdown">
-                          <input placeholder="Search by Form" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
+                          <input placeholder="Search by Subject" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
                             aria-label="Search box">
                         </li>
                         <li>
@@ -43,7 +43,7 @@
                           </div>
                         </li>
                         <li>
-                          <h3> Daily Work State List By Action Taken No</h3>
+                          <h4> Daily Work State List By Action Taken No</h4>
                         </li>
                       </ul>
                     </div>
@@ -124,12 +124,12 @@
                   (page)="pageChanged($event)">
                 </mat-paginator>
               </div>
-              <div class="responsive_table">
+              <div class="responsive_table m-t-40">
                 <div class="materialTableHeader">
                   <div class="row">
                     <div class="col-4">
                       <ul class="header-buttons-left ml-0">
-                       <li><h5 class="count-value">No of Items: - {{ yesCount }}</h5></li>
+                       <!-- <li><h5 class="count-value">No of Items: - {{ yesCount }}</h5></li> -->
                         <li class="dropdown">
                           <!-- <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
                             aria-label="Search box"> -->
@@ -149,7 +149,7 @@
                     <div class="col-8">
                       <ul class="header-buttons-left ml-0">
                         <li>
-                          <h3 class="col-12"> Daily Work State List By Action Taken Yes</h3>
+                          <h4 class="col-12"> Daily Work State List By Action Taken Yes</h4>
                         </li>
                       </ul>
                     </div>

@@ -1,3 +1,7 @@
+.container-fluid {
+    padding: 0 15px; /* Adjust based on your design */
+  }
+  
 .ships{
     background-color: #ff653e;
     color: #fff;
