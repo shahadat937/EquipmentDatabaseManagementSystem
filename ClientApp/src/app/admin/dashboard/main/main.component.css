@@ -1,5 +1,5 @@
 .container-fluid {
-    padding: 0 15px; /* Adjust based on your design */
+    padding: 0 15px;
   }
   
 .ships{
@@ -88,3 +88,15 @@
     cursor: pointer;
     z-index: 1;
 }
+@media only screen and (max-width: 1060px) {
+   
+    .ships,.eastablishment,.boat-info{
+      width: 150px;
+    }
+  }
+  @media only screen and (max-width: 1060px) {
+   
+    .btnDetails{
+      width: 100px;
+    }
+  }

@@ -11,6 +11,7 @@ import { OperationalState } from '../../models/OperationalState';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/core/service/auth.service';
+import {SharedService} from 'src/app/shared/shared.service'
 
 @Component({
   selector: 'app-new-statusofdefectivesystem',
@@ -41,7 +42,7 @@ export class NewStatusOfDefectiveSystemComponent implements OnInit {
   selectedEquipmentName:SelectedModel[];
   selectEquipmentName:SelectedModel[];
 
-  constructor(private snackBar: MatSnackBar,private authService: AuthService,private confirmService: ConfirmService,private OperationalStateService: OperationalStateService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private authService: AuthService,private confirmService: ConfirmService,private OperationalStateService: OperationalStateService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService) { }
 
   ngOnInit(): void {
     this.role = this.authService.currentUserValue.role.trim();
@@ -158,13 +159,18 @@ export class NewStatusOfDefectiveSystemComponent implements OnInit {
   }
 
   onSubmit() {
-    const id = this.OperationalStateForm.get('OperationalStateId').value;  
+    // const id = this.OperationalStateForm.get('OperationalStateId').value;  
+    const id = this.OperationalStateForm.get('operationalStateId').value; 
+    
+    const dateOfDefect = this.sharedService.formatDateTime(this.OperationalStateForm.get('dateOfDefect').value)
+   this.OperationalStateForm.get('dateOfDefect').setValue(dateOfDefect);
+
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         
         if (result) {
           this.OperationalStateService.update(+id,this.OperationalStateForm.value).subscribe(response => {
-           this.router.navigateByUrl('/ships-return/OperationalState-list');
+           this.router.navigateByUrl('/repair-management/statusofdefectivesystem-list');
             this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,
               verticalPosition: 'bottom',
@@ -178,8 +184,8 @@ export class NewStatusOfDefectiveSystemComponent implements OnInit {
       })
     } else {
       this.OperationalStateService.submit(this.OperationalStateForm.value).subscribe(response => {
-        this.router.navigateByUrl('/ships-return/OperationalState-list');
-       // this.reloadCurrentRoute();
+       
+        this.router.navigateByUrl('/repair-management/statusofdefectivesystem-list');
         this.snackBar.open('Information Inserted Successfully ', '', {
           duration: 2000,
           verticalPosition: 'bottom',
