@@ -25,6 +25,7 @@ namespace SchoolManagement.Api.Models
         public DateTime DateCreated { get; set; }
         public string LastModifiedBy { get; set; }
         public DateTime? LastModifiedDate { get; set; }
+        public DateTime? ProbableDefectTime { get; set; }
         public bool IsActive { get; set; }
 
         public virtual BaseSchoolName BaseSchoolName { get; set; }
