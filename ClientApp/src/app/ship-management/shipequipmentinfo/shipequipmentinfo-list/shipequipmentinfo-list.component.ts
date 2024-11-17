@@ -66,7 +66,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     } else {
       this.isLoading = true;
       this.ShipEquipmentInfoService.getShipEquipmentInfos(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
-
+        console.log(response.items);
         this.dataSource.data = response.items;
         this.paging.length = response.totalItemsCount
         this.isLoading = false;

@@ -7,6 +7,10 @@ namespace SchoolManagement.Domain
 {
     public class ShipInformation : BaseDomainEntity
     {
+        public ShipInformation()
+        {
+           
+        }
         public int ShipInformationId { get; set; }
         public int? AuthorityId { get; set; }
         public int? BaseNameId { get; set; }
@@ -50,5 +54,6 @@ namespace SchoolManagement.Domain
         public virtual OperationalStatus? OperationalStatus { get; set; }
         public virtual ShipType? ShipType { get; set; }
         public virtual Sqn? Sqn { get; set; }
+
     }
 }
