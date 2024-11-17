@@ -148,5 +148,6 @@
         public string? EqupmentName { get; set; }
         public string? StateOfEquipment { get; set; }
         public string? SchoolName { get; set; }
+        public string? ShortName { get; set; }
     }
 }

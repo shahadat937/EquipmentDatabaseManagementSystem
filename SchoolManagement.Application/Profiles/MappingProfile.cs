@@ -231,7 +231,8 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<ShipEquipmentInfoDto, ShipEquipmentInfo>().ReverseMap()
                 .ForMember(d => d.EquipmentCategory, o => o.MapFrom(s => s.EquipmentCategory.Name))
                 .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
-                 .ForMember(d => d.StateOfEquipment, o => o.MapFrom(s => s.StateOfEquipment.Name));
+                 .ForMember(d => d.StateOfEquipment, o => o.MapFrom(s => s.StateOfEquipment.Name))
+                 .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName));
             CreateMap<ShipEquipmentInfo, CreateShipEquipmentInfoDto>().ReverseMap();
             #endregion
 
