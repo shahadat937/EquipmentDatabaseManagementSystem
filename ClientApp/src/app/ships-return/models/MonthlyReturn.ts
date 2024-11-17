@@ -1,4 +1,5 @@
 export interface MonthlyReturn {
+   probableDefectTime: Date,
    monthlyReturnId: number,
    authorityId: number,
    baseNameId: number,
