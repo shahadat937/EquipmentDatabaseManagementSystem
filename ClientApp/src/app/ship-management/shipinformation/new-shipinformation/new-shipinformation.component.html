@@ -413,12 +413,62 @@
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>File Upload</mat-label>
-                      <ngx-mat-file-input (change)="onFileChanged($event)"
+                      <ngx-mat-file-input #fileInput (change)="onFileChanged($event)"
                         accept=".txt,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx, .jpg,
                          .jpeg, .png">
                       </ngx-mat-file-input>
                       <mat-icon matSuffix>attachment</mat-icon>
-                    </mat-form-field>
+                    </mat-form-field>                   
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <div *ngIf="shipImage" style="position: relative; display: inline-block;">
+                      <button
+                        (click)="removeImage($event)"
+                        style="
+                          position: absolute;
+                          top: -5px;
+                          right: -5px;
+                          background-color: rgba(255,0,0, .7);
+                          color: white;
+                          border: none;
+                          border-radius: 50%;
+                          padding: 2px;
+                          cursor: pointer;
+                          font-size: 10px;
+                          line-height: 1;
+                        "
+                        onmouseover="this.nextElementSibling.style.visibility='visible'; this.nextElementSibling.style.opacity='1';"
+                        onmouseout="this.nextElementSibling.style.visibility='hidden'; this.nextElementSibling.style.opacity='0';"
+                      >
+                        X
+                      </button>
+                      <span
+                        style="
+                          position: absolute;
+                          top: -25px;
+                          right: 0;
+                          background-color: black;
+                          color: white;
+                          font-size: 10px;
+                          padding: 2px 5px;
+                          border-radius: 3px;
+                          visibility: hidden;
+                          opacity: 0;
+                          transition: visibility 0.2s, opacity 0.2s;
+                        "
+                      >
+                        Delete Image
+                      </span>
+                     <div>
+                      <img
+                      [src]="shipImage"
+                      alt="User Image"
+                      style="width: 80px; height: auto;"
+                      (error)="handleImageError()"
+                    >
+                     </div>
+                    </div>
+                                
                   </div>
 
                 </div>

@@ -1,5 +1,5 @@
 import { SharedService } from './../../../shared/shared.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipInformationService } from '../../service/ShipInformation.service';
@@ -17,6 +17,7 @@ import { Role } from 'src/app/core/models/role';
   styleUrls: ['./new-shipinformation.component.sass']
 })
 export class NewShipInformationComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>; 
   pageTitle: string;
   userRole = Role;
   destination:string;
@@ -41,6 +42,7 @@ export class NewShipInformationComponent implements OnInit {
   selectedCommendingArea:any[];
   selectCommandingArea:SelectedModel[];
   commendingAreaId:any;
+  shipImage : any;
 
   constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipInformationService: ShipInformationService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService
   ) { }
@@ -59,6 +61,7 @@ export class NewShipInformationComponent implements OnInit {
       this.btnText = 'Update';
       this.ShipInformationService.find(+id).subscribe(
         res => {
+          this.shipImage = res.fileUpload;
           this.ShipInformationForm.patchValue({          
 
             shipInformationId: res.shipInformationId,
@@ -239,13 +242,25 @@ export class NewShipInformationComponent implements OnInit {
      
     }); 
   }
-  onFileChanged(event){
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      
-      this.ShipInformationForm.patchValue({
-        doc: file,
-      });
+  
+  onFileChanged(event: Event) {
+    const input = event.target as HTMLInputElement;
+    console.log(input.files[0])
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        this.shipImage = reader.result as string; 
+      };
+  
+      reader.readAsDataURL(file); // Read file as data URL
+  
+      if (this.ShipInformationForm && this.ShipInformationForm.controls['doc']) {
+        this.ShipInformationForm.patchValue({
+          doc: file,
+        });
+      }
     }
   }
 
@@ -274,6 +289,21 @@ export class NewShipInformationComponent implements OnInit {
   //    
   //   }); 
   // }
+  handleImageError() {
+    this.shipImage = ''; 
+  }
+
+  removeImage(event: Event) {
+    event.preventDefault(); 
+
+   
+    this.shipImage = '';
+
+   
+    if (this.fileInput && this.fileInput.nativeElement) {
+      this.fileInput.nativeElement.value = ''; 
+    }
+  }
 
   onSubmit() {
     const id = this.ShipInformationForm.get('shipInformationId').value;   
@@ -284,6 +314,10 @@ export class NewShipInformationComponent implements OnInit {
     this.ShipInformationForm.get('dateOfCommission').setValue(dateOfCommission);
 
     const formData = new FormData();
+    if(!this.shipImage){
+      this.ShipInformationForm.value.fileUpload = null;
+    }
+    console.log(this.ShipInformationForm.value)
     for (const key of Object.keys(this.ShipInformationForm.value)) {
       let  value = this.ShipInformationForm.value[key];
       formData.append(key, value);
