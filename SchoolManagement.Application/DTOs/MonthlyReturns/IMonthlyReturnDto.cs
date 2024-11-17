@@ -15,6 +15,7 @@
         public string? PresentCondition { get; set; }
         public DateTime? ReportingDate { get; set; }
         public DateTime? TimeOfDefect { get; set; }
+        public DateTime? ProbableDefectTime { get; set; }
         public string? UploadDocument { get; set; }
         public string? Remarks { get; set; }
         public int? MenuPosition { get; set; }

@@ -47,6 +47,7 @@ export class NewMonthlyReturnComponent implements OnInit {
   selectedReturnType:SelectedModel[];
   selectedBaseSchoolName:SelectedModel[];
   selectBaseSchoolName:SelectedModel[];
+  // probableDefectTime: any;
 
   constructor(private snackBar: MatSnackBar,private authService: AuthService, private baseSchoolNameService: BaseSchoolNameService,private confirmService: ConfirmService,private MonthlyReturnService: MonthlyReturnService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService) { }
 
@@ -76,6 +77,7 @@ export class NewMonthlyReturnComponent implements OnInit {
             presentCondition: res.presentCondition,
             reportingDate: res.reportingDate,
             timeOfDefect: res.timeOfDefect,
+            probableDefectTime: res.probableDefectTime,
             uploadDocument: res.uploadDocument,
             remarks: res.remarks,
             menuPosition: res.menuPosition,
@@ -122,6 +124,7 @@ export class NewMonthlyReturnComponent implements OnInit {
       presentCondition:[''],
       reportingDate:[''],
       timeOfDefect:[''],
+      probableDefectTime:[''],
       uploadDocument:[''],
       remarks:[''],
       menuPosition:[1],
@@ -224,6 +227,9 @@ export class NewMonthlyReturnComponent implements OnInit {
     const timeOfDefect = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('timeOfDefect').value)
     this.MonthlyReturnForm.get('timeOfDefect').setValue(timeOfDefect);
 
+    const probableDefectTime = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('probableDefectTime').value)
+    this.MonthlyReturnForm.get('probableDefectTime').setValue(probableDefectTime);
+
     const formData = new FormData();
     for (const key of Object.keys(this.MonthlyReturnForm.value)) {
       const value = this.MonthlyReturnForm.value[key];
@@ -251,6 +257,7 @@ export class NewMonthlyReturnComponent implements OnInit {
       })
     } else {
       this.MonthlyReturnService.submit(formData).subscribe(response => {
+        console.log('res', response)
         this.router.navigateByUrl('/ships-return/monthlyreturn-list');
         this.snackBar.open('Information Inserted Successfully ', '', {
           duration: 2000,
