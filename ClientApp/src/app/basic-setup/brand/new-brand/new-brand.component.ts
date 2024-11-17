@@ -113,7 +113,7 @@ export class NewBrandComponent implements OnInit {
   deleteItem(row) {
     const id = row.brandId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+
       if (result) {
         this.BrandService.delete(id).subscribe(() => {
           this.getBrands();

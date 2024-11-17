@@ -166,8 +166,8 @@ export class NewShipEquipmentInfoComponent implements OnInit {
       this.destination = "Edit";
       this.btnText = 'Update';
       this.ShipEquipmentInfoService.find(+id).subscribe(
-        res => {
-          console.log(res);
+        res => {    
+          console.log(res);  
           this.ShipEquipmentInfoForm.patchValue({          
 
             shipEquipmentInfoId: res.shipEquipmentInfoId,

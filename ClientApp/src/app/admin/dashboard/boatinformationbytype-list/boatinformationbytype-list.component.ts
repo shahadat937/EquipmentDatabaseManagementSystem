@@ -120,7 +120,7 @@ export class BoatInformationByTypeListComponent implements OnInit {
           courses: groups[schoolName]
         };
       });
-      console.log(this.shipinfoList);
+     
      })
    }
 }

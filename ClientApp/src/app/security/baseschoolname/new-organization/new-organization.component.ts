@@ -41,7 +41,7 @@ export class NewOrganizationComponent implements OnInit {
       this.btnText = 'Update';
       this.BaseSchoolNameService.find(+id).subscribe(
         res => {
-          this.OrganizationForm.patchValue({          
+          this.OrganizationForm.patchValue({        
             
             baseSchoolNameId: res.baseSchoolNameId,
             schoolName: res.schoolName,
@@ -79,14 +79,12 @@ export class NewOrganizationComponent implements OnInit {
   getOrganizationList(){
     this.BaseSchoolNameService.getOrganizationList().subscribe(res=>{
       this.organizationList=res
-      console.log(this.organizationList);
+
     });
   }
   onFileChanged(event) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      console.log('ImagE')
-     console.log(file);
+      const file = event.target.files[0];   
       this.OrganizationForm.patchValue({
         image: file,
       });
@@ -123,17 +121,13 @@ export class NewOrganizationComponent implements OnInit {
   
   onSubmit() {
     const id = this.OrganizationForm.get('baseSchoolNameId').value;
-    console.log(this.OrganizationForm.value);
-    //console.log(id);
     const formData = new FormData();
     for (const key of Object.keys(this.OrganizationForm.value)) {
       const value = this.OrganizationForm.value[key];
       formData.append(key, value);
     }
-    console.log(formData)
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This Item?').subscribe(result => {
-        console.log(result);
         if (result) {
           
           this.BaseSchoolNameService.update(+id,formData).subscribe(response => {
@@ -172,7 +166,6 @@ export class NewOrganizationComponent implements OnInit {
   deleteItem(row) {
     const id = row.baseSchoolNameId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This Item?').subscribe(result => {
-      console.log(result);
       if (result) {
         this.BaseSchoolNameService.delete(id).subscribe(() => {
           this.getOrganizationList();

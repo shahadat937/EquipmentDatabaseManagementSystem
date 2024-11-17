@@ -357,6 +357,7 @@ namespace SchoolManagement.Persistence
                     .WithMany(p => p.ShipEquipmentInfos)
                     .HasForeignKey(d => d.StateOfEquipmentId)
                     .HasConstraintName("FK_ShipEquipmentInfo_StateOfEquipment");
+              
 
             });
 

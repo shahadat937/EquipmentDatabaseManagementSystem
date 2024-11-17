@@ -110,7 +110,6 @@
                         (keydown.space)="$event.stopPropagation()"
                         (input)="filterByEquipmentType($event.target.value)" placeholder="Search">
                           <mat-option value="0">--Select--</mat-option>
-                        <mat-option value="0">--Select--</mat-option>
                         <mat-option *ngFor="let dropdown of selectedEquipmentType" [value]="dropdown.value">
                           {{dropdown.text}}
                         </mat-option>

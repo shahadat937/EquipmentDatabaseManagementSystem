@@ -1,5 +1,5 @@
 import { SharedService } from './../../../shared/shared.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipInformationService } from '../../service/ShipInformation.service';
@@ -17,6 +17,7 @@ import { Role } from 'src/app/core/models/role';
   styleUrls: ['./new-shipinformation.component.sass']
 })
 export class NewShipInformationComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>; 
   pageTitle: string;
   userRole = Role;
   destination:string;
@@ -41,6 +42,9 @@ export class NewShipInformationComponent implements OnInit {
   selectedCommendingArea:any[];
   selectCommandingArea:SelectedModel[];
   commendingAreaId:any;
+  shipImage : any;
+  isImage : boolean;
+  isFile : boolean;
 
   constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipInformationService: ShipInformationService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService
   ) { }
@@ -59,6 +63,9 @@ export class NewShipInformationComponent implements OnInit {
       this.btnText = 'Update';
       this.ShipInformationService.find(+id).subscribe(
         res => {
+          this.shipImage = res.fileUpload;
+          this.isImage = this.checkImage(res.fileUpload)
+          this.isFile = this.checkFile(res.fileUpload)
           this.ShipInformationForm.patchValue({          
 
             shipInformationId: res.shipInformationId,
@@ -109,6 +116,7 @@ export class NewShipInformationComponent implements OnInit {
       this.btnText = 'Save';
     }
     this.intitializeForm();
+ 
 
     if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){
       this.ShipInformationForm.get('baseSchoolNameId').setValue(this.branchId);
@@ -239,15 +247,40 @@ export class NewShipInformationComponent implements OnInit {
      
     }); 
   }
-  onFileChanged(event){
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      
-      this.ShipInformationForm.patchValue({
-        doc: file,
-      });
+  
+  onFileChanged(event: Event) {
+    const input = event.target as HTMLInputElement;
+    console.log(input.files[0]);
+  
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+  
+      // Check if it's an image
+      this.isImage = this.checkImage(file.name);
+      this.isFile = this.checkFile(file.name);
+      console.log(this.isFile);
+  
+      // If it's an image, read the file as a Data URL
+      if (this.isImage) {
+        reader.onload = () => {
+          this.shipImage = reader.result as string;      
+        };
+        reader.readAsDataURL(file);
+      } else {
+        // For non-image files, you can set the file name or handle it accordingly
+        this.shipImage = ''; // Optionally, clear previous image content if file is not an image
+      }
+  
+      // Update the form with the selected file
+      if (this.ShipInformationForm && this.ShipInformationForm.controls['doc']) {
+        this.ShipInformationForm.patchValue({
+          doc: file,
+        });
+      }
     }
   }
+  
 
   getSelectedShipType(){
     this.ShipInformationService.getSelectedShipType().subscribe(res=>{
@@ -274,6 +307,40 @@ export class NewShipInformationComponent implements OnInit {
   //    
   //   }); 
   // }
+  handleImageError() {
+    this.shipImage = ''; 
+  }
+
+  removeImage(event: Event) {
+    event.preventDefault(); 
+
+   
+    this.shipImage = '';
+
+   
+    if (this.fileInput && this.fileInput.nativeElement) {
+      this.fileInput.nativeElement.value = ''; 
+    }
+  }
+
+  checkImage(fileUrl: string) {
+    return /\.(jpg|jpeg|png|gif)$/i.test(fileUrl);
+  }
+
+  // checkFile(fileUrl: string): boolean {
+  //   const allowedExtensions = /\.(txt|pdf|xls|xlsx|doc|docx|ppt|pptx)$/i;
+  //   return allowedExtensions.test(fileUrl);
+  // }
+
+  checkFile(fileUrl: string): boolean {
+    // List of allowed file extensions
+    const allowedExtensions = /\.(txt|pdf|xls|xlsx|doc|docx|ppt|pptx)$/i;
+  
+    // Extract the file name or path from the URL if it's a URL
+    const extractedFileName = fileUrl.split('/').pop() || ''; // Get the last segment after 
+    return allowedExtensions.test(extractedFileName);
+  }
+  
 
   onSubmit() {
     const id = this.ShipInformationForm.get('shipInformationId').value;   
@@ -284,6 +351,10 @@ export class NewShipInformationComponent implements OnInit {
     this.ShipInformationForm.get('dateOfCommission').setValue(dateOfCommission);
 
     const formData = new FormData();
+    if(!this.shipImage){
+      this.ShipInformationForm.value.fileUpload = null;
+    }
+    console.log(this.ShipInformationForm.value)
     for (const key of Object.keys(this.ShipInformationForm.value)) {
       let  value = this.ShipInformationForm.value[key];
       formData.append(key, value);

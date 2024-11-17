@@ -2799,6 +2799,57 @@ app-main-tab-layout .table-bordered tbody tr td {
     border-right: 64px solid transparent;
 }
 
+.vertical-text-table th.mat-header-cell, 
+.vertical-text-table td.mat-cell {
+  writing-mode: vertical-rl; /* Rotate text vertically */
+  transform: rotate(180deg); /* Flip text for readability */
+  text-align: center; /* Center-align text */
+  vertical-align: middle; /* Center text vertically */
+}
+
+.vertical-text-table th.mat-header-cell {
+  height: 150px; /* Adjust header height to fit rotated text */
+}
+
+.vertical-text-table td.mat-cell {
+  height: 100px; /* Adjust cell height to fit rotated text */
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .vertical-header,
+  .vertical-cell {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .vertical-cell {
+    height: 100px;
+  }
+  
+  .table-row {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-tbl-edit,
+  .btn-tbl-delete {
+    margin: 5px;
+  }
+  
+  .col-white {
+    color: white;
+  }
+  
+  
+
 // shape design end 
 
 

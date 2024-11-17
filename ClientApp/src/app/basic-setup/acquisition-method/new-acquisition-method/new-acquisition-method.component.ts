@@ -113,7 +113,7 @@ export class NewAcquisitionMethodComponent implements OnInit {
   deleteItem(row) {
     const id = row.acquisitionMethodId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+ 
       if (result) {
         this.AcquisitionMethodService.delete(id).subscribe(() => {
           this.getAcquisitionMethods();

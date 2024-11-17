@@ -55,7 +55,7 @@ export class NewMonthlyReturnComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
+    
     const id = this.route.snapshot.paramMap.get('damageElectricalId'); 
     if (id) {
       this.pageTitle = 'Edit Damage Electrical/Radio Electrical Equipment';
@@ -96,7 +96,7 @@ export class NewMonthlyReturnComponent implements OnInit {
     if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){
       this.MonthlyReturnForm.get('baseSchoolNameId').setValue(this.branchId);
       this.baseSchoolNameService.find(this.branchId).subscribe(res=>{
-        console.log(res);
+    
         this.MonthlyReturnForm.get('baseNameId').setValue(res.thirdLevel);
         this.MonthlyReturnForm.get('authorityId').setValue(res.secondLevel);
       });
@@ -135,7 +135,7 @@ export class NewMonthlyReturnComponent implements OnInit {
   onFileChanged(event){
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      console.log(file);
+   
       this.MonthlyReturnForm.patchValue({
         doc: file,
       });
@@ -181,15 +181,12 @@ export class NewMonthlyReturnComponent implements OnInit {
   getSelectedReturnType(){
     this.MonthlyReturnService.getSelectedReturnType().subscribe(res=>{
       this.selectedReturnType=res
-      console.log(res)
-      console.log(res)
+    
     }); 
   }
   getSelectedOperationalStatus(){
     this.MonthlyReturnService.getSelectedOperationalStatus().subscribe(res=>{
-      this.selectedOperationalStatus=res
-      console.log(res)
-      console.log(res)
+      this.selectedOperationalStatus=res      
     }); 
   }
 
@@ -202,8 +199,7 @@ export class NewMonthlyReturnComponent implements OnInit {
 
   deleteItem(row) {
     const id = row.monthlyReturnId; 
-    this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+    this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {   
       if (result) {
         this.MonthlyReturnService.delete(id).subscribe(() => {
           this.snackBar.open('Information Deleted Successfully ', '', {
@@ -235,8 +231,6 @@ export class NewMonthlyReturnComponent implements OnInit {
       const value = this.MonthlyReturnForm.value[key];
       formData.append(key, value);
     }
-
-    console.log(this.MonthlyReturnForm.value);
 
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {

@@ -105,7 +105,7 @@ export class EstablishmentByTypeListComponent implements OnInit {
   getEstablishmentByShipType(){
     this.dashboardService.getShipInformationListByShipType(6).subscribe(response => {           
        this.shipinfoList=response;
-       console.log(this.shipinfoList);
+    
        const groups = this.shipinfoList.reduce((groups, courses) => {
         const schoolName = courses.schoolName;
         if (!groups[schoolName]) {
