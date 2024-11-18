@@ -31,7 +31,7 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Quer
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<ShipEquipmentInfo> ShipEquipmentInfos = _ShipEquipmentInfoRepository.FilterWithInclude(x => x.BaseSchoolNameId == (request.ShipId != 0 ? request.ShipId : x.BaseSchoolNameId) && (x.Model.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)), "EquipmentCategory", "EqupmentName", "StateOfEquipment", "BaseSchoolName");
+            IQueryable<ShipEquipmentInfo> ShipEquipmentInfos = _ShipEquipmentInfoRepository.FilterWithInclude(x => x.BaseSchoolNameId == (request.ShipId != 0 ? request.ShipId : x.BaseSchoolNameId) && (x.Model.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)), "EquipmentCategory", "EqupmentName", "StateOfEquipment", "BaseSchoolName", "AcquisitionMethod");
             var totalCount = ShipEquipmentInfos.Count();
             ShipEquipmentInfos = ShipEquipmentInfos.OrderByDescending(x => x.ShipEquipmentInfoId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 

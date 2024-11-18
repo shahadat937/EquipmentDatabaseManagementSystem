@@ -35,7 +35,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
   equipmentCategoryId: string;
   stateOfEquipmentId: string
 
-  displayedColumns: string[] = ['ser', 'equpmentName', 'shipName', 'qty', 'equipmentCategory', 'model', 'brand', 'techSpecification', 'manufacturerNameAndAddress', 'acquisitionMethodName', 'yearOfInstallation', 'location', 'stateOfEquipment', 'powerSupply', 'avrbrand', 'avrmodel', 'headingDisplay', 'interfaceProtocol' , 'composition', 'defectDescription', 'remarks', 'actions'];
+  displayedColumns: string[] = ['ser',  'shipName', 'equipmentCategory', 'equpmentName', 'qty',  'model', 'brand', 'techSpecification', 'manufacturerNameAndAddress', 'acquisitionMethodName', 'yearOfInstallation', 'location', 'stateOfEquipment', 'powerSupply', 'avrbrand', 'avrmodel', 'interfaceProtocol' , 'composition', 'defectDescription', 'remarks', 'actions'];
   dataSource: MatTableDataSource<ShipEquipmentInfo> = new MatTableDataSource();
 
   selection = new SelectionModel<ShipEquipmentInfo>(true, []);
@@ -140,86 +140,134 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     // Write the content to the popup
     popupWin.document.open();
     popupWin.document.write(`
-    <html>
-      <head>
-        <title>Print</title>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-          }
-          table {
-            border-collapse: collapse;
-            width: 100%;
-          }
-          th, td {
-            border: 1px solid #ddd;
-            text-align: left;
-            padding: 8px;
-          }
-          th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-          }
-          .header-text {
-            text-align: center;
-            margin-bottom: 20px;
-          }
-          .header-text h3 {
-            margin: 0;
-          }
-            
-          .custom-table {
+      <html>
+        <head>
+          <title>Print</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+            }
+            table {
+              border-collapse: collapse;
+              width: 100%;
+            }
+            th, td {
+              border: 1px solid #ddd;
+              text-align: left;
+              padding: 8px;
+            }
+             td {
+              font-size: 0.8rem;
+              }
+            th {
+              background-color: #f2f2f2;
+              font-weight: bold;
+            }
+            .header-text {
+              text-align: center;
+              margin-bottom: 20px;
+            }
+            .header-text h3 {
+              margin: 0;
+            }
+    
+            /* Custom Table */
+            .custom-table {
               width: 100%;
               border-collapse: collapse;
               table-layout: auto;
-          }
-
-          .vertical-header,
-          .vertical-cell {
+            }
+    
+            /* Vertical Header */
+            .vertical-header {
               writing-mode: vertical-rl;
               transform: rotate(180deg);
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 150px;
+              text-align: center;
+              max-height: 150px;
               border: 1px solid rgba(0, 0, 0, 0.1);
               padding: 3px;
               word-wrap: break-word;
-              /* Allows text to wrap */
-              text-align: center;
-          }
-
-          .vertical-cell {
               max-height: 150px;
-          }
-
-          .table-row {
-              border: 1px solid rgba(0, 0, 0, 0.1);
-          }
-
-          .btn-tbl-edit,
-          .btn-tbl-delete {
+            }
+    
+          
+            .btn-tbl-edit, .btn-tbl-delete {
               margin: 5px;
-          }
-
-          .col-white {
+            }
+    
+            .col-white {
               color: white;
-}
-
-        </style>
-      </head>
-      <body onload="window.print();window.close()">
-        <div class="header-text">
-          <h3>Ship Info List</h3>
-        </div>
-        <hr>
-        <table class="custom-table">
-          <thead>${tableHeaders}</thead>
-          <tbody">${tableRows}</tbody>
-        </table>
-      </body>
-    </html>
-  `);
+            }
+    
+          </style>
+        </head>
+        <body onload="window.print();window.close()">
+          <div class="header-text">
+            <h3>Ship Equipment List</h3>
+          </div>
+          <hr>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th class="vertical-header">Ser.</th>
+                <th class="vertical-header">Ship Name</th>
+                <th class="vertical-header">Equipment Name</th>
+                <th class="vertical-header">Equipment Category</th>
+                <th class="vertical-header">Qty</th>
+                <th class="vertical-header">Brand</th>
+                <th class="vertical-header">Model</th>
+                <th class="vertical-header">Tech Specification</th>
+                <th class="vertical-header">Manufacturer Info</th>
+                <th class="vertical-header">Acquisition Method</th>
+                <th class="vertical-header">Year Of Installation</th>
+                <th class="vertical-header">Location</th>   
+                <th class="vertical-header">State of Equipment</th>
+                <th class="vertical-header">Power Supply</th>
+                <th class="vertical-header">AVR Brand</th>
+                <th class="vertical-header">AVR Model</th>                
+                <th class="vertical-header">Interface Protocol</th>
+                <th class="vertical-header">Composition</th>
+                <th class="vertical-header">Defect Description</th>
+                <th class="vertical-header">Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${dataSource
+                .map((row, index) => {
+                  return `
+                    <tr>
+                      <td class="vertical-header">${index + 1 || '-'}</td>
+                      <td class="vertical-header">${row.schoolName || "-"}</td>
+                      <td class="vertical-header">${row.equpmentName || '-'}</td>
+                      <td class="vertical-header">${row.equipmentCategory || '-'}</td>
+                      <td class="vertical-header">${row.qty || '-'}</td>
+                      <td class="vertical-header">${row.brand || '-'}</td>
+                      <td class="vertical-header">${row.model || '-'}</td>
+                      <td class="vertical-header">${row.techSpecification || '-'}</td>
+                      <td class="vertical-header">${row.manufacturerNameAndAddress || '-'}</td>
+                      <td class="vertical-header">${row.acquisitionMethodName || '-'}</td>
+                      <td class="vertical-header">${row.yearOfInstallation || '-'}</td>
+                      <td class="vertical-header">${row.location || '-'}</td>
+                      <td class="vertical-header">${row.stateOfEquipment || '-'}</td>
+                      <td class="vertical-header">${row.powerSupply || '-'}</td>
+                      <td class="vertical-header">${row.avrbrand || '-'}</td>
+                      <td class="vertical-header">${row.avrmodel || '-'}</td>
+                      <td class="vertical-header">${row.interfaceProtocol || "-"}</td>
+                      <td class="vertical-header">${row.composition || '-'}</td>               
+                      <td class="vertical-header">${row.defectDescription || '-'}</td>
+                      <td class="vertical-header">${row.remarks || '-'}</td>
+                    </tr>
+                  `;
+                })
+                .join('')}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `);
+    
+    
+    
     popupWin.document.close();
   }
 

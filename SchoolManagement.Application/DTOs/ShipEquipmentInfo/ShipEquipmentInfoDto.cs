@@ -10,6 +10,7 @@
         public int? BrandId { get; set; }
         public string? Brand { get; set; }
         public int? AcquisitionMethodId { get; set; }
+        public string? AcquisitionMethodName { get; set; }
         public int? StateOfEquipmentId { get; set; }
         public double? Qty { get; set; }
         public string? Model { get; set; }
