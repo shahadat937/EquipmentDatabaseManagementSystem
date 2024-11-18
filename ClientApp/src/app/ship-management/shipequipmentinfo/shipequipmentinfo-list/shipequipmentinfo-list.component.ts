@@ -22,9 +22,9 @@ export class ShipEquipmentInfoListComponent implements OnInit {
   ELEMENT_DATA: ShipEquipmentInfo[] = [];
   isLoading = false;
   showHideDiv = false;
-  traineeId:any;
-  role:any;
-  branchId:any;
+  traineeId: any;
+  role: any;
+  branchId: any;
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
@@ -35,7 +35,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
   equipmentCategoryId: string;
   stateOfEquipmentId: string
 
-  displayedColumns: string[] = ['ser', 'equipmentCategory', 'equpmentName', 'stateOfEquipment', 'qty', 'model', 'actions'];
+  displayedColumns: string[] = ['ser', 'equpmentName', 'shipName', 'qty', 'equipmentCategory', 'model', 'brand', 'techSpecification', 'manufacturerNameAndAddress', 'acquisitionMethodName', 'yearOfInstallation', 'location', 'stateOfEquipment', 'powerSupply', 'avrbrand', 'avrmodel', 'headingDisplay', 'interfaceProtocol' , 'composition', 'defectDescription', 'remarks', 'actions'];
   dataSource: MatTableDataSource<ShipEquipmentInfo> = new MatTableDataSource();
 
   selection = new SelectionModel<ShipEquipmentInfo>(true, []);
@@ -92,29 +92,29 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     } else {
       this.getShipEquipmentInfos(0);
     }
-  } 
+  }
   printSingle() {
     this.showHideDiv = false;
     this.print();
   }
- 
-print() {
-  const dataSource = this.dataSource.data; // Access your mat-table dataSource
-  if (!dataSource || dataSource.length === 0) {
-    console.error('No data available for printing!');
-    return;
-  }
 
-  const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-  if (!popupWin) {
-    console.error('Failed to open popup for printing!');
-    return;
-  }
+  print() {
+    const dataSource = this.dataSource.data; // Access your mat-table dataSource
+    if (!dataSource || dataSource.length === 0) {
+      console.error('No data available for printing!');
+      return;
+    }
 
-  // Generate headers dynamically
-  const tableHeaders = `
+    const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    if (!popupWin) {
+      console.error('Failed to open popup for printing!');
+      return;
+    }
+
+    // Generate headers dynamically
+    const tableHeaders = `
     <tr>
-      <th>Ser.</th>
+      <th >Ser.</th>
       <th>Equipment Category</th>
       <th>Equipment Name</th>
       <th>State of Equipment</th>
@@ -122,10 +122,10 @@ print() {
       <th>Model</th>
     </tr>`;
 
-  // Generate rows dynamically
-  const tableRows = dataSource
-    .map((row, index) => {
-      return `
+    // Generate rows dynamically
+    const tableRows = dataSource
+      .map((row, index) => {
+        return `
         <tr>
           <td>${index + 1}</td>
           <td>${row.equipmentCategory || ''}</td>
@@ -134,15 +134,15 @@ print() {
           <td>${row.qty || ''}</td>
           <td>${row.model || ''}</td>
         </tr>`;
-    })
-    .join('');
+      })
+      .join('');
 
-  // Write the content to the popup
-  popupWin.document.open();
-  popupWin.document.write(`
+    // Write the content to the popup
+    popupWin.document.open();
+    popupWin.document.write(`
     <html>
       <head>
-        <title>Print Routine</title>
+        <title>Print</title>
         <style>
           body {
             font-family: Arial, sans-serif;
@@ -167,6 +167,45 @@ print() {
           .header-text h3 {
             margin: 0;
           }
+            
+          .custom-table {
+              width: 100%;
+              border-collapse: collapse;
+              table-layout: auto;
+          }
+
+          .vertical-header,
+          .vertical-cell {
+              writing-mode: vertical-rl;
+              transform: rotate(180deg);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 150px;
+              border: 1px solid rgba(0, 0, 0, 0.1);
+              padding: 3px;
+              word-wrap: break-word;
+              /* Allows text to wrap */
+              text-align: center;
+          }
+
+          .vertical-cell {
+              max-height: 150px;
+          }
+
+          .table-row {
+              border: 1px solid rgba(0, 0, 0, 0.1);
+          }
+
+          .btn-tbl-edit,
+          .btn-tbl-delete {
+              margin: 5px;
+          }
+
+          .col-white {
+              color: white;
+}
+
         </style>
       </head>
       <body onload="window.print();window.close()">
@@ -174,15 +213,15 @@ print() {
           <h3>Ship Info List</h3>
         </div>
         <hr>
-        <table>
+        <table class="custom-table">
           <thead>${tableHeaders}</thead>
-          <tbody>${tableRows}</tbody>
+          <tbody">${tableRows}</tbody>
         </table>
       </body>
     </html>
   `);
-  popupWin.document.close();
-}
+    popupWin.document.close();
+  }
 
 
 
