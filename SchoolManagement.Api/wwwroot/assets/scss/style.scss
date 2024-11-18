@@ -463,19 +463,22 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
     background-size: cover;
 }
 .sidebar .menu .list .sms-icons.dashboard {
+    background-image: url(/assets/images/icons/dashboard.png);
+}
+.sidebar .menu .list .sms-icons.ship {
     background-image: url(/assets/images/icons/home.png);
 }
 .sidebar .menu .list .sms-icons.user {
-    background-image: url(/assets/images/icons/user-create.png);
+    background-image: url(/assets/images/icons/team.png);
 }
 .sidebar .menu .list .sms-icons.parameter {
-    background-image: url(/assets/images/icons/refresh.png);
+    background-image: url(/assets/images/icons/slider.png);
 }
 .sidebar .menu .list .sms-icons.manual {
-    background-image: url(/assets/images/icons/manual.png);
+    background-image: url(/assets/images/icons/user-guide.png);
 }
 .sidebar .menu .list .sms-icons.password {
-    background-image: url(/assets/images/icons/password.png);
+    background-image: url(/assets/images/icons/password-manage.png);
 }
 .sidebar .menu .list .sms-icons.budget {
     background-image: url(/assets/images/icons/budget.png);
@@ -533,6 +536,24 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .sidebar .menu .list .sms-icons.interservice {
     background-image: url(/assets/images/icons/interservice.png);
+}
+.sidebar .menu .list .sms-icons.ship-return {
+    background-image: url(/assets/images/icons/return.png);
+}
+.sidebar .menu .list .sms-icons.procurement {
+    background-image: url(/assets/images/icons/procurement.png);
+}
+.sidebar .menu .list .sms-icons.repair {
+    background-image: url(/assets/images/icons/repair.png);
+}
+.sidebar .menu .list .sms-icons.management {
+    background-image: url(/assets/images/icons/management.png);
+}
+.sidebar .menu .list .sms-icons.miscellaneous {
+    background-image: url(/assets/images/icons/miscellaneous.png);
+}
+.sidebar .menu .list .sms-icons.ship-management {
+    background-image: url(/assets/images/icons/ship.png);
 }
 // custom icon end
 .db-tbl.foreign-db .mat-header-row.cdk-header-row.ng-star-inserted .mat-header-cell.go-col, .db-tbl.foreign-db .mat-row.cdk-row.ng-star-inserted .mat-cell.go-col {

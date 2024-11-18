@@ -71,7 +71,7 @@
                     
                     <thead>
                       <tr>
-                        <th class="cl-mrk-rmrk"><h5>Equipment Category</h5></th>
+                        <th class="cl-mrk-rmrk"><h5>Ship Name</h5></th>
                         <th class="cl-mrk-rmrk"><h5>Equipment Name</h5></th>
                         <th class="cl-mrk"><h5>Return Type</h5></th>
                         <th class="cl-mrk"><h5>Reporting Month</h5></th>
@@ -81,13 +81,12 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let number of this.dataSource.data;">
-                          <td>
-                            {{number.equipmentCategory}}
-                          </td>
+                          <td>{{ number.schoolName || 'N/A' }}</td>
+
                           <td>
                             {{number.equpmentName}}
                           </td>
-                          <td>
+                          <td [routerLink]="['/admin/dashboard/returnType-list']">
                             {{number.returnType}}
                           </td>
                           <td>

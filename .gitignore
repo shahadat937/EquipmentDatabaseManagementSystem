@@ -1,4 +1,5 @@
 /SchoolManagement.Api/obj
+/SchoolManagement.Api/wwwroot
 /SchoolManagement.Api/bin
 /SchoolManagement.Application/bin
 /SchoolManagement.Application/obj
