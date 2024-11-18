@@ -43,14 +43,11 @@ export class ProcurementListComponent implements OnInit {
   getProcurements() {
     this.isLoading = true;
     this.ProcurementService.getProcurements(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-      
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;
-      console.log(this.dataSource.data);
       this.itemCount = response.items.length;
-      console.log("itemCount");
-      console.log(this.itemCount);
+
 
       //  // this gives an object with dates as keys
       //  const groups = this.dataSource.data.reduce((groups, courses) => {
@@ -160,7 +157,6 @@ export class ProcurementListComponent implements OnInit {
   deleteItem(row) {
     const id = row.procurementId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
       if (result) {
         this.ProcurementService.delete(id).subscribe(() => {
           this.getProcurements();

@@ -130,7 +130,7 @@
                     <!-- Procurement Type Column -->
                     <ng-container matColumnDef="procurementType">
                       <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Procurement Type </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.procurementType}} </mat-cell>
+                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.procurementTypeName}} </mat-cell>
                     </ng-container>
                   
                     <!-- Group Name Column -->
@@ -220,7 +220,7 @@
                     <!-- Payment Status Column -->
                     <ng-container matColumnDef="paymentStatus">
                       <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Payment Status </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.paymentStatus}} </mat-cell>
+                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.paymentStatusName}} </mat-cell>
                     </ng-container>
                   
                     <!-- Remarks Column -->

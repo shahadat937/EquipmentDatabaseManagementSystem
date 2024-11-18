@@ -43,5 +43,18 @@
         public int? Status { get; set; }
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
+        public string? SchoolName { get; set; }
+        public string? ProcurementMethodName { get; set; }
+        public string? EnvelopeName { get; set; }
+        public string? ProcurementTypeName { get; set; }
+        public string? GroupName { get; set; }
+        public string? EqupmentName { get; set; }
+        public string? ControlledName { get; set; }
+        public string? FcLcName { get; set; }
+        public string? DgdpNssdName { get; set; }
+        public string? TenderOpeningDateTypeName { get; set; }
+        public string? TecName { get; set; }
+        public string? PaymentStatusName { get; set; }
+
     }
 }
