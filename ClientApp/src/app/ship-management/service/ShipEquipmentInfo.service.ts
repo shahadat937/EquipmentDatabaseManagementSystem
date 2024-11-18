@@ -27,8 +27,10 @@ export class ShipEquipmentInfoService {
     return this.http.get<IShipEquipmentInfoPagination>(this.baseUrl + '/ship-equipment-info/get-ShipEquipmentInfos', { observe: 'response', params })
     .pipe(
       map(response => {
+        console.log(response);
         this.ShipEquipmentInfos = [...this.ShipEquipmentInfos, ...response.body.items];
         this.ShipEquipmentInfoPagination = response.body;
+
         return this.ShipEquipmentInfoPagination;
       })
     );
