@@ -92,7 +92,7 @@ export const MasterData = {
         ESM: 24,
         TrueLyingRuder: 25,
         EWSystemChaff: 26,
-        GUN: 27,
+        GUN: 124,
         RDC: 28,
         CombatSystem: 29,
         NavigationRadar: 30,
@@ -181,6 +181,7 @@ export const MasterData = {
         AllExhaustFanMotor: 113,
         AllSupplyFanMotor: 114,
         WasteDisposerMachine:117,
+        PowerConversionEquation : 119
       }
     }
 
