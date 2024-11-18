@@ -181,7 +181,8 @@ export const MasterData = {
         AllExhaustFanMotor: 113,
         AllSupplyFanMotor: 114,
         WasteDisposerMachine:117,
-        PowerConversionEquation : 119
+        PowerConversionEquation : 119,
+        GunSystem: 126
       }
     }
 

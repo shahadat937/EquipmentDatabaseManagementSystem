@@ -101,6 +101,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   WalkieTalkieSet:boolean=false;
   CombatManagementSystem:boolean=false;
   WeaponGunSystem:boolean=false;
+  GunSystem: boolean = false;
   PropulsionMonitoringControlSystem:boolean=false;
   ADCMS:boolean=false;
   ICCPSystem:boolean=false;
@@ -853,6 +854,10 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     else if(this.equpmentNameId ==  this.masterData.equepmentName.PowerConversionEquation){
       this.allFormGroupFalse();
       this.PCE=true;
+    }
+    else if(this.equpmentNameId == this.masterData.equepmentName.GunSystem){
+      this.allFormGroupFalse();
+      this.GunSystem = true;
     }
     else{
       this.allFormGroupFalse();

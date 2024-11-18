@@ -276,7 +276,7 @@
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Offer Received Date</mat-label>
+                      <mat-label>Offer Received Date/ Evaluation</mat-label>
                       <input matInput [matDatepicker]="offerReceivedDate" formControlName="offerReceivedDate" required>
                       <mat-datepicker-toggle matSuffix [for]="offerReceivedDate"></mat-datepicker-toggle>
                       <mat-datepicker #offerReceivedDate></mat-datepicker>
@@ -307,28 +307,7 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Sent for Contract Date</mat-label>
-                      <input matInput [matDatepicker]="sentForContractDate" formControlName="sentForContractDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="sentForContractDate"></mat-datepicker-toggle>
-                      <mat-datepicker #sentForContractDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('sentForContractDate').hasError('required')">
-                        Sent for Contract Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Contract Signed Date</mat-label>
-                      <input matInput [matDatepicker]="contractSignedDate" formControlName="contractSignedDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="contractSignedDate"></mat-datepicker-toggle>
-                      <mat-datepicker #contractSignedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('contractSignedDate').hasError('required')">
-                        Contract Signed Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+                 
                   <div *ngIf="method == 1" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Payment Status</mat-label>
@@ -504,6 +483,28 @@
                       <mat-datepicker #finalContractMinReceivedDate></mat-datepicker>
                       <mat-error *ngIf="ProcurementForm.get('finalContractMinReceivedDate').hasError('required')">
                         Final Contract Min Received Date is Required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Sent for Contract Date</mat-label>
+                      <input matInput [matDatepicker]="sentForContractDate" formControlName="sentForContractDate" required>
+                      <mat-datepicker-toggle matSuffix [for]="sentForContractDate"></mat-datepicker-toggle>
+                      <mat-datepicker #sentForContractDate></mat-datepicker>
+                      <mat-error *ngIf="ProcurementForm.get('sentForContractDate').hasError('required')">
+                        Sent for Contract Date is Required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Contract Signed Date</mat-label>
+                      <input matInput [matDatepicker]="contractSignedDate" formControlName="contractSignedDate" required>
+                      <mat-datepicker-toggle matSuffix [for]="contractSignedDate"></mat-datepicker-toggle>
+                      <mat-datepicker #contractSignedDate></mat-datepicker>
+                      <mat-error *ngIf="ProcurementForm.get('contractSignedDate').hasError('required')">
+                        Contract Signed Date is Required
                       </mat-error>
                     </mat-form-field>
                   </div>

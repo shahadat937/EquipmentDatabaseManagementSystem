@@ -185,7 +185,19 @@ namespace SchoolManagement.Application.Profiles
             #endregion
 
             #region Procurement Mapping    
-            CreateMap<Procurement, ProcurementDto>().ReverseMap();
+            CreateMap<ProcurementDto, Procurement>().ReverseMap()
+                .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
+                .ForMember(d => d.ProcurementMethodName, o => o.MapFrom(s => s.ProcurementMethod.Name))
+                .ForMember(d => d.EnvelopeName, o => o.MapFrom(s=> s.Envelope.Name))
+                .ForMember(d => d.ProcurementTypeName, o => o.MapFrom(s => s.ProcurementType.Name))
+                .ForMember(d => d.GroupName, o => o.MapFrom(s => s.GroupName.Name))
+                .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
+                .ForMember(d => d.ControlledName, o => o.MapFrom(s => s.Controlled.Name))
+                .ForMember(d => d.FcLcName, o => o.MapFrom(s => s.FcLc.Name))
+                .ForMember(d => d.DgdpNssdName, o => o.MapFrom(s => s.DgdpNssd.Name))
+                .ForMember(d => d.TenderOpeningDateTypeName, o => o.MapFrom(s => s.TenderOpeningDateType.Name))
+                .ForMember(d => d.TecName, o => o.MapFrom(s => s.Tec.Name))
+                .ForMember(d => d.PaymentStatusName, o => o.MapFrom(s => s.PaymentStatus.Name))  ;
             CreateMap<Procurement, CreateProcurementDto>().ReverseMap();
             #endregion
 
@@ -233,7 +245,8 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(d => d.EquipmentCategory, o => o.MapFrom(s => s.EquipmentCategory.Name))
                 .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
                  .ForMember(d => d.StateOfEquipment, o => o.MapFrom(s => s.StateOfEquipment.Name))
-                 .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName));
+                 .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
+                 .ForMember(d => d.AcquisitionMethodName, o => o.MapFrom(s => s.AcquisitionMethod.Name));
             CreateMap<ShipEquipmentInfo, CreateShipEquipmentInfoDto>().ReverseMap();
             #endregion
 
@@ -281,7 +294,7 @@ namespace SchoolManagement.Application.Profiles
             #endregion
 
             #region EquipmentCategory Mapping    
-            CreateMap<EquipmentCategoryDto,EquipmentCategory>().ReverseMap()
+            CreateMap<EquipmentCategoryDto, EquipmentCategory>().ReverseMap()
                  .ForMember(d => d.GroupName, o => o.MapFrom(s => s.GroupName.Name));
             CreateMap<EquipmentCategory, CreateEquipmentCategoryDto>().ReverseMap();
             #endregion
@@ -335,10 +348,10 @@ namespace SchoolManagement.Application.Profiles
             #region Modules Mapping    
             CreateMap<Module, ModuleDto>().ReverseMap();
             CreateMap<Module, ModuleFeatureDto>().ReverseMap();
-            
+
             CreateMap<Module, CreateModuleDto>().ReverseMap();
             #endregion
-             
+
             #region RoleFeature Mappings 
             CreateMap<RoleFeature, RoleFeatureDto>().ReverseMap();
             CreateMap<RoleFeature, CreateRoleFeatureDto>().ReverseMap();

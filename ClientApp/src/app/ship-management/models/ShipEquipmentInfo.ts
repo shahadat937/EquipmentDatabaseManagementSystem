@@ -145,6 +145,7 @@ export interface ShipEquipmentInfo {
    menuPosition: number,
    isActive: boolean,
    shipName : string,
+   schoolName: string
 
    //fileUpload:string
 }

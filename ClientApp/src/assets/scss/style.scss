@@ -3459,7 +3459,6 @@ app-main-tab-layout .table-bordered tbody tr td {
 
 .vertical-text-table th.mat-header-cell {
     height: 150px;
-    /* Adjust header height to fit rotated text */
 }
 
 .vertical-text-table td.mat-cell {
@@ -3473,6 +3472,8 @@ app-main-tab-layout .table-bordered tbody tr td {
     table-layout: auto;
 }
 
+.custom-table 
+
 .vertical-header,
 .vertical-cell {
     writing-mode: vertical-rl;
@@ -3484,7 +3485,6 @@ app-main-tab-layout .table-bordered tbody tr td {
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 3px;
     word-wrap: break-word;
-    /* Allows text to wrap */
     text-align: center;
 }
 
@@ -3504,6 +3504,9 @@ app-main-tab-layout .table-bordered tbody tr td {
 .col-white {
     color: white;
 }
+.custom-header {
+    background-color: #DC143C;     
+  }
 
 
 
