@@ -1,0 +1,115 @@
+<section class="content">
+  <div class="container-fluid">
+      <div class="block-header">
+          <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <ul class="breadcrumb breadcrumb-style ">
+                      <li class="breadcrumb-item">
+                          <h4 class="page-title">Return Type List</h4>
+                      </li>
+                      <li class="breadcrumb-item bcrumb-1">
+                          <a routerLink="/admin/dashboard/main">
+                              <i class="fas fa-home"></i> </a>
+                      </li>
+                      <li class="breadcrumb-item bcrumb-2">
+                          <a href="#" onClick="return false;">Return Type</a>
+                      </li>
+                      <li class="breadcrumb-item active">All</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+    <div class="row filter-option">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="body">
+          <div class="col-lg-6 col-md-16 col-sm-16 col-xs-16">
+            <h4>Filter by Retrun Type</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="row">
+        
+          <!-- Damage Return List Table -->
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card">
+                  <div class="body">
+                      <div class="responsive_table">
+                          <div class="materialTableHeader">
+                              <div class="row">
+                                
+                                  <div class="col-8">
+                                      <h3>Damage Return List</h3>
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="print-routine">
+                              <table class="table tbl-by-group db-li-s-in">
+                                  <thead>
+                                      <tr>
+                                        <th><h5>Ship Name</h5></th>
+                                          <th><h5>Equipement Name</h5></th>
+                                          <th><h5>Defect Time</h5></th>
+                                          <th><h5>Defect Description</h5></th>
+                                          <th><h5>Present Status</h5></th>
+                                          
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let number of damageReturns">
+                                          <td>{{ number.schoolName }}</td>
+                                          <td>{{ number.equpmentName }}</td>
+                                          <td>{{ number.timeOfDefect | date: 'MM/dd/yyyy' }}</td>
+                                          <td>{{ number.damageDescription }}</td>
+                                          <td>{{ number.operationalStatus }}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Defect Return List Table -->
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card">
+                  <div class="body">
+                      <div class="responsive_table">
+                          <div class="materialTableHeader">
+                              <div class="row">
+                                  <div class="col-8">
+                                      <h3>Defect Return List</h3>
+                                  </div>
+                              </div>
+                          </div>
+                          <div id="print-routine">
+                              <table class="table tbl-by-group db-li-s-in">
+                                  <thead>
+                                      <tr>
+                                        <th><h5>Ship Name</h5></th>
+                                        <th><h5>Equipement Name</h5></th>
+                                        <th><h5>Defect Time</h5></th>
+                                        <th><h5>Defect Description</h5></th>
+                                        <th><h5>Present Status</h5></th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let number of defectReturns">
+                                        <td>{{ number.schoolName }}</td>
+                                        <td>{{ number.equpmentName }}</td>
+                                        <td>{{ number.timeOfDefect | date: 'MM/dd/yyyy' }}</td>
+                                        <td>{{ number.damageDescription }}</td>
+                                        <td>{{ number.operationalStatus }}</td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+  </div>
+</section>

@@ -28,7 +28,9 @@ namespace SchoolManagement.Api.Models
         public DateTime? ProbableDefectTime { get; set; }
         public bool IsActive { get; set; }
 
+        //public virtual BaseSchoolName BaseName { get; set; }
         public virtual BaseSchoolName BaseSchoolName { get; set; }
+
         public virtual EquipmentCategory EquipmentCategory { get; set; }
         public virtual EqupmentName EqupmentName { get; set; }
         public virtual OperationalStatus OperationalStatus { get; set; }

@@ -27,6 +27,7 @@ namespace SchoolManagement.Application.DTOs.MonthlyReturns
         public string? EqupmentName { get; set; }
         public string? OperationalStatus { get; set; }
         public string? ReportingMonth { get; set; }
+        public string? SchoolName { get; set; }
         public string? ReturnType { get; set; }
     }
 }

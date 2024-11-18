@@ -35,6 +35,7 @@ import {EstablishmentByTypeListComponent} from './establishmentbytype-list/estab
 import {ViewAllShipInfoByBaseListComponent} from './view-allshipinfobybaselist/view-allshipinfobybaselist.component'
 import {ViewShipDrowingListComponent} from './view-shipdrowinglist/view-shipdrowinglist.component'
 import {ViewShipInformationDetailsComponent} from './view-shipinformationdetails/view-shipinformationdetails.component'
+import {ReturnTypeListComponet} from './returntype-list/returntype-list.component'
 
 
 FullCalendarModule.registerPlugins([
@@ -52,7 +53,8 @@ FullCalendarModule.registerPlugins([
     EstablishmentByTypeListComponent,
     ViewAllShipInfoByBaseListComponent,
     ViewShipDrowingListComponent,
-    ViewShipInformationDetailsComponent
+    ViewShipInformationDetailsComponent,
+    ReturnTypeListComponet
     // LocalcourseListComponent,
   ],
   imports: [

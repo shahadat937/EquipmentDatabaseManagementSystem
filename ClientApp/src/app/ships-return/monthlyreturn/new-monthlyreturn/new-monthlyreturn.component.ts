@@ -47,6 +47,8 @@ export class NewMonthlyReturnComponent implements OnInit {
   selectedReturnType:SelectedModel[];
   selectedBaseSchoolName:SelectedModel[];
   selectBaseSchoolName:SelectedModel[];
+probableDefectTime: any;
+picker: any;
   // probableDefectTime: any;
 
   constructor(private snackBar: MatSnackBar,private authService: AuthService, private baseSchoolNameService: BaseSchoolNameService,private confirmService: ConfirmService,private MonthlyReturnService: MonthlyReturnService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService) { }
@@ -129,7 +131,8 @@ export class NewMonthlyReturnComponent implements OnInit {
       remarks:[''],
       menuPosition:[1],
       isActive: [true],
-      doc:['']
+      doc:[''],
+     
     })
   }
   onFileChanged(event){
@@ -147,6 +150,7 @@ export class NewMonthlyReturnComponent implements OnInit {
       this.selectBaseSchoolName=res;
     }); 
   }
+  
   filterByShip(value:any){
     this.selectedBaseSchoolName=this.selectBaseSchoolName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }

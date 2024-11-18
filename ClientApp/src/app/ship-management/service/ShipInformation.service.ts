@@ -27,6 +27,7 @@ export class ShipInformationService {
     return this.http.get<IShipInformationPagination>(this.baseUrl + '/ship-information/get-ship-informations', { observe: 'response', params })
     .pipe(
       map(response => {
+        console.log(response)
         this.ShipInformations = [...this.ShipInformations, ...response.body.items];
         this.ShipInformationPagination = response.body;
         return this.ShipInformationPagination;
