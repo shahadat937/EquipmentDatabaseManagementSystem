@@ -1,3 +1,4 @@
+// import { ReturnTypeLisComponent } from 'src/app/basic-setup/returntype/new-returntype/new-returntype.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainComponent } from './main/main.component';
@@ -8,7 +9,7 @@ import {EstablishmentByTypeListComponent} from './establishmentbytype-list/estab
 import {ViewAllShipInfoByBaseListComponent} from './view-allshipinfobybaselist/view-allshipinfobybaselist.component'
 import {ViewShipDrowingListComponent} from './view-shipdrowinglist/view-shipdrowinglist.component'
 import {ViewShipInformationDetailsComponent} from './view-shipinformationdetails/view-shipinformationdetails.component'
-
+import {ReturnTypeListComponet} from './returntype-list/returntype-list.component'
 const routes: Routes = [
   {
     path: '',
@@ -55,7 +56,10 @@ const routes: Routes = [
   path: 'view-shipinformationdetails/:shipInformationId/:dbType',
   component: ViewShipInformationDetailsComponent,
 },
-
+{
+  path: 'returnType-list',
+  component: ReturnTypeListComponet,
+}
 
 ];
 @NgModule({

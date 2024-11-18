@@ -31,7 +31,7 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Queries
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<MonthlyReturn> MonthlyReturns = _MonthlyReturnRepository.FilterWithInclude(x => String.IsNullOrEmpty(request.QueryParams.SearchText), "EquipmentCategory", "EqupmentName", "ReportingMonth", "OperationalStatus", "ReturnType");
+            IQueryable<MonthlyReturn> MonthlyReturns = _MonthlyReturnRepository.FilterWithInclude(x => String.IsNullOrEmpty(request.QueryParams.SearchText), "EquipmentCategory", "EqupmentName", "ReportingMonth", "OperationalStatus", "ReturnType","BaseSchoolName");
             var totalCount = MonthlyReturns.Count();
             MonthlyReturns = MonthlyReturns.OrderByDescending(x => x.MonthlyReturnId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 

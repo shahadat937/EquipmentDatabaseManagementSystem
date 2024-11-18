@@ -44,30 +44,12 @@ export class MonthlyReturnListComponent implements OnInit {
   getMonthlyReturns() {
     this.isLoading = true;
     this.MonthlyReturnService.getMonthlyReturns(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-      
+       console.log('API Response:', response);
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;  
       this.itemCount = response.items.length;
      
-
-       // this gives an object with dates as keys
-      //  const groups = this.dataSource.data.reduce((groups, courses) => {
-      //   const schoolName = courses.authorityName;
-      //   if (!groups[schoolName]) {
-      //     groups[schoolName] = [];
-      //   }
-      //   groups[schoolName].push(courses);
-      //   return groups;
-      // }, {});
-
-      // Edit: to add it in the array format instead
-      // this.groupArrays = Object.keys(groups).map((authorityName) => {
-      //   return {
-      //     authorityName,
-      //     courses: groups[authorityName]
-      //   };
-      // });
     })
   }
 
