@@ -29,7 +29,7 @@ export class ProcurementListComponent implements OnInit {
   }
   searchText="";
 
-  displayedColumns: string[] = [ 'ser','qty','ePrice', 'sentToDgdpNssdDate','actions'];
+  displayedColumns: string[] = [ 'ser', 'schoolName', 'procurementType', 'groupName', 'equpmentName', 'qty','ePrice', 'fcLcName', 'dgdpNssdName', 'controlledName', 'tecName', 'sentToDgdpNssdDate', 'tenderOpeningDateTypeName', 'tenderOpeningDate','offerReceivedDate', 'sentForContractDate', 'contractSignedDate', 'paymentStatus', 'remarks', 'actions'];
   dataSource: MatTableDataSource<Procurement> = new MatTableDataSource();
 
   selection = new SelectionModel<Procurement>(true, []);
