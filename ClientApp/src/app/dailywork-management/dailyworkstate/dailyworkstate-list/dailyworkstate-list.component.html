@@ -32,14 +32,18 @@
                          
                       
                         <li class="dropdown">
-                          <input placeholder="Search by Subject" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
-                            aria-label="Search box">
+                          <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Search</mat-label>
+                            <input
+                              matInput
+                              type="text"
+                              placeholder="Search..."
+                              (input)="applyFilter($event.target.value)" />
+                          </mat-form-field>
                         </li>
                         <li>
                           <div class="icon-button-demo m-l-10">                          
-                            <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
-                              <mat-icon class="col-white">search</mat-icon>
-                            </button>
+                            
                           </div>
                         </li>
                         <li>

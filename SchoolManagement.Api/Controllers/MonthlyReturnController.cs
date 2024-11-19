@@ -54,12 +54,13 @@ public class MonthlyReturnController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-MonthlyReturn/{id}")]
-    public async Task<ActionResult> Put([FromBody] MonthlyReturnDto MonthlyReturn)
+    public async Task<ActionResult> Put([FromForm] MonthlyReturnDto monthlyReturn)
     {
-        var command = new UpdateMonthlyReturnCommand { MonthlyReturnDto = MonthlyReturn };
+        var command = new UpdateMonthlyReturnCommand { MonthlyReturnDto = monthlyReturn };
         await _mediator.Send(command);
         return NoContent();
     }
+
 
 
     [HttpDelete]

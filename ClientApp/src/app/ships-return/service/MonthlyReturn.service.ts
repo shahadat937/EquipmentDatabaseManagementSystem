@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import {IMonthlyReturnPagination,MonthlyReturnPagination } from '../models/MonthlyReturnPagination'
 import { MonthlyReturn } from '../models/MonthlyReturn';
@@ -77,9 +77,16 @@ export class MonthlyReturnService {
     return this.http.get<SelectedModel[]>(this.baseUrl + '/return-type/get-selectedReturnType')
   }
 
-  update(id: number,model: any) {
+  // update(id: number,model: any) {
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //   return this.http.put(this.baseUrl + '/monthly-return/update-MonthlyReturn/'+id, model);
+  // }
+  update(id: number, model: any) {
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(this.baseUrl + '/monthly-return/update-MonthlyReturn/'+id, model);
   }
+  
+  
   submit(model: any) {
     return this.http.post(this.baseUrl + '/monthly-return/save-MonthlyReturn', model);
   } 
