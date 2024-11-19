@@ -31,15 +31,46 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<Procurement> Procurements = _ProcurementRepository.FilterWithInclude(x => (x.AIP.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)),
-                "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
+            IQueryable<Procurement> Procurements;
+
+            if (request.SearchBy == "shipname")
+            {
+                Procurements = _ProcurementRepository.FilterWithInclude(
+                    x => (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
+                    "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
+            }
+            else if (request.SearchBy == "equipmentname")
+            {
+                Procurements = _ProcurementRepository.FilterWithInclude(
+                    x => (x.EqupmentName.Name.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
+                    "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
+            }
+            else
+            {
+                Procurements = _ProcurementRepository.FilterWithInclude(
+                    x => (string.IsNullOrEmpty(request.QueryParams.SearchText)),
+                    "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
+            }
+
             var totalCount = Procurements.Count();
-            Procurements = Procurements.OrderByDescending(x => x.ProcurementId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
+
+            Procurements = Procurements
+                .OrderByDescending(x => x.ProcurementId)
+                .Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize)
+                .Take(request.QueryParams.PageSize);
 
             var ProcurementDtos = _mapper.Map<List<ProcurementDto>>(Procurements);
-            var result = new PagedResult<ProcurementDto>(ProcurementDtos, totalCount, request.QueryParams.PageNumber, request.QueryParams.PageSize);
+
+            var result = new PagedResult<ProcurementDto>(
+                ProcurementDtos,
+                totalCount,
+                request.QueryParams.PageNumber,
+                request.QueryParams.PageSize);
 
             return result;
+
+
+
 
 
         }

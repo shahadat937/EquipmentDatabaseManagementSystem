@@ -39,7 +39,7 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Quer
                 x => x.EquipmentCategoryId == request.CategoryId &&
                      (request.StateOfEquipmentId == 0 || x.StateOfEquipmentId == request.StateOfEquipmentId) &&
                      (x.Model.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
-                "EquipmentCategory", "EqupmentName", "StateOfEquipment");
+                "EquipmentCategory", "EqupmentName", "StateOfEquipment", "BaseSchoolName", "AcquisitionMethod");
 
             // Total count before pagination
             var totalCount = await query.CountAsync(cancellationToken);

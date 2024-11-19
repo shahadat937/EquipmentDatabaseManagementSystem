@@ -20,6 +20,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProcurementListComponent } from './procurement/procurement-list/procurement-list.component';
 import { NewProcurementComponent } from './procurement/new-procurement/new-procurement.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { NewProcurementComponent } from './procurement/new-procurement/new-procu
     MaterialFileInputModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-   MatAutocompleteModule
+   MatAutocompleteModule,
+   MatCheckboxModule
     
   ]
 })

@@ -14,13 +14,14 @@ export class ProcurementService {
   ProcurementPagination = new ProcurementPagination();
   constructor(private http: HttpClient) { }
 
-  getProcurements(pageNumber, pageSize, searchText) { 
+  getProcurements(pageNumber, pageSize, searchText, searchBy) { 
 
     let params = new HttpParams();
 
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
+    params = params.append('searchBy', searchBy.toString())
 
     
     return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-Procurements', { observe: 'response', params })
@@ -36,6 +37,23 @@ export class ProcurementService {
 
   find(id: number) {
     return this.http.get<Procurement>(this.baseUrl + '/procurement/get-ProcurementDetail/' + id);
+  }
+  getProcurementMethods(pageNumber, pageSize, searchText) { 
+
+    let params = new HttpParams();
+
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+
+    
+    return this.http.get<any>(this.baseUrl + '/procurement-method/get-ProcurementMethods', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        return response.body;
+      })
+    );
+   
   }
 
   // getSelectedSchoolName(baseNameId){
