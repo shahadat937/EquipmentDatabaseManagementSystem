@@ -33,7 +33,7 @@ namespace SchoolManagement.Application.Features.OperationalStates.Handlers.Queri
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<OperationalState> OperationalStates = _OperationalStateRepository.FilterWithInclude(x => (String.IsNullOrEmpty(request.QueryParams.SearchText)));
+            IQueryable<OperationalState> OperationalStates = _OperationalStateRepository.FilterWithInclude(x => (String.IsNullOrEmpty(request.QueryParams.SearchText))||(x.CausesOfDefect.Contains(request.QueryParams.SearchText))||(x.DurationOfDefect.Contains(request.QueryParams.SearchText)));
             var totalCount = OperationalStates.Count();
             OperationalStates = OperationalStates.OrderByDescending(x => x.OperationalStateId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 

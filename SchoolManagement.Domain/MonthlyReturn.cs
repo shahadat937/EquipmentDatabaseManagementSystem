@@ -23,6 +23,7 @@ namespace SchoolManagement.Domain
         public DateTime? TimeOfDefect { get; set; }
         public string? UploadDocument { get; set; }
         public string? Remarks { get; set; }
+       
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
 

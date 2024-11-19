@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-monthlyreturn-list',
@@ -32,6 +34,7 @@ export class MonthlyReturnListComponent implements OnInit {
     length: 1
   }
   searchText="";
+  private searchSubject: Subject<string> = new Subject(); 
 
   displayedColumns: string[] = [ 'ser','authorityName','baseName', 'baseSchoolName','sqnName','operationalStatus','actions'];
   dataSource: MatTableDataSource<MonthlyReturn> = new MatTableDataSource();
@@ -43,6 +46,12 @@ export class MonthlyReturnListComponent implements OnInit {
   
   ngOnInit() {
     this.getMonthlyReturns();
+    this.searchSubject.pipe(
+      debounceTime(300) // Adjust debounce time as needed
+    ).subscribe((searchText) => {
+      this.searchText = searchText;
+      this.getMonthlyReturns();
+    });
   }
  
   getMonthlyReturns() {
@@ -69,10 +78,13 @@ export class MonthlyReturnListComponent implements OnInit {
     this.getMonthlyReturns();
   }
 
-  applyFilter(searchText: any){ 
-    this.searchText = searchText;
-    this.getMonthlyReturns();
-  } 
+  // applyFilter(searchText: any){ 
+  //   this.searchText = searchText;
+  //   this.getMonthlyReturns();
+  // } 
+  applyFilter(searchText: string) {
+    this.searchSubject.next(searchText);
+  }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
   }

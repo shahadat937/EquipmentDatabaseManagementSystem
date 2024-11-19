@@ -31,7 +31,7 @@ namespace SchoolManagement.Application.Features.BookTypes.Handlers.Queries
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<BookType> BookTypes = _BookTypeRepository.FilterWithInclude(x => (x.Name.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)));
+            IQueryable<BookType> BookTypes = _BookTypeRepository.FilterWithInclude(x => (x.Name.Contains(request.QueryParams.SearchText) || (x.Remarks.Contains(request.QueryParams.SearchText)) || String.IsNullOrEmpty(request.QueryParams.SearchText)));
             var totalCount = BookTypes.Count();
             BookTypes = BookTypes.OrderBy(x => x.MenuPosition).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 

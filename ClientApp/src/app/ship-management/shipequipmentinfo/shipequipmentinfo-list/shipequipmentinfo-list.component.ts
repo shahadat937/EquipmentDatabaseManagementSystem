@@ -14,7 +14,7 @@ import { Role } from 'src/app/core/models/role';
 @Component({
   selector: 'app-shipequipmentinfo-list',
   templateUrl: './shipequipmentinfo-list.component.html',
-  styleUrls: ['./shipequipmentinfo-list.component.sass']
+  styleUrls: ['./shipequipmentinfo-list.component.sass','./shipequipmentinfo-list.component.css']
 })
 export class ShipEquipmentInfoListComponent implements OnInit {
   userRole = Role;
