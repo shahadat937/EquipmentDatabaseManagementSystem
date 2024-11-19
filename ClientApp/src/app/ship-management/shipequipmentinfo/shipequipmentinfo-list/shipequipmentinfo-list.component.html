@@ -58,157 +58,128 @@
                     </div>
                   </div>
                 </div>
-                <mat-table #table [dataSource]="dataSource" matSort id="show-shipInfo" class="custom-table">
-                  <ng-container matColumnDef="ser">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Ser.</mat-header-cell>
-                    <mat-cell *matCellDef="let element; let i = index;" class="vertical-cell">
-                      {{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="shipName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Ship Name</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.schoolName}}
-                    </mat-cell>
-                  </ng-container>
+                <div class="table-container">
+                  <mat-table #table [dataSource]="dataSource" matSort id="show-shipInfo" class="no-wrap-table">
 
-                  <ng-container matColumnDef="equipmentCategory">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Equipment Category</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.equipmentCategory}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="equpmentName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Equipment Name</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.equpmentName}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="qty">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Qty</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.qty}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="model">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Model</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.model}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="brand">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Brand</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.brand}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="techSpecification">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Technical Speechcalry Rating</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.techSpecification}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="manufacturerNameAndAddress">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Manufacturer Info</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.manufacturerNameAndAddress}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="acquisitionMethodName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Acquisition Method</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.acquisitionMethodName}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="yearOfInstallation">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Year of Installation</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.yearOfInstallation}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="location">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Location</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.location}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="stateOfEquipment">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">State of Equipment</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.stateOfEquipment}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="powerSupply">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Power Supply</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.powerSupply}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="avrbrand">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">AVR Brand</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.avrbrand}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="avrmodel">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">AVR Model</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.avrmodel}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="interfaceProtocol">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Interface Protocol</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.interfaceProtocol}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="composition">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Composition</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.composition}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="defectDescription">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Defect Description</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.defectDescription}}
-                    </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="remarks">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">Remarks</mat-header-cell>
-                    <mat-cell *matCellDef="let element" class="vertical-cell">
-                      {{element.remarks}}
-                    </mat-cell>
-                  </ng-container>
-
-              
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell *matHeaderCellDef class="vertical-header custom-header">Actions</mat-header-cell>
-                    <mat-cell *matCellDef="let row; let i = index;">
-                      <div class="d-flex flex-column">
-                        <button
-                          mat-icon-button
-                          color="accent"
-                          class="btn-tbl-edit mb-2"
-                          [routerLink]="['/ship-management/update-shipequipmentinfo', row.shipEquipmentInfoId]"
-                        >
-                          <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
-                        </button>
-                        <button
-                          mat-icon-button
-                          color="accent"
-                          class="btn-tbl-delete"
-                          (click)="deleteItem(row)"
-                        >
-                          <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
-                        </button>
-                      </div>
-                    </mat-cell>
-                  </ng-container>
+                    <ng-container matColumnDef="ser">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Ser.</mat-header-cell>
+                      <mat-cell *matCellDef="let element; let i = index;">
+                        {{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}
+                      </mat-cell>
+                    </ng-container>
                   
-                  <mat-header-row *matHeaderRowDef="displayedColumns" class="table-row"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></mat-row>
-                </mat-table>
+                    <ng-container matColumnDef="shipName">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Ship Name</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.schoolName}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="equipmentCategory">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Equipment Category</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.equipmentCategory}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="equpmentName">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Equipment Name</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.equpmentName}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="qty">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Qty</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.qty}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="model">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.model}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="brand">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Brand</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.brand}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="techSpecification">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Technical Specification</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.techSpecification}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="manufacturerNameAndAddress">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Manufacturer Info</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.manufacturerNameAndAddress}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="acquisitionMethodName">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Acquisition Method</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.acquisitionMethodName}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="yearOfInstallation">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Year of Installation</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.yearOfInstallation}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="location">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.location}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="stateOfEquipment">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>State of Equipment</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.stateOfEquipment}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="powerSupply">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Power Supply</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.powerSupply}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="avrbrand">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>AVR Brand</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.avrbrand}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="avrmodel">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>AVR Model</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.avrmodel}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="interfaceProtocol">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Interface Protocol</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.interfaceProtocol}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="composition">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Composition</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.composition}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="defectDescription">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Defect Description</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.defectDescription}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="remarks">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Remarks</mat-header-cell>
+                      <mat-cell *matCellDef="let element">{{element.remarks}}</mat-cell>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="actions">
+                      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                      <mat-cell *matCellDef="let row">
+                        <button mat-icon-button color="accent" [routerLink]="['/ship-management/update-shipequipmentinfo', row.shipEquipmentInfoId]">
+                          <mat-icon aria-label="Edit">edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent" (click)="deleteItem(row)">
+                          <mat-icon aria-label="Delete">delete</mat-icon>
+                        </button>
+                      </mat-cell>
+                    </ng-container>
+                  
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                  </mat-table>
+                  
+                </div>
                 
                 
                 

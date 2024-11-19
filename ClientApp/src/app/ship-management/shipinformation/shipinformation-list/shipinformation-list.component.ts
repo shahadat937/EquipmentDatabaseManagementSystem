@@ -10,6 +10,8 @@ import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { Role } from 'src/app/core/models/role';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shipinformation-list',
@@ -37,6 +39,7 @@ export class ShipInformationListComponent implements OnInit {
     length: 1
   }
   searchText="";
+  private searchSubject: Subject<string> = new Subject(); 
 
   displayedColumns: string[] = [ 'ser','authorityName','baseName', 'baseSchoolName','sqnName','operationalStatus','actions'];
   dataSource: MatTableDataSource<ShipInformation> = new MatTableDataSource();
@@ -56,6 +59,12 @@ export class ShipInformationListComponent implements OnInit {
     }else{
       this.getShipInformations(0);
     }
+    this.searchSubject.pipe(
+      debounceTime(300) // Adjust debounce time as needed
+    ).subscribe((searchText) => {
+      this.searchText = searchText;
+      this.getShipInformations(0);
+    });
     
   }
  
@@ -102,14 +111,17 @@ export class ShipInformationListComponent implements OnInit {
     }
   }
 
-  applyFilter(searchText: any){ 
-    this.searchText = searchText;
-    if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){
-      this.getShipInformations(this.branchId);
-    }else{
-      this.getShipInformations(0);
-    }
-  } 
+  // applyFilter(searchText: any){ 
+  //   this.searchText = searchText;
+  //   if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){
+  //     this.getShipInformations(this.branchId);
+  //   }else{
+  //     this.getShipInformations(0);
+  //   }
+  // } 
+  applyFilter(searchText: string) {
+    this.searchSubject.next(searchText);
+  }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
   }

@@ -65,6 +65,7 @@ picker: any;
       this.btnText = 'Update';
       this.MonthlyReturnService.find(+id).subscribe(
         res => {
+          console.log(res)
           this.MonthlyReturnForm.patchValue({          
             monthlyReturnId: res.monthlyReturnId,
             authorityId: res.authorityId,
@@ -221,28 +222,37 @@ picker: any;
     const id = this.MonthlyReturnForm.get('monthlyReturnId').value;  
     // this.MonthlyReturnForm.get('reportingDate').setValue((new Date(this.MonthlyReturnForm.get('reportingDate').value)).toUTCString());
 
-    const reportingDate = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('reportingDate').value)
-    this.MonthlyReturnForm.get('reportingDate').setValue(reportingDate);
+    const reportingDate = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('reportingDate').value);
+this.MonthlyReturnForm.get('reportingDate').setValue(reportingDate);
 
-    const timeOfDefect = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('timeOfDefect').value)
-    this.MonthlyReturnForm.get('timeOfDefect').setValue(timeOfDefect);
+const timeOfDefect = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('timeOfDefect').value);
+this.MonthlyReturnForm.get('timeOfDefect').setValue(timeOfDefect);
 
-    const probableDefectTime = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('probableDefectTime').value)
-    this.MonthlyReturnForm.get('probableDefectTime').setValue(probableDefectTime);
+const probableDefectTime = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('probableDefectTime').value);
+this.MonthlyReturnForm.get('probableDefectTime').setValue(probableDefectTime);
+
 
     const formData = new FormData();
+    console.log('formdata',this.MonthlyReturnForm)
     for (const key of Object.keys(this.MonthlyReturnForm.value)) {
+
       const value = this.MonthlyReturnForm.value[key];
-      formData.append(key, value);
+      console.log(value)
+      if (value !== null && value !== undefined) {
+        formData.append(key, value);
+      }
     }
+    
 
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         
         if (result) {
-          this.MonthlyReturnService.update(+id,formData).subscribe(response => {
-           this.router.navigateByUrl('/ships-return/monthlyreturn-list');
-            this.snackBar.open('Information Updated Successfully ', '', {
+          console.log('Proceeding with update');
+          this.MonthlyReturnService.update(+id, formData).subscribe(response => {
+            console.log('id with form',id,formData)
+            this.router.navigateByUrl('/ships-return/monthlyreturn-list');
+            this.snackBar.open('Information Updated Successfully', '', {
               duration: 2000,
               verticalPosition: 'bottom',
               horizontalPosition: 'right',

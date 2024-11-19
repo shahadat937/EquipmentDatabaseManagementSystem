@@ -10,6 +10,8 @@ import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Role } from 'src/app/core/models/role';
 import { AuthService } from 'src/app/core/service/auth.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-statusofdefectivesystem-list',
@@ -31,6 +33,7 @@ export class StatusOfDefectiveSystemListComponent implements OnInit {
     length: 1
   }
   searchText="";
+  private searchSubject: Subject<string> = new Subject(); 
     
   traineeId:any;
   role:any;
@@ -58,6 +61,12 @@ export class StatusOfDefectiveSystemListComponent implements OnInit {
     // }
 
     this.getOperationalStates();
+    this.searchSubject.pipe(
+      debounceTime(300) // Adjust debounce time as needed
+    ).subscribe((searchText) => {
+      this.searchText = searchText;
+      this.getOperationalStates();
+    });
   }
  
   getOperationalStates() {
@@ -81,10 +90,13 @@ export class StatusOfDefectiveSystemListComponent implements OnInit {
     this.getOperationalStates();
   }
 
-  applyFilter(searchText: any){ 
-    this.searchText = searchText;
-    this.getOperationalStates();
-  } 
+  // applyFilter(searchText: any){ 
+  //   this.searchText = searchText;
+  //   this.getOperationalStates();
+  // } 
+  applyFilter(searchText: string) {
+    this.searchSubject.next(searchText);
+  }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
   }

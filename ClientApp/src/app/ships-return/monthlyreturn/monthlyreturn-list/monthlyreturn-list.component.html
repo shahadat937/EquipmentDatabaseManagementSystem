@@ -32,14 +32,20 @@
                          
                       
                         <li class="dropdown">
-                          <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
-                            aria-label="Search box">
+                          <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Search</mat-label>
+                            <input
+                              matInput
+                              type="text"
+                              placeholder="Search..."
+                              (input)="applyFilter($event.target.value)" />
+                          </mat-form-field>
                         </li>
                         <li>
                           <div class="icon-button-demo m-l-10">                          
-                            <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
+                            <!-- <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
                               <mat-icon class="col-white">search</mat-icon>
-                            </button>
+                            </button> -->
                           </div>
                         </li>
                         <li>
@@ -49,6 +55,15 @@
                     </div>
                     <div class="col-4">
                       <ul class="header-buttons">
+                        <label>Filter by Retrun Type</label>
+                         <li>
+                          
+                          <select class="filter" name="return-type" [(ngModel)]="selectedFilter">
+                            <option value="" disabled>Choose Return Type</option>
+                            <option value="damage" id="1" selected>Damage</option>
+                            <option value="defective" id="2">Defective</option>
+                          </select>
+                        </li>
                         <li>
                           <div class="icon-button-demo">
                             <button class="btn-space"  mat-raised-button
@@ -58,16 +73,16 @@
                             <button class="btn-space" mat-raised-button  color="primary" (click)="printSingle()">
                               <mat-icon class="col-white">print</mat-icon>
                             </button>
-                          </div>
-                         
+                          </div>                        
                         </li>
+                       
                       </ul>
                     </div>
                    
                   </div>
                 </div>
                 <div id="print-routine">       
-                  <table class="table tbl-by-group db-li-s-in">
+                  <table *ngIf="!selectedFilter" class="table tbl-by-group db-li-s-in">
                     
                     <thead>
                       <tr>
@@ -118,10 +133,100 @@
                     </tbody>
                   </table>
                 </div> 
-                <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                <div class="row">
+        
+                  <!-- Damage Return List Table -->
+                  <div *ngIf="selectedFilter === 'damage'" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="card">
+                          <div class="body">
+                              <div class="responsive_table">
+                                  <div class="materialTableHeader">
+                                      <div class="row">
+                                        
+                                          <div class="col-8">
+                                              <h3>Damage Return List</h3>
+                                          </div>
+                                          
+                                      </div>
+                                  </div>
+                                  <div id="print-routine">
+                                    
+                                      <table class="table tbl-by-group db-li-s-in">
+                                          <thead>
+                                              <tr>
+                                                <th><h5>Ship Name</h5></th>
+                                                  <th><h5>Equipement Name</h5></th>
+                                                  <th><h5>Defect Time</h5></th>
+                                                  <th><h5>Defect Description</h5></th>
+                                                  <th><h5>Present Status</h5></th>
+                                                  
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr *ngFor="let number of damageReturns">
+                                                  <td>{{ number.schoolName }}</td>
+                                                  <td>{{ number.equpmentName }}</td>
+                                                  <td>{{ number.timeOfDefect | date: 'MM/dd/yyyy' }}</td>
+                                                  <td>{{ number.damageDescription }}</td>
+                                                  <td>{{ number.operationalStatus }}</td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+        
+                  <!-- Defect Return List Table -->
+                  <div *ngIf="selectedFilter === 'defective'" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="card">
+                          <div class="body">
+                              <div class="responsive_table">
+                                  <div class="materialTableHeader">
+                                      <div class="row">
+                                          <div class="col-8">
+                                              <h3>Defect Return List</h3>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div id="print-routine">
+                                      <table class="table tbl-by-group db-li-s-in">
+                                          <thead>
+                                              <tr>
+                                                <th><h5>Ship Name</h5></th>
+                                                <th><h5>Equipement Name</h5></th>
+                                                <th><h5>Defect Time</h5></th>
+                                                <th><h5>Defect Description</h5></th>
+                                                <th><h5>Present Status</h5></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr *ngFor="let number of defectReturns">
+                                                <td>{{ number.schoolName }}</td>
+                                                <td>{{ number.equpmentName }}</td>
+                                                <td>{{ number.timeOfDefect | date: 'MM/dd/yyyy' }}</td>
+                                                <td>{{ number.damageDescription }}</td>
+                                                <td>{{ number.operationalStatus }}</td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div *ngIf="selectedFilter === 'defective'" class="icon-button-demo">
+                    <button class="btn-space"  mat-raised-button
+                    color="primary" routerLink="/admin/dashboard/main"> Back
+                      <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                    </button>
+                  </div>
+              </div>
+                <!-- <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
                   [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
                   (page)="pageChanged($event)">
-                </mat-paginator>
+                </mat-paginator> -->
               </div>
             </div>
           </div>

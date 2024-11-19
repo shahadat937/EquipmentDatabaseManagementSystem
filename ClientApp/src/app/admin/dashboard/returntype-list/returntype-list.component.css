@@ -1,9 +1,19 @@
 .filter-option{
-    background-color: rgb(12, 211, 218);
+    background-color: #f2f2da;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 10px;
 }
 table{
     margin-top: 10px;
+}
+.filter{
+    position: relative;
+   display: flex;
+   width: 20em;
+   height: 3em;
+   line-height: 3;
+   background: #f0f0f0;
+   overflow: hidden;
+   border-radius: .25em;
 }

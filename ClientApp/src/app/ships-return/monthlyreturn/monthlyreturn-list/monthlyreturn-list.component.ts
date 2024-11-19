@@ -8,16 +8,21 @@ import { Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-monthlyreturn-list',
   templateUrl: './monthlyreturn-list.component.html', 
-  styleUrls: ['./monthlyreturn-list.component.sass']
+  styleUrls: ['./monthlyreturn-list.cmponent.css']
 })
 export class MonthlyReturnListComponent implements OnInit {
 
   masterData = MasterData;
   ELEMENT_DATA: MonthlyReturn[] = [];
+  damageReturns: MonthlyReturn[] = [];
+  defectReturns: MonthlyReturn[] = [];
+  monthlyReturns: MonthlyReturn[] = [];
   isLoading = false;
   groupArrays:{ authorityName: string; courses: any; }[];
   fileUrl=  'https://localhost:44395/content/';
@@ -25,20 +30,28 @@ export class MonthlyReturnListComponent implements OnInit {
   itemCount:any =0;
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
-    pageSize: 5,
+    pageSize: this.masterData.paging.pageSize,
     length: 1
   }
   searchText="";
+  private searchSubject: Subject<string> = new Subject(); 
 
   displayedColumns: string[] = [ 'ser','authorityName','baseName', 'baseSchoolName','sqnName','operationalStatus','actions'];
   dataSource: MatTableDataSource<MonthlyReturn> = new MatTableDataSource();
 
   selection = new SelectionModel<MonthlyReturn>(true, []);
+  selectedFilter: any;
   
   constructor(private snackBar: MatSnackBar,private MonthlyReturnService: MonthlyReturnService,private router: Router,private confirmService: ConfirmService) { }
   
   ngOnInit() {
     this.getMonthlyReturns();
+    this.searchSubject.pipe(
+      debounceTime(300) // Adjust debounce time as needed
+    ).subscribe((searchText) => {
+      this.searchText = searchText;
+      this.getMonthlyReturns();
+    });
   }
  
   getMonthlyReturns() {
@@ -46,7 +59,12 @@ export class MonthlyReturnListComponent implements OnInit {
     this.MonthlyReturnService.getMonthlyReturns(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
        console.log('API Response:', response);
       this.dataSource.data = response.items; 
-      this.paging.length = response.totalItemsCount    
+      this.paging.length = response.totalItemsCount   
+
+      this.damageReturns = response.items.filter(item => item.returnType === 'Damage');
+      this.defectReturns = response.items.filter(item => item.returnType === 'Defective');
+      this.monthlyReturns = response.items.filter(item => item.returnType === 'monthly');
+      
       this.isLoading = false;  
       this.itemCount = response.items.length;
      
@@ -60,10 +78,13 @@ export class MonthlyReturnListComponent implements OnInit {
     this.getMonthlyReturns();
   }
 
-  applyFilter(searchText: any){ 
-    this.searchText = searchText;
-    this.getMonthlyReturns();
-  } 
+  // applyFilter(searchText: any){ 
+  //   this.searchText = searchText;
+  //   this.getMonthlyReturns();
+  // } 
+  applyFilter(searchText: string) {
+    this.searchSubject.next(searchText);
+  }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
   }
