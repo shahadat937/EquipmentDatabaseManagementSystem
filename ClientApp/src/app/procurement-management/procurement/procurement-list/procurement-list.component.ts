@@ -112,6 +112,9 @@ export class ProcurementListComponent implements OnInit {
     this.showHideDiv = false;
     this.print();
   }
+  filterByMethod(methodId : number){
+    console.log(methodId);
+  }
   print() {
     let printContents, popupWin;
     printContents = document.getElementById("print-routine").innerHTML;

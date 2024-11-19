@@ -3457,57 +3457,74 @@ app-main-tab-layout .table-bordered tbody tr td {
     /* Center text vertically */
 }
 
-.vertical-text-table th.mat-header-cell {
-    height: 150px;
-}
+// .vertical-text-table th.mat-header-cell {
+//     height: 150px;
+// }
 
-.vertical-text-table td.mat-cell {
-    height: 100px;
-    /* Adjust cell height to fit rotated text */
-}
+// .vertical-text-table td.mat-cell {
+//     height: 100px;
+//     /* Adjust cell height to fit rotated text */
+// }
+
+// .custom-table {
+//     width: 100%;
+//     border-collapse: collapse;
+//     table-layout: auto;
+// }
+
+// .custom-table 
+
+// .vertical-header,
+// .vertical-cell {
+//     writing-mode: vertical-rl;
+//     transform: rotate(180deg);
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 150px;
+//     border: 1px solid rgba(0, 0, 0, 0.1);
+//     padding: 3px;
+//     word-wrap: break-word;
+//     text-align: center;
+// }
+
+// .vertical-cell {
+//     max-height: 150px;
+// }
+
+// .table-row {
+//     border: 1px solid rgba(0, 0, 0, 0.1);
+// }
+
+// .btn-tbl-edit,
+// .btn-tbl-delete {
+//     margin: 5px;
+// }
+
+// .col-white {
+//     color: white;
+// }
+// .custom-header {
+//     background-color: #DC143C;     
+//   }
 
 .custom-table {
     width: 100%;
-    border-collapse: collapse;
-    table-layout: auto;
-}
-
-.custom-table 
-
-.vertical-header,
-.vertical-cell {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 3px;
-    word-wrap: break-word;
-    text-align: center;
-}
-
-.vertical-cell {
-    max-height: 150px;
-}
-
-.table-row {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.btn-tbl-edit,
-.btn-tbl-delete {
-    margin: 5px;
-}
-
-.col-white {
-    color: white;
-}
-.custom-header {
-    background-color: #DC143C;     
+    overflow-x: auto; /* Ensure horizontal scrolling */
   }
-
+  
+  .custom-table mat-header-cell, .custom-table mat-cell {
+    white-space: nowrap; /* Prevent text from wrapping in table cells */
+  }
+  
+  mat-header-row, mat-row {
+    display: block; /* Ensure proper scrolling behavior */
+  }
+  
+  .mat-table {
+    width: 100%; /* Ensure the table fits the container */
+  }
+  
 
 
 // shape design end 
