@@ -14,13 +14,14 @@ export class ProcurementService {
   ProcurementPagination = new ProcurementPagination();
   constructor(private http: HttpClient) { }
 
-  getProcurements(pageNumber, pageSize, searchText) { 
+  getProcurements(pageNumber, pageSize, searchText, searchBy) { 
 
     let params = new HttpParams();
 
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
+    params = params.append('searchBy', searchBy.toString())
 
     
     return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-Procurements', { observe: 'response', params })

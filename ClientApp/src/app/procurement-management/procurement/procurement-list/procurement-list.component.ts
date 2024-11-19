@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Procurement } from '../../models/Procurement';
@@ -6,12 +6,12 @@ import { ProcurementService } from '../../service/Procurement.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
-import{MasterData} from 'src/assets/data/master-data';
+import { MasterData } from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-procurement-list',
-  templateUrl: './procurement-list.component.html', 
+  templateUrl: './procurement-list.component.html',
   styleUrls: ['./procurement-list.component.sass']
 })
 export class ProcurementListComponent implements OnInit {
@@ -19,32 +19,38 @@ export class ProcurementListComponent implements OnInit {
   masterData = MasterData;
   ELEMENT_DATA: Procurement[] = [];
   isLoading = false;
-  groupArrays:{ authorityName: string; courses: any; }[];
+  groupArrays: { authorityName: string; courses: any; }[];
   showHideDiv = false;
-  itemCount:any =0;
+  itemCount: any = 0;
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
     pageSize: 5,
     length: 1
   }
-  searchText="";
+  searchByOptions = ["shipname", "equipmentname"]
+  searchText = "";
+  isShipNameChecked: boolean = true;
+  isEquipmentChecked: boolean;
+  ShipNameSelelect = "";
+  searchBy = "shipname"; // by Default Search by Ship Name Selected;
 
-  displayedColumns: string[] = [ 'ser', 'schoolName', 'procurementType', 'groupName', 'equpmentName', 'qty','ePrice', 'fcLcName', 'dgdpNssdName', 'controlledName', 'tecName', 'sentToDgdpNssdDate', 'tenderOpeningDateTypeName', 'tenderOpeningDate','offerReceivedDate', 'sentForContractDate', 'contractSignedDate', 'paymentStatus', 'remarks', 'actions'];
+  displayedColumns: string[] = ['ser', 'schoolName', 'procurementType', 'groupName', 'equpmentName', 'qty', 'ePrice', 'fcLcName', 'dgdpNssdName', 'controlledName', 'tecName', 'sentToDgdpNssdDate', 'tenderOpeningDateTypeName', 'tenderOpeningDate', 'offerReceivedDate', 'sentForContractDate', 'contractSignedDate', 'paymentStatus', 'remarks', 'actions'];
   dataSource: MatTableDataSource<Procurement> = new MatTableDataSource();
 
   selection = new SelectionModel<Procurement>(true, []);
-  
-  constructor(private snackBar: MatSnackBar,private ProcurementService: ProcurementService,private router: Router,private confirmService: ConfirmService) { }
-  
+
+  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService) { }
+
   ngOnInit() {
     this.getProcurements();
   }
- 
+
   getProcurements() {
     this.isLoading = true;
-    this.ProcurementService.getProcurements(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-      this.dataSource.data = response.items; 
-      this.paging.length = response.totalItemsCount    
+    console.log(this.searchBy);
+    this.ProcurementService.getProcurements(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.searchBy).subscribe(response => {
+      this.dataSource.data = response.items;
+      this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
 
@@ -76,10 +82,12 @@ export class ProcurementListComponent implements OnInit {
     this.getProcurements();
   }
 
-  applyFilter(searchText: any){ 
+  applyFilter(searchText: any) {
     this.searchText = searchText;
+    if (!this.isEquipmentChecked && !this.isShipNameChecked)
+      this.searchBy=""
     this.getProcurements();
-  } 
+  }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
   }
@@ -90,7 +98,7 @@ export class ProcurementListComponent implements OnInit {
   print() {
     let printContents, popupWin;
     printContents = document.getElementById("print-routine").innerHTML;
-    popupWin = window.open( "top=0,left=0,height=100%,width=auto");
+    popupWin = window.open("top=0,left=0,height=100%,width=auto");
     popupWin.document.open();
     popupWin.document.write(`
       <html>
@@ -155,7 +163,7 @@ export class ProcurementListComponent implements OnInit {
     popupWin.document.close();
   }
   deleteItem(row) {
-    const id = row.procurementId; 
+    const id = row.procurementId;
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
       if (result) {
         this.ProcurementService.delete(id).subscribe(() => {
@@ -168,6 +176,24 @@ export class ProcurementListComponent implements OnInit {
           });
         })
       }
-    })    
+    })
   }
+  onShipNameCheckboxChange(event: any) {
+
+    if (this.isShipNameChecked) {
+      this.isEquipmentChecked = false;
+    }
+    this.searchBy = "shipname"
+
+  }
+  onEquipmentCheckboxChange(event: any) {
+
+    if (this.isEquipmentChecked) {
+      this.isShipNameChecked = false;
+      this.searchBy = "equipmentname"
+    }
+
+  }
+
+
 }

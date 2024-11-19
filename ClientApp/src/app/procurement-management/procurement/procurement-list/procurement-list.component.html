@@ -39,12 +39,11 @@
                         <div class="icon-button-demo m-l-10">
                           <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
                             <mat-icon class="col-white">search</mat-icon>
-                          </button>
+                          </button>  
                         </div>
+                      
                       </li>
-                      <li>
-                        <!-- <h3> Procurement List</h3> -->
-                      </li>
+                    
                     </ul>
                   </div>
                   <div class="col-4">
@@ -65,6 +64,9 @@
                   </div>
 
                 </div>
+              </div>
+              <div>
+              
               </div>
               <div id="print-routine">
                 <!-- <table class="table tbl-by-group db-li-s-in">
@@ -112,142 +114,180 @@
                       </ng-container>
                     </tbody>
                   </table> -->
-                  <mat-table #table [dataSource]="dataSource" matSort class="custom-table">
-                    <!-- Serial Number Column -->
-                    <ng-container matColumnDef="ser">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Ser. </mat-header-cell>
-                      <mat-cell *matCellDef="let element; let i = index;" class="vertical-cell">
-                        {{ ((paging.pageIndex-1) * paging.pageSize) + i+1 }}
-                      </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Ship Name Column -->
-                    <ng-container matColumnDef="schoolName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Ship Name </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.schoolName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Procurement Type Column -->
-                    <ng-container matColumnDef="procurementType">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Procurement Type </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.procurementTypeName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Group Name Column -->
-                    <ng-container matColumnDef="groupName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Group Name </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.groupName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Equipment Name Column -->
-                    <ng-container matColumnDef="equpmentName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Equipment Name </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.equpmentName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Quantity Column -->
-                    <ng-container matColumnDef="qty">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Qty </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.qty}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Estimated Price Column -->
-                    <ng-container matColumnDef="ePrice">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> E-Price </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.ePrice}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- FC/LC Column -->
-                    <ng-container matColumnDef="fcLcName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> FC/LC </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.fcLcName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- DGDP/NSSD Name Column -->
-                    <ng-container matColumnDef="dgdpNssdName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> DGDP/NSSD Name </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.dgdpNssdName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Controlled Name Column -->
-                    <ng-container matColumnDef="controlledName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Controlled </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.controlledName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- TEC Column -->
-                    <ng-container matColumnDef="tecName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> TEC </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.tecName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Sent to DGDP/NSSD Date Column -->
-                    <ng-container matColumnDef="sentToDgdpNssdDate">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Sent to DGDP/NSSD Date </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.sentToDgdpNssdDate | date: 'dd MMM, yyyy'}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Tender Opening Date Type Column -->
-                    <ng-container matColumnDef="tenderOpeningDateTypeName">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Tender Type </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.tenderOpeningDateTypeName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Tender Opening Date Column -->
-                    <ng-container matColumnDef="tenderOpeningDate">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Tender Opening Date </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.tenderOpeningDate | date: 'dd MMM, yyyy'}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Offer Received Date Column -->
-                    <ng-container matColumnDef="offerReceivedDate">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Offer Received Date </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.offerReceivedDate | date: 'dd MMM, yyyy'}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Sent for Contract Date Column -->
-                    <ng-container matColumnDef="sentForContractDate">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Sent for Contract Date </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.sentForContractDate | date: 'dd MMM, yyyy'}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Contract Signed Date Column -->
-                    <ng-container matColumnDef="contractSignedDate">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Contract Signed Date </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.contractSignedDate | date: 'dd MMM, yyyy'}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Payment Status Column -->
-                    <ng-container matColumnDef="paymentStatus">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Payment Status </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.paymentStatusName}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Remarks Column -->
-                    <ng-container matColumnDef="remarks">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Remarks </mat-header-cell>
-                      <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.remarks}} </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Actions Column -->
-                    <ng-container matColumnDef="actions">
-                      <mat-header-cell *matHeaderCellDef class="vertical-header custom-header"> Actions </mat-header-cell>
-                      <mat-cell *matCellDef="let row; let i=index;" class="vertical-cell">
-                        <button mat-icon-button color="accent" class="btn-tbl-edit"
-                          [routerLink]="['/procurement-management/update-procurement', row.procurementId]">
-                          <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
-                        </button>
-                        <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()" (click)="deleteItem(row)">
-                          <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
-                        </button>
-                      </mat-cell>
-                    </ng-container>
-                  
-                    <!-- Table Rows -->
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                  </mat-table>
-                  
+                  <div class="m-3">
+                  Search By :   <mat-checkbox class="mx-2" [(ngModel)]="isShipNameChecked" (change)="onShipNameCheckboxChange($event)"
+                  color="primary">
+                  Ship Name
+                </mat-checkbox>
+                <mat-checkbox class="mx-2" [(ngModel)]="isEquipmentChecked" (change)="onEquipmentCheckboxChange($event)"
+                  color="primary">
+                  Equipment Name
+                </mat-checkbox>
+                
+                  </div>
+                <mat-table #table [dataSource]="dataSource" matSort class="custom-table">
+                  <!-- Serial Number Column -->
+                  <ng-container matColumnDef="ser">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Ser.
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element; let i = index;" class="vertical-cell">
+                      {{ ((paging.pageIndex-1) * paging.pageSize) + i+1 }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Ship Name Column -->
+                  <ng-container matColumnDef="schoolName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Ship Name
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.schoolName}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Procurement Type Column -->
+                  <ng-container matColumnDef="procurementType">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header">
+                      Procurement Type </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.procurementTypeName}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Group Name Column -->
+                  <ng-container matColumnDef="groupName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Group Name
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.groupName}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Equipment Name Column -->
+                  <ng-container matColumnDef="equpmentName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Equipment
+                      Name </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.equpmentName}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Quantity Column -->
+                  <ng-container matColumnDef="qty">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Qty
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.qty}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Estimated Price Column -->
+                  <ng-container matColumnDef="ePrice">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> E-Price
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.ePrice}} </mat-cell>
+                  </ng-container>
+
+                  <!-- FC/LC Column -->
+                  <ng-container matColumnDef="fcLcName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> FC/LC
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.fcLcName}} </mat-cell>
+                  </ng-container>
+
+                  <!-- DGDP/NSSD Name Column -->
+                  <ng-container matColumnDef="dgdpNssdName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> DGDP/NSSD
+                      Name </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.dgdpNssdName}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Controlled Name Column -->
+                  <ng-container matColumnDef="controlledName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Controlled
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.controlledName}} </mat-cell>
+                  </ng-container>
+
+                  <!-- TEC Column -->
+                  <ng-container matColumnDef="tecName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> TEC
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.tecName}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Sent to DGDP/NSSD Date Column -->
+                  <ng-container matColumnDef="sentToDgdpNssdDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Sent to
+                      DGDP/NSSD Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.sentToDgdpNssdDate | date: 'dd
+                      MMM, yyyy'}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Tender Opening Date Type Column -->
+                  <ng-container matColumnDef="tenderOpeningDateTypeName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Tender
+                      Type </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.tenderOpeningDateTypeName}}
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Tender Opening Date Column -->
+                  <ng-container matColumnDef="tenderOpeningDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Tender
+                      Opening Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.tenderOpeningDate | date: 'dd
+                      MMM, yyyy'}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Offer Received Date Column -->
+                  <ng-container matColumnDef="offerReceivedDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Offer
+                      Received Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.offerReceivedDate | date: 'dd
+                      MMM, yyyy'}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Sent for Contract Date Column -->
+                  <ng-container matColumnDef="sentForContractDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Sent for
+                      Contract Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.sentForContractDate | date: 'dd
+                      MMM, yyyy'}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Contract Signed Date Column -->
+                  <ng-container matColumnDef="contractSignedDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Contract
+                      Signed Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.contractSignedDate | date: 'dd
+                      MMM, yyyy'}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Payment Status Column -->
+                  <ng-container matColumnDef="paymentStatus">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Payment
+                      Status </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.paymentStatusName}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Remarks Column -->
+                  <ng-container matColumnDef="remarks">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="vertical-header custom-header"> Remarks
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="vertical-cell"> {{element.remarks}} </mat-cell>
+                  </ng-container>
+
+                  <!-- Actions Column -->
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef class="vertical-header custom-header"> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i=index;" class="vertical-cell">
+                      <button mat-icon-button color="accent" class="btn-tbl-edit"
+                        [routerLink]="['/procurement-management/update-procurement', row.procurementId]">
+                        <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+                      </button>
+                      <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
+                        (click)="deleteItem(row)">
+                        <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
+                      </button>
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Table Rows -->
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+
               </div>
 
 
