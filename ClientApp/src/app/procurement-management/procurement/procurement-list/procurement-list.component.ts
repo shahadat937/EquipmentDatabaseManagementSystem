@@ -33,6 +33,10 @@ export class ProcurementListComponent implements OnInit {
   isEquipmentChecked: boolean;
   ShipNameSelelect = "";
   searchBy = "shipname"; // by Default Search by Ship Name Selected;
+  procurementMethodId1 : number
+  procurementMethodId2 : number
+  procurementMethodName1 : string
+  procurementMethodName2 : string
 
   displayedColumns: string[] = ['ser', 'schoolName', 'procurementType', 'groupName', 'equpmentName', 'qty', 'ePrice', 'fcLcName', 'dgdpNssdName', 'controlledName', 'tecName', 'sentToDgdpNssdDate', 'tenderOpeningDateTypeName', 'tenderOpeningDate', 'offerReceivedDate', 'sentForContractDate', 'contractSignedDate', 'paymentStatus', 'remarks', 'actions'];
   dataSource: MatTableDataSource<Procurement> = new MatTableDataSource();
@@ -42,6 +46,7 @@ export class ProcurementListComponent implements OnInit {
   constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService) { }
 
   ngOnInit() {
+    this.getProcurementMethods()
     this.getProcurements();
   }
 
@@ -74,7 +79,19 @@ export class ProcurementListComponent implements OnInit {
       // });
     })
   }
+  getProcurementMethods() {
+    this.isLoading = true;
+    this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
+      
+      console.log(response);
+      this.procurementMethodId1 = response.items[0]?.procurementMethodId;
+      this.procurementMethodId2 = response.items[1]?.procurementMethodId;
+      this.procurementMethodName1 = response.items[0]?.name;
+      this.procurementMethodName2 = response.items[1]?.name;
+      console.log(this.procurementMethodId1, this.procurementMethodId2, this.procurementMethodName1, this.procurementMethodName2)
 
+    })
+  }
   pageChanged(event: PageEvent) {
     this.paging.pageIndex = event.pageIndex
     this.paging.pageSize = event.pageSize

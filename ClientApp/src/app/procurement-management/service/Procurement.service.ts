@@ -38,6 +38,23 @@ export class ProcurementService {
   find(id: number) {
     return this.http.get<Procurement>(this.baseUrl + '/procurement/get-ProcurementDetail/' + id);
   }
+  getProcurementMethods(pageNumber, pageSize, searchText) { 
+
+    let params = new HttpParams();
+
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+
+    
+    return this.http.get<any>(this.baseUrl + '/procurement-method/get-ProcurementMethods', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        return response.body;
+      })
+    );
+   
+  }
 
   // getSelectedSchoolName(baseNameId){
   //   return this.http.get<SelectedModel[]>(this.baseUrl + '/base-School-name/get-selectedSchoolNames?thirdLevel='+baseNameId)

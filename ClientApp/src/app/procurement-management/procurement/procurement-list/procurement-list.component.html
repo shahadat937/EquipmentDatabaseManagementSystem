@@ -114,17 +114,30 @@
                       </ng-container>
                     </tbody>
                   </table> -->
-                  <div class="m-3">
-                  Search By :   <mat-checkbox class="mx-2" [(ngModel)]="isShipNameChecked" (change)="onShipNameCheckboxChange($event)"
-                  color="primary">
-                  Ship Name
-                </mat-checkbox>
-                <mat-checkbox class="mx-2" [(ngModel)]="isEquipmentChecked" (change)="onEquipmentCheckboxChange($event)"
-                  color="primary">
-                  Equipment Name
-                </mat-checkbox>
-                
+                  <div class="row align-items-center mt-2">
+                    <!-- Column 1 -->
+                    <div class="col-lg-6 d-flex align-items-center flex-wrap">
+                      <span class="me-3">Search By:</span>
+                      <mat-checkbox class="mx-2" [(ngModel)]="isShipNameChecked" (change)="onShipNameCheckboxChange($event)" color="primary">
+                        Ship Name
+                      </mat-checkbox>
+                      <mat-checkbox class="mx-2" [(ngModel)]="isEquipmentChecked" (change)="onEquipmentCheckboxChange($event)" color="primary">
+                        Equipment Name
+                      </mat-checkbox>
+                    </div>
+                  
+                    <!-- Column 2 -->
+                    <div *ngIf="procurementMethodName1 && procurementMethodName2 "  class="col-lg-6 text-end">
+                      <button  class="btn-space" mat-raised-button color="warn">
+                        {{procurementMethodName1}}
+                      </button>
+                      <button class="btn-space" mat-raised-button color="accent">
+                        {{procurementMethodName2}}
+                      </button>
+                    </div>
                   </div>
+                  
+                  
                 <mat-table #table [dataSource]="dataSource" matSort class="custom-table">
                   <!-- Serial Number Column -->
                   <ng-container matColumnDef="ser">
@@ -271,8 +284,8 @@
                   <!-- Actions Column -->
                   <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef class="vertical-header custom-header"> Actions </mat-header-cell>
-                    <mat-cell *matCellDef="let row; let i=index;" class="vertical-cell">
-                      <button mat-icon-button color="accent" class="btn-tbl-edit"
+                    <mat-cell *matCellDef="let row; let i=index;" class="d-flex flex-column">
+                      <button mat-icon-button color="accent" class="btn-tbl-edit mb-2"
                         [routerLink]="['/procurement-management/update-procurement', row.procurementId]">
                         <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
                       </button>
