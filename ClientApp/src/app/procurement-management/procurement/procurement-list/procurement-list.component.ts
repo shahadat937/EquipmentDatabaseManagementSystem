@@ -33,12 +33,13 @@ export class ProcurementListComponent implements OnInit {
   isEquipmentChecked: boolean;
   ShipNameSelelect = "";
   searchBy = "shipname"; // by Default Search by Ship Name Selected;
-  procurementMethodId1 : number
-  procurementMethodId2 : number
-  procurementMethodName1 : string
-  procurementMethodName2 : string
+  procurementMethodId1: number
+  procurementMethodId2: number
+  procurementMethodName1: string
+  procurementMethodName2: string
+  selectedProcurementTypeId: number;
 
-  displayedColumns: string[] = ['ser', 'schoolName', 'procurementType', 'groupName', 'equpmentName', 'qty', 'ePrice', 'fcLcName', 'dgdpNssdName', 'controlledName', 'tecName', 'sentToDgdpNssdDate', 'tenderOpeningDateTypeName', 'tenderOpeningDate', 'offerReceivedDate', 'sentForContractDate', 'contractSignedDate', 'paymentStatus', 'remarks', 'actions'];
+  displayedColumns: string[] = ['ser', 'schoolName', 'procurementType', 'groupName', 'equpmentName', 'qty', 'ePrice', 'fcLcName', 'dgdpNssdName', 'controlledName', 'tecName', 'sentToDgdpNssdDate', 'tenderOpeningDateTypeName', 'tenderOpeningDate', 'offerReceivedDate', 'sentForContractDate', 'clarificationToOemSentDate','contractSignedDate', 'paymentStatus', 'remarks', 'actions'];
   dataSource: MatTableDataSource<Procurement> = new MatTableDataSource();
 
   selection = new SelectionModel<Procurement>(true, []);
@@ -47,7 +48,8 @@ export class ProcurementListComponent implements OnInit {
 
   ngOnInit() {
     this.getProcurementMethods()
-    this.getProcurements();
+    // this.getProcurements();
+
   }
 
   getProcurements() {
@@ -58,39 +60,32 @@ export class ProcurementListComponent implements OnInit {
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
-
-
-      //  // this gives an object with dates as keys
-      //  const groups = this.dataSource.data.reduce((groups, courses) => {
-      //   const schoolName = courses.authorityName;
-      //   if (!groups[schoolName]) {
-      //     groups[schoolName] = [];
-      //   }
-      //   groups[schoolName].push(courses);
-      //   return groups;
-      // }, {});
-
-      // // Edit: to add it in the array format instead
-      // this.groupArrays = Object.keys(groups).map((authorityName) => {
-      //   return {
-      //     authorityName,
-      //     courses: groups[authorityName]
-      //   };
-      // });
     })
   }
+
+  getProcurementsByPeocureMethodId(procurementMethodId) {
+    this.ProcurementService.getProcurementsByProcurementMethodId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.searchBy, procurementMethodId).subscribe(response => {
+      this.dataSource.data = response.items;
+      this.paging.length = response.totalItemsCount
+      this.isLoading = false;
+      this.itemCount = response.items.length;
+    })
+  }
+
   getProcurementMethods() {
     this.isLoading = true;
-    this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-      
+    this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+
       console.log(response);
       this.procurementMethodId1 = response.items[0]?.procurementMethodId;
       this.procurementMethodId2 = response.items[1]?.procurementMethodId;
       this.procurementMethodName1 = response.items[0]?.name;
       this.procurementMethodName2 = response.items[1]?.name;
-      console.log(this.procurementMethodId1, this.procurementMethodId2, this.procurementMethodName1, this.procurementMethodName2)
+      this.selectedProcurementTypeId = response.items[0]?.procurementMethodId ;
+      this.getProcurementsByPeocureMethodId(this.procurementMethodId1)
 
     })
+
   }
   pageChanged(event: PageEvent) {
     this.paging.pageIndex = event.pageIndex
@@ -102,8 +97,8 @@ export class ProcurementListComponent implements OnInit {
   applyFilter(searchText: any) {
     this.searchText = searchText;
     if (!this.isEquipmentChecked && !this.isShipNameChecked)
-      this.searchBy=""
-    this.getProcurements();
+      this.searchBy = ""
+    this.getProcurementsByPeocureMethodId(this.selectedProcurementTypeId);
   }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
@@ -112,8 +107,10 @@ export class ProcurementListComponent implements OnInit {
     this.showHideDiv = false;
     this.print();
   }
-  filterByMethod(methodId : number){
+  filterByMethod(methodId: number) {
     console.log(methodId);
+    this.selectedProcurementTypeId = methodId;
+    this.getProcurementsByPeocureMethodId(methodId);
   }
   print() {
     let printContents, popupWin;
@@ -187,7 +184,7 @@ export class ProcurementListComponent implements OnInit {
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
       if (result) {
         this.ProcurementService.delete(id).subscribe(() => {
-          this.getProcurements();
+          this.getProcurementsByPeocureMethodId(this.selectedProcurementTypeId);
           this.snackBar.open('Information Deleted Successfully ', '', {
             duration: 2000,
             verticalPosition: 'bottom',

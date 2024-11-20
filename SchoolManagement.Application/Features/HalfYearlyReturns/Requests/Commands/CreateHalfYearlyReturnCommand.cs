@@ -6,6 +6,6 @@ namespace SchoolManagement.Application.Features.HalfYearlyReturns.Requests.Comma
 {
     public class CreateHalfYearlyReturnCommand : IRequest<BaseCommandResponse>
     {
-        public CreateHalfYearlyReturnDto HalfYearlyReturnDto { get; set; }
+        public List<CreateHalfYearlyReturnDto> HalfYearlyReturnDto { get; set; }
     }
 }
