@@ -59,10 +59,10 @@
                   </div>
                 </div>
                 <div class="table-container">
-                  <mat-table #table [dataSource]="dataSource" matSort id="show-shipInfo" class="no-wrap-table">
+                  <!-- <mat-table #table [dataSource]="dataSource" matSort id="show-shipInfo" class="no-wrap-table">
 
                     <ng-container matColumnDef="ser">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Ser.</mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header style="width: 150px;">Ser.</mat-header-cell>
                       <mat-cell *matCellDef="let element; let i = index;">
                         {{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}
                       </mat-cell>
@@ -177,7 +177,67 @@
                   
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                  </mat-table>
+                  </mat-table> -->
+                  <table id="show-shipInfo" class="no-wrap-table">
+                    <thead>
+                      <tr>
+                        <th style="width: 150px;">Ser.</th>
+                        <th>Ship Name</th>
+                        <th>Equipment Category</th>
+                        <th>Equipment Name</th>
+                        <th>Qty</th>
+                        <th>Model</th>
+                        <th>Brand</th>
+                        <th>Technical Specification</th>
+                        <th>Manufacturer Info</th>
+                        <th>Acquisition Method</th>
+                        <th>Year of Installation</th>
+                        <th>Location</th>
+                        <th>State of Equipment</th>
+                        <th>Power Supply</th>
+                        <th>AVR Brand</th>
+                        <th>AVR Model</th>
+                        <th>Interface Protocol</th>
+                        <th>Composition</th>
+                        <th>Defect Description</th>
+                        <th>Remarks</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let element of dataSource.data; let i = index">
+                        <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                        <td>{{ element.schoolName }}</td>
+                        <td>{{ element.equipmentCategory }}</td>
+                        <td>{{ element.equpmentName }}</td>
+                        <td>{{ element.qty }}</td>
+                        <td>{{ element.model }}</td>
+                        <td>{{ element.brand }}</td>
+                        <td>{{ element.techSpecification }}</td>
+                        <td>{{ element.manufacturerNameAndAddress }}</td>
+                        <td>{{ element.acquisitionMethodName }}</td>
+                        <td>{{ element.yearOfInstallation }}</td>
+                        <td>{{ element.location }}</td>
+                        <td>{{ element.stateOfEquipment }}</td>
+                        <td>{{ element.powerSupply }}</td>
+                        <td>{{ element.avrbrand }}</td>
+                        <td>{{ element.avrmodel }}</td>
+                        <td>{{ element.interfaceProtocol }}</td>
+                        <td>{{ element.composition }}</td>
+                        <td>{{ element.defectDescription }}</td>
+                        <td>{{ element.remarks }}</td>
+                        <td>
+                          <button class="btn btn-sm btn-primary" [routerLink]="['/ship-management/update-shipequipmentinfo', element.shipEquipmentInfoId]">
+                            Edit
+                          </button>
+                          <button class="btn btn-sm btn-danger" (click)="deleteItem(element)">
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
                   
                 </div>
                 
