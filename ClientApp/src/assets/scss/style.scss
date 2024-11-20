@@ -3460,11 +3460,12 @@ app-main-tab-layout .table-bordered tbody tr td {
   .custom-header{
     background-color: #DC143C;
     color : #fff;
+    font-weight: bold;
+    border: none;
   }
   
   .custom-table-wrapper {
     max-height: 100%; 
-    overflow-y: auto;
     overflow-x: auto;
     display: block;
   }

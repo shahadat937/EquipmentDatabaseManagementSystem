@@ -52,7 +52,6 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
     const id = this.route.snapshot.paramMap.get('halfYearlyReturnId'); 
     if (id) {
       this.pageTitle = 'Edit Half Yearly Return';
@@ -90,9 +89,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     }
 
     this.getSelectedEquipmentCategory();
-    //this.getSelectedHalfYearlyRunningTime();
     this.getSelectedBrand();
-    //this.getSelectedOperationalStatus();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
   }
   intitializeForm() {
@@ -151,10 +148,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     const control = <FormArray>this.HalfYearlyReturnForm.controls["shipEquipmentInfoList"];
     for (let i = 0; i < this.selectedShipEquipmentInfoList.length; i++) {
       control.push(this.createHalfYearlyReturnData());
-      console.log("selectedShipEquipmentInfoList")
-      console.log(this.selectedShipEquipmentInfoList)
     }
-    console.log('12');
     this.HalfYearlyReturnForm.patchValue({ shipEquipmentInfoList: this.selectedShipEquipmentInfoList });
   }
   getSelectedSchoolByBranchLevelAndThirdLevel(){
@@ -182,8 +176,6 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     var equpmentNameId= this.HalfYearlyReturnForm.value['equpmentNameId'];
     this.HalfYearlyReturnService.getShipEquipmentInfoListForHalfYearly(equipmentCategoryId,equpmentNameId).subscribe(res=>{
       this.selectedShipEquipmentInfoList=res
-      console.log("EquipmentInfoList")
-      console.log(this.selectedShipEquipmentInfoList) 
       this.clearList();
       this.getShipEquipmentInfoListonClick();
     });
@@ -200,21 +192,16 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   // getSelectedHalfYearlyRunningTime(){
   //   this.HalfYearlyReturnService.getSelectedHalfYearlyRunningTime().subscribe(res=>{
   //     this.selectedHalfYearlyRunningTime=res
-  //     console.log(res)
-  //     console.log(res)
   //   }); 
   // }
   getSelectedBrand(){
     this.HalfYearlyReturnService.getSelectedBrand().subscribe(res=>{
       this.selectedBrand=res
-      console.log(res);
     }); 
   }
   // getSelectedOperationalStatus(){
   //   this.HalfYearlyReturnService.getSelectedOperationalStatus().subscribe(res=>{
   //     this.selectedOperationalStatus=res
-  //     console.log(res)
-  //     console.log(res)
   //   }); 
   // }
 
@@ -228,7 +215,6 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   deleteItem(row) {
     const id = row.halfYearlyReturnId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
       if (result) {
         this.HalfYearlyReturnService.delete(id).subscribe(() => {
           this.snackBar.open('Information Deleted Successfully ', '', {
@@ -252,8 +238,6 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     //   const value = this.MonthlyReturnForm.value[key];
     //   formData.append(key, value);
     // }
-    console.log("HalfYearlyReturn.value")
-    console.log(this.HalfYearlyReturnForm.value)
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         
@@ -273,7 +257,9 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       })
     } 
     else {
-      this.HalfYearlyReturnService.submit(this.HalfYearlyReturnForm.value).subscribe(response => {
+     console.log("log",this.HalfYearlyReturnForm.value.shipEquipmentInfoList);
+      this.HalfYearlyReturnService.submit(this.HalfYearlyReturnForm.value.shipEquipmentInfoList
+      ).subscribe(response => {
         this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');
         this.snackBar.open('Information Inserted Successfully ', '', {
           duration: 2000,
