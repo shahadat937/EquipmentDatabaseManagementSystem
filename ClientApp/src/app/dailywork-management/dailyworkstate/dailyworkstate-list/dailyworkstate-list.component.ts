@@ -17,7 +17,7 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./dailyworkstate-list.component.sass']
 })
 export class DailyWorkStateListComponent implements OnInit {
-
+  filterAction: 'yes' | 'no' = 'yes'; 
   masterData = MasterData;
   ELEMENT_DATA: DailyWorkState[] = [];
   isLoading = false;
@@ -56,7 +56,7 @@ export class DailyWorkStateListComponent implements OnInit {
     ).subscribe((searchText) => {
       this.searchText = searchText;
       this.getDailyWorkStates();
-      this.getDailyWorkStatesListByNoAction();
+      // this.getDailyWorkStatesListByNoAction();
     });
   }
 
@@ -88,6 +88,9 @@ export class DailyWorkStateListComponent implements OnInit {
 
   applyFilter(searchText: string) {
     this.searchSubject.next(searchText);
+  }
+  applyFilterByAction(action: 'yes' | 'no') {
+    this.filterAction = action;
   }
 
   toggle() {

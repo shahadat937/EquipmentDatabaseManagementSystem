@@ -45,7 +45,7 @@ namespace SchoolManagement.Identity.Services
             List<SelectedModel> selectModels = roles.Where(x => !role.Contains(x.Name)).Select(x => new SelectedModel
             {
                 Text = x.Name,
-                Value = x.Name
+                Value = x.Id
             }).ToList();
             return selectModels;
         }

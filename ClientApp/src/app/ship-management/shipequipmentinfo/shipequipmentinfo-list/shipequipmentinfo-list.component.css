@@ -1,12 +1,13 @@
-.no-wrap-table {
-    table-layout: fixed;  /* Ensures the table takes the full width of the container */
-    width: 100%;           /* Make the table occupy full available width */
-  }
-  
-  .no-wrap-table .mat-header-cell,
-  .no-wrap-table .mat-cell {
-    white-space: nowrap;  /* Prevent text wrapping in both header and cell */
-    overflow: hidden;     /* Hide overflow content if necessary */
-    text-overflow: ellipsis;  /* Adds ellipsis (...) for overflow content */
-  }
-  
+.table-container{
+  width: 100%;
+  overflow-x: auto;
+}
+tr,td,th{
+  padding: 20px;
+  width: 30px;
+  border: 1px solid rgb(194, 194, 194);
+}
+th{
+  background-color: #eb2a6a;
+  color: white;
+}

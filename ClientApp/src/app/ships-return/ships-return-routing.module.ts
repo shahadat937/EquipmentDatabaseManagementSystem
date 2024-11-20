@@ -6,6 +6,7 @@ import {NewMonthlyReturnComponent} from '../../app/ships-return/monthlyreturn/ne
 import {MonthlyReturnListComponent} from '../../app/ships-return/monthlyreturn/monthlyreturn-list/monthlyreturn-list.component'
 import { HalfYearlyReturnListComponent } from './halfyearlyreturn/halfyearlyreturn-list/halfyearlyreturn-list.component';
 import { NewHalfYearlyReturnComponent } from './halfyearlyreturn/new-halfyearlyreturn/new-halfyearlyreturn.component';
+import {NewYearlyRetrunComponent} from './YearlyReturn/yearlyreturnlist/yearlyreturn-list.component'
 const routes: Routes = [
   {
     path: '',
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'add-halfyearlyreturn',
     component: NewHalfYearlyReturnComponent,
+  },
+  {
+    path: 'yearlyreturn-list',
+    component: NewYearlyRetrunComponent,
   },
 
 

@@ -1,0 +1,147 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">Monthly Return List</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Monthly Return</a>
+              </li>
+              <li class="breadcrumb-item active">All</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div class="responsive_table">
+                <div class="materialTableHeader">
+                  <div class="row">
+                    <div class="col-8">
+                      <ul class="header-buttons-left ml-0">
+                       <!-- <li><h5 class="count-value">No of Items: - {{ itemCount }}</h5></li> -->
+                         
+                      
+                        <li class="dropdown">
+                          <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Search</mat-label>
+                            <input
+                              matInput
+                              type="text"
+                              placeholder="Search..."
+                              (input)="($event.target.value)" />
+                          </mat-form-field>
+                        </li>
+                        <li>
+                          <div class="icon-button-demo m-l-10">                          
+                            <!-- <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
+                              <mat-icon class="col-white">search</mat-icon>
+                            </button> -->
+                          </div>
+                        </li>
+                        <li>
+                          <!-- <h3> Monthly Return List</h3> -->
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-4">
+                      <ul class="header-buttons">
+                        <!-- <label>Filter by Retrun Type</label>
+                         <li>
+                          
+                          <select class="filter" name="return-type">
+                            <option value="" disabled>Choose Return Type</option>
+                            <option value="damage" id="1" selected>Damage</option>
+                            <option value="defective" id="2">Defective</option>
+                          </select>
+                        </li> -->
+                        <li>
+                          <div class="icon-button-demo">
+                            <button class="btn-space"  mat-raised-button
+                            color="primary" routerLink="/ships-return/add-monthly"> Add
+                              <mat-icon class="col-white">add</mat-icon>
+                            </button>
+                            <button class="btn-space" mat-raised-button  color="primary">
+                              <mat-icon class="col-white">print</mat-icon>
+                            </button>
+                          </div>                        
+                        </li>
+                       
+                      </ul>
+                    </div>
+                   
+                  </div>
+                </div>
+                 
+                <div class="row">
+        
+                  <!-- Damage Return List Table -->
+                  
+        
+                  <!-- Defect Return List Table -->
+                  <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="card">
+                          <div class="body">
+                              <div class="responsive_table">
+                                  <div class="materialTableHeader">
+                                      <div class="row">
+                                          <div class="col-8">
+                                              <h3>Yearly Return</h3>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div id="print-routine">
+                                      <table class="table tbl-by-group db-li-s-in">
+                                          <thead>
+                                              <tr>
+                                                <th><h5>Ship Name</h5></th>
+                                                <th><h5>Equipement Name</h5></th>
+                                                <th><h5>Defect Time</h5></th>
+                                                <th><h5>Defect Description</h5></th>
+                                                <th><h5>Present Status</h5></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr >
+                                                
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div  class="icon-button-demo">
+                    <button class="btn-space"  mat-raised-button
+                    color="primary" routerLink="/admin/dashboard/main"> Back
+                      <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                    </button>
+                  </div>
+              </div>
+                <!-- <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                  [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                  (page)="pageChanged($event)">
+                </mat-paginator> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  
+  
+  
+   
