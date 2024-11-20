@@ -37,7 +37,7 @@ namespace SchoolManagement.Application.Features.RoleFeatures.Handler.Queries
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult.ToString());
 
-            IQueryable<RoleFeature> branches = _branchRepository.FilterWithInclude(x => String.IsNullOrEmpty(request.QueryParams.SearchText));
+             IQueryable<RoleFeature> branches = _branchRepository.FilterWithInclude(x => String.IsNullOrEmpty(request.QueryParams.SearchText));
             var totalCount = branches.Count();
             branches = branches.OrderByDescending(x => x.RoleId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 

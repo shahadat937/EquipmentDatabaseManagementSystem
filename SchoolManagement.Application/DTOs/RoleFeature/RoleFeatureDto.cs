@@ -8,7 +8,7 @@ namespace SchoolManagement.Application.DTOs.RoleFeature
     public class RoleFeatureDto : IRoleFeatureDto
     {
 
-        public int RoleId { get; set; }
+        public string RoleId { get; set; }
         public int FeatureId { get; set; }
         public bool Add { get; set; }
         public bool Update { get; set; }

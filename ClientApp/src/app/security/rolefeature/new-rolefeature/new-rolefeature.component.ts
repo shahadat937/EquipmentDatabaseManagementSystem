@@ -74,7 +74,7 @@ export class NewRoleFeatureComponent implements OnInit {
   getselectedrole(){
     this.RoleFeatureService.getselectedrole().subscribe(res=>{
       this.selectedrole=res
-      console.log(this.selectedrole);
+      console.log('role',this.selectedrole);
     });
   }
 
@@ -88,6 +88,7 @@ export class NewRoleFeatureComponent implements OnInit {
   onSubmit() {
     const rid = this.route.snapshot.paramMap.get('roleId'); 
     this.Roleid = Number(rid);
+    console.log(this.Roleid)
     const fid = this.route.snapshot.paramMap.get('featureId'); 
     this.Featureid = Number(fid)
     if (this.Roleid && this.Featureid) {
@@ -108,6 +109,7 @@ export class NewRoleFeatureComponent implements OnInit {
       })
     } else {
       this.RoleFeatureService.submit(this.RoleFeatureForm.value).subscribe(response => {
+        console.log('response', this.RoleFeatureForm.value)
         this.router.navigateByUrl('/security/rolefeature-list');
         this.snackBar.open('Information Inserted Successfully ', '', {
           duration: 2000,
