@@ -10,6 +10,8 @@ import{MasterData} from 'src/assets/data/master-data';
 import { BookUserManualBRInfo } from '../../models/BookUserManualBRInfo';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-bookusermanualbrinfo',
@@ -30,7 +32,7 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
   masterData = MasterData;
   ELEMENT_DATA: BookUserManualBRInfo[] = [];
   isLoading = false;
-  
+  private searchSubject: Subject<string> = new Subject(); 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
     pageSize: this.masterData.paging.pageSize,
@@ -75,6 +77,13 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
     this.getBookUserManualBRInfos();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
     this.getSelectedBookType();
+    this.searchSubject.pipe(
+      debounceTime(300) // Adjust debounce time as needed
+    ).subscribe((searchText) => {
+      this.searchText = searchText;
+      this.getBookUserManualBRInfos();
+      // this.getDailyWorkStatesListByNoAction();
+    });
   }
   intitializeForm() {
     this.BookUserManualBRInfoForm = this.fb.group({
@@ -124,10 +133,13 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
     this.getBookUserManualBRInfos();
   }
 
-  applyFilter(searchText: any){ 
-    this.searchText = searchText;
-    this.getBookUserManualBRInfos();
-  } 
+  // applyFilter(searchText: any){ 
+  //   this.searchText = searchText;
+  //   this.getBookUserManualBRInfos();
+  // } 
+  applyFilter(searchText: string) {
+    this.searchSubject.next(searchText);
+  }
 
   getBookUserManualBRInfos() {
     this.isLoading = true;

@@ -22,6 +22,7 @@ import {NewMonthlyReturnComponent} from '../../app/ships-return/monthlyreturn/ne
 import {MonthlyReturnListComponent} from '../../app/ships-return/monthlyreturn/monthlyreturn-list/monthlyreturn-list.component'
 import { HalfYearlyReturnListComponent } from './halfyearlyreturn/halfyearlyreturn-list/halfyearlyreturn-list.component';
 import { NewHalfYearlyReturnComponent } from './halfyearlyreturn/new-halfyearlyreturn/new-halfyearlyreturn.component';
+import { NewYearlyRetrunComponent } from './YearlyReturn/yearlyreturnlist/yearlyreturn-list.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NewHalfYearlyReturnComponent } from './halfyearlyreturn/new-halfyearlyr
     MonthlyReturnListComponent,
     HalfYearlyReturnListComponent,
     NewHalfYearlyReturnComponent,
+    NewYearlyRetrunComponent,
     // ShipEquipmentInfoListComponent,
     // NewShipEquipmentInfoComponent,
   ],

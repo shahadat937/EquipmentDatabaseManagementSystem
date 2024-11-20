@@ -47,18 +47,31 @@
                           </div>
                         </li>
                         <li>
-                          <h4> Daily Work State List By Action Taken No</h4>
+                         
                         </li>
                       </ul>
                     </div>
                     <div class="col-4">
                       <ul class="header-buttons">
                         <li>
+                          <div class="filter-buttons">
+                            
+                          </div>
                           <div class="icon-button-demo">
+                          
+                            <mat-form-field appearance="outline" class="m-10">
+                              <mat-label>Filter Action</mat-label>
+                              <mat-select [(value)]="filterAction" (selectionChange)="applyFilterByAction($event.value)">
+                                <mat-option value="yes">Action Taken Yes</mat-option>
+                                <mat-option value="no">Action Taken No</mat-option>
+                                <!-- <mat-option value="all">Show All</mat-option> -->
+                              </mat-select>
+                            </mat-form-field>
                             <button class="btn-space"  mat-raised-button
                             color="primary" routerLink="/dailywork-management/add-dailyworkstate"> Add
                               <mat-icon class="col-white">add</mat-icon>
                             </button>
+                           
                           </div>
                         </li>
                       </ul>
@@ -66,8 +79,11 @@
                    
                   </div>
                 </div>
-                <div id="print-routine"> 
+                <div class="container">
+                  <div *ngIf="filterAction === 'no'" id="print-routine"> 
+                  <h4 style="background-color: #ebebed; padding: 10px;"> Daily Work State List By Action Taken No</h4>
                   <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                    
                     <ng-container matColumnDef="ser">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Ser. </mat-header-cell>
                       <mat-cell *matCellDef="let element; let i = index;"> {{ ((paging.pageIndex-1) *  paging.pageSize) + i+1}} </mat-cell>
@@ -120,61 +136,14 @@
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                   </mat-table>
-                </div> 
-                
-              
-                <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
                   [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
                   (page)="pageChanged($event)">
                 </mat-paginator>
-              </div>
-              <div class="responsive_table m-t-40">
-                <div class="materialTableHeader">
-                  <div class="row">
-                    <div class="col-4">
-                      <ul class="header-buttons-left ml-0">
-                       <!-- <li><h5 class="count-value">No of Items: - {{ yesCount }}</h5></li> -->
-                        <li class="dropdown">
-                          <!-- <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
-                            aria-label="Search box"> -->
-                        </li>
-                        <!-- <li>
-                          <div class="icon-button-demo m-l-10">                          
-                            <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
-                              <mat-icon class="col-white">search</mat-icon>
-                            </button>
-                          </div>
-                        </li> -->
-                        <!-- <li>
-                          <h3 class="col-12"> Daily Work State List By Action Taken Yes</h3>
-                        </li> -->
-                      </ul>
-                    </div>
-                    <div class="col-8">
-                      <ul class="header-buttons-left ml-0">
-                        <li>
-                          <h4 class="col-12"> Daily Work State List By Action Taken Yes</h4>
-                        </li>
-                      </ul>
-                    </div>
-                    <!-- <div class="col-4">
-                      <ul class="header-buttons">
-                        <li>
-                          <div class="icon-button-demo">
-                            <button class="btn-space"  mat-raised-button
-                            color="primary" routerLink="/dailywork-management/add-dailyworkstate"> Add
-                              <mat-icon class="col-white">add</mat-icon>
-                            </button>
-                           
-                          </div>
-                         
-                        </li>
-                      </ul>
-                    </div> -->
-                   
-                  </div>
-                </div>
-                <div id="print-routine">           
+                  
+                </div>  
+
+                <div *ngIf="filterAction === 'yes'" id="print-routine">           
                   <!-- <table class="table tbl-by-group db-li-s-in">
                     <thead>
                       <tr>
@@ -220,6 +189,7 @@
                       </ng-container>
                     </tbody>
                   </table> -->
+                  <h4 style="background-color: #ebebed; padding: 10px;"> Daily Work State List By Action Taken Yes</h4>
                   <mat-table #table [dataSource]="dailyWorkStateList" matSort class="mat-cell">
                     <ng-container matColumnDef="ser">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Ser. </mat-header-cell>
@@ -272,14 +242,69 @@
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                   </mat-table>
-                </div> 
-                
-              
-                <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
                   [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
                   (page)="pageChanged($event)">
                 </mat-paginator>
+                </div> 
+
+                </div>
+               
+                
+              
+                
               </div>
+              <!-- <div class="responsive_table m-t-40">
+                <div class="materialTableHeader">
+                  <div class="row">
+                    <div class="col-4">
+                      <ul class="header-buttons-left ml-0"> -->
+                       <!-- <li><h5 class="count-value">No of Items: - {{ yesCount }}</h5></li> -->
+                        <!-- <li class="dropdown"> -->
+                          <!-- <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
+                            aria-label="Search box"> -->
+                        <!-- </li> -->
+                        <!-- <li>
+                          <div class="icon-button-demo m-l-10">                          
+                            <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
+                              <mat-icon class="col-white">search</mat-icon>
+                            </button>
+                          </div>
+                        </li> -->
+                        <!-- <li>
+                          <h3 class="col-12"> Daily Work State List By Action Taken Yes</h3>
+                        </li> -->
+                      <!-- </ul>
+                    </div>
+                    <div class="col-8">
+                      <ul class="header-buttons-left ml-0">
+                        <li>
+                          
+                        </li>
+                      </ul>
+                    </div> -->
+                    <!-- <div class="col-4">
+                      <ul class="header-buttons">
+                        <li>
+                          <div class="icon-button-demo">
+                            <button class="btn-space"  mat-raised-button
+                            color="primary" routerLink="/dailywork-management/add-dailyworkstate"> Add
+                              <mat-icon class="col-white">add</mat-icon>
+                            </button>
+                           
+                          </div>
+                         
+                        </li>
+                      </ul>
+                    </div> -->
+                   
+                  <!-- </div>
+                </div> -->
+                
+                
+              
+                
+              <!-- </div> -->
              
             </div>
           </div>

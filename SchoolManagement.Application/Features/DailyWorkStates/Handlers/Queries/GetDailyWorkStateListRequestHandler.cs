@@ -31,7 +31,7 @@ namespace SchoolManagement.Application.Features.DailyWorkStates.Handlers.Queries
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<DailyWorkState> DailyWorkStates = _DailyWorkStateRepository.FilterWithInclude(x => (x.Subject.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)), "LetterType", "DealingOfficer", "ActionTaken", "Priority");
+            IQueryable<DailyWorkState> DailyWorkStates = _DailyWorkStateRepository.FilterWithInclude(x => (x.Subject.Contains(request.QueryParams.SearchText) ||(x.LetterType.Name.Contains(request.QueryParams.SearchText)) ||String.IsNullOrEmpty(request.QueryParams.SearchText)), "LetterType", "DealingOfficer", "ActionTaken", "Priority");
             var totalCount = DailyWorkStates.Count();
             DailyWorkStates = DailyWorkStates.OrderByDescending(x => x.DailyWorkStateId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize).Where(x => x.ActionTakenId != 1);
 
