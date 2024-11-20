@@ -35,6 +35,25 @@ public class ProcurementController : ControllerBase
 
 
     [HttpGet]
+    [Route("get-Procurements-by-procurementMethodId/{procurementMethodId}")]
+    public async Task<ActionResult<List<ProcurementDto>>> GetProcurementListByProcurementMethodId([FromQuery] QueryParams queryParams, string searchBy, int procurementMethodId)
+    {
+        var Procurements = await _mediator.Send(new GetProcurementListByProcurementMethodIdRequest
+        {
+            QueryParams = queryParams,
+            SearchBy = searchBy,
+            ProcureMethodId = procurementMethodId
+        }
+
+        );
+        return Ok(Procurements);
+    }
+
+
+
+
+
+    [HttpGet]
     [Route("get-ProcurementDetail/{id}")]
     public async Task<ActionResult<ProcurementDto>> Get(int id)
     {

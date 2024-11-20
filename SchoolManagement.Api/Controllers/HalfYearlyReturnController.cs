@@ -42,12 +42,11 @@ public class HalfYearlyReturnController : ControllerBase
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [Route("save-HalfYearlyReturn")]
-    public async Task<ActionResult<BaseCommandResponse>> Post(object HalfYearlyReturn)
+    public async Task<ActionResult<BaseCommandResponse>> Post([FromBody] List<CreateHalfYearlyReturnDto> HalfYearlyReturn)
     {
-        //var command = new CreateHalfYearlyReturnCommand { HalfYearlyReturnDto = HalfYearlyReturn };
-        //var response = await _mediator.Send(command);[FromBody] CreateHalfYearlyReturnDto
-        //return Ok(response);
-        return Ok();
+        var command = new CreateHalfYearlyReturnCommand { HalfYearlyReturnDto = HalfYearlyReturn };
+        var response = await _mediator.Send(command);
+        return Ok(response);
     }
 
 

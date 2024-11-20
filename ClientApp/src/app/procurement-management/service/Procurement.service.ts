@@ -35,6 +35,30 @@ export class ProcurementService {
    
   }
 
+  getProcurementsByProcurementMethodId(pageNumber, pageSize, searchText, searchBy, procurementMethodId) { 
+
+    let params = new HttpParams();
+
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    params = params.append('searchBy', searchBy.toString())
+    params = params.append('procurementMethodId', procurementMethodId.toString())
+
+    
+    return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-Procurements-by-procurementMethodId/'+procurementMethodId, { observe: 'response', params })
+    .pipe(
+      map(response => {
+        console.log(response);
+        this.Procurements = [...this.Procurements, ...response.body.items];
+        this.ProcurementPagination = response.body;
+        return this.ProcurementPagination;
+      })
+    );
+   
+  }
+
+
   find(id: number) {
     return this.http.get<Procurement>(this.baseUrl + '/procurement/get-ProcurementDetail/' + id);
   }

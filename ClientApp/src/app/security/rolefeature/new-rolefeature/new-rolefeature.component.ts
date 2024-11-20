@@ -29,6 +29,7 @@ export class NewRoleFeatureComponent implements OnInit {
   ngOnInit(): void {
     const rid = this.route.snapshot.paramMap.get('roleId'); 
     this.Roleid = Number(rid);
+    console.log(rid);
     const fid = this.route.snapshot.paramMap.get('featureId'); 
     this.Featureid = Number(fid)
     if (this.Roleid && this.Featureid) {
@@ -57,6 +58,7 @@ export class NewRoleFeatureComponent implements OnInit {
     this.intitializeForm();
     this.getselectedrole();
     this.getselectedfeature();
+   
   }
   intitializeForm() {
     this.RoleFeatureForm = this.fb.group({
@@ -74,7 +76,7 @@ export class NewRoleFeatureComponent implements OnInit {
   getselectedrole(){
     this.RoleFeatureService.getselectedrole().subscribe(res=>{
       this.selectedrole=res
-      console.log(this.selectedrole);
+      console.log("Role",this.selectedrole);
     });
   }
 
