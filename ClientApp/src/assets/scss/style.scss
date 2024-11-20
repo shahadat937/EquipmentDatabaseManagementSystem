@@ -3445,17 +3445,51 @@ app-main-tab-layout .table-bordered tbody tr td {
     border-right: 64px solid transparent;
 }
 
-.vertical-text-table th.mat-header-cell,
-.vertical-text-table td.mat-cell {
-    writing-mode: vertical-rl;
-    /* Rotate text vertically */
-    transform: rotate(180deg);
-    /* Flip text for readability */
-    text-align: center;
-    /* Center-align text */
-    vertical-align: middle;
-    /* Center text vertically */
-}
+
+// Scrollable Table
+
+.custom-table th {
+    white-space: nowrap; 
+    position: sticky; 
+    top: 0;
+    z-index: 1;
+    padding: 8px; 
+    text-align: left;
+
+  }
+  .custom-header{
+    background-color: #DC143C;
+    color : #fff;
+  }
+  
+  .custom-table-wrapper {
+    max-height: 100%; 
+    overflow-y: auto;
+    overflow-x: auto;
+    display: block;
+  }
+  
+  .custom-table td {
+    white-space: nowrap; 
+    padding: 8px;
+    border: 1px solid #00000017
+  }
+
+
+  // Vartical Table
+  
+
+// .vertical-text-table th.mat-header-cell,
+// .vertical-text-table td.mat-cell {
+//     writing-mode: vertical-rl;
+//     /* Rotate text vertically */
+//     transform: rotate(180deg);
+//     /* Flip text for readability */
+//     text-align: center;
+//     /* Center-align text */
+//     vertical-align: middle;
+//     /* Center text vertically */
+// }
 
 // .vertical-text-table th.mat-header-cell {
 //     height: 150px;
@@ -3508,22 +3542,22 @@ app-main-tab-layout .table-bordered tbody tr td {
 //     background-color: #DC143C;     
 //   }
 
-.custom-table {
-    width: 100%;
-    overflow-x: auto; /* Ensure horizontal scrolling */
-  }
+// .custom-table {
+//     width: 100%;
+//     overflow-x: auto; /* Ensure horizontal scrolling */
+//   }
   
-  .custom-table mat-header-cell, .custom-table mat-cell {
-    white-space: nowrap; /* Prevent text from wrapping in table cells */
-  }
+//   .custom-table mat-header-cell, .custom-table mat-cell {
+//     white-space: nowrap; /* Prevent text from wrapping in table cells */
+//   }
   
-  mat-header-row, mat-row {
-    display: block; /* Ensure proper scrolling behavior */
-  }
+//   mat-header-row, mat-row {
+//     display: block; /* Ensure proper scrolling behavior */
+//   }
   
-  .mat-table {
-    width: 100%; /* Ensure the table fits the container */
-  }
+//   .mat-table {
+//     width: 100%; /* Ensure the table fits the container */
+//   }
   
 
 
