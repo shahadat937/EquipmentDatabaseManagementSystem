@@ -12,9 +12,9 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Request.Queries
     {
         public int YearlyReturnId { get; set; }
 
-        public GetYearlyReturnDetailRequest(int yearlyReturnId)
-        {
-            YearlyReturnId = yearlyReturnId;
-        }
+        //public GetYearlyReturnDetailRequest(int yearlyReturnId)
+        //{
+        //    YearlyReturnId = yearlyReturnId;
+        //}
     }
 }

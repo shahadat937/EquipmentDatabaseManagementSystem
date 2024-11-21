@@ -11,10 +11,10 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Request.Commands
     {
         public int YearlyReturnId { get; set; }
 
-        public DeleteYearlyReturnCommand(int yearlyReturnId)
-        {
-            YearlyReturnId = yearlyReturnId;
-        }
+        //public DeleteYearlyReturnCommand(int yearlyReturnId)
+        //{
+        //    YearlyReturnId = yearlyReturnId;
+        //}
     }
 
 }
