@@ -33,7 +33,8 @@ export class ShipEquipmentInfoListComponent implements OnInit {
   }
   searchText = "";
   equipmentCategoryId: string;
-  stateOfEquipmentId: string
+  stateOfEquipmentId: string;
+  equipmentNameId : string;
 
   displayedColumns: string[] = ['ser',  'shipName', 'equipmentCategory', 'equpmentName', 'qty',  'model', 'brand', 'techSpecification', 'manufacturerNameAndAddress', 'acquisitionMethodName', 'yearOfInstallation', 'location', 'stateOfEquipment', 'powerSupply', 'avrbrand', 'avrmodel', 'interfaceProtocol' , 'composition', 'defectDescription', 'remarks', 'actions'];
   dataSource: MatTableDataSource<ShipEquipmentInfo> = new MatTableDataSource();
@@ -48,6 +49,8 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     this.branchId = this.authService.currentUserValue.branchId.trim();
     this.equipmentCategoryId = this.route.snapshot.paramMap.get("shipequipmentCategoryId");
     this.stateOfEquipmentId = this.route.snapshot.paramMap.get("stateOfEquipmentId");
+    this.equipmentNameId = this.route.snapshot.paramMap.get('equipmentNameId');
+
 
     if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
       this.getShipEquipmentInfos(this.branchId);
@@ -57,7 +60,13 @@ export class ShipEquipmentInfoListComponent implements OnInit {
   }
 
   getShipEquipmentInfos(shipId) {
-    if (this.stateOfEquipmentId, this.equipmentCategoryId) {
+    if(this.stateOfEquipmentId && this.equipmentCategoryId &&  this.equipmentNameId ){
+      this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdNameIdAndStateOfEquipmentStatus(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.equipmentNameId, this.stateOfEquipmentId).subscribe(response => {
+        this.dataSource.data = response.items;
+        this.paging.length = response.totalItemsCount
+      })
+    }
+    else if (this.stateOfEquipmentId && this.equipmentCategoryId) {
       this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdAndStateOfEquipmentStatus(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.stateOfEquipmentId).subscribe(response => {
         this.dataSource.data = response.items;
         this.paging.length = response.totalItemsCount

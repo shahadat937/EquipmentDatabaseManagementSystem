@@ -48,6 +48,14 @@ export class dashboardService {
     )
   }
 
+  getCombatSystemEquipmentCount(combatSystem, stateOfEquipmentId1, stateOfEquipmentId2){
+    return this.http.get<any>(this.baseUrl+ `/ship-equipment-info/get-combat-system-equipemnt-count/${combatSystem}/${stateOfEquipmentId1}/${stateOfEquipmentId2}`).pipe(
+      map (response =>{
+        return response;
+      })
+    )
+  }
+
   getStateOfEquipments(pageNumber, pageSize, searchText) { 
 
     let params = new HttpParams();

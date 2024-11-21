@@ -1,7 +1,9 @@
 ﻿using SchoolManagement.Application;
 using SchoolManagement.Application.DTOs.ShipEquipmentInfo;
+using SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Queries;
 using SchoolManagement.Application.Features.ShipEquipmentInfos.Requests.Commands;
 using SchoolManagement.Application.Features.ShipEquipmentInfos.Requests.Queries;
+using SchoolManagement.Application.Features.ShipInformations.Requests.Queries;
 using SchoolManagement.Shared.Models;
 
 namespace SchoolManagement.Api.Controllers;
@@ -38,6 +40,21 @@ public class ShipEquipmentInfoController : ControllerBase
         {
             QueryParams = queryParams,
             CategoryId = categoryId,
+            StateOfEquipmentId = stateOfEquipmentId
+        });
+        return Ok(ShipEquipmentInfos);
+    }
+
+
+    [HttpGet]
+    [Route("get-ShipEquipmentInfos-by-CategoryId-EquipmentNameId-StateOfEquipmentId")]
+    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetShipEquipmentByCategoryIdEquipmentNameAndStateOfEquipmentId([FromQuery] QueryParams queryParams, int categoryId, int equipmentNameId, int stateOfEquipmentId)
+    {
+        var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoByCategoryIdNameIdAndStateOfEquipmentIdRequest
+        {
+            QueryParams = queryParams,            
+            CategoryId = categoryId,
+            EquipmentNameId = equipmentNameId,
             StateOfEquipmentId = stateOfEquipmentId
         });
         return Ok(ShipEquipmentInfos);
@@ -100,12 +117,13 @@ public class ShipEquipmentInfoController : ControllerBase
 
     [HttpGet]
     [Route("get-shipEquipmentInfoListForHalfYearly")]
-    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetIssueRegisterListFromStore(int equipmentCategoryId, int equpmentNameId)
+    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetIssueRegisterListFromStore(int equipmentCategoryId, int equpmentNameId, int shipId)
     {
         var selectedIssueRegister = await _mediator.Send(new GetShipEquipmentInfoListForHalfYearlyRequest
         {
             EquipmentCategoryId = equipmentCategoryId,
-            EqupmentNameId = equpmentNameId
+            EqupmentNameId = equpmentNameId,
+            ShipId = shipId
         });
         return Ok(selectedIssueRegister);
     }
@@ -120,5 +138,21 @@ public class ShipEquipmentInfoController : ControllerBase
         });
         return Ok(count);
     }
+
+    [HttpGet]
+    [Route("get-combat-system-equipemnt-count/{combatSystemId}/{stateOfEquipmentId1}/{stateOfEquipmentId2}")]
+    public async Task<ActionResult> GetCompatSystemEequipmentCount(int combatSystemId, int stateOfEquipmentId1, int stateOfEquipmentId2)
+    {
+        var shipLists = await _mediator.Send(new GetCompatSystemEequipmentCountRequest
+        {
+           CombatSystemId = combatSystemId,
+           StateOfEquipmentId1 = stateOfEquipmentId1,
+           StateOfEquipmentId2 = stateOfEquipmentId2
+        });
+        return Ok(shipLists);
+    }
+
+
+
 }
 
