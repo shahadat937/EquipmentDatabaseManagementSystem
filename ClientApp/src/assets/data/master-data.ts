@@ -183,7 +183,12 @@ export const MasterData = {
         WasteDisposerMachine:117,
         PowerConversionEquation : 119,
         GunSystem: 126
+      },
+
+      equepmentCategory : {
+        combatSystem : 8
       }
+      
     }
 
       
