@@ -49,6 +49,7 @@ using SchoolManagement.Application.DTOs.BookType;
 using SchoolManagement.Application.DTOs.BookUserManualBRInfo;
 using SchoolManagement.Application.DTOs.HalfYearlyRunningTime;
 using SchoolManagement.Application.DTOs.HalfYearlyReturn;
+using SchoolManagement.Application.DTOs.YearlyReturns;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -101,6 +102,11 @@ namespace SchoolManagement.Application.Profiles
                  .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name));
             CreateMap<HalfYearlyReturn, CreateHalfYearlyReturnDto>().ReverseMap();
             #endregion
+
+            CreateMap<YearlyReturnDto, YearlyReturn>().ReverseMap()
+                .ForMember(d => d.BaseSchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName));
+                //.ForMember(d => d.ReportingMonth, o => o.MapFrom(s => s.ReportingMonth));
+            CreateMap<YearlyReturn, CreateYearlyReturnDto>().ReverseMap();
 
             #region HalfYearlyRunningTime Mapping    
             CreateMap<HalfYearlyRunningTime, HalfYearlyRunningTimeDto>().ReverseMap();

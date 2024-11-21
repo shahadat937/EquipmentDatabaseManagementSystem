@@ -1,3 +1,4 @@
+import { YearlyRetrunComponent } from './YearlyReturn/new-yearlyreturn/new-yearlyreturn.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'yearlyreturn-list',
     component: NewYearlyRetrunComponent,
+  },
+  {
+    path: 'add-yearlyreturn',
+    component: YearlyRetrunComponent,
   },
 
 
