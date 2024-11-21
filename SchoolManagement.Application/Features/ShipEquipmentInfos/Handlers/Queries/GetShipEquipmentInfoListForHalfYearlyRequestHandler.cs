@@ -21,7 +21,7 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Quer
 
         public async Task<List<ShipEquipmentInfoDto>> Handle(GetShipEquipmentInfoListForHalfYearlyRequest request, CancellationToken cancellationToken)
         {
-            IQueryable<ShipEquipmentInfo> ShipEquipmentInfos = _ShipEquipmentInfoRepository.FilterWithInclude(x => x.EquipmentCategoryId == request.EquipmentCategoryId && x.EqupmentNameId == request.EqupmentNameId, "EquipmentCategory", "EqupmentName", "StateOfEquipment");
+            IQueryable<ShipEquipmentInfo> ShipEquipmentInfos = _ShipEquipmentInfoRepository.FilterWithInclude(x => x.EquipmentCategoryId == request.EquipmentCategoryId && x.EqupmentNameId == request.EqupmentNameId && x.BaseSchoolNameId == request.ShipId, "EquipmentCategory", "EqupmentName", "StateOfEquipment");
             
             var IssueRegisterDtos = _mapper.Map<List<ShipEquipmentInfoDto>>(ShipEquipmentInfos);
 

@@ -5,7 +5,7 @@ import { HalfYearlyReturnService } from '../../service/HalfYearlyReturn.service'
 import { SelectedModel } from 'src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
-import { MasterData} from 'src/assets/data/master-data';
+import { MasterData } from 'src/assets/data/master-data';
 import { HalfYearlyReturn } from '../../models/HalfYearlyReturn';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { ShipEquipmentInfo } from 'src/app/ship-management/models/ShipEquipmentInfo';
@@ -20,46 +20,51 @@ import { Role } from 'src/app/core/models/role';
 export class NewHalfYearlyReturnComponent implements OnInit {
   pageTitle: string;
   userRole = Role;
-  destination:string;
-  btnText:string;
+  destination: string;
+  btnText: string;
   HalfYearlyReturnForm: FormGroup;
   validationErrors: string[] = [];
-  selectedModel:SelectedModel[];
-  selectedOperationalStatus:SelectedModel[];
-  selectedEquipmentCategory:SelectedModel[];
-  selectEquipmentCategory:SelectedModel[];
+  selectedModel: SelectedModel[];
+  selectedOperationalStatus: SelectedModel[];
+  selectedEquipmentCategory: SelectedModel[];
+  selectEquipmentCategory: SelectedModel[];
   masterData = MasterData;
   ELEMENT_DATA: HalfYearlyReturn[] = [];
-  halfYearlyReturnList:HalfYearlyReturn[];
+  halfYearlyReturnList: HalfYearlyReturn[];
   showHideDiv = false;
   isLoading = false;
   isShown: boolean = false;
-  traineeId:any;
-  role:any;
-  branchId:any;
-  itemCount:any =0;
+  traineeId: any;
+  role: any;
+  branchId: any;
+  itemCount: any = 0;
   selectedShipEquipmentInfoList: shipEquipmentInfoList[];
-  selectedHalfYearlyRunningTime:SelectedModel[];
-  selectedEquipmentNameByCategory:SelectedModel[];
-  selectEquipmentNameByCategory:SelectedModel[];
-  selectedBrand:SelectedModel[];
-  selectedBaseSchoolName:SelectedModel[];
-  selectBaseSchool:SelectedModel[];
+  selectedHalfYearlyRunningTime: SelectedModel[];
+  selectedEquipmentNameByCategory: SelectedModel[];
+  selectEquipmentNameByCategory: SelectedModel[];
+  selectedBrand: SelectedModel[];
+  selectedBaseSchoolName: SelectedModel[];
+  selectBaseSchool: SelectedModel[];
+  isUpdateing : boolean = false;
 
-  constructor(private snackBar: MatSnackBar,private authService: AuthService,private confirmService: ConfirmService,private HalfYearlyReturnService: HalfYearlyReturnService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar, private authService: AuthService, private confirmService: ConfirmService, private HalfYearlyReturnService: HalfYearlyReturnService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.role = this.authService.currentUserValue.role.trim();
-    this.traineeId =  this.authService.currentUserValue.traineeId.trim();
-    this.branchId =  this.authService.currentUserValue.branchId.trim();
-    const id = this.route.snapshot.paramMap.get('halfYearlyReturnId'); 
+    this.traineeId = this.authService.currentUserValue.traineeId.trim();
+    this.branchId = this.authService.currentUserValue.branchId.trim();
+    
+    const id = this.route.snapshot.paramMap.get('halfYearlyReturnId');
+    console.log(id);
     if (id) {
+      this.isUpdateing = true;
       this.pageTitle = 'Edit Half Yearly Return';
       this.destination = "Edit";
       this.btnText = 'Update';
       this.HalfYearlyReturnService.find(+id).subscribe(
         res => {
-          this.HalfYearlyReturnForm.patchValue({          
+          console.log(res);
+          this.HalfYearlyReturnForm.patchValue({
             halfYearlyReturnId: res.halfYearlyReturnId,
             baseSchoolNameId: res.baseSchoolNameId,
             equipmentCategoryId: res.equipmentCategoryId,
@@ -73,8 +78,8 @@ export class NewHalfYearlyReturnComponent implements OnInit {
             remarks: res.remarks,
             menuPosition: res.menuPosition,
             isActive: res.isActive
-          });     
-          this.onEquipmentCategorySelectionChange();     
+          });
+          this.onEquipmentCategorySelectionChange();
         }
       );
     } else {
@@ -84,7 +89,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     }
     this.intitializeForm();
 
-    if(this.role == this.userRole.ShipStaff || this.role != this.userRole.LOEO){
+    if (this.role == this.userRole.ShipStaff || this.role != this.userRole.LOEO) {
       this.HalfYearlyReturnForm.get('baseSchoolNameId').setValue(this.branchId);
     }
 
@@ -95,24 +100,24 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   intitializeForm() {
     this.HalfYearlyReturnForm = this.fb.group({
       halfYearlyReturnId: [0],
-      baseSchoolNameId:[''],
+      baseSchoolNameId: [''],
       equipmentCategoryId: [''],
       equpmentNameId: [''],
       brandId: [''],
       halfYearlyRunningTime: [],
       halfYearlyProblem: [],
       inputPowerSupply: [''],
-      totalRunningTime:[],
+      totalRunningTime: [],
       powerSupplyUnit: [''],
-      remarks:[''],
-      menuPosition:[1],
+      remarks: [''],
+      menuPosition: [1],
       isActive: [true],
       shipEquipmentInfoList: this.fb.array([
         this.createHalfYearlyReturnData()
       ]),
     })
   }
- 
+
   getControlLabel(index: number, type: string) {
     return (this.HalfYearlyReturnForm.get('shipEquipmentInfoList') as FormArray).at(index).get(type).value;
   }
@@ -121,19 +126,19 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       baseSchoolNameId: [''],
       equipmentCategoryId: [''],
       equpmentNameId: [''],
-      equipmentCategory:[''],
-      equpmentName:[''],
+      equipmentCategory: [''],
+      equpmentName: [''],
       brandId: [''],
       qty: [''],
-      powerSupply:[''],
-      halfYearlyRunningTime:[],
-      totalRunningTime:[],
-      halfYearlyProblem:[],
+      powerSupply: [''],
+      halfYearlyRunningTime: [],
+      totalRunningTime: [],
+      halfYearlyProblem: [],
       powerSupplyUnit: [''],
-      model:[''],
-      type:[''],
-      stateOfEquipment:[''],
-      
+      model: [''],
+      type: [''],
+      stateOfEquipment: [''],
+
     });
   }
   clearList() {
@@ -151,53 +156,58 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     }
     this.HalfYearlyReturnForm.patchValue({ shipEquipmentInfoList: this.selectedShipEquipmentInfoList });
   }
-  getSelectedSchoolByBranchLevelAndThirdLevel(){
-    this.HalfYearlyReturnService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
-      this.selectedBaseSchoolName=res;
-      this.selectBaseSchool=res
-    }); 
-  }
-  filterByShip(value:any){
-    this.selectedBaseSchoolName=this.selectBaseSchool.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
-  }
-  onEquipmentCategorySelectionChange(){
-   var equipmentCategoryId= this.HalfYearlyReturnForm.value['equipmentCategoryId'];
-   this.HalfYearlyReturnService.getSelectedEquipmentNameByCategory(equipmentCategoryId).subscribe(res=>{
-    this.selectedEquipmentNameByCategory=res
-    this.selectEquipmentNameByCategory=res
-  }); 
-  }
-  filterByEquipementName(value:any){
-    this.selectedEquipmentNameByCategory=this.selectEquipmentNameByCategory.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
-  }
-  onShipEquipmentInfoList(){
-    this.isShown=true;
-    var equipmentCategoryId= this.HalfYearlyReturnForm.value['equipmentCategoryId'];
-    var equpmentNameId= this.HalfYearlyReturnForm.value['equpmentNameId'];
-    this.HalfYearlyReturnService.getShipEquipmentInfoListForHalfYearly(equipmentCategoryId,equpmentNameId).subscribe(res=>{
-      this.selectedShipEquipmentInfoList=res
-      this.clearList();
-      this.getShipEquipmentInfoListonClick();
+  getSelectedSchoolByBranchLevelAndThirdLevel() {
+    this.HalfYearlyReturnService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res => {
+      this.selectedBaseSchoolName = res;
+      this.selectBaseSchool = res
     });
   }
-  getSelectedEquipmentCategory(){
-    this.HalfYearlyReturnService.getSelectedEquipmentCategory().subscribe(res=>{
-      this.selectedEquipmentCategory=res;
-      this.selectEquipmentCategory=res
-    }); 
+  filterByShip(value: any) {
+    this.selectedBaseSchoolName = this.selectBaseSchool.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
-  filterByEquipmentCategory(value:any){
-    this.selectedEquipmentCategory=this.selectEquipmentCategory.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  onEquipmentCategorySelectionChange() {
+    var equipmentCategoryId = this.HalfYearlyReturnForm.value['equipmentCategoryId'];
+    this.HalfYearlyReturnService.getSelectedEquipmentNameByCategory(equipmentCategoryId).subscribe(res => {
+      this.selectedEquipmentNameByCategory = res
+      this.selectEquipmentNameByCategory = res
+    });
+  }
+  filterByEquipementName(value: any) {
+    this.selectedEquipmentNameByCategory = this.selectEquipmentNameByCategory.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
+  }
+  onShipEquipmentInfoList() {
+
+    let shipNameId = this.HalfYearlyReturnForm.value['baseSchoolNameId'];
+    let equipmentCategoryId = this.HalfYearlyReturnForm.value['equipmentCategoryId'];
+    let equpmentNameId = this.HalfYearlyReturnForm.value['equpmentNameId'];
+    if (shipNameId && equipmentCategoryId && equpmentNameId && !this.isUpdateing) {
+      this.isShown = true;
+      this.HalfYearlyReturnService.getShipEquipmentInfoListForHalfYearly(equipmentCategoryId, equpmentNameId, shipNameId).subscribe(res => {
+        this.selectedShipEquipmentInfoList = res
+        this.clearList();
+        this.getShipEquipmentInfoListonClick();
+      });
+    }
+
+  }
+  getSelectedEquipmentCategory() {
+    this.HalfYearlyReturnService.getSelectedEquipmentCategory().subscribe(res => {
+      this.selectedEquipmentCategory = res;
+      this.selectEquipmentCategory = res
+    });
+  }
+  filterByEquipmentCategory(value: any) {
+    this.selectedEquipmentCategory = this.selectEquipmentCategory.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
   // getSelectedHalfYearlyRunningTime(){
   //   this.HalfYearlyReturnService.getSelectedHalfYearlyRunningTime().subscribe(res=>{
   //     this.selectedHalfYearlyRunningTime=res
   //   }); 
   // }
-  getSelectedBrand(){
-    this.HalfYearlyReturnService.getSelectedBrand().subscribe(res=>{
-      this.selectedBrand=res
-    }); 
+  getSelectedBrand() {
+    this.HalfYearlyReturnService.getSelectedBrand().subscribe(res => {
+      this.selectedBrand = res
+    });
   }
   // getSelectedOperationalStatus(){
   //   this.HalfYearlyReturnService.getSelectedOperationalStatus().subscribe(res=>{
@@ -213,7 +223,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   }
 
   deleteItem(row) {
-    const id = row.halfYearlyReturnId; 
+    const id = row.halfYearlyReturnId;
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
       if (result) {
         this.HalfYearlyReturnService.delete(id).subscribe(() => {
@@ -225,11 +235,11 @@ export class NewHalfYearlyReturnComponent implements OnInit {
           });
         })
       }
-    })    
+    })
   }
 
   onSubmit() {
-    const id = this.HalfYearlyReturnForm.get('halfYearlyReturnId').value;  
+    const id = this.HalfYearlyReturnForm.get('halfYearlyReturnId').value;
     // this.MonthlyReturnForm.get('reportingDate').setValue((new Date(this.MonthlyReturnForm.get('reportingDate').value)).toUTCString());
     // this.MonthlyReturnForm.get('timeOfDefect').setValue((new Date(this.MonthlyReturnForm.get('timeOfDefect').value)).toUTCString());
 
@@ -240,10 +250,10 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     // }
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
-        
+
         if (result) {
-          this.HalfYearlyReturnService.update(+id,this.HalfYearlyReturnForm.value).subscribe(response => {
-           this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');
+          this.HalfYearlyReturnService.update(+id, this.HalfYearlyReturnForm.value).subscribe(response => {
+            this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');
             this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,
               verticalPosition: 'bottom',
@@ -255,9 +265,9 @@ export class NewHalfYearlyReturnComponent implements OnInit {
           })
         }
       })
-    } 
+    }
     else {
-     console.log("log",this.HalfYearlyReturnForm.value.shipEquipmentInfoList);
+      console.log("log", this.HalfYearlyReturnForm.value.shipEquipmentInfoList);
       this.HalfYearlyReturnService.submit(this.HalfYearlyReturnForm.value.shipEquipmentInfoList
       ).subscribe(response => {
         this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');
@@ -271,6 +281,6 @@ export class NewHalfYearlyReturnComponent implements OnInit {
         this.validationErrors = error;
       })
     }
- 
+
   }
 }

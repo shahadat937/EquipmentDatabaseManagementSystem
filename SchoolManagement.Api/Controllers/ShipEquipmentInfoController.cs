@@ -117,12 +117,13 @@ public class ShipEquipmentInfoController : ControllerBase
 
     [HttpGet]
     [Route("get-shipEquipmentInfoListForHalfYearly")]
-    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetIssueRegisterListFromStore(int equipmentCategoryId, int equpmentNameId)
+    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetIssueRegisterListFromStore(int equipmentCategoryId, int equpmentNameId, int shipId)
     {
         var selectedIssueRegister = await _mediator.Send(new GetShipEquipmentInfoListForHalfYearlyRequest
         {
             EquipmentCategoryId = equipmentCategoryId,
-            EqupmentNameId = equpmentNameId
+            EqupmentNameId = equpmentNameId,
+            ShipId = shipId
         });
         return Ok(selectedIssueRegister);
     }
