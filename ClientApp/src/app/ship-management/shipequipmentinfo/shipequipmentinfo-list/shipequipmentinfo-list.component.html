@@ -178,30 +178,31 @@
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                   </mat-table> -->
-                  <table id="show-shipInfo" class="no-wrap-table">
+                  <div style="overflow-x: auto; max-width: 100%;">
+                  <table class="custom-table">
                     <thead>
                       <tr>
-                        <th style="width: 150px;">Ser.</th>
-                        <th>Ship Name</th>
-                        <th>Equipment Category</th>
-                        <th>Equipment Name</th>
-                        <th>Qty</th>
-                        <th>Model</th>
-                        <th>Brand</th>
-                        <th>Technical Specification</th>
-                        <th>Manufacturer Info</th>
-                        <th>Acquisition Method</th>
-                        <th>Year of Installation</th>
-                        <th>Location</th>
-                        <th>State of Equipment</th>
-                        <th>Power Supply</th>
-                        <th>AVR Brand</th>
-                        <th>AVR Model</th>
-                        <th>Interface Protocol</th>
-                        <th>Composition</th>
-                        <th>Defect Description</th>
-                        <th>Remarks</th>
-                        <th>Actions</th>
+                        <th class="custom-header">Ser.</th>
+                        <th class="custom-header">Ship Name</th>
+                        <th class="custom-header">Equipment Category</th>
+                        <th class="custom-header">Equipment Name</th>
+                        <th class="custom-header">Qty</th>
+                        <th class="custom-header">Model</th>
+                        <th class="custom-header">Brand</th>
+                        <th class="custom-header">Technical Specification</th>
+                        <th class="custom-header">Manufacturer Info</th>
+                        <th class="custom-header">Acquisition Method</th>
+                        <th class="custom-header">Year of Installation</th>
+                        <th class="custom-header">Location</th>
+                        <th class="custom-header">State of Equipment</th>
+                        <th class="custom-header">Power Supply</th>
+                        <th class="custom-header">AVR Brand</th>
+                        <th class="custom-header">AVR Model</th>
+                        <th class="custom-header">Interface Protocol</th>
+                        <th class="custom-header">Composition</th>
+                        <th class="custom-header">Defect Description</th>
+                        <th class="custom-header">Remarks</th>
+                        <th class="custom-header">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -226,17 +227,26 @@
                         <td>{{ element.composition }}</td>
                         <td>{{ element.defectDescription }}</td>
                         <td>{{ element.remarks }}</td>
-                        <td>
-                          <button class="btn btn-sm btn-primary" [routerLink]="['/ship-management/update-shipequipmentinfo', element.shipEquipmentInfoId]">
+                        <td class="cl-action">
+                          <!-- <button class="btn btn-sm btn-primary" >
                             Edit
-                          </button>
-                          <button class="btn btn-sm btn-danger" (click)="deleteItem(element)">
+                          </button> -->
+                          <!-- <button class="btn btn-sm btn-danger" (click)="deleteItem(element)">
                             Delete
+                          </button> -->
+
+                          <button mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
+                          [routerLink]="['/ship-management/update-shipequipmentinfo', element.shipEquipmentInfoId]">
+                            <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
                           </button>
+                          <button (click)="deleteItem(element)" mat-icon-button color="accent" class="btn-tbl-delete" >
+                          <mat-icon aria-label="Delete" class="col-white">delete</mat-icon> 
+                        </button>
                         </td>
                       </tr>
                     </tbody>
                   </table>
+                </div>
                   
                   
                 </div>
