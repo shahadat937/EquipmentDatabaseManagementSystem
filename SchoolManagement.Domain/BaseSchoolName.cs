@@ -56,5 +56,6 @@ namespace SchoolManagement.Domain
         public virtual ICollection<ShipDrowing> ShipDrowingBaseNames { get; set; }
         public virtual ICollection<ShipDrowing> ShipDrowingBaseSchoolNames { get; set; }
         public virtual ICollection<BookUserManualBRInfo> BookUserManualBRInfos { get; set; }
+        public virtual ICollection<YearlyReturn> YearlyReturns { get; set; }
     }
 }

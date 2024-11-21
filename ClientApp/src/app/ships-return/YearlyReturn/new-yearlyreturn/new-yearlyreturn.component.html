@@ -1,0 +1,108 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">Yearly Return</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Yearly Return</a>
+              </li>
+              <li class="breadcrumb-item active">All</li>
+            </ul>
+          </div> 
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="YearlyReturnForm" >
+                <div class="row">
+                    <h4 class="mb-10">Basic Information</h4>
+                    <div  class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Ship Name </mat-label>
+                          <mat-select formControlName="baseSchoolNameId" required>
+                            <input type="text" 
+                            style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                            id="selectSearch" 
+                            (keydown.space)="$event.stopPropagation()"
+                            (input)="($event.target.value)" placeholder="Search">
+                            <mat-option value="0">--Select--</mat-option>
+                            <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                              {{dropdown.text}}
+                            </mat-option>
+                          </mat-select>
+                          <!-- <mat-error *ngIf="HalfYearlyReturnForm.get('baseSchoolNameId').hasError('required')">
+                            Ship Name is required
+                          </mat-error> -->
+                        </mat-form-field>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6col-sm-12 mb-2">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Operational Status</mat-label>
+                          <mat-select formControlName="operationalStatusId" required>
+                            <mat-option value="0">--Select--</mat-option>
+                            
+                        <mat-option *ngFor="let dropdown of selectedOperationalStatus" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                          </mat-select>
+                          <!-- <mat-error *ngIf="MonthlyReturnForm.get('operationalStatusId').hasError('required')">
+                            Operational Status is required
+                          </mat-error> -->
+                        </mat-form-field>
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+                            <mat-form-field class="example-full-width mb-3" appearance="outline">
+                              <mat-label>Report Month</mat-label>
+                              <mat-select formControlName="operationalStatusId" required>
+                                <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedReportingMonth" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                              </mat-select>
+                              <!-- <mat-error *ngIf="MonthlyReturnForm.get('operationalStatusId').hasError('required')">
+                                Operational Status is required
+                              </mat-error> -->
+                            </mat-form-field>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+                            <mat-form-field class="example-full-width mb-3" appearance="outline">
+                              <mat-label>Report Year</mat-label>
+                              <mat-select formControlName="operationalStatusId" required>
+                                <mat-option value="0">--Select--</mat-option>
+                               <mat-option id="1">2020</mat-option>
+                               <mat-option id="1">2021</mat-option>
+                               <mat-option id="1">2022</mat-option>
+                               <mat-option id="1">2023</mat-option>
+                              </mat-select>
+                              <!-- <mat-error *ngIf="MonthlyReturnForm.get('operationalStatusId').hasError('required')">
+                                Operational Status is required
+                              </mat-error> -->
+                            </mat-form-field>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                          <button class="btn-space" mat-raised-button
+                            color="primary">Save</button>
+                        </div>
+                      </div>
+                 </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

@@ -65,7 +65,7 @@ picker: any;
       this.btnText = 'Update';
       this.MonthlyReturnService.find(+id).subscribe(
         res => {
-          console.log(res)
+
           this.MonthlyReturnForm.patchValue({          
             monthlyReturnId: res.monthlyReturnId,
             authorityId: res.authorityId,

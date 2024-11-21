@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using SchoolManagement.Application.DTOs.YearlyReturns;
 
 namespace SchoolManagement.Application.DTOs.MonthlyReturns.Validators
 {
@@ -10,5 +11,10 @@ namespace SchoolManagement.Application.DTOs.MonthlyReturns.Validators
 
             RuleFor(b => b.MonthlyReturnId).NotNull().WithMessage("{PropertyName} must be present");
         }
+
+        //internal async Task ValidateAsync(YearlyReturnDto yearlyReturnDto)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
