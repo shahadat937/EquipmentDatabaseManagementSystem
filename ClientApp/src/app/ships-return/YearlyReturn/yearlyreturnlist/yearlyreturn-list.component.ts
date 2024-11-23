@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 @Component({
-    selector: 'app-new-monthlyreturn',
+    selector: 'app-yearlyretrun-list',
     templateUrl: './yearlyreturn-list.component.html',
     styleUrls: ['./yearlyreturn-list.component.css']
   })

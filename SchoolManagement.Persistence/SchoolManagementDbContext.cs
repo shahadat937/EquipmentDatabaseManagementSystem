@@ -497,6 +497,13 @@ namespace SchoolManagement.Persistence
                     .HasForeignKey(d => d.ReturnTypeId)
                     .HasConstraintName("FK_MonthlyReturn_ReturnType");
             });
+            modelBuilder.Entity<YearlyReturn>(entity =>
+            {
+                entity.HasOne(d => d.BaseSchoolName)
+                    .WithMany(p => p.YearlyReturns)
+                    .HasForeignKey(d => d.BaseSchoolNameId)
+                    .HasConstraintName("FK_YearlyReturn_BaseSchoolName");
+            });
             modelBuilder.Entity<ReportingMonth>(entity =>
             {
 
@@ -563,6 +570,7 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<ReturnType> ReturnType { get; set; }
         public virtual DbSet<MonthlyReturn> MonthlyReturn { get; set; }
         public virtual DbSet<OperationalState> OperationalState { get; set; }
+        public virtual DbSet<YearlyReturn> YearlyReturn { get; set; }
     }
 }
     
