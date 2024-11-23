@@ -45,7 +45,14 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   selectedBrand: SelectedModel[];
   selectedBaseSchoolName: SelectedModel[];
   selectBaseSchool: SelectedModel[];
-  isUpdateing : boolean = false;
+  isUpdateing: boolean = false;
+  shipEquipmentInformationId : number;
+  dataNotFound : boolean;
+
+  common: boolean;
+  gyroCompass: boolean;
+  navigationRader: boolean;
+  echoSounder : boolean;
 
   constructor(private snackBar: MatSnackBar, private authService: AuthService, private confirmService: ConfirmService, private HalfYearlyReturnService: HalfYearlyReturnService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) { }
 
@@ -53,7 +60,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId = this.authService.currentUserValue.traineeId.trim();
     this.branchId = this.authService.currentUserValue.branchId.trim();
-    
+
     const id = this.route.snapshot.paramMap.get('halfYearlyReturnId');
     console.log(id);
     if (id) {
@@ -63,7 +70,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       this.btnText = 'Update';
       this.HalfYearlyReturnService.find(+id).subscribe(
         res => {
-          console.log(res);
+          this.shipEquipmentInformationId = res.shipEquipmentInfoId;
           this.HalfYearlyReturnForm.patchValue({
             halfYearlyReturnId: res.halfYearlyReturnId,
             baseSchoolNameId: res.baseSchoolNameId,
@@ -75,24 +82,24 @@ export class NewHalfYearlyReturnComponent implements OnInit {
             inputPowerSupply: res.inputPowerSupply,
             totalRunningTime: res.totalRunningTime,
             powerSupplyUnit: res.powerSupplyUnit,
+            shipEquipmentInfoId: res.shipEquipmentInfoId,
             remarks: res.remarks,
+            isSatisfactory : res.isSatisfactory,
             menuPosition: res.menuPosition,
             isActive: res.isActive
           });
           this.onEquipmentCategorySelectionChange();
+          this. onShipEquipmentInfoList();
         }
+        
       );
+      
     } else {
       this.pageTitle = 'Half Yearly Return';
       this.destination = "Add";
       this.btnText = 'Save';
     }
     this.intitializeForm();
-
-    if (this.role == this.userRole.ShipStaff || this.role != this.userRole.LOEO) {
-      this.HalfYearlyReturnForm.get('baseSchoolNameId').setValue(this.branchId);
-    }
-
     this.getSelectedEquipmentCategory();
     this.getSelectedBrand();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
@@ -110,8 +117,10 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       totalRunningTime: [],
       powerSupplyUnit: [''],
       remarks: [''],
+      isSatisfactory : [''],
       menuPosition: [1],
       isActive: [true],
+      shipEquipmentInfoId: [''],
       shipEquipmentInfoList: this.fb.array([
         this.createHalfYearlyReturnData()
       ]),
@@ -138,6 +147,15 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       model: [''],
       type: [''],
       stateOfEquipment: [''],
+      remarks: [''],
+      shipEquipmentInfoId :[''],
+      isSatisfactory: [''],
+      location : [''],
+      purpose: [''],
+      manufacturerNameAndAddress : [''],
+      yearOfInstallation : [''],
+      acquisitionMethodName: ['']
+
 
     });
   }
@@ -167,6 +185,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   }
   onEquipmentCategorySelectionChange() {
     var equipmentCategoryId = this.HalfYearlyReturnForm.value['equipmentCategoryId'];
+    console.log(equipmentCategoryId);
     this.HalfYearlyReturnService.getSelectedEquipmentNameByCategory(equipmentCategoryId).subscribe(res => {
       this.selectedEquipmentNameByCategory = res
       this.selectEquipmentNameByCategory = res
@@ -181,12 +200,37 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     let equipmentCategoryId = this.HalfYearlyReturnForm.value['equipmentCategoryId'];
     let equpmentNameId = this.HalfYearlyReturnForm.value['equpmentNameId'];
     if (shipNameId && equipmentCategoryId && equpmentNameId && !this.isUpdateing) {
+
+      if (equpmentNameId === this.masterData.equepmentName.GyroCompass) {
+        this.gyroCompass = true;
+      }
+      else if (equpmentNameId === this.masterData.equepmentName.NavigationRadar) {
+        this.allEqumentStateFalse();
+        this.navigationRader = true;
+      }
+      else if( equpmentNameId === this.masterData.equepmentName.EchoSounder){
+    
+        this.allEqumentStateFalse();
+        this.echoSounder = true;
+      }
+      else {
+        this.allEqumentStateFalse()
+        this.common = true;
+      }
+
       this.isShown = true;
       this.HalfYearlyReturnService.getShipEquipmentInfoListForHalfYearly(equipmentCategoryId, equpmentNameId, shipNameId).subscribe(res => {
-        this.selectedShipEquipmentInfoList = res
+        console.log("Res", res)
+        this.selectedShipEquipmentInfoList = res.map((item: any) => {
+          return { ...item, remarks: '' };
+        });
         this.clearList();
         this.getShipEquipmentInfoListonClick();
+        console.log(this.selectedShipEquipmentInfoList);
       });
+      
+  
+      
     }
 
   }
@@ -238,7 +282,18 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     })
   }
 
+  allEqumentStateFalse() {
+    this.gyroCompass = false
+    this.navigationRader = false;
+    this.echoSounder = false;
+
+  }
+
   onSubmit() {
+
+    // if (this.role == this.userRole.ShipStaff || this.role != this.userRole.LOEO) {
+    //   this.HalfYearlyReturnForm.get('baseSchoolNameId').setValue(this.branchId);
+    // }
     const id = this.HalfYearlyReturnForm.get('halfYearlyReturnId').value;
     // this.MonthlyReturnForm.get('reportingDate').setValue((new Date(this.MonthlyReturnForm.get('reportingDate').value)).toUTCString());
     // this.MonthlyReturnForm.get('timeOfDefect').setValue((new Date(this.MonthlyReturnForm.get('timeOfDefect').value)).toUTCString());
@@ -250,8 +305,13 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     // }
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
+      // this.HalfYearlyReturnForm.value);
+  this.HalfYearlyReturnForm.value.shipEquipmentInfoList.shipEquipmentInfoId =this.shipEquipmentInformationId;
+  // console.log("result ",this.HalfYearlyReturnForm.value.shipEquipmentInfoList.shipEquipmentInfoId )
+
 
         if (result) {
+          console.log(this.HalfYearlyReturnForm.value);
           this.HalfYearlyReturnService.update(+id, this.HalfYearlyReturnForm.value).subscribe(response => {
             this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');
             this.snackBar.open('Information Updated Successfully ', '', {
@@ -267,7 +327,6 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       })
     }
     else {
-      console.log("log", this.HalfYearlyReturnForm.value.shipEquipmentInfoList);
       this.HalfYearlyReturnService.submit(this.HalfYearlyReturnForm.value.shipEquipmentInfoList
       ).subscribe(response => {
         this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');

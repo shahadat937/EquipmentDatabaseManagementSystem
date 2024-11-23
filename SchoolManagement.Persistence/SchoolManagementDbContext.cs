@@ -70,6 +70,11 @@ namespace SchoolManagement.Persistence
                       .WithMany(p => p.HalfYearlyReturns)
                       .HasForeignKey(d => d.BaseSchoolNameId)
                       .HasConstraintName("FK_HalfYearlyReturn_BaseSchoolName");
+                entity.HasOne(d => d.ShipEquipmentInfo)
+                     .WithMany(p => p.HalfYearlyReturns)
+                     .HasForeignKey(d => d.ShipEquipmentInfoId)
+                     .HasConstraintName("FK_HalfYearlyReturn_ShipEquipmentInfo");
+
 
 
             });

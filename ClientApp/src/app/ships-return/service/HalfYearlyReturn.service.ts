@@ -47,7 +47,6 @@ export class HalfYearlyReturnService {
     return this.http.get<SelectedModel[]>(this.baseUrl + '/equpment-name/get-selectedEqupmentNameByCategory?equepmentCategoryId='+equipmentCategoryId)
   }
   getShipEquipmentInfoListForHalfYearly(equipmentCategoryId,equpmentNameId, shipId){
-    console.log(equipmentCategoryId,equpmentNameId, shipId);
     return this.http.get<shipEquipmentInfoList[]>(this.baseUrl + '/ship-equipment-info/get-shipEquipmentInfoListForHalfYearly?equipmentCategoryId='+equipmentCategoryId+'&equpmentNameId='+equpmentNameId+'&shipId='+shipId)
   }
  

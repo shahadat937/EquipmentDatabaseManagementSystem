@@ -70,6 +70,7 @@
                   <table class="table tbl-by-group db-li-s-in">
                     <thead>
                       <tr>
+                        <th class="cl-mrk-rmrk"><h5>Ship Name</h5></th>
                         <th class="cl-mrk-rmrk"><h5>Equipment Category</h5></th>
                         <th class="cl-mrk-rmrk"><h5>Equipment Name</h5></th>
                         <th class="cl-mrk"><h5>Input Power Supply</h5></th>
@@ -80,6 +81,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let number of this.dataSource.data;">
+                          <td>{{number.baseSchoolName}}</td>
                           <td>
                             {{number.equipmentCategory}}
                           </td>

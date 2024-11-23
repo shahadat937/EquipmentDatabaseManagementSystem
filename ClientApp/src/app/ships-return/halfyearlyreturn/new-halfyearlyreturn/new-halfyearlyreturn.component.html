@@ -82,9 +82,10 @@
                   </mat-form-field>
                 </div>
                
-                <div *ngIf="isShown and !isUpdateing" class="row clearfix">
+                <div *ngIf="isShown && !isUpdateing && selectedShipEquipmentInfoList?.length" class="row clearfix">
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0 ex-mrk-entry-li">
                     <div class="card">
+
 
                       <div class="body table-responsive">
                         <table class="table ex-mrk-entry issue-res">
@@ -104,29 +105,47 @@
                               <th class="cl-mrk">
                                 <h5>State of Equipment</h5>
                               </th>
-                              <th class="cl-nm-rnk">
+                              <th class="cl-mrk">
                                 <h5>Qty</h5>
                               </th>
-                              <th class="cl-mrk">
+                              <th class="cl-nm-rnk" *ngIf="echoSounder">
+                                Manufacturer Info
+                              </th>
+                              <th class="cl-nm-rnk" *ngIf="echoSounder">
+                                Acquisition Method
+                              </th>
+                              <th class="cl-nm-rnk" *ngIf="echoSounder">
+                                Year of Installation
+                              </th>
+                              <th class="cl-nm-rnk" *ngIf="echoSounder">
+                                Location
+                              </th>
+                              <th class="cl-nm-rnk" *ngIf="echoSounder">
+                                Purpose
+                              </th> 
+                              <th class="cl-mrk" *ngIf="gyroCompass">
                                 <h5>Half Yearly Running Time(Hours)</h5>
                               </th>
-                              <th class="cl-mrk">
+                              <th class="cl-mrk" *ngIf="gyroCompass">
                                 <h5>Total Running Time(Hours)</h5>
                               </th>
 
-                              <th class="cl-nm-rnk">
+                              <th class="cl-nm-rnk" *ngIf="gyroCompass">
                                 <h5>Half Yearly Problem</h5>
                               </th>
 
 
-                              <th class="cl-nm-rnk">
+                              <th class="cl-nm-rnk" *ngIf="gyroCompass">
                                 <h5>Power Supply Unit</h5>
                               </th>
-
-                              <!--  <th class="cl-nm-rnk">
-                                  <h5>Status</h5>
-                                </th> -->
-
+                              <th class="cl-nm-rnk">
+                                <h5>Remarks</h5>
+                              </th>
+                              <th class="cl-nm-rnk" *ngIf="navigationRader">
+                                Satisfactory
+                              </th>
+                             
+                              
                             </tr>
                           </thead>
                           <tbody>
@@ -146,25 +165,63 @@
                               <td class="cl-nm-rnk">
                                 {{getControlLabel(i,'qty')}}
                               </td>
+                              <td class="cl-nm-rnk" *ngIf="echoSounder">
+                                {{getControlLabel(i,'manufacturerNameAndAddress')}}
+                              </td>
+                              <td class="cl-nm-rnk" *ngIf="echoSounder">
+                                {{getControlLabel(i,'acquisitionMethodName')}}
+                              </td>
+                              <td class="cl-nm-rnk" *ngIf="echoSounder">
+                                {{getControlLabel(i,'yearOfInstallation')}}
+                              </td>
+                              <td class="cl-nm-rnk" *ngIf="echoSounder">
+                                {{getControlLabel(i,'location')}}
+                              </td>
+                              <td class="cl-nm-rnk" *ngIf="echoSounder">
+                                {{getControlLabel(i,'purpose')}}
+                              </td>
 
-                              <td class="cl-mrk">
+                              <td class="cl-mrk" *ngIf="gyroCompass">
                                 <mat-form-field class="example-full-width mb-3" appearance="outline">
                                   <input matInput type="text" formControlName="halfYearlyRunningTime" />
                                 </mat-form-field>
                               </td>
-                              <td class="cl-mrk">
+                              <td class="cl-mrk" *ngIf="gyroCompass">
                                 <mat-form-field class="example-full-width mb-3" appearance="outline">
                                   <input matInput type="text" formControlName="totalRunningTime" />
                                 </mat-form-field>
                               </td>
-                              <td class="cl-mrk">
+                              <td class="cl-mrk" *ngIf="gyroCompass">
                                 <mat-form-field class="example-full-width mb-3" appearance="outline">
                                   <textarea matInput type="text" formControlName="halfYearlyProblem"></textarea>
                                 </mat-form-field>
                               </td>
-                              <td class="cl-mrk">
+                              <td class="cl-mrk" *ngIf="gyroCompass">
                                 <mat-form-field class="example-full-width mb-3" appearance="outline">
                                   <input matInput type="text" formControlName="powerSupplyUnit" />
+                                </mat-form-field>
+                              </td>
+                              <td class="cl-mrk">
+                                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                  <input matInput type="text" formControlName="remarks" />
+                                </mat-form-field>
+                              </td>
+                              <td hidden class="cl-mrk">
+                                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                  <input matInput value="{{getControlLabel(i,'shipEquipmentInfoId')}}" type="text" formControlName="shipEquipmentInfoId" />
+                                </mat-form-field>
+                              </td>
+                              <td class="cl-mrk" *ngIf="navigationRader">
+                                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                  <mat-select formControlName="isSatisfactory">                            
+                                    <mat-option selected value="">--Select--</mat-option>
+                                    <mat-option value="true">Satisfactory</mat-option>
+                                    <mat-option value="false">Not Satisfactory</mat-option>
+                                    <!-- <mat-option *ngFor="let dropdown of selectedEquipmentCategory" [value]="dropdown.value">
+                                      {{dropdown.text}}
+                                    </mat-option> -->
+                                  </mat-select>
+                           
                                 </mat-form-field>
                               </td>
                             </tr>
@@ -178,30 +235,36 @@
 
                 </div>
 
-                <div *ngIf="isUpdateing" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                <div *ngIf="isUpdateing && gyroCompass" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Half Yearing Running Time (Hours)</mat-label>
                     <input matInput formControlName="halfYearlyRunningTime" >
                   </mat-form-field>
                 </div>
-                <div *ngIf="isUpdateing" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                <div *ngIf="isUpdateing && gyroCompass" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Total Running Time (Hours)</mat-label>
                     <input matInput formControlName="totalRunningTime" >
                   </mat-form-field>
                 </div>
-                <div *ngIf="isUpdateing" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                <div *ngIf="isUpdateing && gyroCompass" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Power Supply Unit</mat-label>
                     <input matInput formControlName="powerSupplyUnit" >
                   </mat-form-field>
                 </div>
-                <div *ngIf="isUpdateing" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                <div *ngIf="isUpdateing && gyroCompass" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>half Yearly Problem</mat-label>
                     <input matInput formControlName="halfYearlyProblem" >
                   </mat-form-field>
-                </div>
+                </div>               
+                <div *ngIf="isUpdateing" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Remarks</mat-label>
+                    <input matInput formControlName="remarks" >
+                  </mat-form-field>
+                </div>               
               </div>
               <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
@@ -278,9 +341,11 @@
                       <input matInput formControlName="remarks">
                     </mat-form-field>
                   </div> -->
-
-
-
+<!-- 
+              
+                  <div *ngIf="dataNotFound">
+                    <p class="text-danger text-center">No Data Found</p>
+                  </div> -->
 
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
