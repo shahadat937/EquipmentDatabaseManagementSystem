@@ -17,6 +17,8 @@ namespace SchoolManagement.Application.DTOs.HalfYearlyReturn
         public string? Remarks { get; set; }
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
+        public bool? IsSatisfactory { get; set; }
+        public int? ShipEquipmentInfoId { get; set; }
 
         public List<ShipEquipmentInfoList>? ShipEquipmentInfoList { get; set; }
     }

@@ -23,11 +23,14 @@ namespace SchoolManagement.Domain
         public string? Remarks { get; set; }
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
+        public bool? IsSatisfactory { get; set; }
+        public int? ShipEquipmentInfoId { get; set; }
 
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
         public virtual EquipmentCategory? EquipmentCategory { get; set; }
         public virtual EqupmentName? EqupmentName { get; set; }
         public virtual Brand? Brand { get; set; }
+        public virtual ShipEquipmentInfo? ShipEquipmentInfo { get; set; }
 
 
     }
