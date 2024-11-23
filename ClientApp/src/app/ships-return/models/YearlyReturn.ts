@@ -1,4 +1,7 @@
 export interface YearlyReturn{
+    reportingMonthId: any;
+    baseSchoolName: any;
+    reportMonthId: any;
     yearlyReturnId: number,
     baseSchoolNameId:number,
     operationalStatusId: number,
