@@ -1,4 +1,5 @@
-﻿using SchoolManagement.Application.DTOs.MonthlyReturns;
+﻿using SchoolManagement.Application;
+using SchoolManagement.Application.DTOs.MonthlyReturns;
 using SchoolManagement.Application.DTOs.YearlyReturns;
 using SchoolManagement.Application.Features.HalfYearlyReturns.Requests.Queries;
 using SchoolManagement.Application.Features.MonthlyReturns.Requests.Commands;
@@ -8,6 +9,10 @@ using SchoolManagement.Application.Features.YearlyReturns.Request.Queries;
 
 namespace SchoolManagement.Api.Controllers
 {
+
+    [Route(SMSRoutePrefix.YearlyReturn)]
+    [ApiController]
+    [Authorize]
     public class YearlyReturnController:ControllerBase
     {
         private readonly IMediator _mediator;
