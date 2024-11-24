@@ -42,14 +42,10 @@ namespace SchoolManagement.Application.Features.RoleFeatures.Handler.Commands
 
                 RoleFeature = await _unitOfWork.Repository<RoleFeature>().Add(RoleFeature);
                 
-                try
-                {
                     await _unitOfWork.Save();
-                }
-                catch (Exception ex)
-                {
-
-                }
+                
+                
+                
 
                 response.Success = true;
                 response.Message = "Creation Successful";

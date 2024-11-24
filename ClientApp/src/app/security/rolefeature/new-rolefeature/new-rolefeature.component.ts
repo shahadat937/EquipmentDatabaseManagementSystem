@@ -16,7 +16,7 @@ export class NewRoleFeatureComponent implements OnInit {
   destination:string;
   btnText:string;
   Roleid:number;
-  Featureid:number;
+  FeatureKey:number;
   RoleFeatureForm: FormGroup;
   buttonText:string;
   validationErrors: string[] = [];
@@ -31,16 +31,17 @@ export class NewRoleFeatureComponent implements OnInit {
     this.Roleid = Number(rid);
     console.log(rid);
     const fid = this.route.snapshot.paramMap.get('featureId'); 
-    this.Featureid = Number(fid)
-    if (this.Roleid && this.Featureid) {
+    this.FeatureKey = Number(fid)
+    if (this.Roleid && this.FeatureKey) {
       this.pageTitle = 'Edit RoleFeature';
       this.destination = "Edit";
       this.buttonText= "Update"
-      this.RoleFeatureService.find(this.Roleid, this.Featureid).subscribe(
+      this.RoleFeatureService.find(this.Roleid, this.FeatureKey).subscribe(
         res => {
+          console.log(res);
           this.RoleFeatureForm.patchValue({          
             roleId: res.roleId,
-            featureId: res.featureId,
+            featureId: res.featureKey,
             add: res.add,
             update:res.update,
             delete:res.delete,
@@ -63,7 +64,7 @@ export class NewRoleFeatureComponent implements OnInit {
   intitializeForm() {
     this.RoleFeatureForm = this.fb.group({
       roleId:['', Validators.required],
-      featureId: ['', Validators.required],
+      featureKey: ['', Validators.required],
       add: [true],
       update: [true],
       delete: [true],
@@ -91,12 +92,12 @@ export class NewRoleFeatureComponent implements OnInit {
     const rid = this.route.snapshot.paramMap.get('roleId'); 
     this.Roleid = Number(rid);
     console.log(this.Roleid)
-    const fid = this.route.snapshot.paramMap.get('featureId'); 
-    this.Featureid = Number(fid)
-    if (this.Roleid && this.Featureid) {
+    const fid = this.route.snapshot.paramMap.get('featureKey'); 
+    this.FeatureKey = Number(fid)
+    if (this.Roleid && this.FeatureKey) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This Item').subscribe(result => {
         if (result) {
-          this.RoleFeatureService.update(this.Roleid,this.Featureid,this.RoleFeatureForm.value).subscribe(response => {
+          this.RoleFeatureService.update(this.Roleid,this.FeatureKey,this.RoleFeatureForm.value).subscribe(response => {
             this.router.navigateByUrl('/security/rolefeature-list');
             this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,

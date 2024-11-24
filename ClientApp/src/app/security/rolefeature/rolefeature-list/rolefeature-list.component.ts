@@ -26,7 +26,7 @@ export class RoleFeatureListComponent implements OnInit {
   }
   searchText="";
 
-  displayedColumns: string[] = ['ser','roleId','featureId','add','update','delete','report','isActive', 'actions'];
+  displayedColumns: string[] = ['ser','roleId','featureKey','add','update','delete','report','isActive', 'actions'];
   dataSource: MatTableDataSource<RoleFeature> = new MatTableDataSource();
 
 
@@ -66,10 +66,10 @@ export class RoleFeatureListComponent implements OnInit {
 
   deleteItem(row) {
     const Roleid = row.roleId; 
-    const Featureid = row.featureId;
+    const FeatureKey = row.featureKey;
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This Item').subscribe(result => {
       if (result) {
-        this.RoleFeatureService.delete(Roleid,Featureid).subscribe(() => {
+        this.RoleFeatureService.delete(Roleid,FeatureKey).subscribe(() => {
           this.getRoleFeatures();
           this.snackBar.open('Information Deleted Successfully ', '', {
             duration: 3000,

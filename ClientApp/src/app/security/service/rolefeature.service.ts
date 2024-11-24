@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http'; 
 import { environment } from 'src/environments/environment';
 import {IRoleFeaturePagination, RoleFeaturePagination } from '../models/RoleFeaturePagination'
-import { RoleFeature } from '../models/RoleFeature';
+
 import { map } from 'rxjs';
 import { SelectedModel } from '../../core/models/selectedModel';
+import { RoleFeature } from '../models/rolefeature';
 @Injectable({
   providedIn: 'root'
 })

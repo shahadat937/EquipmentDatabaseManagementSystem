@@ -170,7 +170,7 @@ namespace SchoolManagement.Identity.Services
         }
 
         public async Task<object> GetRoleById(string id)
-        {
+      {
             var roles = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id);
             return roles;
         }
