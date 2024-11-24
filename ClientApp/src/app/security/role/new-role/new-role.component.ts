@@ -46,16 +46,17 @@ export class NewRoleComponent implements OnInit {
   }
   intitializeForm() {
     this.roleForm = this.fb.group({
-      id: [0],
-      name: ['', Validators.required]
+      roleId: [0],
+      roleName: ['', Validators.required]
     
     })
   }
   
   onSubmit() {
-    const id = this.roleForm.get('id').value;   
-    console.log(id)
+    const id = this.roleForm.get('roleId').value;   
+
     if (id) {
+      console.log("Id",id)
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This Item').subscribe(result => {
         if (result) {
           this.roleService.update(id,this.roleForm.value).subscribe(response => {

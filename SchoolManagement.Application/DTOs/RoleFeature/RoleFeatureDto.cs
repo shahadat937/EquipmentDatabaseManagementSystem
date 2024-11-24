@@ -9,7 +9,7 @@ namespace SchoolManagement.Application.DTOs.RoleFeature
     {
 
         public string RoleId { get; set; }
-        public int FeatureId { get; set; }
+        public int FeatureKey { get; set; }
         public bool Add { get; set; }
         public bool Update { get; set; }
         public bool Delete { get; set; }
