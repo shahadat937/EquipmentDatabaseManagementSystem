@@ -31,7 +31,6 @@ export class NewQuarterlyReturnComponent implements OnInit {
     { id: 4, year: '2023' }
   ];
   
-
   constructor(
     private fb: FormBuilder, 
     private YearlyReturnService: YearlyReturnService,
@@ -156,6 +155,7 @@ export class NewQuarterlyReturnComponent implements OnInit {
       });
     } else {
       this.YearlyReturnService.submit(formData).subscribe(response => {
+        console.log(response)
         this.router.navigateByUrl('/ships-return/quarterly-return');
         this.snackBar.open('Information Inserted Successfully', '', {
           duration: 2000,

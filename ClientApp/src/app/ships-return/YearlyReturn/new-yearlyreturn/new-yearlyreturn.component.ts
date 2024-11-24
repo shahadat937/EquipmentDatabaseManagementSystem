@@ -55,7 +55,7 @@ export class YearlyReturnComponent implements OnInit {
             baseSchoolNameId: res.baseSchoolNameId,
             operationalStatusId: res.operationalStatusId,
             reportingMonthId: res.reportingMonthId,
-            reportingYear: res.reportingYearId,
+            reportingYearId: res.reportingYearId,
             menuPosition: res.menuPosition,
             isActive: res.isActive
           });
@@ -81,15 +81,15 @@ export class YearlyReturnComponent implements OnInit {
       baseSchoolNameId: [''],
       operationalStatusId: [''], 
       reportingMonthId: [''], 
-      reportingYear: [''],
+      reportingYearId: [''],
     });
   }
 
-  // Load data for Ship Names
+
   getSelectedSchoolByBranchLevelAndThirdLevel() {
     this.YearlyReturnService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(
       (res: SelectedModel[]) => {
-        this.selectedBaseSchoolName = res; // Ensure API response matches SelectedModel type
+        this.selectedBaseSchoolName = res; 
       },
       (error) => {
         console.error('Error loading Ship Names:', error);
@@ -97,7 +97,7 @@ export class YearlyReturnComponent implements OnInit {
     );
   }
 
-  // Load data for Reporting Month
+
   getSelectedReportingMonth() {
     this.YearlyReturnService.getSelectedReportingMonth().subscribe(
       (res: SelectedModel[]) => {
