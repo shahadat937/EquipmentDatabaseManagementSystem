@@ -108,9 +108,7 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<HalfYearlyReturn, CreateHalfYearlyReturnDto>().ReverseMap();
             #endregion
 
-            CreateMap<YearlyReturnDto, YearlyReturn>().ReverseMap()
-                .ForMember(d => d.BaseSchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName));
-                //.ForMember(d => d.ReportingMonth, o => o.MapFrom(s => s.ReportingMonth));
+            CreateMap<YearlyReturnDto, YearlyReturn>().ReverseMap().ForMember(dest => dest.SchoolName, opt => opt.MapFrom(src => src.BaseSchoolName != null ? src.BaseSchoolName.SchoolName : null));
             CreateMap<YearlyReturn, CreateYearlyReturnDto>().ReverseMap();
 
             #region HalfYearlyRunningTime Mapping    

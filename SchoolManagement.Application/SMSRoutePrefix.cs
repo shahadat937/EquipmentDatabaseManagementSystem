@@ -54,7 +54,8 @@ namespace SchoolManagement.Application
         public const string OperationalState = SMSRoutePrefixBase + "operational-state"; 
         public const string ActionTaken = SMSRoutePrefixBase + "action-taken"; 
         public const string Priority = SMSRoutePrefixBase + "priority"; 
-        public const string DailyWorkState = SMSRoutePrefixBase + "daily-work-state"; 
+        public const string DailyWorkState = SMSRoutePrefixBase + "daily-work-state";
+        public const string YearlyReturn = SMSRoutePrefixBase + "yearly-return";
     }
 }
  
