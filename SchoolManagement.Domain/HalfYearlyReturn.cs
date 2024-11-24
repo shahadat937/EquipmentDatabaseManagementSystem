@@ -1,4 +1,5 @@
-﻿using SchoolManagement.Domain.Common;
+﻿using SchoolManagement.Doamin;
+using SchoolManagement.Domain.Common;
 using System;
 using System.Collections.Generic;
 
@@ -25,12 +26,15 @@ namespace SchoolManagement.Domain
         public bool IsActive { get; set; }
         public bool? IsSatisfactory { get; set; }
         public int? ShipEquipmentInfoId { get; set; }
+        public int? Year { get; set; }
+        public int? ReportingMonthId { get; set; }
 
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
         public virtual EquipmentCategory? EquipmentCategory { get; set; }
         public virtual EqupmentName? EqupmentName { get; set; }
         public virtual Brand? Brand { get; set; }
         public virtual ShipEquipmentInfo? ShipEquipmentInfo { get; set; }
+        public virtual ReportingMonth? ReportingMonth { get; set; }
 
 
     }

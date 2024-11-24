@@ -20,5 +20,7 @@ export interface HalfYearlyReturn {
    purpose : string,
    location: string,
    yearOfInstallation : string,
-   acquisitionMethodName : string
+   acquisitionMethodName : string,
+   reportingMonthId : number,
+   year : number;
 }

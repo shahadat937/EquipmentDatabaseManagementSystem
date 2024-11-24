@@ -28,6 +28,8 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   selectedOperationalStatus: SelectedModel[];
   selectedEquipmentCategory: SelectedModel[];
   selectEquipmentCategory: SelectedModel[];
+  selectedReportingMonth : SelectedModel [];
+  selectReportingMonth : SelectedModel [];
   masterData = MasterData;
   ELEMENT_DATA: HalfYearlyReturn[] = [];
   halfYearlyReturnList: HalfYearlyReturn[];
@@ -53,6 +55,14 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   gyroCompass: boolean;
   navigationRader: boolean;
   echoSounder : boolean;
+  searchRader: boolean;
+  helControalRader : boolean;
+  trackingRader :boolean;
+  surveillanceRadar : boolean;
+  trueLayingRader : boolean;
+  years: number[] = [];
+  currentYear = new Date().getFullYear();
+  selectedYear: number = this.currentYear;
 
   constructor(private snackBar: MatSnackBar, private authService: AuthService, private confirmService: ConfirmService, private HalfYearlyReturnService: HalfYearlyReturnService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) { }
 
@@ -86,7 +96,9 @@ export class NewHalfYearlyReturnComponent implements OnInit {
             remarks: res.remarks,
             isSatisfactory : res.isSatisfactory,
             menuPosition: res.menuPosition,
-            isActive: res.isActive
+            isActive: res.isActive,
+            reportingMonthId : res.reportingMonthId,
+            year: res.year
           });
           this.onEquipmentCategorySelectionChange();
           this. onShipEquipmentInfoList();
@@ -103,6 +115,8 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     this.getSelectedEquipmentCategory();
     this.getSelectedBrand();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
+    this.getSelectedReportingMonth();
+    this.generateYears(1980,this.currentYear);
   }
   intitializeForm() {
     this.HalfYearlyReturnForm = this.fb.group({
@@ -121,6 +135,9 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       menuPosition: [1],
       isActive: [true],
       shipEquipmentInfoId: [''],
+      reportingMonthId : [''],
+      year : [''],
+      
       shipEquipmentInfoList: this.fb.array([
         this.createHalfYearlyReturnData()
       ]),
@@ -154,7 +171,10 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       purpose: [''],
       manufacturerNameAndAddress : [''],
       yearOfInstallation : [''],
-      acquisitionMethodName: ['']
+      acquisitionMethodName: [''],
+      reportingMonthId : [''],
+      year : ['']
+
 
 
     });
@@ -194,17 +214,22 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   filterByEquipementName(value: any) {
     this.selectedEquipmentNameByCategory = this.selectEquipmentNameByCategory.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
+  filterByMonth(value:any){
+    this.selectedReportingMonth=this.selectReportingMonth.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  }
   onShipEquipmentInfoList() {
 
     let shipNameId = this.HalfYearlyReturnForm.value['baseSchoolNameId'];
     let equipmentCategoryId = this.HalfYearlyReturnForm.value['equipmentCategoryId'];
     let equpmentNameId = this.HalfYearlyReturnForm.value['equpmentNameId'];
-    if (shipNameId && equipmentCategoryId && equpmentNameId && !this.isUpdateing) {
+
+    if (shipNameId && equipmentCategoryId && equpmentNameId) {
 
       if (equpmentNameId === this.masterData.equepmentName.GyroCompass) {
+        this.allEqumentStateFalse();
         this.gyroCompass = true;
       }
-      else if (equpmentNameId === this.masterData.equepmentName.NavigationRadar) {
+      else if (equpmentNameId === this.masterData.equepmentName.NavigationRadar || equpmentNameId === this.masterData.equepmentName.SearchRadar || equpmentNameId === this.masterData.equepmentName.HelControlRadar || equpmentNameId === this.masterData.equepmentName.TrackingRadar || equpmentNameId === this.masterData.equepmentName.TrueLyingRuder || equpmentNameId === this.masterData.equepmentName.SurveillanceRadar) {
         this.allEqumentStateFalse();
         this.navigationRader = true;
       }
@@ -282,11 +307,24 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     })
   }
 
+  getSelectedReportingMonth(){
+    this.HalfYearlyReturnService.getSelectedReportingMonth().subscribe(res=>{
+      this.selectedReportingMonth=res
+      this.selectReportingMonth=res
+    }); 
+  }
+
   allEqumentStateFalse() {
     this.gyroCompass = false
     this.navigationRader = false;
     this.echoSounder = false;
 
+  }
+
+  generateYears(startYear: number, endYear: number): void {
+    for (let year = startYear; year <= endYear; year++) {
+      this.years.push(year);
+    }
   }
 
   onSubmit() {
@@ -305,6 +343,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     // }
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
+        
       // this.HalfYearlyReturnForm.value);
   this.HalfYearlyReturnForm.value.shipEquipmentInfoList.shipEquipmentInfoId =this.shipEquipmentInformationId;
   // console.log("result ",this.HalfYearlyReturnForm.value.shipEquipmentInfoList.shipEquipmentInfoId )
@@ -327,6 +366,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       })
     }
     else {
+      console.log(this.HalfYearlyReturnForm.value.shipEquipmentInfoList);
       this.HalfYearlyReturnService.submit(this.HalfYearlyReturnForm.value.shipEquipmentInfoList
       ).subscribe(response => {
         this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');
