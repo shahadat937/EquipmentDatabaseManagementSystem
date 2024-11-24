@@ -15,6 +15,8 @@ namespace SchoolManagement.Application.DTOs.RoleFeature
         public bool Delete { get; set; }
         public bool Report { get; set; }
         public bool IsActive { get; set; }
+        public string? RoleName { get; set; }
+        public string? FeatureName { get; set; }
     }
 }
 

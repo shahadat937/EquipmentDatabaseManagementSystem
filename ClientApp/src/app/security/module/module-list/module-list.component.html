@@ -112,7 +112,7 @@
 
                   <ng-container matColumnDef="isActive">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> isActive </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.isActive}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.isActive? "Active" : "Inactive"}} </mat-cell>
                   </ng-container>
                   <!--
                   <ng-container matColumnDef="menuPosition">

@@ -575,6 +575,7 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<MonthlyReturn> MonthlyReturn { get; set; }
         public virtual DbSet<OperationalState> OperationalState { get; set; }
         public virtual DbSet<YearlyReturn> YearlyReturn { get; set; }
+        public virtual DbSet <AspNetRoles> AspNetRoles { get; set; }
     }
 }
     

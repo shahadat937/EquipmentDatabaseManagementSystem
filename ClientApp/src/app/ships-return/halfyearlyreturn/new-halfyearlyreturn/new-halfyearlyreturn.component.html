@@ -220,12 +220,12 @@
 
                               <td class="cl-mrk" *ngIf="gyroCompass">
                                 <mat-form-field class="example-full-width mb-3" appearance="outline">
-                                  <input matInput type="text" formControlName="halfYearlyRunningTime" />
+                                  <input type="number" matInput formControlName="halfYearlyRunningTime" />
                                 </mat-form-field>
                               </td>
                               <td class="cl-mrk" *ngIf="gyroCompass">
                                 <mat-form-field class="example-full-width mb-3" appearance="outline">
-                                  <input matInput type="text" formControlName="totalRunningTime" />
+                                  <input type="number" matInput formControlName="totalRunningTime" />
                                 </mat-form-field>
                               </td>
                               <td class="cl-mrk" *ngIf="gyroCompass">
@@ -275,13 +275,13 @@
                 <div *ngIf="isUpdateing && gyroCompass" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Half Yearing Running Time (Hours)</mat-label>
-                    <input matInput formControlName="halfYearlyRunningTime" >
+                    <input type="number" matInput formControlName="halfYearlyRunningTime" >
                   </mat-form-field>
                 </div>
                 <div *ngIf="isUpdateing && gyroCompass" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                     <mat-label>Total Running Time (Hours)</mat-label>
-                    <input matInput formControlName="totalRunningTime" >
+                    <input type="number" matInput formControlName="totalRunningTime" >
                   </mat-form-field>
                 </div>
                 <div *ngIf="isUpdateing && gyroCompass" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
@@ -303,6 +303,22 @@
                   </mat-form-field>
                 </div>               
               </div>
+
+              <div *ngIf="isUpdateing && (navigationRader || trueLayingRader || surveillanceRadar || trackingRader || helControalRader || searchRader)" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Condition of Equipment</mat-label>
+                  <mat-select formControlName="isSatisfactory">                            
+                    <mat-option selected value="">--Select--</mat-option>
+                    <mat-option [value]="true">Satisfactory</mat-option>
+                    <mat-option [value]="false">Not Satisfactory</mat-option>
+                    <!-- <mat-option *ngFor="let dropdown of selectedEquipmentCategory" [value]="dropdown.value">
+                      {{dropdown.text}}
+                    </mat-option> -->
+                  </mat-select>
+           
+                </mat-form-field>
+              </div> 
+
               <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Brand </mat-label>
