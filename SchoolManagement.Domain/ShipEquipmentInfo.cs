@@ -8,9 +8,9 @@ namespace SchoolManagement.Domain
     {
         public ShipEquipmentInfo()
         {
-            //ShipInformations = new HashSet<ShipInformation>();
+            HalfYearlyReturns = new HashSet<HalfYearlyReturn>();
         }
-        
+
         public int ShipEquipmentInfoId { get; set; }
         public int? BaseSchoolNameId { get; set; }
         public int? EquipmentCategoryId { get; set; }
@@ -160,6 +160,7 @@ namespace SchoolManagement.Domain
         public virtual EqupmentName? EqupmentName { get; set; }
         public virtual EquipmentType? EquipmentType { get; set; }
         public virtual StateOfEquipment? StateOfEquipment { get; set; }
-        //public virtual ICollection<ShipInformation> ShipInformations { get; set; }
+
+        public virtual ICollection<HalfYearlyReturn> HalfYearlyReturns { get; set; }
     }
 }

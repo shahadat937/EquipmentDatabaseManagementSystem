@@ -99,7 +99,11 @@ namespace SchoolManagement.Application.Profiles
             #region HalfYearlyReturn Mapping    
             CreateMap<HalfYearlyReturnDto, HalfYearlyReturn>().ReverseMap()
                  .ForMember(d => d.EquipmentCategory, o => o.MapFrom(s => s.EquipmentCategory.Name))
-                 .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name));
+                 .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
+                 .ForMember(d => d.BaseSchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
+                 .ForMember(d=> d.InputPowerSupply, o=> o.MapFrom(s=> s.ShipEquipmentInfo.PowerSupply));
+                 
+                 
             CreateMap<HalfYearlyReturn, CreateHalfYearlyReturnDto>().ReverseMap();
             #endregion
 

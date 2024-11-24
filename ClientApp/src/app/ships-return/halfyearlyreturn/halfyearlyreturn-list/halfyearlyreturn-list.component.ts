@@ -49,10 +49,8 @@ export class HalfYearlyReturnListComponent implements OnInit {
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;
-      console.log(this.dataSource.data);
-      this.itemCount = response.items.length;
-      console.log("itemCountdata");
-      console.log(this.dataSource.data);
+      console.log("response",this.dataSource.data);
+
 
        // this gives an object with dates as keys
       //  const groups = this.dataSource.data.reduce((groups, courses) => {

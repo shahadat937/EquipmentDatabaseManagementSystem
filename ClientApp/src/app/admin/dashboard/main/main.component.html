@@ -18,11 +18,11 @@
     </div> -->
 
     <!-- #END# Course -->
-    <div class="row p-t-15">      
-      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 main-db">   
+    <div class="row p-t-15">
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 main-db">
         <div class="card">
           <div class="header">
-            
+
           </div>
           <div class="body">
             <div class="row info-card">
@@ -30,7 +30,7 @@
                 <!-- <button [routerLink]="['/admin/dashboard/shipinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 btnDetails" mat-flat-button color="primary">
                   Total Ship's 
                   <span class="shipsCount"><u>{{this.shipCount}}</u></span> -->
-                  <!-- <div class="shipbtn">
+                <!-- <div class="shipbtn">
                   <img class="shipimg" src="assets/images/dashboard/shipimg.jpg" alt="Ship Image" width="50" height="60">
                   Total Ship's 
                   <span class="shipsCount">{{this.shipCount}}</span>
@@ -38,75 +38,81 @@
                 <!-- </button>
                 <button [routerLink]="['/admin/dashboard/boatinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 btnDetails" mat-flat-button color="primary">
                   Total Boat  -->
-                  <!-- <a href=""> -->
-                    <!-- <span class="shipsCount"><u>{{this.boatcount}}</u></span> -->
-                   
-                  <!-- </a> -->
+                <!-- <a href=""> -->
+                <!-- <span class="shipsCount"><u>{{this.boatcount}}</u></span> -->
+
+                <!-- </a> -->
                 <!-- </button>
                 <button [routerLink]="['/admin/dashboard/establishmentbytype-list']" class="col-lg-4 col-md-4 col-sm-4 btnDetails" mat-flat-button color="primary">
                   Total Establishment
                   <span class="shipsCount"><u>{{this.establishmentCount}}</u></span>
                 </button> -->
 
-              
+
               </div>
-              
-                <div [routerLink]="['/admin/dashboard/shipinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 ships">
-                 
-                 <div>
-                  <img class="images" src="/assets/images/bg/ship.png"> 
-                 </div>
-                  <div>
-                    <div class="rounded-design"></div>
-                    <div class="rounded-design1"></div>
-                    <p>Total Ship</p>
+
+              <div [routerLink]="['/admin/dashboard/shipinformationbytype-list']"
+                class="col-lg-4 col-md-4 col-sm-4 ships">
+
+                <div>
+                  <img class="images" src="/assets/images/bg/ship.png">
+                </div>
+                <div>
+                  <div class="rounded-design"></div>
+                  <div class="rounded-design1"></div>
+                  <p>Total Ship</p>
                   <h1>{{this.shipCount}}</h1>
-                  </div>
-                  
                 </div>
-                <div [routerLink]="['/admin/dashboard/boatinformationbytype-list']" class="col-lg-4 col-md-4 col-sm-4 boat-info">
-                  <div>
-                    <img class="images" src="/assets/images/bg/boat.png"> 
-                  </div>
-                  <div>
-                    <div class="rounded-design"></div>
-                    <div class="rounded-design1"></div>
-                    <p>Boat Info</p>
-                    <h1>{{this.boatcount}}</h1>
-                  </div>                  
-                  
+
+              </div>
+              <div [routerLink]="['/admin/dashboard/boatinformationbytype-list']"
+                class="col-lg-4 col-md-4 col-sm-4 boat-info">
+                <div>
+                  <img class="images" src="/assets/images/bg/boat.png">
                 </div>
-                <div [routerLink]="['/admin/dashboard/establishmentbytype-list']" class="col-lg-4 col-md-4 col-sm-4 eastablishment">
-                  <div>
-                    <img class="images" src="/assets/images/bg/eastablish.svg"> 
-                  </div>
-                  <div>
-                    <div class="rounded-design"></div>
-                    <div class="rounded-design1"></div>
-                    <p>Total <br>Eastablish</p>
+                <div>
+                  <div class="rounded-design"></div>
+                  <div class="rounded-design1"></div>
+                  <p>Boat Info</p>
+                  <h1>{{this.boatcount}}</h1>
+                </div>
+
+              </div>
+              <div [routerLink]="['/admin/dashboard/establishmentbytype-list']"
+                class="col-lg-4 col-md-4 col-sm-4 eastablishment">
+                <div>
+                  <img class="images" src="/assets/images/bg/eastablish.svg">
+                </div>
+                <div>
+                  <div class="rounded-design"></div>
+                  <div class="rounded-design1"></div>
+                  <p>Total <br>Eastablish</p>
                   <h1>{{this.establishmentCount}}</h1>
-                  </div>
-                  
-                  
                 </div>
-              
+
+
+              </div>
+
             </div>
           </div>
-        
-        </div>     
+
+        </div>
         <div class="card">
           <div class="header">
-            
+
           </div>
           <div class="body">
             <div class="row">
-              
-              <div [routerLink]="['/admin/dashboard/viewshipdrowing-list']" class="col-lg-3 col-md-3 col-sm-3 btnDetails" mat-flat-button color="primary">                
+
+              <div [routerLink]="['/admin/dashboard/viewshipdrowing-list']"
+                class="col-lg-3 col-md-3 col-sm-3 btnDetails" mat-flat-button color="primary">
                 Ship Drawing
               </div>
-              <div [routerLink]="['/basic-setup/add-equpmentname']" class="col-lg-3 col-md-3 col-sm-3 btnDetails" mat-flat-button color="primary">
+              <div [routerLink]="['/basic-setup/add-equpmentname']" class="col-lg-3 col-md-3 col-sm-3 btnDetails"
+                mat-flat-button color="primary">
                 Major Equipment
               </div>
+
               <div [routerLink]="['/ships-return/monthlyreturn-list']" class="col-lg-3 col-md-3 col-sm-3 btnDetails" mat-flat-button color="primary">Monthly Return</div>
               <!-- <div [routerLink]="['/basic-setup/add-quarterlyreturnnotype']" class="col-lg-3 col-md-3 col-sm-3 btnDetails" mat-flat-button color="primary">Quarterly Return</div> -->
               <div [routerLink]="['/ships-return/quarterly-return']" class="col-lg-3 col-md-3 col-sm-3 btnDetails" mat-flat-button color="primary">Quarterly Return</div>
@@ -114,16 +120,17 @@
               <div [routerLink]="['/ships-return/yearlyreturn-list']" class="col-lg-3 col-md-3 col-sm-3 btnDetails" mat-flat-button color="primary">Yearly </div>
               <div [routerLink]="['/procurement-management/procurement-list']" class="col-lg-3 col-md-3 col-sm-3 btnDetails" mat-flat-button color="primary">Procurement</div>
               <div [routerLink]="['/admin/dashboard/view-readingmaterial']" class="col-lg-3 col-md-3 col-sm-3 btnDetails" mat-flat-button color="primary">Refit/Docking</div>
+
             </div>
           </div>
-        
+
         </div>
       </div>
-     
+
       <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
         <div class="card">
           <div class="header">
-            
+
           </div>
           <div class="body db-left-info">
             <table class="full-width col-12">
@@ -136,14 +143,17 @@
               <tr *ngFor="let number of baseNameListCount;let i= index;">
                 <td><b>{{number.shortName}}</b></td>
                 <td>
-                  <a [routerLink]="['/admin/dashboard/view-allshipinfobybaselist',number.baseSchoolNameId,0]">{{number.count}}</a>
-                </td>   
+                  <a
+                    [routerLink]="['/admin/dashboard/view-allshipinfobybaselist',number.baseSchoolNameId,0]">{{number.count}}</a>
+                </td>
                 <td>
-                  <a [routerLink]="['/admin/dashboard/view-allshipinfobybaselist',number.baseSchoolNameId,4]">{{number.oplCount}}</a>
-                </td>            
+                  <a
+                    [routerLink]="['/admin/dashboard/view-allshipinfobybaselist',number.baseSchoolNameId,4]">{{number.oplCount}}</a>
+                </td>
                 <td>
-                  <a [routerLink]="['/admin/dashboard/view-allshipinfobybaselist',number.baseSchoolNameId,2]">{{number.nonoplCount}}</a>
-                </td>            
+                  <a
+                    [routerLink]="['/admin/dashboard/view-allshipinfobybaselist',number.baseSchoolNameId,2]">{{number.nonoplCount}}</a>
+                </td>
               </tr>
             </table>
           </div>
@@ -151,7 +161,7 @@
 
         <div class="card">
           <div class="header">
-            
+
           </div>
           <div class="body db-left-info">
             <table class="full-width col-12">
@@ -164,21 +174,55 @@
               <tr *ngFor="let shipEquipment of CountShipEquipment;let i= index;">
                 <td><b>{{shipEquipment.name}}</b></td>
                 <td>
-                  <a  [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, 0 ]">{{shipEquipment.totalCount}}</a>
+                  <a
+                    [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, 0 ]">{{shipEquipment.totalCount}}</a>
                   <!-- 0 is Passing for both non-opl and opl -->
-                </td>   
+                </td>
                 <td>
-                  <a [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, opl]">{{shipEquipment.totalOpl}}</a>
-                </td>            
+                  <a
+                    [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, opl]">{{shipEquipment.totalOpl}}</a>
+                </td>
                 <td>
-                  <a [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, nonOpl]">{{shipEquipment.totalNonOpl}}</a>
-                </td>            
-              </tr>               
-             
+                  <a
+                    [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, nonOpl]">{{shipEquipment.totalNonOpl}}</a>
+                </td>
+              </tr>
+
             </table>
           </div>
         </div>
-        
+        <div class="card">
+          <div class="header">
+
+          </div>
+          <div class="body db-left-info">
+            <table class="full-width col-12">
+              <tr>
+                <th>Combat System</th>
+                <th>Total</th>
+                <th>OPL</th>
+                <th>NON OPL</th>
+              </tr>
+              <tr *ngFor="let combatEqipment of combatSystemEquipmentCount;let i= index;">
+                <td><b>{{combatEqipment.name}}</b></td>
+                <td>
+                  <a
+                    [routerLink]="['/ship-management/shipequipmentinfo-list',combatEqipment.equipmentCategoryId,combatEqipment.equpmentNameId, 0 ]">{{combatEqipment.totalCount}}</a>
+                  <!-- 0 is Passing for both non-opl and opl -->
+                </td>
+                <td>
+                  <a [routerLink]="['/ship-management/shipequipmentinfo-list',combatEqipment.equipmentCategoryId,combatEqipment.equpmentNameId
+                  , opl ]">{{combatEqipment.totalNONOPL}}</a>
+                </td>
+                <td>
+                  <a [routerLink]="['/ship-management/shipequipmentinfo-list',combatEqipment.equipmentCategoryId,combatEqipment.equpmentNameId, nonOpl ]">{{combatEqipment.totalOPL}}</a>
+                </td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -190,7 +234,7 @@
             <div class="row event-calendar">
               <div class="col-xl-2 col-md-2 col-sm-12 p-l-30">
                 <div class="m-b-15"> -->
-                  <!-- <button *ngIf="role === 'Master Admin'" class="btn-space"  mat-raised-button
+    <!-- <button *ngIf="role === 'Master Admin'" class="btn-space"  mat-raised-button
                     color="warn" [routerLink]="['/admin/dashboard/main']"> 
                     <mat-icon class="col-white">keyboard_backspace</mat-icon> Back
                   </button>
@@ -202,8 +246,8 @@
                     color="warn" [routerLink]="['/admin/dashboard/foreigntraining-dashboard']"> 
                     <mat-icon class="col-white">keyboard_backspace</mat-icon> Back
                   </button> -->
-                <!-- </div> -->
-                <!-- <p>My Calendars</p>
+    <!-- </div> -->
+    <!-- <p>My Calendars</p>
                 <div class="filter-container">
                   <ul>
                     <li *ngFor="let filter of filters">
@@ -214,8 +258,8 @@
                     </li>
                   </ul>
                 </div> -->
-              <!-- </div> -->
-              <!-- <div class="col-xl-10 col-md-10 col-sm-12 p-l-30">
+    <!-- </div> -->
+    <!-- <div class="col-xl-10 col-md-10 col-sm-12 p-l-30">
                 <div class="m-b-25">
                   <span class="right-float">
                     <span  class="fc-event-color color1 spn">Local</span>
@@ -226,18 +270,18 @@
                   </span>
                 </div>
               </div> -->
-              <!-- <div class="col-xl-12 col-md-12 col-sm-12 ">
+    <!-- <div class="col-xl-12 col-md-12 col-sm-12 ">
                 <div class="panel-body">
                   <full-calendar [options]='calendarOptions'>
                   </full-calendar> 
                 </div>
               </div> -->
-            <!-- </div> -->
-          <!-- </div> -->
-        <!-- </div> -->
-      <!-- </div> -->
     <!-- </div> -->
-    
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+
 
   </div>
 </section>

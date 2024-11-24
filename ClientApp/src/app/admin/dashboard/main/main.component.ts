@@ -95,6 +95,8 @@ export class MainComponent implements OnInit {
   stateOfComponent : any[];
   opl: number;
   nonOpl : number;
+  stateOfEqupmentName1 : string;
+  stateOfEqupmentName2 : string;
   filterItems: string[] = [
     'work',
     'personal',
@@ -124,7 +126,7 @@ export class MainComponent implements OnInit {
   groupArrays:{ schoolName: string; courses: any; }[];
   baseNameListCount:any[];
   CountShipEquipment : any [];
-
+  combatSystemEquipmentCount : any[];
   calendarOptions: CalendarOptions;
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
@@ -132,11 +134,7 @@ export class MainComponent implements OnInit {
     length: 1
   }
   searchText="";
-  stateOfEquipment = {
-    operational: 1,
-    nonOperational : 2,
-    bothOpAndNonOpEquipment : 3
-  }
+
 
   displayedColumns: string[] = ['ser','schoolName','course','noOfCandidates','professional','nbcd','durationFrom','durationTo', 'remark', 'actions'];
 
@@ -224,6 +222,12 @@ export class MainComponent implements OnInit {
       this.CountShipEquipment = response;   
     })
    }
+   getCombatSystemEquipmentCount(combatSystemId, stateOfEquipmentId1, stateOfEquipmentId2){
+    this.dashboardService.getCombatSystemEquipmentCount(combatSystemId,stateOfEquipmentId1, stateOfEquipmentId2).subscribe(response =>{
+      console.log(response);
+      this. combatSystemEquipmentCount = response;   
+    })
+   }
 
    getStateOfEquipments() {
     this.isLoading = true;
@@ -231,8 +235,13 @@ export class MainComponent implements OnInit {
       this.stateOfComponent= response.items; 
       this.nonOpl = this.stateOfComponent[0]?.stateOfEquipmentId?? 0
       this.opl = this.stateOfComponent[1]?.stateOfEquipmentId?? 0
+      this.stateOfEqupmentName1 = this.stateOfComponent[0]?.name
+      this.stateOfEqupmentName2 = this.stateOfComponent[1]?.name
+      console.log(this.stateOfEqupmentName1, this.stateOfEqupmentName2)
+
       if(this.nonOpl && this.opl) {
         this.getEquipmentCountByCategory(this.nonOpl, this.opl)
+        this.getCombatSystemEquipmentCount(this.masterData.equepmentCategory.combatSystem,this.nonOpl, this.opl)
       } 
     })
   }

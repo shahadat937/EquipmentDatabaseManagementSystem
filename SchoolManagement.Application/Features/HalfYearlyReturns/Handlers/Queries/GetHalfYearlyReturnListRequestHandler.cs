@@ -31,7 +31,7 @@ namespace SchoolManagement.Application.Features.HalfYearlyReturns.Handlers.Queri
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<HalfYearlyReturn> HalfYearlyReturns = _HalfYearlyReturnRepository.FilterWithInclude(x => (x.InputPowerSupply.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)), "EquipmentCategory", "EqupmentName");
+            IQueryable<HalfYearlyReturn> HalfYearlyReturns = _HalfYearlyReturnRepository.FilterWithInclude(x => (x.InputPowerSupply.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)), "EquipmentCategory", "EqupmentName", "BaseSchoolName", "ShipEquipmentInfo");
             var totalCount = HalfYearlyReturns.Count();
             HalfYearlyReturns = HalfYearlyReturns.OrderByDescending(x => x.HalfYearlyReturnId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 

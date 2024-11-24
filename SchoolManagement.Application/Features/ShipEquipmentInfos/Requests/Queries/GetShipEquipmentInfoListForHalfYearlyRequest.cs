@@ -7,6 +7,7 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Requests.Quer
     {
         public int EquipmentCategoryId { get; set; }
         public int EqupmentNameId { get; set; }
+        public int ShipId { get; set; }
     }
 }   
      
