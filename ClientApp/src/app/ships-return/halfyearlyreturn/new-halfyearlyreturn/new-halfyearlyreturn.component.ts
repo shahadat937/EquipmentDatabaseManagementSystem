@@ -80,6 +80,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       this.btnText = 'Update';
       this.HalfYearlyReturnService.find(+id).subscribe(
         res => {
+          console.log(res.isSatisfactory);
           this.shipEquipmentInformationId = res.shipEquipmentInfoId;
           this.HalfYearlyReturnForm.patchValue({
             halfYearlyReturnId: res.halfYearlyReturnId,
