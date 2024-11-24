@@ -22,18 +22,17 @@ export class NewRoleComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('roleId'); 
     if (id) {
+      console.log(id);
       this.pageTitle = 'Edit Role';
       this.destination='Edit';
       this.buttonText="Update";
-      this.roleService.find(+id).subscribe(
+      this.roleService.find(id).subscribe(
         res => {
+          console.log(res);
           this.roleForm.patchValue({          
 
-            roleId: res.roleId,
-            roleName: res.roleName,
-            loweredRoleName:res.loweredRoleName,
-            description:res.description,
-            //menuPosition: res.menuPosition,
+            id: res.id,
+            name: name,       
           
           });          
         }
@@ -47,22 +46,19 @@ export class NewRoleComponent implements OnInit {
   }
   intitializeForm() {
     this.roleForm = this.fb.group({
-      roleId: [0],
-      roleName: ['', Validators.required],
-      loweredRoleName:['', Validators.required],
-      description:[],
-      //menuPosition: ['', Validators.required],
-      isActive: [true],
+      id: [0],
+      name: ['', Validators.required]
     
     })
   }
   
   onSubmit() {
-    const id = this.roleForm.get('roleId').value;   
+    const id = this.roleForm.get('id').value;   
+    console.log(id)
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This Item').subscribe(result => {
         if (result) {
-          this.roleService.update(+id,this.roleForm.value).subscribe(response => {
+          this.roleService.update(id,this.roleForm.value).subscribe(response => {
             this.router.navigateByUrl('/security/role-list');
             this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,

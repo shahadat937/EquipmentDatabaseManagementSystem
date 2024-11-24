@@ -28,7 +28,7 @@ export class RoleListComponent implements OnInit {
   }
   searchText="";
 
-  displayedColumns: string[] = [ 'sl',/*'roleId',*/ 'roleName', 'loweredRoleName', 'description', /*'menuPosition',*/ 'isActive', 'actions'];
+  displayedColumns: string[] = [ 'sl','name', 'actions'];
   dataSource: MatTableDataSource<Role> = new MatTableDataSource();
 
   selection = new SelectionModel<Role>(true, []);
@@ -43,8 +43,6 @@ export class RoleListComponent implements OnInit {
   getRoles() {
     this.isLoading = true;
     this.roleService.getRoles(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-     
-
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;
@@ -81,9 +79,8 @@ export class RoleListComponent implements OnInit {
 
 
   deleteItem(row) {
-    const id = row.roleId; 
+    const id = row.id; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This Item').subscribe(result => {
-      console.log(result);
       if (result) {
         this.roleService.delete(id).subscribe(() => {
           this.getRoles();
