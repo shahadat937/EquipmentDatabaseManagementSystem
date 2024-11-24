@@ -83,11 +83,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Report Year</mat-label>
-                    <mat-select formControlName="reportingYear" required>
-                      <mat-option value="2020">2020</mat-option>
-                      <mat-option value="2021">2021</mat-option>
-                      <mat-option value="2022">2022</mat-option>
-                      <mat-option value="2023">2023</mat-option>
+                    <mat-select formControlName="reportingYearId" required>
+                      <mat-option *ngFor="let year of reportYears" [value]="year.id">{{ year.year }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>

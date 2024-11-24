@@ -24,7 +24,7 @@ import { SelectedModel } from '../../core/models/selectedModel';
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
 
-    return this.http.get<IYearlyReturnPagination>(this.baseUrl + 'yearly-return/get-YearlyReturn',{
+    return this.http.get<IYearlyReturnPagination>(this.baseUrl + '/yearly-return/get-YearlyReturn',{
         observe: 'response', params
     })
     .pipe(

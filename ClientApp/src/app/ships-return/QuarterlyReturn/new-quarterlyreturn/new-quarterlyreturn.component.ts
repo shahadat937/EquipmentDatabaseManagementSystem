@@ -1,16 +1,17 @@
 import { YearlyReturnService } from './../../service/YearlyReturn.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+// import { SelectedModel } from 'src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SelectedModel } from '../../../core/models/selectedModel';
 
 @Component({
   selector: 'app-new-yearlyreturn',
-  templateUrl: './new-yearlyreturn.component.html',
-  styleUrls: ['./new-yearlyreturn.component.css'],
+  templateUrl: './new-quarterlyreturn.compnent.html',
+  styleUrls: ['./new-quarterly.component.css'],
 })
-export class YearlyReturnComponent implements OnInit {
+export class NewQuarterlyReturnComponent implements OnInit {
   YearlyReturnForm!: FormGroup; 
   selectedBaseSchoolName: SelectedModel[] = [];
   selectedReportingMonth: SelectedModel[] = [];
@@ -22,13 +23,14 @@ export class YearlyReturnComponent implements OnInit {
   destination: string;
   btnText: string;
   authService: any;
+
   reportYears = [
     { id: 1, year: '2020' },
     { id: 2, year: '2021' },
     { id: 3, year: '2022' },
     { id: 4, year: '2023' }
   ];
-
+  
   constructor(
     private fb: FormBuilder, 
     private YearlyReturnService: YearlyReturnService,
@@ -85,11 +87,11 @@ export class YearlyReturnComponent implements OnInit {
     });
   }
 
-
+  // Load data for Ship Names
   getSelectedSchoolByBranchLevelAndThirdLevel() {
     this.YearlyReturnService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(
       (res: SelectedModel[]) => {
-        this.selectedBaseSchoolName = res; 
+        this.selectedBaseSchoolName = res; // Ensure API response matches SelectedModel type
       },
       (error) => {
         console.error('Error loading Ship Names:', error);
@@ -97,7 +99,7 @@ export class YearlyReturnComponent implements OnInit {
     );
   }
 
-
+  // Load data for Reporting Month
   getSelectedReportingMonth() {
     this.YearlyReturnService.getSelectedReportingMonth().subscribe(
       (res: SelectedModel[]) => {
@@ -139,7 +141,7 @@ export class YearlyReturnComponent implements OnInit {
         if (result) {
           this.YearlyReturnService.update(+id, formData).subscribe(response => {
             console.log('Update successful:', response);
-            this.router.navigateByUrl('/ships-return/yearlyreturn-list');
+            this.router.navigateByUrl('/ships-return/add-quarterlyreturn');
             this.snackBar.open('Information Updated Successfully', '', {
               duration: 2000,
               verticalPosition: 'bottom',
@@ -153,7 +155,8 @@ export class YearlyReturnComponent implements OnInit {
       });
     } else {
       this.YearlyReturnService.submit(formData).subscribe(response => {
-        this.router.navigateByUrl('/ships-return/yearlyreturn-list');
+        console.log(response)
+        this.router.navigateByUrl('/ships-return/quarterly-return');
         this.snackBar.open('Information Inserted Successfully', '', {
           duration: 2000,
           verticalPosition: 'bottom',

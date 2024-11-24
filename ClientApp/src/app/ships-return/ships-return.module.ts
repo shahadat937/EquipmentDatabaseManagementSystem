@@ -24,6 +24,8 @@ import { HalfYearlyReturnListComponent } from './halfyearlyreturn/halfyearlyretu
 import { NewHalfYearlyReturnComponent } from './halfyearlyreturn/new-halfyearlyreturn/new-halfyearlyreturn.component';
 import { NewYearlyRetrunComponent } from './YearlyReturn/yearlyreturnlist/yearlyreturn-list.component';
 import { YearlyReturnComponent } from './YearlyReturn/new-yearlyreturn/new-yearlyreturn.component';
+import { QuarterlyRetrunComponent } from './QuarterlyReturn/quarterlyreturn-list/quarterlyreturn.component';
+import { NewQuarterlyReturnComponent } from './QuarterlyReturn/new-quarterlyreturn/new-quarterlyreturn.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { YearlyReturnComponent } from './YearlyReturn/new-yearlyreturn/new-yearl
     NewHalfYearlyReturnComponent,
     NewYearlyRetrunComponent,
     YearlyReturnComponent,
+    QuarterlyRetrunComponent,
+    NewQuarterlyReturnComponent,
     // ShipEquipmentInfoListComponent,
     // NewShipEquipmentInfoComponent,
   ],
