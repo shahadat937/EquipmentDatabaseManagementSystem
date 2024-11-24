@@ -23,5 +23,8 @@
 
         public string? EquipmentCategory { get; set; }
         public string? EqupmentName { get; set; }
+        public int? Year { get; set; }
+        public string? ReportingMonthIdName { get; set; } 
+        public string? ReportingMonthId { get; set; }
     }
 }

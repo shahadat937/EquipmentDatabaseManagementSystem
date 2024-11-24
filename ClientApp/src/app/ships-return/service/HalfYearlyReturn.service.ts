@@ -53,6 +53,9 @@ export class HalfYearlyReturnService {
   getSelectedEquipmentCategory(){
     return this.http.get<SelectedModel[]>(this.baseUrl + '/equipment-category/get-selectedEquipmentCategory')
   }
+  getSelectedReportingMonth(){
+    return this.http.get<SelectedModel[]>(this.baseUrl + '/reporting-month/get-selectedReportingMonth')
+  }
  
   getSelectedBrand(){
     return this.http.get<SelectedModel[]>(this.baseUrl + '/brand/get-selectedBrand')

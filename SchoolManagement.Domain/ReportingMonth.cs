@@ -21,5 +21,6 @@ namespace SchoolManagement.Doamin
         public bool IsActive { get; set; }
 
         public virtual ICollection<MonthlyReturn> MonthlyReturns { get; set; }
+        public virtual ICollection<HalfYearlyReturn> HalfYearlyReturns { get; set; }
     }
 }
