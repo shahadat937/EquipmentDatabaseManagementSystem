@@ -20,6 +20,14 @@ public class RoleController : ControllerBase
         _roleService = roleService;
     }
 
+    [HttpGet]
+    [Route("get-roles")]
+    public async Task<ActionResult<object>> GetRols([FromQuery] QueryParams queryParams)
+    {
+        var Role = await _roleService.GetRoles(queryParams);
+        return Ok(Role);
+    }
+
     //[HttpGet]
     //[Route("get-roles")]
     //public async Task<ActionResult<List<RoleDto>>> Get([FromQuery] QueryParams queryParams)
@@ -103,5 +111,26 @@ public class RoleController : ControllerBase
         return Ok(UserByRole);
     }
 
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    [Route("delete-role/{id}")]
+    public async Task<ActionResult> Delete(string id)
+    {
+        await _roleService.Delete(id);
+        return NoContent();
+    }
+
+    [HttpGet]
+    [Route("get-roleDetail/{id}")]
+    public async Task<ActionResult<object>> GetRolById(string id)
+    {
+        var Role = await _roleService.GetRoleById(id);
+        return Ok(Role);
+    }
+
 }
+
+
 

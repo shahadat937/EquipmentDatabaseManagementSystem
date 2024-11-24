@@ -24,7 +24,7 @@ export class RoleService {
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
-    return this.http.get<IRolePagination>(this.baseUrl + '/role/get-roles', { observe: 'response', params })
+    return this.http.get<IRolePagination>(this.baseUrl + '/Role/get-roles', { observe: 'response', params })
     .pipe(
       map(response => {
         this.roles = [...this.roles, ...response.body.items];
@@ -33,18 +33,19 @@ export class RoleService {
       })
     );
   }
-  find(id: number) {
-    return this.http.get<Role>(this.baseUrl + '/role/get-roleDetail/' + id);
+  find(id: string) {
+    return this.http.get<Role>(this.baseUrl + '/Role/get-roleDetail/' + id);
   }
    
 
-  update(id: number,model: any) {
-    return this.http.put(this.baseUrl + '/role/update-role/'+id, model);
+  update(id: string,model: any) {
+    return this.http.put(this.baseUrl + '/role/update-role/',id, model);
   }
   submit(model: any) {
     return this.http.post(this.baseUrl + '/role/save-role', model);
   }
   delete(id){
+    console.log(id);
     return this.http.delete(this.baseUrl + '/role/delete-role/'+id);
   }
   getselectedrole(){
