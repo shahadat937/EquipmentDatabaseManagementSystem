@@ -41,11 +41,15 @@ namespace SchoolManagement.Application.Features.RoleFeatures.Handler.Commands
                 var RoleFeature = _mapper.Map<RoleFeature>(request.RoleFeatureDto);
 
                 RoleFeature = await _unitOfWork.Repository<RoleFeature>().Add(RoleFeature);
-                
+                try
+                {
                     await _unitOfWork.Save();
-                
-                
-                
+
+                }
+                catch (Exception ex)
+                {
+
+                }
 
                 response.Success = true;
                 response.Message = "Creation Successful";
