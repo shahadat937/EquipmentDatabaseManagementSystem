@@ -46,6 +46,10 @@ const routes: Routes = [
     path: 'add-yearlyreturn',
     component: YearlyReturnComponent,
   },
+  {
+    path: 'update-yearlyreturn/:yearlyReturnId',
+    component: YearlyReturnComponent,
+  },
 
 
   

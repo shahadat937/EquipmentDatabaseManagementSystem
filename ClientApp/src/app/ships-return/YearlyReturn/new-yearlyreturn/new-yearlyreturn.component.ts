@@ -53,7 +53,7 @@ export class YearlyReturnComponent implements OnInit {
             menuPosition: res.menuPosition,
             isActive: res.isActive
           });
-          // this.onEquipmentCategorySelectionChange();
+
         }
       );
     } else {
@@ -63,18 +63,7 @@ export class YearlyReturnComponent implements OnInit {
     }
   
     this.initializeForm();
-  
-    // if (this.role === this.userRole.ShipStaff || this.role === this.userRole.LOEO) {
-    //   this.YearlyReturnForm.get('baseSchoolNameId')?.setValue(this.branchId);
-    //   this.baseSchoolNameService.find(this.branchId).subscribe(res => {
-    //     this.YearlyReturnForm.get('baseNameId')?.setValue(res.thirdLevel);
-    //     this.YearlyReturnForm.get('authorityId')?.setValue(res.secondLevel);
-    //   });
-    // }
-  
-    // this.getSelectedEquipmentCategory();
     this.getSelectedReportingMonth();
-    // this.getSelectedReturnType();
     this.getSelectedOperationalStatus();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
   }
@@ -127,6 +116,7 @@ export class YearlyReturnComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('Form Value Before Submission:', this.YearlyReturnForm.value);
     const id = this.YearlyReturnForm.get('yearlyReturnId')?.value;
   
     
@@ -136,13 +126,11 @@ export class YearlyReturnComponent implements OnInit {
       if (value !== null && value !== undefined) {
         formData.append(key, value);
       }
-    }
-  
+    } 
     if (id) {
    
       this.confirmService.confirm('Confirm Update', 'Are you sure you want to update this item?').subscribe(result => {
         if (result) {
-          console.log('Proceeding with update...');
           this.YearlyReturnService.update(+id, formData).subscribe(response => {
             console.log('Update successful:', response);
             this.router.navigateByUrl('/ships-return/yearlyreturn-list');
@@ -159,7 +147,6 @@ export class YearlyReturnComponent implements OnInit {
       });
     } else {
       this.YearlyReturnService.submit(formData).subscribe(response => {
-        console.log('Insert successful:', response);
         this.router.navigateByUrl('/ships-return/yearlyreturn-list');
         this.snackBar.open('Information Inserted Successfully', '', {
           duration: 2000,

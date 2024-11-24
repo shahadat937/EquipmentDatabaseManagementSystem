@@ -15,5 +15,7 @@
         public bool IsActive { get; set; }
 
         public virtual BaseSchoolName BaseSchoolName { get; set; }
+        public virtual OperationalStatus OperationalStatus { get; set; }
+        public virtual ReportingMonth ReportingMonth { get; set; }
     }
 }
