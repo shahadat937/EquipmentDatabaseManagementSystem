@@ -1,4 +1,5 @@
-﻿using SchoolManagement.Domain.Common;
+﻿using SchoolManagement.Doamin;
+using SchoolManagement.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,5 +23,7 @@ namespace SchoolManagement.Domain
         public bool IsActive { get; set; }
 
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
+        public virtual OperationalStatus? OperationalStatus { get; set; }
+        public virtual ReportingMonth? ReportingMonth { get; set; }
     }
 }

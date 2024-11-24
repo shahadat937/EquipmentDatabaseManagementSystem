@@ -5,14 +5,14 @@
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <ul class="breadcrumb breadcrumb-style ">
               <li class="breadcrumb-item">
-                <h4 class="page-title">Yearly return List</h4>
+                <h4 class="page-title">Quarterly return List</h4>
               </li>
               <li class="breadcrumb-item bcrumb-1">
                 <a routerLink="/admin/dashboard/main">
                   <i class="fas fa-home"></i> </a>
               </li>
               <li class="breadcrumb-item bcrumb-2">
-                <a href="#" onClick="return false;">Yearly Return</a>
+                <a href="#" onClick="return false;">Quarterly Return</a>
               </li>
               <li class="breadcrumb-item active">All</li>
             </ul>
@@ -59,7 +59,7 @@
                         <li>
                           <div class="icon-button-demo">
                             <button class="btn-space"  mat-raised-button
-                            color="primary" routerLink="/ships-return/add-yearlyreturn"> Add
+                            color="primary" routerLink="/ships-return/add-quarterlyreturn"> Add
                               <mat-icon class="col-white">add</mat-icon>
                             </button>
                             <button class="btn-space" mat-raised-button  color="primary" (click)="printSingle()">
@@ -87,7 +87,7 @@
                                   <div class="materialTableHeader">
                                       <div class="row">
                                           <div class="col-8">
-                                              <h3>Yearly Return</h3>
+                                              <h3>Quarterly Return</h3>
                                           </div>
                                       </div>
                                   </div>
@@ -99,7 +99,6 @@
                                                 <th><h5>Reporting Month</h5></th>
                                                 <th><h5>Operational Status</h5></th>
                                                 <th><h5>Reporting Year</h5></th>
-                                                <th><h5>Action</h5></th>
                                              
                                               </tr>
                                           </thead>
@@ -108,17 +107,7 @@
                                                 <td>{{ number.schoolName || 'N/A' }}</td>
                                                 <td>{{ number.reportingMonth || 'N/A' }}</td>
                                                 <td>{{ number.operationalStatus || 'N/A' }}</td>
-                                                <td>{{number.year}}</td>
-                                                <td class="col table-img  img-on-hover">                     
-                                                  <button mat-icon-button color="accent" class="btn-tbl-edit" 
-                                                  [routerLink]="['/ships-return/update-yearlyreturn', number.yearReturnId]">
-                                                    <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
-                                                  </button>
-                                                  <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
-                                                  (click)="deleteItem(number)">
-                                                  <mat-icon aria-label="Delete" class="col-white">delete</mat-icon> 
-                                                </button>
-                                                </td>
+                                               <td>{{ number.year || 'N/A' }}</td>
                                               </tr>
                                           </tbody>
                                       </table>

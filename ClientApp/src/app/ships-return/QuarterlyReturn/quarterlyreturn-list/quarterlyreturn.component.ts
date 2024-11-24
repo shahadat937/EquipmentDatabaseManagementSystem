@@ -1,22 +1,25 @@
+import { ConfirmService } from '../../../core/service/confirm.service';
+// import { ConfigService } from 'src/app/config/config.service';
+import { MasterData } from '../../../../assets/data/master-data';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MasterData } from 'src/assets/data/master-data';
+// import { MasterData } from 'src/assets/data/master-data';
 import { YearlyReturn } from '../../models/YearlyReturn';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { YearlyReturnService } from '../../service/YearlyReturn.service';
 import { Router } from '@angular/router';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
+// import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-
 @Component({
     selector: 'app-yearlyretrun-list',
-    templateUrl: './yearlyreturn-list.component.html',
-    styleUrls: ['./yearlyreturn-list.component.css']
+    templateUrl: './quarterlyreturn-list.component.html',
+    styleUrls: ['./quarterlyreturn-list.component.css']
   })
-  export class NewYearlyRetrunComponent implements OnInit{
+  export class QuarterlyRetrunComponent implements OnInit{
     masterData = MasterData;
+    ELEMENT_DATA: YearlyReturn[] = [];
     paging = {
       pageIndex: this.masterData.paging.pageIndex,
       pageSize: this.masterData.paging.pageSize,
@@ -28,19 +31,19 @@ import { debounceTime } from 'rxjs/operators';
       { id: 3, year: '2022' },
       { id: 4, year: '2023' }
     ];
-
     searchText="";
     private searchSubject: Subject<string> = new Subject(); 
     dataSource: MatTableDataSource<YearlyReturn> = new MatTableDataSource();
   isLoading: boolean;
   itemCount: number;
+  selection = new SelectionModel<YearlyReturn>(true, []);
   showHideDiv: boolean;
 
   constructor(private snackBar: MatSnackBar,private YearlyReturnService: YearlyReturnService,private router: Router,private confirmService: ConfirmService) { }
     ngOnInit(): void {
       this.getYearlyReturn()
       this.searchSubject.pipe(
-        debounceTime(300) 
+        debounceTime(300) // Adjust debounce time as needed
       ).subscribe((searchText) => {
         this.searchText = searchText;
         this.getYearlyReturn();
@@ -50,7 +53,7 @@ import { debounceTime } from 'rxjs/operators';
     getYearlyReturn(){
       this.isLoading = true;
       this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response=>{
-        this.dataSource.data = response.items;
+        this.dataSource.data = response.items; 
         this.dataSource.data = response.items.map((item) => ({
           ...item,
           year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || 'Unknown'
@@ -58,17 +61,17 @@ import { debounceTime } from 'rxjs/operators';
       this.paging.length = response.totalItemsCount 
       this.isLoading = false;  
       this.itemCount = response.items.length;
-
       })
     }
-    applyFilter(searchText: string) {
-      this.searchSubject.next(searchText);
-    }
+
     pageChanged(event: PageEvent) {
       this.paging.pageIndex = event.pageIndex
       this.paging.pageSize = event.pageSize
       this.paging.pageIndex = this.paging.pageIndex + 1
       this.getYearlyReturn();
+    }
+    applyFilter(searchText: string) {
+      this.searchSubject.next(searchText);
     }
     toggle() {
       this.showHideDiv = !this.showHideDiv;

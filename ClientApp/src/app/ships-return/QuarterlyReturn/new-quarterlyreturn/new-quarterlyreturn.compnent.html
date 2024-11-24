@@ -1,0 +1,115 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-12">
+            <ul class="breadcrumb breadcrumb-style">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">Quarterly Return</h4>
+              </li>
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="#" (click)="false">Quarterly Return</a>
+              </li>
+              <li class="breadcrumb-item active">All</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row clearfix">
+        <div class="col-12">
+          <div class="card">
+            <div class="body">
+              <!-- Yearly Return Form -->
+              <form class="m-4" [formGroup]="YearlyReturnForm" (ngSubmit)="onSubmit()">
+                <h4 class="mb-3">Basic Information</h4>
+                <div class="row">
+                  <!-- Ship Name -->
+                  <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Ship Name</mat-label>
+                      <mat-select formControlName="baseSchoolNameId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option
+                          *ngFor="let dropdown of selectedBaseSchoolName"
+                          [value]="dropdown.value"
+                        >
+                          {{ dropdown.text }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+  
+                  <!-- Operational Status -->
+                  <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Operational Status</mat-label>
+                      <mat-select formControlName="operationalStatusId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option
+                          *ngFor="let dropdown of selectedOperationalStatus"
+                          [value]="dropdown.value"
+                        >
+                          {{ dropdown.text }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <!-- Report Month -->
+                  <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Report Month</mat-label>
+                      <mat-select formControlName="reportingMonthId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option
+                          *ngFor="let dropdown of selectedReportingMonth"
+                          [value]="dropdown.value"
+                        >
+                          {{ dropdown.text }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+  
+                  <!-- Report Year -->
+                  <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Report Year</mat-label>
+                      <mat-select formControlName="reportingYearId" required>
+                        <mat-option *ngFor="let year of reportYears" [value]="year.id">{{ year.year }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  
+                </div>
+  
+                <!-- Submit Button -->
+                <div class="row">
+                  <div class="col-12 text-right">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      type="submit"
+                      [disabled]="YearlyReturnForm.invalid"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <!-- End of Form -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
