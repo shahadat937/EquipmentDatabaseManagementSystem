@@ -1,6 +1,6 @@
 export interface RoleFeature {
     roleId: number,
-    featureId: number,
+    featureKey: number,
     add: boolean,
     update: boolean
     delete: boolean

@@ -11,7 +11,7 @@ namespace SchoolManagement.Application.DTOs.RoleFeature.Validators
         {
             Include(new IRoleFeatureDtoValidator());
 
-            RuleFor(p => p.FeatureId).NotNull().WithMessage("{PropertyName} must be present");
+            RuleFor(p => p.FeatureKey).NotNull().WithMessage("{PropertyName} must be present");
             RuleFor(p => p.RoleId).NotNull().WithMessage("{PropertyName} must be present");
         }
     }

@@ -56,13 +56,13 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>feature</mat-label>                        
-                      <mat-select formControlName="featureId" required>
+                      <mat-select formControlName="featureKey" required>
                         <mat-option  value="0">--Select--</mat-option >
                           <mat-option *ngFor="let school of selectedfeature" [value]="school.value">
                               {{school.text}}  
                             </mat-option>                          
                       </mat-select>
-                      <mat-error *ngIf="RoleFeatureForm.get('featureId').hasError('required')">
+                      <mat-error *ngIf="RoleFeatureForm.get('featureKey').hasError('required')">
                         feature is Required!
                       </mat-error>
                   </mat-form-field>

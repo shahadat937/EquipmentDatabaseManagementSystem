@@ -62,9 +62,9 @@ public class RoleController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-role/{id}")]
-    public async Task<ActionResult> Put(string roleId, [FromBody] CreateRoleDto model)
+    public async Task<ActionResult> Put(string id, [FromBody] CreateRoleDto model)
     {
-        await _roleService.Save(roleId, model);
+        await _roleService.Save(id, model);
 
         //var command = new UpdateRoleCommand { RoleDto = Role };
         //await _mediator.Send(command);
