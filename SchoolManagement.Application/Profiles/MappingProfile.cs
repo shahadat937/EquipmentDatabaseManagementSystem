@@ -50,6 +50,7 @@ using SchoolManagement.Application.DTOs.BookUserManualBRInfo;
 using SchoolManagement.Application.DTOs.HalfYearlyRunningTime;
 using SchoolManagement.Application.DTOs.HalfYearlyReturn;
 using SchoolManagement.Application.DTOs.YearlyReturns;
+using SchoolManagement.Application.DTOs.AspNetRoles;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -364,6 +365,10 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<RoleFeature, RoleFeatureDto>().ReverseMap();
             CreateMap<RoleFeature, CreateRoleFeatureDto>().ReverseMap();
             #endregion
+            #region ASPNetRoles 
+            CreateMap<AspNetRoles, AspNetRolesDto>().ReverseMap();
+            #endregion
+
 
         }
     }

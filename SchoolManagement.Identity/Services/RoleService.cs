@@ -21,6 +21,7 @@ using SchoolManagement.Application.Constants;
 using SchoolManagement.Application.DTOs.Role;
 using SchoolManagement.Shared.Models;
 using Microsoft.EntityFrameworkCore;
+using SchoolManagement.Domain;
 
 namespace SchoolManagement.Identity.Services
 {
@@ -108,6 +109,70 @@ namespace SchoolManagement.Identity.Services
             }
 
             return response;
+        }
+
+        public async Task<PagedResult<AspNetRoles>> GetRoles(QueryParams queryParams)
+        {
+            var validator = new QueryParamsValidator();
+            var validationResult = await validator.ValidateAsync(queryParams);
+
+            if (validationResult.IsValid == false)
+                throw new FluentValidation.ValidationException(validationResult.ToString());
+
+            IQueryable<IdentityRole> roles = _roleManager.Roles.AsQueryable();
+
+            roles = roles.Where(x => (x.Name.Contains(queryParams.SearchText)) || String.IsNullOrEmpty(queryParams.SearchText));
+
+            var totalCount = roles.Count();
+
+            roles = roles.OrderByDescending(x => x.Name).Skip((queryParams.PageNumber - 1) * queryParams.PageSize).Take(queryParams.PageSize);
+
+
+            var roleDtos = roles.Select(q => new AspNetRoles
+            {
+                Id = q.Id,
+                Name = q.Name,
+                NormalizedName = q.NormalizedName,
+                ConcurrencyStamp = q.ConcurrencyStamp,
+            }).ToList();
+
+
+            var result = new PagedResult<AspNetRoles>(roleDtos, totalCount, queryParams.PageNumber, queryParams.PageSize);
+
+            return result;
+        }
+
+        public async Task<BaseCommandResponse> Delete(string id)
+        {
+            var response = new BaseCommandResponse();
+
+            var role = new ApplicationRole
+            {
+                Id = id
+            };
+
+
+            var existingRole = await _roleManager.Roles.SingleOrDefaultAsync(x => x.Id == id);
+
+            if (existingRole == null)
+            {
+                response.Success = false;
+                response.Message = $"Delete Failed, Role Not Found.";
+            }
+
+            else
+            {
+                await _roleManager.DeleteAsync(existingRole);
+
+            }
+
+            return response;
+        }
+
+        public async Task<object> GetRoleById(string id)
+        {
+            var roles = await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == id);
+            return roles;
         }
 
 
