@@ -27,7 +27,7 @@ import { PageEvent } from '@angular/material/paginator';
 
   constructor(private snackBar: MatSnackBar,private YearlyReturnService: YearlyReturnService,private router: Router,private confirmService: ConfirmService) { }
     ngOnInit(): void {
-
+      this.getYearlyReturn()
     }
 
     getYearlyReturn(){
