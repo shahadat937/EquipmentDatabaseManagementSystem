@@ -1,3 +1,6 @@
+import { NewQuarterlyReturnComponent } from './QuarterlyReturn/new-quarterlyreturn/new-quarterlyreturn.component';
+import { QuarterlyRetrunComponent } from './QuarterlyReturn/quarterlyreturn-list/quarterlyreturn.component';
+
 import { YearlyReturnComponent } from './YearlyReturn/new-yearlyreturn/new-yearlyreturn.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -49,6 +52,14 @@ const routes: Routes = [
   {
     path: 'update-yearlyreturn/:yearlyReturnId',
     component: YearlyReturnComponent,
+  },
+  {
+    path: 'quarterly-return',
+    component: QuarterlyRetrunComponent,
+  },
+  {
+    path: 'add-quarterlyreturn',
+    component: NewQuarterlyReturnComponent
   },
 
 
