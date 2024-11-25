@@ -57,6 +57,7 @@ namespace SchoolManagement.Application
         public const string DailyWorkState = SMSRoutePrefixBase + "daily-work-state";
         public const string YearlyReturn = SMSRoutePrefixBase + "yearly-return";
         public const string StatusOfShip = SMSRoutePrefixBase + "statusof-ship";
+        public const string OperationalStatusOfEquipmentSystem = SMSRoutePrefixBase + "operational-status-of-equipment-system";
     }
 }
  
