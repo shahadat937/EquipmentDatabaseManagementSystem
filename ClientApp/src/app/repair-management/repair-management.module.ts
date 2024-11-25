@@ -20,11 +20,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {StatusOfDefectiveSystemListComponent} from './statusofdefectivesystem/statusofdefectivesystem-list/statusofdefectivesystem-list.component';
 import {NewStatusOfDefectiveSystemComponent} from './statusofdefectivesystem/new-statusofdefectivesystem/new-statusofdefectivesystem.component'
+import { NewOverallStatusofShip } from './overallstatusofship/new-statusofship/new-overallstatusofship.component';
+import { OverallShipStatusListComponent } from './overallstatusofship/statusofship-list/overallstatusofship-list.component';
+
 
 @NgModule({
   declarations: [
     StatusOfDefectiveSystemListComponent,
-    NewStatusOfDefectiveSystemComponent
+    NewStatusOfDefectiveSystemComponent,
+    NewOverallStatusofShip,
+    OverallShipStatusListComponent
   ],
   imports: [
     CommonModule,

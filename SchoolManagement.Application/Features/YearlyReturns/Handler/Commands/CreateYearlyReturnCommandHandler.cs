@@ -29,7 +29,7 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Commands
         {
             var response = new BaseCommandResponse();
 
-            // Validation
+         
             var validator = new CreateYearlyReturnDtoValidator();
             var validationResult = await validator.ValidateAsync(request.YearlyReturnDto);
 
@@ -41,10 +41,10 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Commands
             }
             else
             {
-                // Mapping DTO to Entity
+               
                 var yearlyReturn = _mapper.Map<YearlyReturn>(request.YearlyReturnDto);
 
-                // Adding the entity to the repository
+            
                 yearlyReturn = await _unitOfWork.Repository<YearlyReturn>().Add(yearlyReturn);
 
                 try
@@ -53,7 +53,7 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Commands
                 }
                 catch (Exception ex)
                 {
-                    // Handle exception
+           
                     response.Success = false;
                     response.Message = "Error occurred while saving.";
                     response.Errors = new List<string> { ex.Message };
