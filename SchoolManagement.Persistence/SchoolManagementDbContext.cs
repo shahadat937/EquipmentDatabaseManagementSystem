@@ -168,12 +168,12 @@ namespace SchoolManagement.Persistence
 
             modelBuilder.Entity<Organization>(entity =>
             {
-            
+
             });
 
             modelBuilder.Entity<ShipType>(entity =>
             {
-            
+
             });
 
             modelBuilder.Entity<ShipDrowing>(entity =>
@@ -195,12 +195,12 @@ namespace SchoolManagement.Persistence
             });
             modelBuilder.Entity<OperationalStatus>(entity =>
             {
-             
+
             });
 
             modelBuilder.Entity<Sqn>(entity =>
             {
-              
+
             });
 
 
@@ -211,12 +211,12 @@ namespace SchoolManagement.Persistence
 
             modelBuilder.Entity<QuarterlyReturnNoType>(entity =>
             {
-              
+
             });
 
             modelBuilder.Entity<RunningTime>(entity =>
             {
-              
+
             });
 
             modelBuilder.Entity<ReportType>(entity =>
@@ -366,7 +366,7 @@ namespace SchoolManagement.Persistence
                     .WithMany(p => p.ShipEquipmentInfos)
                     .HasForeignKey(d => d.StateOfEquipmentId)
                     .HasConstraintName("FK_ShipEquipmentInfo_StateOfEquipment");
-              
+
 
             });
 
@@ -457,7 +457,7 @@ namespace SchoolManagement.Persistence
 
             modelBuilder.Entity<TenderOpeningDateType>(entity =>
             {
-            
+
             });
 
             modelBuilder.Entity<Tec>(entity =>
@@ -467,10 +467,10 @@ namespace SchoolManagement.Persistence
 
             modelBuilder.Entity<LetterType>(entity =>
             {
-         
+
             });
             modelBuilder.Entity<MonthlyReturn>(entity =>
-            { 
+            {
                 entity.HasOne(d => d.BaseSchoolName)
                     .WithMany(p => p.MonthlyReturns)
                     .HasForeignKey(d => d.BaseSchoolNameId)
@@ -527,6 +527,24 @@ namespace SchoolManagement.Persistence
                     .HasConstraintName("FK_OperationalState_EqupmentName");
             });
 
+            modelBuilder.Entity<OperationalStatusOfEquipmentSystem>(entity =>
+            {
+                entity.HasOne(d => d.BaseSchoolName)
+                .WithMany(p => p.OperationalStatusOfEquipmentSystems)
+                .HasForeignKey(d => d.BaseSchoolNameId)
+                .HasConstraintName("FK_OperationalStatusOfEquipmentSystem_BaseSchoolName");
+
+                entity.HasOne(d => d.OperationalStatus)
+                .WithMany(p => p.OperationalStatusOfEquipmentSystems)
+                .HasForeignKey(d => d.OperationalStatusId)
+                .HasConstraintName("FK_OperationalStatusOfEquipmentSystem_OperationalStatus");
+
+                entity.HasOne(d => d.EqupmentName)
+                .WithMany(p => p.OperationalStatusOfEquipmentSystems)
+                .HasForeignKey(d => d.NameOfEquipmentId)
+                .HasConstraintName("FK_OperationalStatusOfEquipmentSystem_EquipmentName");
+            });
+
         }
 
         public virtual DbSet<AcquisitionMethod> AcquisitionMethod { get; set; } = null!;
@@ -537,7 +555,7 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<DailyWorkState> DailyWorkState { get; set; } = null!;
         public virtual DbSet<Envelope> Envelope { get; set; } = null!;
         public virtual DbSet<Feature> Feature { get; set; } = null!;
-        public virtual DbSet<Module> Module { get; set; } = null!; 
+        public virtual DbSet<Module> Module { get; set; } = null!;
         public virtual DbSet<RoleFeature> RoleFeature { get; set; } = null!;
         public virtual DbSet<ShipType> ShipType { get; set; }
         public virtual DbSet<Sqn> Sqn { get; set; }
@@ -562,7 +580,7 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<EqupmentName> EqupmentName { get; set; }
         public virtual DbSet<EquipmentType> EquipmentType { get; set; }
         public virtual DbSet<GroupName> GroupName { get; set; }
-        public virtual DbSet<Brand> Brand { get; set; } 
+        public virtual DbSet<Brand> Brand { get; set; }
         public virtual DbSet<EquipmentCategory> EquipmentCategory { get; set; }
         public virtual DbSet<TenderOpeningDateType> TenderOpeningDateType { get; set; }
         public virtual DbSet<Tec> Tec { get; set; }
@@ -575,7 +593,7 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<MonthlyReturn> MonthlyReturn { get; set; }
         public virtual DbSet<OperationalState> OperationalState { get; set; }
         public virtual DbSet<YearlyReturn> YearlyReturn { get; set; }
-        public virtual DbSet <AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystem { get; set; }
     }
 }
-    

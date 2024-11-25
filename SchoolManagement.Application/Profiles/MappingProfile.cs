@@ -51,6 +51,7 @@ using SchoolManagement.Application.DTOs.HalfYearlyRunningTime;
 using SchoolManagement.Application.DTOs.HalfYearlyReturn;
 using SchoolManagement.Application.DTOs.YearlyReturns;
 using SchoolManagement.Application.DTOs.AspNetRoles;
+using SchoolManagement.Application.DTOs.OperationalStatusOfEquipmentSystem;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -370,6 +371,13 @@ namespace SchoolManagement.Application.Profiles
             #endregion
             #region ASPNetRoles 
             CreateMap<AspNetRoles, AspNetRolesDto>().ReverseMap();
+            #endregion
+            #region OperationalStatusOfEquipmentSystem
+            CreateMap<OperationalStatusOfEquipmentSystem, CreateOperationalStatusOfEquipmentSystemDto>().ReverseMap();
+            CreateMap<OperationalStatusOfEquipmentSystemDto, OperationalStatusOfEquipmentSystem>().ReverseMap()
+                .ForMember(d=> d.BaseSchoolName, o=> o.MapFrom( s=> s.BaseSchoolName.SchoolName))
+                .ForMember(d=> d.OperationalStatus, o=> o.MapFrom(s=> s.OperationalStatus.Name))
+                .ForMember(d=> d.NameOfEquipment, o=>o.MapFrom(s=>s.EqupmentName.Name));
             #endregion
 
 

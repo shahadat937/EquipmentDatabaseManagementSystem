@@ -38,4 +38,10 @@
     <ProjectReference Include="..\SchoolManagement.Shared\SchoolManagement.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\OperationalStatusOfEquipmentSystem\Handlers\Commands\" />
+    <Folder Include="Features\OperationalStatusOfEquipmentSystem\Handlers\Queries\" />
+    <Folder Include="Features\OperationalStatusOfEquipmentSystem\Requests\Queries\" />
+  </ItemGroup>
+
 </Project>
