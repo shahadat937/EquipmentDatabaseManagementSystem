@@ -14,9 +14,9 @@ namespace SchoolManagement.Application.DTOs.StatusOfShip.Validators
             Include(new IStatusOfShipDtoValidator());
         }
 
-        private void Include(IStatusOfShipDtoValidator statusOfShipDtoValidator)
-        {
-            throw new NotImplementedException();
-        }
+        //private void Include(IStatusOfShipDtoValidator statusOfShipDtoValidator)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
