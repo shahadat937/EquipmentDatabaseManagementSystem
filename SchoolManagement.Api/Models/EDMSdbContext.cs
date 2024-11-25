@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using SchoolManagement.Domain;
 
 namespace SchoolManagement.Api.Models
 {
@@ -65,6 +66,8 @@ namespace SchoolManagement.Api.Models
         public virtual DbSet<StateOfEquipment> StateOfEquipments { get; set; }
         public virtual DbSet<Tec> Tecs { get; set; }
         public virtual DbSet<TenderOpeningDateType> TenderOpeningDateTypes { get; set; }
+        public virtual DbSet<Domain.StatusOfShip> StatusOfShips { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -777,6 +780,17 @@ namespace SchoolManagement.Api.Models
                     .WithMany(p => p.MonthlyReturns)
                     .HasForeignKey(d => d.ReturnTypeId)
                     .HasConstraintName("FK_MonthlyReturn_ReturnType");
+            });
+
+
+            modelBuilder.Entity<Domain.StatusOfShip>(entity =>
+            {
+
+                     entity.HasOne(d => d.BaseSchoolName)
+                    .WithMany(p => p.StatusOfShips)
+                    .HasForeignKey(d => d.BaseSchoolNameId)
+                    .HasConstraintName("FK_StatusOfShip_BaseSchoolName");
+
             });
 
             modelBuilder.Entity<OperationalState>(entity =>
@@ -1530,6 +1544,7 @@ namespace SchoolManagement.Api.Models
                     .WithMany(p => p.ShipEquipmentInfos)
                     .HasForeignKey(d => d.BrandId)
                     .HasConstraintName("FK_ShipEquipmentInfo_Brand");
+               
 
                 entity.HasOne(d => d.EquipmentCategory)
                     .WithMany(p => p.ShipEquipmentInfos)

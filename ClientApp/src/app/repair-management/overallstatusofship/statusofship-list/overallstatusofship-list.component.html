@@ -1,0 +1,155 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">Overall Ship Status List</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Overall Ship Status</a>
+              </li>
+              <li class="breadcrumb-item active">All</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div class="responsive_table">
+                <div class="materialTableHeader">
+                  <div class="row">
+                    <div class="col-8">
+                      <ul class="header-buttons-left ml-0">
+                        <li class="dropdown">
+                          <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Search</mat-label>
+                            <input
+                              matInput
+                              type="text"
+                              placeholder="Search..."
+                              (input)="applyFilter($event.target.value)"
+                            />
+                          </mat-form-field>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-4">
+                      <ul class="header-buttons">
+                        <li>
+                          <div class="icon-button-demo">
+                            <button
+                              class="btn-space"
+                              mat-raised-button
+                              color="primary"
+                              routerLink="/repair-management/add-overallstatusofship"
+                            >
+                              Add
+                              <mat-icon class="col-white">add</mat-icon>
+                            </button>
+                            <button
+                              class="btn-space"
+                              mat-raised-button
+                              color="primary"
+                              (click)="printOverallShipStatus()"
+                            >
+                              <mat-icon class="col-white">print</mat-icon>
+                            </button>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                      <div class="body">
+                        <div class="responsive_table">
+                          <div class="materialTableHeader">
+                            <div class="row">
+                              <div class="col-8">
+                                <h3>Overall Ship Status</h3>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="print-overall-status">
+                            <table class="table tbl-by-group db-li-s-in">
+                              <thead>
+                                <tr>
+                                  <th><h5>Ship Name</h5></th>
+                                  <th><h5>Operational Status</h5></th>
+                                  <th><h5>Reason</h5></th>
+                                  <th><h5>Updated Date</h5></th>
+                                  <th><h5>Action</h5></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let status of dataSource.data;">
+                                  <td>{{ status.shipName || 'N/A' }}</td>
+                                  <td>{{ status.operationalStatus || 'N/A' }}</td>
+                                  <td>{{ status.reasonForNoOperation || 'N/A' }}</td>
+                                  <td>{{ status.date || 'N/A' }}</td>
+                                  <td class="col table-img img-on-hover">
+                                    <button
+                                      mat-icon-button
+                                      color="accent"
+                                      class="btn-tbl-edit"
+                                      [routerLink]="['/ships-status/update-overallstatus', status.shipStatusId]"
+                                    >
+                                      <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+                                    </button>
+                                    <button
+                                      mat-icon-button
+                                      color="accent"
+                                      class="btn-tbl-delete"
+                                      (click)="$event.stopPropagation()"
+                                      (click)="deleteItem(status)"
+                                    >
+                                      <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="icon-button-demo">
+                    <button
+                      class="btn-space"
+                      mat-raised-button
+                      color="primary"
+                      routerLink="/admin/dashboard/main"
+                    >
+                      Back
+                      <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <mat-paginator
+                  [length]="paging.length"
+                  [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                  [pageSize]="paging.pageSize"
+                  [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                  (page)="pageChanged($event)"
+                >
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

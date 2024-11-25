@@ -1,0 +1,101 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">Overall Status of Ship</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Overall Status of Ship</a>
+              </li>
+              <li class="breadcrumb-item active">All</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="OverallStatusOfShipForm" >
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Ship Name </mat-label>
+                      <mat-select formControlName="baseSchoolNameId" required>
+                        <input type="text" 
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="($event.target.value)" placeholder="Search">
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <!-- <mat-error *ngIf="ProcurementForm.get('baseSchoolNameId').hasError('required')">
+                        Ship Name is required
+                      </mat-error> -->
+                    </mat-form-field>
+                  </div>
+  
+                  <!-- Operational Status Dropdown -->
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Operational Status</mat-label>
+                      <mat-select formControlName="operationalStatusId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option
+                          *ngFor="let dropdown of selectedOperationalStatus"
+                          [value]="dropdown.value"
+                        >
+                          {{ dropdown.text }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+               
+                  <!-- Reason for No Operation -->
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Reason for No Operation</mat-label>
+                      <textarea matInput formControlName="reasonForNoOperation" required></textarea>
+                     
+                    </mat-form-field>
+                  </div>
+  
+                  <!-- Date Field -->
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Date from Non Operationa</mat-label>
+                      <input matInput [matDatepicker]="datePicker" formControlName="date" required>
+                      <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #datePicker></mat-datepicker>
+                      <mat-error *ngIf="OverallStatusOfShipForm.get('date').hasError('required')">
+                        Date is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" [disabled]="!OverallStatusOfShipForm.valid" mat-raised-button
+                      color="primary">Save</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
