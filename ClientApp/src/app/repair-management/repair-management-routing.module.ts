@@ -1,3 +1,5 @@
+import { OverallShipStatusListComponent } from './overallstatusofship/statusofship-list/overallstatusofship-list.component';
+import { NewOverallStatusofShip } from './overallstatusofship/new-statusofship/new-overallstatusofship.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
@@ -22,6 +24,14 @@ const routes: Routes = [
     path: 'add-statusofdefectivesystem',
     component: NewStatusOfDefectiveSystemComponent,
   },
+  {
+    path: 'add-overallstatusofship',
+    component: NewOverallStatusofShip,
+  },
+ {
+    path: 'overallstatusofship-list',
+    component: OverallShipStatusListComponent,
+ },
 
 
   

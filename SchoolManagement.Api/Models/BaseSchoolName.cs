@@ -20,6 +20,7 @@ namespace SchoolManagement.Api.Models
             ShipInformationBaseNames = new HashSet<ShipInformation>();
             ShipInformationBaseSchoolNames = new HashSet<ShipInformation>();
             YearlyReturns = new HashSet<YearlyReturn>();
+            StatusOfShips = new HashSet<StatusOfShip>();
         }
 
         public int BaseSchoolNameId { get; set; }
@@ -61,5 +62,6 @@ namespace SchoolManagement.Api.Models
         public virtual ICollection<ShipInformation> ShipInformationBaseNames { get; set; }
         public virtual ICollection<ShipInformation> ShipInformationBaseSchoolNames { get; set; }
         public virtual ICollection<YearlyReturn> YearlyReturns { get; set; }
+        public virtual ICollection<StatusOfShip> StatusOfShips { get; set; }
     }
 }

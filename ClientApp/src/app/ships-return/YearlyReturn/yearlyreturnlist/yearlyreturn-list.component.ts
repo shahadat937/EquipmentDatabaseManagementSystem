@@ -18,8 +18,8 @@ import { debounceTime } from 'rxjs/operators';
   export class NewYearlyRetrunComponent implements OnInit{
     masterData = MasterData;
     paging = {
-      pageIndex: this.masterData.paging.pageIndex,
-      pageSize: this.masterData.paging.pageSize,
+      pageIndex: 1,
+      pageSize: 5,
       length: 1
     }
     reportYears = [
