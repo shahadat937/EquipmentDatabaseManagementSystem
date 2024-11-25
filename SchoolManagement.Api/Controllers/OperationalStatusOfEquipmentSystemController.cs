@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolManagement.Application;
 using SchoolManagement.Application.DTOs.Features;
 using SchoolManagement.Application.DTOs.OperationalStatusOfEquipmentSystem;
 using SchoolManagement.Application.Features.AppFeature.Requests.Commands;
@@ -10,7 +11,7 @@ using SchoolManagement.Application.Features.OperationalStatusOfEquipmentSystem.R
 
 namespace SchoolManagement.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route(SMSRoutePrefix.OperationalStatusOfEquipmentSystem)]
     [ApiController]
     [Authorize]
     public class OperationalStatusOfEquipmentSystemController : ControllerBase

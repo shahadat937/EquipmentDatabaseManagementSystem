@@ -1,0 +1,120 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">Overall Operational Status of Equipment System</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Overall Operational Status of Equipment System</a>
+              </li>
+              <li class="breadcrumb-item active">All</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div class="responsive_table">
+                <div class="materialTableHeader">
+                  <div class="row">
+                    <div class="col-8">
+                      <ul class="header-buttons-left ml-0">
+                        <li class="dropdown">
+                          <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
+                            aria-label="Search box">
+                        </li>
+                        <li>
+                          <div class="icon-button-demo m-l-10">                          
+                            <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
+                              <mat-icon class="col-white">search</mat-icon>
+                            </button>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-4">
+                      <ul class="header-buttons">
+                        <li>
+                          <div class="icon-button-demo">
+                            <button class="btn-space"  mat-raised-button
+                            color="primary" routerLink="/ship-management/add-overall-operational-status-of-equipment-system-list"> Add
+                              <mat-icon class="col-white">add</mat-icon>
+                            </button>
+                            <!-- <button class="btn-space" mat-raised-button  color="primary">
+                              <mat-icon class="col-white">print</mat-icon>
+                            </button> -->
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-container">
+ 
+                  <div style="overflow-x: auto; max-width: 100%;">
+                  <table class="custom-table">
+                    <thead>
+                      <tr>
+                        <th class="custom-header">Ser.</th>
+                        <th class="custom-header">Ship Name</th>
+                        <th class="custom-header">Equipment Name</th>
+                        <th class="custom-header">Date of Defect</th>
+                        <th class="custom-header">Description of Defect</th>
+
+                        <th class="custom-header">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let element of dataSource.data; let i = index">
+                        <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>                        
+                        <td>{{ element.baseSchoolName }}</td>
+                        <td>{{ element.nameOfEquipment }}</td>
+                        <td>{{ element.dateOfDefect}}</td>
+                        <td>{{ element.descriptionOfDefect }}</td>
+                        <td class="cl-action">
+                     
+                          <button mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
+                          [routerLink]="['/ship-management/update-shipequipmentinfo', element.shipEquipmentInfoId]">
+                            <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+                          </button>
+                          <button (click)="deleteItem(element)" mat-icon-button color="accent" class="btn-tbl-delete" >
+                          <mat-icon aria-label="Delete" class="col-white">delete</mat-icon> 
+                        </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                  
+                  
+                </div>
+                
+                
+                
+              
+                <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                  [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                  (page)="pageChanged($event)">
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  
+  
+  
+   

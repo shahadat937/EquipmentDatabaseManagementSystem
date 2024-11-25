@@ -35,7 +35,7 @@ namespace SchoolManagement.Application.Features.OperationalStatusOfEquipmentSyst
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<SchoolManagement.Domain.OperationalStatusOfEquipmentSystem> PaymentStatuss = _OperationalStatusOfEquipmentSystem.FilterWithInclude(x => (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)));
+            IQueryable<SchoolManagement.Domain.OperationalStatusOfEquipmentSystem> PaymentStatuss = _OperationalStatusOfEquipmentSystem.FilterWithInclude(x => (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)), "EqupmentName", "OperationalStatus", "BaseSchoolName");
             var totalCount = PaymentStatuss.Count();
             PaymentStatuss = PaymentStatuss.OrderByDescending(x => x.OperationalStatusOfEquipmentSystemId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 
