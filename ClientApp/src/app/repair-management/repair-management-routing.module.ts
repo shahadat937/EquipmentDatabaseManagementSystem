@@ -32,6 +32,10 @@ const routes: Routes = [
     path: 'overallstatusofship-list',
     component: OverallShipStatusListComponent,
  },
+ {
+  path: 'update-StatusOfShips/:statusOfShipId',
+  component: NewOverallStatusofShip,
+},
 
 
   
