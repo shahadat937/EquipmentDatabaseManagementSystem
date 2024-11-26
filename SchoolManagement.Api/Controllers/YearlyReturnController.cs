@@ -56,7 +56,7 @@ namespace SchoolManagement.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         [Route("update-YearlyReturn/{id}")]
-        public async Task<ActionResult> Put([FromForm] YearlyReturnDto yearlyReturn)
+        public async Task<ActionResult> Put([FromForm] CreateYearlyReturnDto yearlyReturn)
         {
             var command = new UpdateYearlyReturnCommand { YearlyReturnDto = yearlyReturn };
             await _mediator.Send(command);

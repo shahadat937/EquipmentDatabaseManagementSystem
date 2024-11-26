@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SchoolManagement.Application.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using SchoolManagement.Application.DTOs.ShipDrowings;
 
 namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Queries
 {
@@ -54,9 +55,9 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Queries
                 .Take(request.QueryParams.PageSize);
 
             
-            var yearlyReturnDtos = await _mapper.ProjectTo<YearlyReturnDto>(yearlyReturns).ToListAsync();
+            //var yearlyReturnDtos = await _mapper.ProjectTo<YearlyReturnDto>(yearlyReturns).ToListAsync();
+            var yearlyReturnDtos = _mapper.Map<List<YearlyReturnDto>>(yearlyReturns);
 
-           
             var result = new PagedResult<YearlyReturnDto>(
                 yearlyReturnDtos,
                 totalCount,

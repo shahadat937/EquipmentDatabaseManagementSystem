@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Application.DTOs.YearlyReturns.Validators
 {
-    public class UpdateYearlyReturnValidator : AbstractValidator<YearlyReturnDto>
+    public class UpdateYearlyReturnValidator : AbstractValidator<CreateYearlyReturnDto>
     {
         public UpdateYearlyReturnValidator()
         {
-            Include(new IYearlyReturnDtoValidator());
+            //Include(new IYearlyReturnDtoValidator());
 
             RuleFor(b => b.YearlyReturnId).NotNull().WithMessage("{PropertyName} must be present");
         }

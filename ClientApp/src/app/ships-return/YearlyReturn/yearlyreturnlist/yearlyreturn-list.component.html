@@ -109,9 +109,10 @@
                                                 <td>{{ number.reportingMonth || 'N/A' }}</td>
                                                 <td>{{ number.operationalStatus || 'N/A' }}</td>
                                                 <td>{{number.year}}</td>
-                                                <td class="col table-img  img-on-hover">                     
+                                                <td class="col table-img  img-on-hover"> 
+                                                  <a target="_blank" [href]="number.fileUpload">	<i matTooltip="File" class="far fa-file-pdf tbl-pdf"></i>	</a>                    
                                                   <button mat-icon-button color="accent" class="btn-tbl-edit" 
-                                                  [routerLink]="['/ships-return/update-yearlyreturn', number.yearReturnId]">
+                                                  [routerLink]="['/ships-return/update-yearlyreturn', number.yearlyReturnId]">
                                                     <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
                                                   </button>
                                                   <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using SchoolManagement.Application.Contracts.Persistence;
 using SchoolManagement.Application.DTOs.MonthlyReturns.Validators;
 using SchoolManagement.Application.DTOs.YearlyReturns.Validators;
@@ -21,15 +22,18 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Commands
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _config;
 
-        public UpdateYearlyReturnCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateYearlyReturnCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _config = config;
         }
 
         public async Task<Unit> Handle(UpdateYearlyReturnCommand request, CancellationToken cancellationToken)
         {
+            var apiUrl = _config["ApiUrl"];
             var validator = new UpdateYearlyReturnValidator();
             var validationResult = await validator.ValidateAsync(request.YearlyReturnDto);
 
@@ -41,7 +45,38 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Commands
             if (yearlyReturn is null)
                 throw new NotFoundException(nameof(YearlyReturn), request.YearlyReturnDto.YearlyReturnId);
 
+            string uniqueFileName = null;
+
+            if (request.YearlyReturnDto.Doc != null)
+            {
+
+                var fileName = Path.GetFileName(request.YearlyReturnDto.Doc.FileName);
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + fileName;
+                var a = Directory.GetCurrentDirectory();
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Content\\files\\yearly-return", uniqueFileName);
+                using (var fileSteam = new FileStream(filePath, FileMode.Create))
+                {
+                    await request.YearlyReturnDto.Doc.CopyToAsync(fileSteam);
+                }
+            }
+
             _mapper.Map(request.YearlyReturnDto, yearlyReturn);
+
+            if ((request.YearlyReturnDto.FileUpload != null && request.YearlyReturnDto.Doc != null) || request.YearlyReturnDto.Doc == null && request.YearlyReturnDto.FileUpload != null)
+            {
+                yearlyReturn.FileUpload = request.YearlyReturnDto.Doc != null ? "files/yearly-return/" + uniqueFileName : yearlyReturn.FileUpload.Replace(apiUrl, String.Empty);
+
+
+            }
+            else if (request.YearlyReturnDto.FileUpload != null)
+            {
+                yearlyReturn.FileUpload = yearlyReturn.FileUpload.Replace(apiUrl, string.Empty);
+            }
+            else
+            {
+                yearlyReturn.FileUpload = "";
+            }
+
 
             await _unitOfWork.Repository<YearlyReturn>().Update(yearlyReturn);
             await _unitOfWork.Save();

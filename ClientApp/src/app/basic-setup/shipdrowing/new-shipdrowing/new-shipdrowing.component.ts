@@ -174,7 +174,7 @@ export class NewShipDrowingComponent implements OnInit {
       
       this.dataSource.data = response.items; 
       console.log("data---");
-      console.log(this.dataSource.data)
+      console.log("data---",this.dataSource.data)
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;
     })

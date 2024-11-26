@@ -50,6 +50,7 @@ import { debounceTime } from 'rxjs/operators';
     getYearlyReturn(){
       this.isLoading = true;
       this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response=>{
+        console.log(response);
         this.dataSource.data = response.items;
         this.dataSource.data = response.items.map((item) => ({
           ...item,

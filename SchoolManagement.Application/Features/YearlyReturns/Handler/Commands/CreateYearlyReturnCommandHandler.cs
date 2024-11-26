@@ -41,10 +41,49 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Commands
             }
             else
             {
-               
-                var yearlyReturn = _mapper.Map<YearlyReturn>(request.YearlyReturnDto);
 
-            
+                string uniqueFileName = null;
+
+                //if (request.YearlyReturnDto.Doc != null)
+                //{
+
+                //    var fileName = Path.GetFileName(request.YearlyReturnDto.Doc.FileName);
+                //    uniqueFileName = Guid.NewGuid().ToString() + "_" + fileName;
+                //    var a = Directory.GetCurrentDirectory();
+                //    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Content\\files\\ship-drowing", uniqueFileName);
+
+                //    using (var fileSteam = new FileStream(filePath, FileMode.Create))
+                //    {
+                //        await request.YearlyReturnDto.Doc.CopyToAsync(fileSteam);
+                //    }
+                //}
+
+                if (request.YearlyReturnDto.Doc != null)
+                {
+                    var fileName = Path.GetFileName(request.YearlyReturnDto.Doc.FileName);
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + fileName;
+
+
+                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Content\\files\\yearly-return");
+
+
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+
+                    var filePath = Path.Combine(folderPath, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await request.YearlyReturnDto.Doc.CopyToAsync(fileStream);
+                    }
+                }
+
+
+
+                var yearlyReturn = _mapper.Map<YearlyReturn>(request.YearlyReturnDto);
+                yearlyReturn.FileUpload = request.YearlyReturnDto.FileUpload ?? "files/yearly-return/" + uniqueFileName;
                 yearlyReturn = await _unitOfWork.Repository<YearlyReturn>().Add(yearlyReturn);
 
                 try
