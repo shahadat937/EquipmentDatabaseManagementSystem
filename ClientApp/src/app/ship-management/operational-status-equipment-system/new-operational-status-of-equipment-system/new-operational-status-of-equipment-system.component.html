@@ -1,202 +1,190 @@
 <section class="content">
-    <div class="container-fluid">
-      <div class="block-header">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <ul class="breadcrumb breadcrumb-style ">
-              <li class="breadcrumb-item">
-                <h4 class="page-title">{{pageTitle}}</h4>
-              </li>
-              <li class="breadcrumb-item bcrumb-1">
-                <a routerLink="/admin/dashboard/main">
-                  <i class="fas fa-home"></i> </a>
-              </li>
-              <li class="breadcrumb-item bcrumb-2">
-                <a href="#" onClick="return false;">ShipInformation</a>
-              </li>
-              <li class="breadcrumb-item active">{{destination}}</li>
-            </ul>
-          </div> 
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">{{pageTitle}}</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/admin/dashboard/main">
+                <i class="fas fa-home"></i> </a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Overall Operational Status Of Equipment System</a>
+            </li>
+            <li class="breadcrumb-item active">{{destination}}</li>
+          </ul>
         </div>
       </div>
-      <div class="row clearfix">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-          <div class="card">
-            <div class="body">
-              <form class="m-4" [formGroup]="OperationalStatusOfEquipmentForm" (ngSubmit)="onSubmit()">
-                <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                        <mat-form-field class="example-full-width mb-3" appearance="outline">
-                          <mat-label>Equipment Name </mat-label>
-                          <mat-select formControlName="nameOfEquipmentId" required>
-                            <input type="text" 
-                            style="width:100%;height:50px;padding:10px; border: 1px solid white;"
-                            id="selectSearch" 
-                            (keydown.space)="$event.stopPropagation()"
-                            (input)="filterByEquipmentName($event.target.value)" placeholder="Search">
-                            <mat-option value="0">--Select--</mat-option>
-                            <mat-option *ngFor="let dropdown of selectedEquipmentName" [value]="dropdown.value">
-                              {{dropdown.text}}
-                            </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="OperationalStatusOfEquipmentForm.get('baseSchoolNameId').hasError('required')">
-                            Ship Name is required
-                          </mat-error>
-                        </mat-form-field>
-                      </div>
-                    
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>State of Equipment</mat-label>
-                      <mat-select formControlName="operationalStatusId" required>
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedStateOfEquipment" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="body">
+            <form class="m-4" [formGroup]="OperationalStatusOfEquipmentForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Equipment Name </mat-label>
+                    <mat-select formControlName="nameOfEquipmentId" required>
+                      <input type="text" style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByEquipmentName($event.target.value)" placeholder="Search">
+                      <mat-option value="0">--Select--</mat-option>
+                      <mat-option *ngFor="let dropdown of selectedEquipmentName" [value]="dropdown.value">
+                        {{dropdown.text}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="OperationalStatusOfEquipmentForm.get('baseSchoolNameId').hasError('required')">
+                      Equipment Name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
 
-              
-                  <div  class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Clarification to User Sent Date</mat-label>
-                      <input matInput [matDatepicker]="dateOfDefect" formControlName="dateOfDefect" required>
-                      <mat-datepicker-toggle matSuffix [for]="dateOfDefect"></mat-datepicker-toggle>
-                      <mat-datepicker #dateOfDefect></mat-datepicker>
-                      <mat-error *ngIf="OperationalStatusOfEquipmentForm.get('dateOfDefect').hasError('required')">
-                        Date Of Defect Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>State of Equipment</mat-label>
+                    <mat-select formControlName="stateOfEquipmentId" required>
+                      <mat-option value="0">--Select--</mat-option>
+                      <mat-option *ngFor="let dropdown of selectedStateOfEquipment" [value]="dropdown.value">
+                        {{dropdown.text}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Date Of Defect</mat-label>
+                    <input matInput [matDatepicker]="dateOfDefect" formControlName="dateOfDefect" required>
+                    <mat-datepicker-toggle matSuffix [for]="dateOfDefect"></mat-datepicker-toggle>
+                    <mat-datepicker #dateOfDefect></mat-datepicker>
+                    <mat-error *ngIf="OperationalStatusOfEquipmentForm.get('dateOfDefect').hasError('required')">
+                      Date Of Defect Required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
 
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Duration Of Defect</mat-label>
-                      <input matInput formControlName="durationOfDefect" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Ship Name </mat-label>
-                      <mat-select formControlName="baseSchoolNameId" required>
-                        <input type="text" 
-                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
-                        id="selectSearch" 
-                        (keydown.space)="$event.stopPropagation()"
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Duration Of Defect</mat-label>
+                    <input matInput formControlName="durationOfDefect" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Ship Name </mat-label>
+                    <mat-select formControlName="baseSchoolNameId" required>
+                      <input type="text" style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        id="selectSearch" (keydown.space)="$event.stopPropagation()"
                         (input)="filterByShipName($event.target.value)" placeholder="Search">
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="OperationalStatusOfEquipmentForm.get('baseSchoolNameId').hasError('required')">
-                        Ship Name is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                
-                  
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Cause Of Defect</mat-label>
-                      <input matInput formControlName="causesOfDefect" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>stepsTakenByShipsStaff</mat-label>
-                      <input matInput formControlName="stepsTakenByShipsStaff" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Steps Taken By BnDockyard</mat-label>
-                      <input matInput formControlName="stepsTakenByBnDockyard" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Steps Taken By NHQ</mat-label>
-                      <input matInput formControlName="stepsTakenByNHQ" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Steps Taken By OEM</mat-label>
-                      <input matInput formControlName="stepsTakenByOEM" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Requirement of Spares for recification with part/ Pattern no</mat-label>
-                      <input matInput formControlName="patternNo" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Spare Parts Held In Ship/ NSD</mat-label>
-                      <mat-select formControlName="isSparePartsHeldInShip" required>
-                        <mat-option value="">--Select--</mat-option>
-                        <mat-option [value]="true">Yes</mat-option>
-                        <mat-option [value]="false">No</mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="OperationalStatusOfEquipmentForm.get('isSparePartsHeldInShip').hasError('required')">
-                        This field is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  
-                  
-            
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Procurment Status of Spares</mat-label>
-                      <input matInput formControlName="procurementStatusOfSpares" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Impact on Other System</mat-label>
-                      <input matInput formControlName="impactOnOtherSystem" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Requirement of the Ship</mat-label>
-                      <input matInput formControlName="requirementOfShip" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Remarks</mat-label>
-                      <input matInput formControlName="remarks" required>                      
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Description Of Defect</mat-label>
-                      <input matInput formControlName="descriptionOfDefect" required>                      
-                    </mat-form-field>
-                  </div>
-                  
-
-             
-
+                      <mat-option value="0">--Select--</mat-option>
+                      <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                        {{dropdown.text}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="OperationalStatusOfEquipmentForm.get('baseSchoolNameId').hasError('required')">
+                      Ship Name is required
+                    </mat-error>
+                  </mat-form-field>
                 </div>
-               
-                <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                    <button class="btn-space" [disabled]="!OperationalStatusOfEquipmentForm.valid " mat-raised-button
-                      color="primary">{{btnText}}</button>
-                    <button type="button" mat-button routerLink="/ship-management/shipinformation-list">Cancel</button>
-                  </div>
+
+
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Cause Of Defect</mat-label>
+                    <input matInput formControlName="causesOfDefect" required>
+                  </mat-form-field>
                 </div>
-              </form>
-            </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Steps Taken By Ship Staffs</mat-label>
+                    <input matInput formControlName="stepsTakenByShipsStaff" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Steps Taken By BN Dockyard</mat-label>
+                    <input matInput formControlName="stepsTakenByBnDockyard" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Steps Taken By NHQ</mat-label>
+                    <input matInput formControlName="stepsTakenByNHQ" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Steps Taken By OEM</mat-label>
+                    <input matInput formControlName="stepsTakenByOEM" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Requirement of Spares for recification with part/ Pattern no</mat-label>
+                    <input matInput formControlName="patternNo" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Spare Parts Held In Ship/ NSD</mat-label>
+                    <mat-select formControlName="isSparePartsHeldInShip" required>
+                      <mat-option value="">--Select--</mat-option>
+                      <mat-option [value]="true">Yes</mat-option>
+                      <mat-option [value]="false">No</mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="OperationalStatusOfEquipmentForm.get('isSparePartsHeldInShip').hasError('required')">
+                      This field is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Procurment Status of Spares</mat-label>
+                    <input matInput formControlName="procurementStatusOfSpares" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Impact on Other System</mat-label>
+                    <input matInput formControlName="impactOnOtherSystem" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Requirement of the Ship</mat-label>
+                    <input matInput formControlName="requirementOfShip" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Remarks</mat-label>
+                    <input matInput formControlName="remarks" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Description Of Defect</mat-label>
+                    <input matInput formControlName="descriptionOfDefect" required>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <button class="btn-space" [disabled]="!OperationalStatusOfEquipmentForm.valid " mat-raised-button
+                    color="primary">{{btnText}}</button>
+                  <button type="button" mat-button
+                    routerLink="/ship-management/operational-status-of-equipment-system-list">Cancel</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>

@@ -78,6 +78,15 @@ const routes: Routes = [
         loadChildren: () =>
           import('./basic-setup/basic-setup.module').then((m) => m.BasicSetupModule),
       },
+      {
+        path: 'ship-drawing',
+        canActivate: [AuthGuard],
+        data: {
+          role: [Role.MasterAdmin,Role.DD,Role.StaffOfficer,Role.DNWNEEOfficeStaff]
+        },
+        loadChildren: () =>
+          import('./ship-drawing/ship-drawing.module').then((m) => m.ShipDrawingModule),
+      },
 
 
       {
@@ -102,6 +111,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./admin/admin.module').then((m) => m.AdminModule),
       },
+    
     ],
   },
   {

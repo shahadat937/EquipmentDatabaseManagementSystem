@@ -30,7 +30,7 @@ namespace SchoolManagement.Application.Features.ShipDrowings.Handlers.Queries
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<SchoolManagement.Domain.ShipDrowing> ShipDrowings = _ShipDrowingRepository.FilterWithInclude(x =>String.IsNullOrEmpty(request.QueryParams.SearchText), "Authority", "BaseName", "BaseSchoolName");
+            IQueryable<SchoolManagement.Domain.ShipDrowing> ShipDrowings = _ShipDrowingRepository.FilterWithInclude(x => (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)) || String.IsNullOrEmpty(request.QueryParams.SearchText), "Authority", "BaseName", "BaseSchoolName");
             var totalCount = ShipDrowings.Count();
             ShipDrowings = ShipDrowings.OrderByDescending(x => x.ShipDrowingId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 

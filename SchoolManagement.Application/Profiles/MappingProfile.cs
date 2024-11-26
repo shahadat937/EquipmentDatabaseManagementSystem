@@ -388,7 +388,7 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<OperationalStatusOfEquipmentSystem, CreateOperationalStatusOfEquipmentSystemDto>().ReverseMap();
             CreateMap<OperationalStatusOfEquipmentSystemDto, OperationalStatusOfEquipmentSystem>().ReverseMap()
                 .ForMember(d=> d.BaseSchoolName, o=> o.MapFrom( s=> s.BaseSchoolName.SchoolName))
-                .ForMember(d=> d.OperationalStatus, o=> o.MapFrom(s=> s.OperationalStatus.Name))
+                .ForMember(d=> d.StateOfEquipment, o=> o.MapFrom(s=> s.StateOfEquipment.Name))
                 .ForMember(d=> d.NameOfEquipment, o=>o.MapFrom(s=>s.EqupmentName.Name));
             #endregion
 
