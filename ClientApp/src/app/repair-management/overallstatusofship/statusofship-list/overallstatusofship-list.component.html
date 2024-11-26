@@ -30,15 +30,16 @@
                     <div class="col-8">
                       <ul class="header-buttons-left ml-0">
                         <li class="dropdown">
-                          <mat-form-field appearance="outline" class="full-width">
-                            <mat-label>Search</mat-label>
-                            <input
-                              matInput
-                              type="text"
-                              placeholder="Search..."
-                              (input)="applyFilter($event.target.value)"
-                            />
-                          </mat-form-field>
+                       
+                            <mat-form-field appearance="outline" class="full-width">
+                              <mat-label>Search</mat-label>
+                              <input
+                                matInput
+                                type="text"
+                                placeholder="Search..."
+                                (input)="applyFilter($event.target.value)" />
+                            </mat-form-field>
+                          
                         </li>
                       </ul>
                     </div>
@@ -59,7 +60,7 @@
                               class="btn-space"
                               mat-raised-button
                               color="primary"
-                              (click)="printOverallShipStatus()"
+                              (click)="print()"
                             >
                               <mat-icon class="col-white">print</mat-icon>
                             </button>
@@ -88,7 +89,7 @@
                                   <th><h5>Ship Name</h5></th>
                                   <th><h5>Operational Status</h5></th>
                                   <th><h5>Reason</h5></th>
-                                  <th><h5>Updated Date</h5></th>
+                                  <th><h5>Date from Non Operational</h5></th>
                                   <th><h5>Action</h5></th>
                                 </tr>
                               </thead>
