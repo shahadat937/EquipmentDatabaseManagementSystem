@@ -94,16 +94,17 @@
                               </thead>
                               <tbody>
                                 <tr *ngFor="let status of dataSource.data;">
-                                  <td>{{ status.shipName || 'N/A' }}</td>
+                                  <td>{{ status.schoolName || 'N/A' }}</td>
                                   <td>{{ status.operationalStatus || 'N/A' }}</td>
-                                  <td>{{ status.reasonForNoOperation || 'N/A' }}</td>
-                                  <td>{{ status.date || 'N/A' }}</td>
+                                  <td>{{ status.reasonOfBeingNonOperation || 'N/A' }}</td>
+                                  <td>{{ status.dateFromNonOperational ? (status.dateFromNonOperational | date: 'MMM dd, yyyy') : 'N/A' }}</td>
+
                                   <td class="col table-img img-on-hover">
                                     <button
                                       mat-icon-button
                                       color="accent"
                                       class="btn-tbl-edit"
-                                      [routerLink]="['/ships-status/update-overallstatus', status.shipStatusId]"
+                                      [routerLink]="['/repair-management/update-StatusOfShips/', status.statusOfShipId]"
                                     >
                                       <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
                                     </button>

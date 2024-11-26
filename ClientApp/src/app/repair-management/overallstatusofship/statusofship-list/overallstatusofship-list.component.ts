@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MasterData } from 'src/assets/data/master-data';
+import { OverallShipStatus } from '../../models/OverallStatusOfShip';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmService } from 'src/app/core/service/confirm.service';
+import {OverallStatusOfShip} from '../../service/OverallStatusofShip.service'
+import { SelectionModel } from '@angular/cdk/collections';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-overall-ship-status-list',
@@ -8,46 +15,44 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./overallstatusofship-list.component.css']
 })
 export class OverallShipStatusListComponent implements OnInit {
-  // Table data source
+  masterData = MasterData;
+  ELEMENT_DATA: OverallShipStatus[] = [];
   dataSource = new MatTableDataSource<any>([]);
-  
-  // Paginator properties
+  searchText="";
   paging = {
-    length: 0,
-    pageSize: 10,
-    pageSizeOptions: [5, 10, 25, 50]
-  };
+    pageIndex: this.masterData.paging.pageIndex,
+    pageSize: 5,
+    length: 1
+  }
+  isLoading: boolean;
+  itemCount: number;
 
-  // Master data for paginator options
-  masterData = {
-    paging: {
-      showFirstLastButtons: true,
-      pageSizeOptions: [5, 10, 25, 50]
-    }
-  };
 
-  constructor() {}
+  constructor(private snackBar: MatSnackBar, private OverallStatusOfShip: OverallStatusOfShip, private router: Router, private confirmService: ConfirmService) {}
 
   ngOnInit(): void {
-    this.loadShipStatusData();
+    this.getOverallStatusofShip()
   }
 
-  // Load initial data
-  loadShipStatusData(): void {
-    // Mock data loading or API call
-    // Replace this with an actual service call to fetch ship status data
-    this.dataSource.data = [];
-    this.paging.length = this.dataSource.data.length;
+  getOverallStatusofShip(){
+    this.OverallStatusOfShip.getOverallStatusofShip(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response=>{
+      this.dataSource.data = response.items;
+      this.paging.length = response.totalItemsCount 
+      this.isLoading = false;  
+      this.itemCount = response.items.length;
+    })
   }
 
-  // Apply filtering to the table
+
   applyFilter(filterValue: string): void {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  // Handle page change
-  pageChanged(event: any): void {
-    // Logic to fetch paginated data based on event.pageIndex and event.pageSize
+  pageChanged(event: PageEvent) {
+    this.paging.pageIndex = event.pageIndex
+    this.paging.pageSize = event.pageSize
+    this.paging.pageIndex = this.paging.pageIndex + 1
+    this.getOverallStatusofShip();
   }
 
   // Print functionality
@@ -56,9 +61,21 @@ export class OverallShipStatusListComponent implements OnInit {
     console.log('Print Overall Ship Status');
   }
 
-  // Delete an item
-  deleteItem(status: any): void {
-    // Add logic to delete the selected item
-    console.log('Delete Item:', status);
+  deleteItem(row) {
+    const id = row.statusOfShipId; 
+    this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
+  
+      if (result) {
+        this.OverallStatusOfShip.delete(id).subscribe(() => {
+          this.getOverallStatusofShip();
+          this.snackBar.open('Information Deleted Successfully ', '', {
+            duration: 2000,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'right',
+            panelClass: 'snackbar-danger'
+          });
+        })
+      }
+    })    
   }
 }
