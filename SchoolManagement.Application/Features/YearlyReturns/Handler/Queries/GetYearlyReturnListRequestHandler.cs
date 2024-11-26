@@ -42,7 +42,7 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Queries
             IQueryable<YearlyReturn> yearlyReturns = _yearlyReturnRepository.FilterWithInclude(
                 x => string.IsNullOrEmpty(request.QueryParams.SearchText) ||
                      x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText),
-                "BaseSchoolName" 
+                "BaseSchoolName", "OperationalStatus","ReportingMonth"
             );
 
          
