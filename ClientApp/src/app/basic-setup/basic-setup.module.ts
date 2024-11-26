@@ -115,7 +115,7 @@ import { NewBookTypeComponent } from './booktype/new-booktype/new-booktype.compo
     MaterialFileInputModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-   MatAutocompleteModule
+    MatAutocompleteModule
     
   ]
 })

@@ -54,6 +54,16 @@ export class OperationalStatusOfEquipmentSystemService {
     console.log(id);
     return this.http.delete(this.baseUrl + '/operational-status-of-equipment-system/delete-operationalStatusOfEquipmentSystem/'+id);
   }
+  find(id: any) {
+    console.log(id);
+    return this.http.get<any>(this.baseUrl + '/operational-status-of-equipment-system/get-operationalStatusOfEquipmentSystem/'+id);
+  }
+
+  update(id: number,model: any) {
+    
+    return this.http.put(this.baseUrl + '/operational-status-of-equipment-system/update-operationalStatusOfEquipmentSystem/'+id, model);
+  }
+
   submit(model: any) {
     return this.http.post(this.baseUrl + '/operational-status-of-equipment-system/save-operationalStatusOfEquipmentSystem', model);
   } 

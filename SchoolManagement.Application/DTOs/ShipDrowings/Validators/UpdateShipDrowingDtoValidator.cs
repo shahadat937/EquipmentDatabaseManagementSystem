@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using SchoolManagement.Application.DTOs.ShipDrowinges;
 
 namespace SchoolManagement.Application.DTOs.ShipDrowings.Validators
 {
-    public class UpdateShipDrowingDtoValidator : AbstractValidator<ShipDrowingDto>
+    public class UpdateShipDrowingDtoValidator : AbstractValidator<CreateShipDrowingDto>
     {
         public UpdateShipDrowingDtoValidator()  
         {

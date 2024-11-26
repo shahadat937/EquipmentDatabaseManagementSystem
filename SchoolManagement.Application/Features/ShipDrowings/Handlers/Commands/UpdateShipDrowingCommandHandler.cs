@@ -5,6 +5,8 @@ using SchoolManagement.Application.Exceptions;
 using SchoolManagement.Application.Contracts.Persistence;
 using SchoolManagement.Application.DTOs.ShipDrowings.Validators;
 using SchoolManagement.Application.Features.ShipDrowings.Requests.Commands;
+using Microsoft.Extensions.Configuration;
+
 
 namespace SchoolManagement.Application.Features.ShipDrowings.Handlers.Commands
 {
@@ -12,29 +14,29 @@ namespace SchoolManagement.Application.Features.ShipDrowings.Handlers.Commands
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _config;
 
-        public UpdateShipDrowingCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateShipDrowingCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _config = config;
         }
 
         public async Task<Unit> Handle(UpdateShipDrowingCommand request, CancellationToken cancellationToken)
         {
-            //var validator = new UpdateShipDrowingDtoValidator(); 
-            // var validationResult = await validator.ValidateAsync(request.ShipDrowingDto);
+            var apiUrl = _config["ApiUrl"];
+            var validator = new UpdateShipDrowingDtoValidator();
+            var validationResult = await validator.ValidateAsync(request.ShipDrowingDto);
 
-            //if (validationResult.IsValid == false)
-            //    throw new ValidationException(validationResult);
+            if (validationResult.IsValid == false)
+                throw new ValidationException(validationResult);
 
-            //var ShipDrowing = await _unitOfWork.Repository<ShipDrowing>().Get(request.ShipDrowingDto.ShipDrowingId);
+            var ShipDrowing = await _unitOfWork.Repository<ShipDrowing>().Get(request.ShipDrowingDto.ShipDrowingId);
 
-            //if (ShipDrowing is null)
-            //    throw new NotFoundException(nameof(ShipDrowing), request.ShipDrowingDto.ShipDrowingId);
+            if (ShipDrowing is null)
+                throw new NotFoundException(nameof(ShipDrowing), request.ShipDrowingDto.ShipDrowingId);
 
-            //_mapper.Map(request.ShipDrowingDto, ShipDrowing);
-
-            /////// File Upload //////////
             string uniqueFileName = null;
 
             if (request.ShipDrowingDto.Doc != null)
@@ -50,18 +52,32 @@ namespace SchoolManagement.Application.Features.ShipDrowings.Handlers.Commands
                 }
             }
 
-            var ShipDrowing = _mapper.Map<ShipDrowing>(request.ShipDrowingDto);
+            _mapper.Map(request.ShipDrowingDto, ShipDrowing);
 
-            //  ShipDrowing.Date = ShipDrowing.Date.Value.AddDays(1.0);
+
+            if ((request.ShipDrowingDto.FileUpload != null && request.ShipDrowingDto.Doc != null) || request.ShipDrowingDto.Doc == null && request.ShipDrowingDto.FileUpload != null)
+            {
+                ShipDrowing.FileUpload = request.ShipDrowingDto.Doc != null ? "files/ship-drowing/" + uniqueFileName : ShipDrowing.FileUpload.Replace(apiUrl, String.Empty);
+
+
+            }
+            else if (request.ShipDrowingDto.FileUpload != null)
+            {
+                ShipDrowing.FileUpload = ShipDrowing.FileUpload.Replace(apiUrl, string.Empty);
+            }
+            else
+            {
+                ShipDrowing.FileUpload = "";
+            }
 
             // var Procurement = _mapper.Map<Procurement>(request.ProcurementDto);
-            ShipDrowing.FileUpload = request.ShipDrowingDto.FileUpload ?? "files/ship-drowing/" + uniqueFileName;
 
             //ShipDrowing = await _unitOfWork.Repository<ShipDrowing>().Add(ShipDrowing);
 
-            await _unitOfWork.Repository<ShipDrowing>().Update(ShipDrowing);
+          
             try
             {
+                await _unitOfWork.Repository<ShipDrowing>().Update(ShipDrowing);
                 await _unitOfWork.Save();
             }
             catch (Exception ex)

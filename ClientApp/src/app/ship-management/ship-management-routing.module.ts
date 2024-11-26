@@ -58,6 +58,10 @@ const routes: Routes = [
     path: 'add-overall-operational-status-of-equipment-system-list',
     component: NewOperationalStatusOfEquipmentSystemComponent
   },
+  {
+    path: 'update-overall-operational-status-of-equipment-system-list/:operationalStatusOfEquipmentSystemId',
+    component: NewOperationalStatusOfEquipmentSystemComponent
+  },
 
 
   

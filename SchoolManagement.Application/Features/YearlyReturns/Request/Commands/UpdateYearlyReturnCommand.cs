@@ -10,6 +10,6 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Request.Commands
 {
     public class UpdateYearlyReturnCommand:IRequest<Unit>
     {
-        public YearlyReturnDto YearlyReturnDto { get; set; }
+        public CreateYearlyReturnDto YearlyReturnDto { get; set; }
     }
 }

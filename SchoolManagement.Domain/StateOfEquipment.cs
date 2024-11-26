@@ -9,6 +9,7 @@ namespace SchoolManagement.Domain
         public StateOfEquipment()
         {
             ShipEquipmentInfos = new HashSet<ShipEquipmentInfo>();
+            OperationalStatusOfEquipmentSystems = new HashSet<OperationalStatusOfEquipmentSystem>();
         }
 
         public int StateOfEquipmentId { get; set; }
@@ -19,5 +20,6 @@ namespace SchoolManagement.Domain
         public bool IsActive { get; set; }
 
         public virtual ICollection<ShipEquipmentInfo> ShipEquipmentInfos { get; set; }
+        public virtual ICollection<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystems { get; set; }
     }
 }

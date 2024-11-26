@@ -534,10 +534,10 @@ namespace SchoolManagement.Persistence
                 .HasForeignKey(d => d.BaseSchoolNameId)
                 .HasConstraintName("FK_OperationalStatusOfEquipmentSystem_BaseSchoolName");
 
-                entity.HasOne(d => d.OperationalStatus)
+                entity.HasOne(d => d.StateOfEquipment)
                 .WithMany(p => p.OperationalStatusOfEquipmentSystems)
-                .HasForeignKey(d => d.OperationalStatusId)
-                .HasConstraintName("FK_OperationalStatusOfEquipmentSystem_OperationalStatus");
+                .HasForeignKey(d => d.StateOfEquipmentId)
+                .HasConstraintName("FK_OperationalStatusOfEquipmentSystem_StateOfEquipment");
 
                 entity.HasOne(d => d.EqupmentName)
                 .WithMany(p => p.OperationalStatusOfEquipmentSystems)

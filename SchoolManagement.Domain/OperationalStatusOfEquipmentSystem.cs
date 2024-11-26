@@ -13,7 +13,7 @@ namespace SchoolManagement.Domain
 
         public int? NameOfEquipmentId { get; set; }
 
-        public int? OperationalStatusId { get; set; } 
+        public int? StateOfEquipmentId { get; set; } 
 
         public DateTime? DateOfDefect { get; set; } 
 
@@ -46,8 +46,10 @@ namespace SchoolManagement.Domain
         public string? DescriptionOfDefect { get; set; }  
         
         public bool? IsActive { get; set; }
-        public virtual  BaseSchoolName BaseSchoolName { get; set; }
-        public virtual OperationalStatus OperationalStatus { get; set; }
-        public virtual EqupmentName EqupmentName { get; set; }
+        public virtual  BaseSchoolName? BaseSchoolName { get; set; }
+        //public virtual OperationalStatus OperationalStatus { get; set; }
+        public virtual StateOfEquipment? StateOfEquipment { get; set; }
+
+        public virtual EqupmentName? EqupmentName { get; set; }
     }
 }

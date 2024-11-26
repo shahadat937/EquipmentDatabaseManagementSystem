@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectedModel } from 'src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmService } from 'src/app/core/service/confirm.service';
 
 @Component({
   selector: 'app-new-yearlyreturn',
@@ -11,11 +12,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./new-yearlyreturn.component.css'],
 })
 export class YearlyReturnComponent implements OnInit {
-  YearlyReturnForm!: FormGroup; 
+  YearlyReturnForm!: FormGroup;
   selectedBaseSchoolName: SelectedModel[] = [];
   selectedReportingMonth: SelectedModel[] = [];
   selectedOperationalStatus: SelectedModel[] = [];
-  confirmService: any;
+  // confirmService: any;
 
   validationErrors: string[] = [];
   pageTitle: string;
@@ -30,24 +31,26 @@ export class YearlyReturnComponent implements OnInit {
   ];
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private YearlyReturnService: YearlyReturnService,
     private snackBar: MatSnackBar,
-    private router: Router, 
-     private route: ActivatedRoute
-  ) {}
+    private router: Router,
+    private route: ActivatedRoute,
+    private confirmService : ConfirmService
+  ) { }
 
   ngOnInit(): void {
     // this.role = this.authService.currentUserValue.role.trim();
     // this.traineeId = this.authService.currentUserValue.traineeId.trim();
     // this.branchId = this.authService.currentUserValue.branchId.trim();
-  
+
     const id = this.route.snapshot.paramMap.get('yearlyReturnId');
+    console.log(this.route.snapshot.paramMap);
     if (id) {
       this.pageTitle = 'Edit Yearly Return';
       this.destination = "Edit";
       this.btnText = 'Update';
-  
+
       this.YearlyReturnService.find(+id).subscribe(
         res => {
           this.YearlyReturnForm.patchValue({
@@ -57,6 +60,7 @@ export class YearlyReturnComponent implements OnInit {
             reportingMonthId: res.reportingMonthId,
             reportingYearId: res.reportingYearId,
             menuPosition: res.menuPosition,
+            fileUpload: res.fileUpload,
             isActive: res.isActive
           });
 
@@ -67,21 +71,24 @@ export class YearlyReturnComponent implements OnInit {
       this.destination = "Add";
       this.btnText = 'Save';
     }
-  
+
     this.initializeForm();
     this.getSelectedReportingMonth();
     this.getSelectedOperationalStatus();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
   }
-  
+
 
   initializeForm() {
     this.YearlyReturnForm = this.fb.group({
-      yearlyReturnId:[0],
+      yearlyReturnId: [0],
       baseSchoolNameId: [''],
-      operationalStatusId: [''], 
-      reportingMonthId: [''], 
+      operationalStatusId: [''],
+      reportingMonthId: [''],
       reportingYearId: [''],
+      fileUpload: [''],
+      doc: ['']
+
     });
   }
 
@@ -89,7 +96,7 @@ export class YearlyReturnComponent implements OnInit {
   getSelectedSchoolByBranchLevelAndThirdLevel() {
     this.YearlyReturnService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(
       (res: SelectedModel[]) => {
-        this.selectedBaseSchoolName = res; 
+        this.selectedBaseSchoolName = res;
       },
       (error) => {
         console.error('Error loading Ship Names:', error);
@@ -121,20 +128,31 @@ export class YearlyReturnComponent implements OnInit {
     );
   }
 
+  onFileChanged(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+
+      this.YearlyReturnForm.patchValue({
+        doc: file,
+      });
+    }
+  }
+
   onSubmit() {
     console.log('Form Value Before Submission:', this.YearlyReturnForm.value);
     const id = this.YearlyReturnForm.get('yearlyReturnId')?.value;
-  
-    
+    console.log(id);
+
+
     const formData = new FormData();
     for (const key of Object.keys(this.YearlyReturnForm.value)) {
       const value = this.YearlyReturnForm.value[key];
       if (value !== null && value !== undefined) {
         formData.append(key, value);
       }
-    } 
+    }
     if (id) {
-   
+
       this.confirmService.confirm('Confirm Update', 'Are you sure you want to update this item?').subscribe(result => {
         if (result) {
           this.YearlyReturnService.update(+id, formData).subscribe(response => {
@@ -165,6 +183,6 @@ export class YearlyReturnComponent implements OnInit {
       });
     }
   }
-  
+
 
 }

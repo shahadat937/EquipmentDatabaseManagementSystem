@@ -10,6 +10,7 @@ namespace SchoolManagement.Application.DTOs.YearlyReturns
     {
         public int YearlyReturnId { get; set; }
         public int? BaseSchoolNameId { get; set; }
+        public string? FileUpload { get; set; }
         public int? OperationalStatusId { get; set; }
         public int? ReportingMonthId { get; set; }
         public int? ReportingYearId { get; set; }

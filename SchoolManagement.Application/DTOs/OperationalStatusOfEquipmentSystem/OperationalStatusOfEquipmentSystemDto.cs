@@ -12,8 +12,8 @@ namespace SchoolManagement.Application.DTOs.OperationalStatusOfEquipmentSystem
 
         public int? NameOfEquipmentId { get; set; }
         public string NameOfEquipment { get; set; }
-        public int? OperationalStatusId { get; set; }
-        public string OperationalStatus { get; set; }
+        public int? StateOfEquipmentId { get; set; }
+        public string StateOfEquipment { get; set; }
 
         public DateTime? DateOfDefect { get; set; }
 

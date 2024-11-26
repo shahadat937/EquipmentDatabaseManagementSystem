@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ShipDrowingService } from '../../service/ShipDrowing.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmService } from '../../../core/service/confirm.service';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { Role } from 'src/app/core/models/role';
-import { MasterData } from 'src/assets/data/master-data';
-import { ShipDrowing } from '../../models/ShipDrowing';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Role } from 'src/app/core/models/role';
+import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { MasterData } from 'src/assets/data/master-data';
+import { ShipDrowing } from '../models/ShipDrowing';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import {BaseSchoolNameService} from '../../../../app/security/service/BaseSchoolName.service'
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/core/service/auth.service';
+import { ConfirmService } from 'src/app/core/service/confirm.service';
+import { ShipDrowingService } from 'src/app/ship-drawing/Services/ShipDrowing.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
+import {BaseSchoolNameService} from 'src/app/security/service/BaseSchoolName.service'
 
 @Component({
-  selector: 'app-new-shipdrowing',
-  templateUrl: './new-shipdrowing.component.html',
-  styleUrls: ['./new-shipdrowing.component.sass']
+  selector: 'app-new-ship-drawing',
+  templateUrl: './new-ship-drawing.component.html',
+  styleUrls: ['./new-ship-drawing.component.sass']
 })
-export class NewShipDrowingComponent implements OnInit {
+export class NewShipDrawingComponent implements OnInit {
+
   pageTitle: string;
   destination:string;
   btnText:string;
@@ -57,53 +58,56 @@ export class NewShipDrowingComponent implements OnInit {
 
   constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipDrowingService: ShipDrowingService, private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
 
+  
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('shipDrowingId'); 
-
-    this.role = this.authService.currentUserValue.role.trim();
-    this.traineeId =  this.authService.currentUserValue.traineeId.trim();
-    this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
-
-    if (id) {
-      this.pageTitle = 'Edit ShipDrowing';
-      this.destination = "Edit";
-      this.btnText = 'Update';
-      this.ShipDrowingService.find(+id).subscribe(
-        res => {
-          this.ShipDrowingForm.patchValue({                 
+    this.intitializeForm();   
+    this.route.params.subscribe((params) => {
+      const id = params['shipDrowingId']; 
+  
+      if (id) {
+        this.pageTitle = 'Edit Ship Drowing';
+        this.destination = 'Edit';
+        this.btnText = 'Update';
+  
+        this.ShipDrowingService.find(+id).subscribe((res) => {
+          this.ShipDrowingForm.patchValue({
             shipDrowingId: res.shipDrowingId,
-            baseSchoolNameId:res.baseSchoolNameId,
-            authorityId:res.authorityId,
-            baseNameId:res.baseNameId,
+            baseSchoolNameId: res.baseSchoolNameId,
+            authorityId: res.authorityId,
+            baseNameId: res.baseNameId,
             name: res.name,
             shortName: res.shortName,
             fileUpload: res.fileUpload,
             remarks: res.remarks,
-           // menuPosition: res.menuPosition,
-            isActive: res.isActive
-          }); 
-          console.log("res");
-          console.log(res);       
+            isActive: res.isActive,
+          });
+          console.log('res:', res);
+  
           this.onCommendingAreaSelectionChangeGetBaseName();
-          this.onOrganizationSelectionChange();  
-        }
-      );
-    } else {
-      this.pageTitle = 'Create ShipDrowing';
-      this.destination = "Add";
-      this.btnText = 'Save';
-    }
-    this.intitializeForm();
+          this.onOrganizationSelectionChange();
+        });
+      } else {
+        this.pageTitle = 'Create Ship Drowing';
+        this.destination = 'Add';
+        this.btnText = 'Save';
+        this.ShipDrowingForm.reset(); 
+      }
+    });
+  
+    this.role = this.authService.currentUserValue.role.trim();
+    this.traineeId = this.authService.currentUserValue.traineeId.trim();
+    this.branchId = this.authService.currentUserValue.branchId.trim();
+    console.log(this.role, this.traineeId, this.branchId);
     this.getShipDrowings();
-    this.onOrganizationSelectionChangeGetCommendingArea(); 
-    // if(this.role != this.userRole.SuperAdmin){
-    //   console.log("dd");
+    this.onOrganizationSelectionChangeGetCommendingArea();
+  
+   
+    // if (this.role !== this.userRole.SuperAdmin) {
     //   this.ShipDrowingForm.get('departmentNameId').setValue(this.branchId);
     //   this.onDepartmentSelectionChangeGetShipDrowingList();
     // }
-    // this.GetDepartmentNameById(this.masterData.schoolDept.navalAviation);
   }
+  
   intitializeForm() {
     this.ShipDrowingForm = this.fb.group({
       shipDrowingId: [0],
@@ -171,10 +175,8 @@ export class NewShipDrowingComponent implements OnInit {
 
   getShipDrowings(){
     this.ShipDrowingService.getShipDrowings(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-      
+      console.log(response);
       this.dataSource.data = response.items; 
-      console.log("data---");
-      console.log("data---",this.dataSource.data)
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;
     })
@@ -263,4 +265,5 @@ export class NewShipDrowingComponent implements OnInit {
     }
  
   }
+
 }

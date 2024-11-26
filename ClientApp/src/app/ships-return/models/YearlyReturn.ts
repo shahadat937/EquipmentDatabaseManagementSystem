@@ -7,5 +7,6 @@ export interface YearlyReturn{
     reportingYearId: number,
     schoolName: string,
     menuPosition: number,
-    isActive: boolean
+    isActive: boolean,
+    fileUpload: string
 }
