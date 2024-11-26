@@ -1,8 +1,10 @@
 export interface OverallShipStatus{
-    statusOfShip: number;
+    statusOfShipId: number;
     baseSchoolNameId: number;
+    baseSchoolName: string;
     operationalStatusId: number;
-    reasonofBeingNonOperational: string;
+    reasonOfBeingNonOperation: string;
+    dateFromNonOperational: Date | string;
     schoolName: string;
     operationalStatus: string;
     menuPosition: number,

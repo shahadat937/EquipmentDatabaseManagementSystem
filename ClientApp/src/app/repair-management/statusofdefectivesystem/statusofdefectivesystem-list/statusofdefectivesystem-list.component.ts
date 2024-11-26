@@ -54,15 +54,11 @@ export class StatusOfDefectiveSystemListComponent implements OnInit {
     this.branchId =  this.authService.currentUserValue.branchId.trim();
     console.log(this.role, this.traineeId,  this.branchId)
 
-    // if(this.role == this.userRole.ShipUser){
-    //   this.getShipInformations(this.branchId);
-    // }else{
-    //   this.getShipInformations(0);
-    // }
+    
 
     this.getOperationalStates();
     this.searchSubject.pipe(
-      debounceTime(300) // Adjust debounce time as needed
+      debounceTime(300)
     ).subscribe((searchText) => {
       this.searchText = searchText;
       this.getOperationalStates();

@@ -142,11 +142,18 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<MonthlyReturn, CreateMonthlyReturnDto>().ReverseMap();
             #endregion
 
-            CreateMap<Domain.StatusOfShip, StatusOfShipDto>()
-     .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName != null ? s.BaseSchoolName.SchoolName : null))
-     .ForMember(d => d.OperationalStatus, o => o.MapFrom(s => s.OperationalStatus != null ? s.OperationalStatus.Name : null))
-    
-     .ReverseMap();
+            //       CreateMap<Domain.StatusOfShip, StatusOfShipDto>().ReverseMap()
+            //.ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName != null ? s.BaseSchoolName.SchoolName : null))
+            //.ForMember(d => d.OperationalStatus, o => o.MapFrom(s => s.OperationalStatus != null ? s.OperationalStatus.Name : null)).ReverseMap();
+
+            CreateMap<StatusOfShipDto, StatusOfShip>().ReverseMap()
+                .ForMember(dest => dest.SchoolName, opt => opt.MapFrom(src => src.BaseSchoolName != null ? src.BaseSchoolName.SchoolName : null))
+             .ForMember(d => d.OperationalStatus, o => o.MapFrom(s => s.OperationalStatus.Name));
+     
+            CreateMap<StatusOfShip, CreateStatusOfShipDto>().ReverseMap();
+
+
+
 
 
             #region OperationalState Mapping    

@@ -24,7 +24,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
           <div class="card">
             <div class="body">
-              <form class="m-4" [formGroup]="OverallStatusOfShipForm" >
+              <form class="m-4" [formGroup]="OverallStatusOfShipForm" (ngSubmit)="onSubmit()">
                 <div class="row">
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
@@ -62,11 +62,12 @@
                     </mat-form-field>
                   </div>
                
-                  <!-- Reason for No Operation -->
+                 
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Reason for No Operation</mat-label>
-                      <textarea matInput formControlName="reasonForNoOperation" required></textarea>
+            
+                      <textarea matInput formControlName="reasonOfBeingNonOperation" required></textarea>
                      
                     </mat-form-field>
                   </div>
@@ -75,12 +76,10 @@
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Date from Non Operationa</mat-label>
-                      <input matInput [matDatepicker]="datePicker" formControlName="date" required>
+                      <input matInput [matDatepicker]="datePicker" formControlName="dateFromNonOperational">
                       <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
                       <mat-datepicker #datePicker></mat-datepicker>
-                      <mat-error *ngIf="OverallStatusOfShipForm.get('date').hasError('required')">
-                        Date is required
-                      </mat-error>
+                     
                     </mat-form-field>
                   </div>
                 </div>
