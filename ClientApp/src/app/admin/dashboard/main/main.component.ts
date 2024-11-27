@@ -32,6 +32,8 @@ import {
 } from 'ng-apexcharts';
 import { DatePipe } from '@angular/common';
 import { SpOfficerDetails } from '../models/spofficerdetails';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/core/service/auth.service';
 export type areaChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -133,6 +135,8 @@ export class MainComponent implements OnInit {
     pageSize: this.masterData.paging.pageSize,
     length: 1
   }
+  branchId : any
+  role: any
   searchText="";
 
 
@@ -145,10 +149,13 @@ export class MainComponent implements OnInit {
   selection = new SelectionModel<CourseDuration>(true, []);
   
 
-  constructor(private datepipe: DatePipe,private CourseDurationService: CourseDurationService,private dashboardService: dashboardService) {}
+  constructor(private datepipe: DatePipe,private CourseDurationService: CourseDurationService,private dashboardService: dashboardService, private route: ActivatedRoute, private authService : AuthService) {}
  
 
   ngOnInit() {
+
+    this.role = this.authService.currentUserValue.role
+    console.log(this.role);
 
     this.chart1();
     this.chart2();
@@ -192,7 +199,8 @@ export class MainComponent implements OnInit {
   // }
  
   getShipInfoByShipType(){
-   this.dashboardService.getShipInformationListByShipType(11).subscribe(response => {           
+   this.dashboardService.getShipInformationListByShipType(11).subscribe(response => {   
+    console.log('Total Ship Count',response);        
       this.shipCount=response.length;
       this.shipinfoList=response;
     })
@@ -211,7 +219,10 @@ export class MainComponent implements OnInit {
    }
 
    getBaseNameListAndCount(){
-    this.dashboardService.getBaseNameListAndCount().subscribe(response => {           
+    this.dashboardService.getBaseNameListAndCount().subscribe(response => {   
+      // if()    {
+
+      // }  
        this.baseNameListCount=response;
       
      })
@@ -231,7 +242,7 @@ export class MainComponent implements OnInit {
 
    getStateOfEquipments() {
     this.isLoading = true;
-    this.dashboardService.getStateOfEquipments(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {      
+    this.dashboardService.getStateOfEquipments(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {     
       this.stateOfComponent= response.items; 
       this.nonOpl = this.stateOfComponent[0]?.stateOfEquipmentId?? 0
       this.opl = this.stateOfComponent[1]?.stateOfEquipmentId?? 0

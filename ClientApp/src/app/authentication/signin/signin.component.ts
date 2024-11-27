@@ -102,7 +102,8 @@ export class SigninComponent
               const branchId =  this.authService.currentUserValue.branchId  ? this.authService.currentUserValue.branchId.trim() : "";
 
            
-                if (role === Role.All || role === Role.MasterAdmin || role === Role.Director || role === Role.DNWNEEOfficeStaff || role === Role.StaffOfficer  || role === Role.DD) {
+                if (role === Role.All || role === Role.MasterAdmin || role === Role.Director || role === Role.DNWNEEOfficeStaff || role === Role.StaffOfficer  || role === Role.DD ||  role === Role.AreaCommander || role === Role.SOL || role === Role.SOR || role === Role.OffceStaffDNWEE || role === Role.CSO || role === Role.FLO || role ===Role.FLOStaff  ) {
+                  
                   this.router.navigate(['/admin/dashboard/main']);
                 }else if (role === Role.ShipUser || role === Role.CO || role === Role.EXO || role === Role.ShipStaff || role === Role.LOEO) {
                   this.router.navigate(['/admin/dashboard/ship-dashboard']);

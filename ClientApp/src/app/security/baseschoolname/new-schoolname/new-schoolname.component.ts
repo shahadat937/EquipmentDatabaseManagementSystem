@@ -107,6 +107,7 @@ export class NewSchoolNameComponent implements OnInit {
     this.baseNameId=this.BaseSchoolForm.value['secondLevel'];
     console.log(this.baseNameId);
     this.BaseSchoolNameService.getSelectedBaseName(this.baseNameId).subscribe(res=>{
+      console.log(res);
       this.selectedBaseName=res
       console.log(this.selectedBaseName);
     });  

@@ -13,4 +13,13 @@ export enum Role {
   ShipUser = 'Ship User',
   AreaCommander = 'Area Commander',
   DD = 'DD',
+  SOL = 'SO L',
+  SOR = 'SO (R)',
+  OffceStaffDNWEE = 'Office Staff DNW&EE',
+  FLO = 'FLO',
+  CSO = 'CSO',
+  FLOStaff = 'FLO Staff'
+
+
+
 }

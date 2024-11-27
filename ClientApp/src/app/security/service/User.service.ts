@@ -126,4 +126,7 @@ export class UserService {
   delete(id:number){
     return this.http.delete(this.baseUrl + '/users/delete-user/'+id);
   }
+  updatePassword(model: any) {
+    return this.http.post(this.baseUrl + '/Users/update-paswordfor-individualuser', model);
+  }
 }
