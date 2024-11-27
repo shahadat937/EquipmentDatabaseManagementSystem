@@ -192,7 +192,8 @@ export class MainComponent implements OnInit {
   // }
  
   getShipInfoByShipType(){
-   this.dashboardService.getShipInformationListByShipType(11).subscribe(response => {           
+   this.dashboardService.getShipInformationListByShipType(11).subscribe(response => {   
+    console.log(response);        
       this.shipCount=response.length;
       this.shipinfoList=response;
     })

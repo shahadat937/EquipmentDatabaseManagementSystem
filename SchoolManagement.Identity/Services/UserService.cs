@@ -52,16 +52,58 @@ namespace SchoolManagement.Identity.Services
                 Lastname = employee.LastName
             };
         }
-        public async Task<BaseCommandResponse> UpdateUserPassword(string userId,PasswordChangeDto userDto)
+        //public async Task<BaseCommandResponse> UpdateUserPassword(string userId,PasswordChangeDto userDto)
+        //{
+        //    var response = new BaseCommandResponse();
+
+        //    var user = await _userManager.FindByIdAsync(userId);
+        //    await _userManager.ChangePasswordAsync(user, userDto.CurrentPassword, userDto.NewPassword);
+        //    await _signinManager.RefreshSignInAsync(user);
+
+        //    return response;
+        //}
+
+        public async Task<BaseCommandResponse> UpdateUserPassword(string userId, PasswordChangeDto userDto)
         {
             var response = new BaseCommandResponse();
 
+            // Fetch the user from the database
             var user = await _userManager.FindByIdAsync(userId);
-            await _userManager.ChangePasswordAsync(user, userDto.CurrentPassword, userDto.NewPassword);
-            await _signinManager.RefreshSignInAsync(user);
+            if (user == null)
+            {
+                response.Success = false;
+                response.Message = "User not found.";
+                return response;
+            }
+
+            // Check if the current password is correct
+            var passwordValid = await _userManager.CheckPasswordAsync(user, userDto.CurrentPassword);
+            if (!passwordValid)
+            {
+                throw new BadRequestException("Current Password Not Matched !!");
+            }
+
+            // Proceed with changing the password
+            var result = await _userManager.ChangePasswordAsync(user, userDto.CurrentPassword, userDto.NewPassword);
+
+            if (result.Succeeded)
+            {
+                // Optionally, refresh the user's sign-in session
+                await _signinManager.RefreshSignInAsync(user);
+
+                response.Success = true;
+                response.Message = "Password updated successfully.";
+            }
+            else
+            {
+                // Handle failure to change password
+                response.Success = false;
+                response.Message = "Failed to change password.";
+            }
 
             return response;
         }
+
 
         public async Task<BaseCommandResponse> ResetPassword(string userId, CreateUserDto userDto)
         {
