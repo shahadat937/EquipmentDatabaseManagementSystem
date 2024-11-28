@@ -45,6 +45,22 @@ public class ShipEquipmentInfoController : ControllerBase
         return Ok(ShipEquipmentInfos);
     }
 
+    [HttpGet]
+    [Route("get-ShipEquipmentInfos-by-CategoryId-StateOfEquipmentId-commandingAreaId")]
+    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetShipEquipmentByCategoryIdAndStateOfEquipmentIdAndCommadingAreaId([FromQuery] QueryParams queryParams, int categoryId, int stateOfEquipmentId, int commandingAreaId)
+    {
+        var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoByCategoryIdEquipmentStatusIdAndCommandingAreaIdRequest
+        {
+            QueryParams = queryParams,
+            CategoryId = categoryId,
+            StateOfEquipmentId = stateOfEquipmentId,
+            CommandingAreaId = commandingAreaId
+            
+
+        });
+        return Ok(ShipEquipmentInfos);
+    }
+
 
     [HttpGet]
     [Route("get-ShipEquipmentInfos-by-CategoryId-EquipmentNameId-StateOfEquipmentId")]
