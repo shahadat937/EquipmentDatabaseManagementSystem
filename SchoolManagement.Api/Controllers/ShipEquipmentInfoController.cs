@@ -137,6 +137,19 @@ public class ShipEquipmentInfoController : ControllerBase
         StateOfEquipmentId2 = stateOfEquipmentId2
         });
         return Ok(count);
+    }  
+    
+    [HttpGet]
+    [Route("get-ship-equipment-count-by-category-commandingArea/{stateOfEquipmentId1}/{stateOfEquipmentId2}/{commandingAreaId}")]
+    public async Task<ActionResult> GetShipEquipmentByCategoryAndCommandingArea(int stateOfEquipmentId1, int stateOfEquipmentId2, int commandingAreaId)
+    {
+        var count = await _mediator.Send(new GetShipEquipmentCountByCategoryandCommaningAreaIdRequest
+        { 
+        StateOfEquipmentId1 = stateOfEquipmentId1,
+        StateOfEquipmentId2 = stateOfEquipmentId2,
+        CommandingAreaId = commandingAreaId
+        });
+        return Ok(count);
     }
 
     [HttpGet]
@@ -148,6 +161,21 @@ public class ShipEquipmentInfoController : ControllerBase
            CombatSystemId = combatSystemId,
            StateOfEquipmentId1 = stateOfEquipmentId1,
            StateOfEquipmentId2 = stateOfEquipmentId2
+        });
+        return Ok(shipLists);
+    }
+
+     [HttpGet]
+    [Route("get-combat-system-equipemnt-count-by-commandingarea/{combatSystemId}/{stateOfEquipmentId1}/{stateOfEquipmentId2}/{commandingAreaId}")]
+    public async Task<ActionResult> GetCompatSystemEequipmentCountByCommandingAreaId(int combatSystemId, int stateOfEquipmentId1, int stateOfEquipmentId2, int commandingAreaID)
+    {
+        var shipLists = await _mediator.Send(new GetCompatSystemEequipmentCountRequestByCommandingAreaRequest
+        {
+           CombatSystemId = combatSystemId,
+           StateOfEquipmentId1 = stateOfEquipmentId1,
+           StateOfEquipmentId2 = stateOfEquipmentId2,
+           CommandingAreaId = commandingAreaID
+           
         });
         return Ok(shipLists);
     }

@@ -45,7 +45,7 @@ const routes: Routes = [
         path: 'ship-management',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.ShipUser, Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.LOEO, Role.DNWNEEOfficeStaff, Role.ShipStaff]
+          role: [Role.ShipUser, Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.LOEO, Role.DNWNEEOfficeStaff, Role.ShipStaff, Role.AreaCommander, Role.FLO, Role.FLOStaff, Role.CSO]
         },
         loadChildren: () =>
           import('./ship-management/ship-management.module').then((m) => m.ShipManagementModule),
