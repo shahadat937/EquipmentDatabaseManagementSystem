@@ -7,6 +7,8 @@ import { ConfirmService } from 'src/app/core/service/confirm.service';
 import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {dashboardService} from '../services/dashboard.service'
+import { AuthService } from 'src/app/core/service/auth.service';
+import { Role } from 'src/app/core/models/role';
 
 @Component({
   selector: 'app-boatinformationbytype-list',
@@ -21,10 +23,15 @@ export class BoatInformationByTypeListComponent implements OnInit {
   shipinfoList:any[];
   groupArrays:{ schoolName: string; courses: any; }[];
   showHideDiv = false;
+  role : string;
+  branchId : any
+  roles = Role
   
-  constructor(private snackBar: MatSnackBar,private dashboardService:dashboardService,private router: Router,private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private dashboardService:dashboardService,private router: Router,private confirmService: ConfirmService, private authService : AuthService) { }
   
   ngOnInit() {
+    this.role = this.authService.currentUserValue.role;
+    this.branchId = this.authService.currentUserValue.branchId;
     this.getBoatInfoByShipType();
   }
   toggle() {
@@ -102,25 +109,50 @@ export class BoatInformationByTypeListComponent implements OnInit {
     popupWin.document.close();
   }
   getBoatInfoByShipType(){
-    this.dashboardService.getShipInformationListByShipType(9).subscribe(response => {           
-       this.shipinfoList=response;
-       const groups = this.shipinfoList.reduce((groups, courses) => {
-        const schoolName = courses.schoolName;
-        if (!groups[schoolName]) {
-          groups[schoolName] = [];
-        }
-        groups[schoolName].push(courses);
-        return groups;
-      }, {});
 
-      // Edit: to add it in the array format instead
-      this.groupArrays = Object.keys(groups).map((schoolName) => {
-        return {
-          schoolName,
-          courses: groups[schoolName]
-        };
-      });
-     
-     })
+    if(this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff){
+      this.dashboardService.getShipInformationListByShipTypeAndCommandingArea(9, this.branchId).subscribe(response => {           
+        this.shipinfoList=response;
+        const groups = this.shipinfoList.reduce((groups, courses) => {
+         const schoolName = courses.schoolName;
+         if (!groups[schoolName]) {
+           groups[schoolName] = [];
+         }
+         groups[schoolName].push(courses);
+         return groups;
+       }, {});
+ 
+       // Edit: to add it in the array format instead
+       this.groupArrays = Object.keys(groups).map((schoolName) => {
+         return {
+           schoolName,
+           courses: groups[schoolName]
+         };
+       });
+      
+      })
+
+    }
+    else{
+      this.dashboardService.getShipInformationListByShipType(9).subscribe(response => {           
+        this.shipinfoList=response;
+        const groups = this.shipinfoList.reduce((groups, courses) => {
+         const schoolName = courses.schoolName;
+         if (!groups[schoolName]) {
+           groups[schoolName] = [];
+         }
+         groups[schoolName].push(courses);
+         return groups;
+       }, {});
+       this.groupArrays = Object.keys(groups).map((schoolName) => {
+         return {
+           schoolName,
+           courses: groups[schoolName]
+         };
+       });
+      
+      })
+    }
+    
    }
 }

@@ -7,6 +7,7 @@ import { ConfirmService } from 'src/app/core/service/confirm.service';
 import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {dashboardService} from '../services/dashboard.service'
+import { AuthService } from 'src/app/core/service/auth.service';
 
 @Component({
   selector: 'app-shipinformationbytype-list',
@@ -21,10 +22,14 @@ export class ShipInformationByTypeListComponent implements OnInit {
   shipinfoList:any[];
   showHideDiv = false;
   groupArrays:{ schoolName: string; courses: any; }[];
+  role : string;
+  branchId : string
   
-  constructor(private snackBar: MatSnackBar,private dashboardService:dashboardService,private router: Router,private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private dashboardService:dashboardService,private router: Router,private confirmService: ConfirmService, private authService: AuthService) { }
   
   ngOnInit() {
+    this.role = this.authService.currentUserValue.role;
+    this.branchId = this.authService.currentUserValue.branchId;
     this.getShipInfoByShipType();
   }
   toggle() {
@@ -160,26 +165,50 @@ export class ShipInformationByTypeListComponent implements OnInit {
 
  
   getShipInfoByShipType(){
-    this.dashboardService.getShipInformationListByShipType(11).subscribe(response => {           
-       this.shipinfoList=response;
-         // this gives an object with dates as keys
-         const groups = this.shipinfoList.reduce((groups, courses) => {
-          const schoolName = courses.schoolName;
-          if (!groups[schoolName]) {
-            groups[schoolName] = [];
-          }
-          groups[schoolName].push(courses);
-          return groups;
-        }, {});
-
-        // Edit: to add it in the array format instead
-        this.groupArrays = Object.keys(groups).map((schoolName) => {
-          return {
-            schoolName,
-            courses: groups[schoolName]
-          };
-        });
-       console.log(this.shipinfoList);
-     })
+    if(this.role=== 'Area Commander'){
+      this.dashboardService.getShipInformationListByShipTypeAndCommandingArea(11, this.branchId).subscribe(response => {           
+        this.shipinfoList=response;
+          // this gives an object with dates as keys
+          const groups = this.shipinfoList.reduce((groups, courses) => {
+           const schoolName = courses.schoolName;
+           if (!groups[schoolName]) {
+             groups[schoolName] = [];
+           }
+           groups[schoolName].push(courses);
+           return groups;
+         }, {});
+ 
+         // Edit: to add it in the array format instead
+         this.groupArrays = Object.keys(groups).map((schoolName) => {
+           return {
+             schoolName,
+             courses: groups[schoolName]
+           };
+         });
+      })
+    }
+    else{
+      this.dashboardService.getShipInformationListByShipType(11).subscribe(response => {           
+        this.shipinfoList=response;
+          // this gives an object with dates as keys
+          const groups = this.shipinfoList.reduce((groups, courses) => {
+           const schoolName = courses.schoolName;
+           if (!groups[schoolName]) {
+             groups[schoolName] = [];
+           }
+           groups[schoolName].push(courses);
+           return groups;
+         }, {});
+ 
+         // Edit: to add it in the array format instead
+         this.groupArrays = Object.keys(groups).map((schoolName) => {
+           return {
+             schoolName,
+             courses: groups[schoolName]
+           };
+         });
+      })
+    }
+   
    }
 }

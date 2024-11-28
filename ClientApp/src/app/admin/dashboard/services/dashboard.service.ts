@@ -47,9 +47,23 @@ export class dashboardService {
       })
     )
   }
+  getEquipmentCountByCategoryAndCommandingArea(stateOfEquipmentId1, stateOfEquipmentId2, commandingAreaId){
+    return this.http.get<any>(this.baseUrl+ `/ship-equipment-info/get-ship-equipment-count-by-category-commandingArea/${stateOfEquipmentId1}/${stateOfEquipmentId2}/${commandingAreaId}`).pipe(
+      map (response =>{
+        return response;
+      })
+    )
+  }
 
   getCombatSystemEquipmentCount(combatSystem, stateOfEquipmentId1, stateOfEquipmentId2){
     return this.http.get<any>(this.baseUrl+ `/ship-equipment-info/get-combat-system-equipemnt-count/${combatSystem}/${stateOfEquipmentId1}/${stateOfEquipmentId2}`).pipe(
+      map (response =>{
+        return response;
+      })
+    )
+  }
+  getCombatSystemEquipmentCountByCommandingArea(combatSystem, stateOfEquipmentId1, stateOfEquipmentId2, commandingAreaId){
+    return this.http.get<any>(this.baseUrl+ `/ship-equipment-info/get-combat-system-equipemnt-count-by-commandingarea/${combatSystem}/${stateOfEquipmentId1}/${stateOfEquipmentId2}/${commandingAreaId}`).pipe(
       map (response =>{
         return response;
       })
@@ -79,6 +93,13 @@ export class dashboardService {
 
   getShipInformationListByShipType(shipTypeId) {
     return this.http.get<any>(this.baseUrl + '/dashboard/get-shipinformation-byshiptype-fromprocedure?shipTypeId='+shipTypeId).pipe(
+      map(response => {
+        return response;
+      })
+    ); 
+  }
+  getShipInformationListByShipTypeAndCommandingArea(shipTypeId, commandingAreaId) {
+    return this.http.get<any>(this.baseUrl + '/dashboard/get-shipinformation-byshiptypeid-commandareaid?shipTypeId='+shipTypeId+'&commandingAreaId='+commandingAreaId).pipe(
       map(response => {
         return response;
       })

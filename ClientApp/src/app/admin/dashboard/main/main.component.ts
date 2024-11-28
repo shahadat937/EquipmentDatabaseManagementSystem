@@ -8,11 +8,11 @@ import {
 } from '@fullcalendar/angular';
 import { EventInput } from '@fullcalendar/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {CourseDurationService} from '../services/courseduration.service';
-import {dashboardService} from '../services/dashboard.service';
-import {MasterData} from 'src/assets/data/master-data';
-import {CourseDuration} from '../models/courseduration';
-import {SpCourseDuration} from '../models/spcourseduration';
+import { CourseDurationService } from '../services/courseduration.service';
+import { dashboardService } from '../services/dashboard.service';
+import { MasterData } from 'src/assets/data/master-data';
+import { CourseDuration } from '../models/courseduration';
+import { SpCourseDuration } from '../models/spcourseduration';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -60,7 +60,7 @@ export type barChartOptions = {
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss','./main.component.css'],
+  styleUrls: ['./main.component.scss', './main.component.css'],
 })
 export class MainComponent implements OnInit {
   @ViewChild('calendar', { static: false })
@@ -72,33 +72,34 @@ export class MainComponent implements OnInit {
   @ViewChild('chart') chart: ChartComponent;
   public areaChartOptions: Partial<areaChartOptions>;
   public barChartOptions: Partial<barChartOptions>;
+  roles = Role
   masterData = MasterData;
   ELEMENT_DATA: CourseDuration[] = [];
-  upcomingLocalCourses:SpCourseDuration[];
-  upcomingForeignCourses:SpCourseDuration[];
-  runningCourses:SpCourseDuration[];
-  runningForeignCourses:SpCourseDuration[];
+  upcomingLocalCourses: SpCourseDuration[];
+  upcomingForeignCourses: SpCourseDuration[];
+  runningCourses: SpCourseDuration[];
+  runningForeignCourses: SpCourseDuration[];
   isLoading = false;
-  courseTypeId=3;
-  runningCourseType:number;
-  traineeCount:number;
-  dbType:any;
-  schoolCount:number;
-  localCourseCount:number;
-  foreignCourseCount:number;
-  intServiceCount:number;
-  nomineeCount:number;
-  shipCount:any;
-  shipinfoList:any[];
-  boatcount:any;
-  boatList:any[];
-  establishmentCount:any;
-  establishmentList:any;
-  stateOfComponent : any[];
+  courseTypeId = 3;
+  runningCourseType: number;
+  traineeCount: number;
+  dbType: any;
+  schoolCount: number;
+  localCourseCount: number;
+  foreignCourseCount: number;
+  intServiceCount: number;
+  nomineeCount: number;
+  shipCount: any;
+  shipinfoList: any[];
+  boatcount: any;
+  boatList: any[];
+  establishmentCount: any;
+  establishmentList: any;
+  stateOfComponent: any[];
   opl: number;
-  nonOpl : number;
-  stateOfEqupmentName1 : string;
-  stateOfEqupmentName2 : string;
+  nonOpl: number;
+  stateOfEqupmentName1: string;
+  stateOfEqupmentName2: string;
   filterItems: string[] = [
     'work',
     'personal',
@@ -106,6 +107,7 @@ export class MainComponent implements OnInit {
     'travel',
     'friends',
   ];
+
 
   calendarEvents: EventInput[];
   tempEvents: EventInput[];
@@ -118,51 +120,51 @@ export class MainComponent implements OnInit {
     { name: 'friends', value: 'Friends', checked: true },
   ];
 
-  runningOfficerCount:number;
-  CountedRunningOfficer:SpOfficerDetails[];
-  runningSailorCount:number;
-  foreignNomineeCount:number;
-  CountedSailorOfficer:SpOfficerDetails[];
-  runningCivilCount:number;
-  CountedCivilOfficer:SpOfficerDetails[];
-  groupArrays:{ schoolName: string; courses: any; }[];
-  baseNameListCount:any[];
-  CountShipEquipment : any [];
-  combatSystemEquipmentCount : any[];
+  runningOfficerCount: number;
+  CountedRunningOfficer: SpOfficerDetails[];
+  runningSailorCount: number;
+  foreignNomineeCount: number;
+  CountedSailorOfficer: SpOfficerDetails[];
+  runningCivilCount: number;
+  CountedCivilOfficer: SpOfficerDetails[];
+  groupArrays: { schoolName: string; courses: any; }[];
+  baseNameListCount: any[];
+  CountShipEquipment: any[];
+  combatSystemEquipmentCount: any[];
   calendarOptions: CalendarOptions;
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
     pageSize: this.masterData.paging.pageSize,
     length: 1
   }
-  branchId : any
+  branchId: any
   role: any
-  searchText="";
+  searchText = "";
 
 
-  displayedColumns: string[] = ['ser','schoolName','course','noOfCandidates','professional','nbcd','durationFrom','durationTo', 'remark', 'actions'];
+  displayedColumns: string[] = ['ser', 'schoolName', 'course', 'noOfCandidates', 'professional', 'nbcd', 'durationFrom', 'durationTo', 'remark', 'actions'];
 
-  displayedUpcomingForeignColumns: string[] = ['ser','courseTitle','courseName','durationFrom','durationTo', 'country', 'actions'];
+  displayedUpcomingForeignColumns: string[] = ['ser', 'courseTitle', 'courseName', 'durationFrom', 'durationTo', 'country', 'actions'];
 
   dataSource: MatTableDataSource<SpCourseDuration> = new MatTableDataSource();
 
   selection = new SelectionModel<CourseDuration>(true, []);
-  
 
-  constructor(private datepipe: DatePipe,private CourseDurationService: CourseDurationService,private dashboardService: dashboardService, private route: ActivatedRoute, private authService : AuthService) {}
- 
+
+  constructor(private datepipe: DatePipe, private CourseDurationService: CourseDurationService, private dashboardService: dashboardService, private route: ActivatedRoute, private authService: AuthService) { }
+
 
   ngOnInit() {
 
     this.role = this.authService.currentUserValue.role
-    console.log(this.role);
+    this.branchId = this.authService.currentUserValue.branchId
 
     this.chart1();
     this.chart2();
     this.getLocalCourseCount();
     this.getForeignCourseCount();
     this.getIntServiceCount();
-   // this.getSpCourseDurations(3);
+    // this.getSpCourseDurations(3);
     this.getSpTotalTrainee();
     this.getSpSchoolCount();
     this.getnominatedCourseListFromSpRequest();
@@ -176,13 +178,13 @@ export class MainComponent implements OnInit {
     this.getStateOfEquipments()
   }
 
-  
- 
-  initializeEvents(){
+
+
+  initializeEvents() {
   }
-  inActiveItem(id){
+  inActiveItem(id) {
     this.courseTypeId = id;
-   // this.getSpCourseDurations(this.courseTypeId);    
+    // this.getSpCourseDurations(this.courseTypeId);    
   }
   // getSpCourseDurations(id:number) {
   //   this.isLoading = true;
@@ -195,74 +197,118 @@ export class MainComponent implements OnInit {
   //   }
   //   else{
   //   }
-    
-  // }
- 
-  getShipInfoByShipType(){
-   this.dashboardService.getShipInformationListByShipType(11).subscribe(response => {   
-    console.log('Total Ship Count',response);        
-      this.shipCount=response.length;
-      this.shipinfoList=response;
-    })
-  }
-  getBoatByShipType(){
-    this.dashboardService.getShipInformationListByShipType(9).subscribe(response => {           
-       this.boatcount=response.length;
-       this.boatList=response;
-     })
-   }
-   getEstablishmentByShipType(){
-    this.dashboardService.getShipInformationListByShipType(6).subscribe(response => {           
-       this.establishmentCount=response.length;
-       this.establishmentList=response;
-     })
-   }
 
-   getBaseNameListAndCount(){
-    this.dashboardService.getBaseNameListAndCount().subscribe(response => {   
+  // }
+
+  getShipInfoByShipType() {
+    if (this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff) {
+      this.dashboardService.getShipInformationListByShipTypeAndCommandingArea(11, this.branchId).subscribe(response => {
+        this.shipCount = response.length;
+        this.shipinfoList = response;
+      })
+    }
+    else {
+      this.dashboardService.getShipInformationListByShipType(11).subscribe(response => {
+        this.shipCount = response.length;
+        this.shipinfoList = response;
+      })
+    }
+
+  }
+  getBoatByShipType() {
+    if (this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff) {
+      this.dashboardService.getShipInformationListByShipTypeAndCommandingArea(9, this.branchId).subscribe(response => {
+        this.boatcount = response.length;
+        this.boatList = response;
+      })
+    } else {
+      this.dashboardService.getShipInformationListByShipType(9).subscribe(response => {
+        this.boatcount = response.length;
+        this.boatList = response;
+      })
+    }
+
+  }
+  getEstablishmentByShipType() {
+    if (this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff) {
+      this.dashboardService.getShipInformationListByShipTypeAndCommandingArea(6, this.branchId).subscribe(response => {
+        this.establishmentCount = response.length;
+        this.establishmentList = response;
+      })
+    }
+    else {
+      this.dashboardService.getShipInformationListByShipType(6).subscribe(response => {
+        this.establishmentCount = response.length;
+        this.establishmentList = response;
+      })
+    }
+
+  }
+
+  getBaseNameListAndCount() {
+    this.dashboardService.getBaseNameListAndCount().subscribe(response => {
       // if()    {
 
       // }  
-       this.baseNameListCount=response;
-      
-     })
-   }
+      this.baseNameListCount = response;
 
-   getEquipmentCountByCategory(stateOfEquipmentId1, stateOfEquipmentId2){
-    this.dashboardService.getEquipmentCountByCategory(stateOfEquipmentId1, stateOfEquipmentId2).subscribe(response =>{
-      this.CountShipEquipment = response;   
     })
-   }
-   getCombatSystemEquipmentCount(combatSystemId, stateOfEquipmentId1, stateOfEquipmentId2){
-    this.dashboardService.getCombatSystemEquipmentCount(combatSystemId,stateOfEquipmentId1, stateOfEquipmentId2).subscribe(response =>{
+  }
+
+  getEquipmentCountByCategory(stateOfEquipmentId1, stateOfEquipmentId2) {
+    this.dashboardService.getEquipmentCountByCategory(stateOfEquipmentId1, stateOfEquipmentId2).subscribe(response => {
+      this.CountShipEquipment = response;
+    })
+  }
+  getEquipmentCountByCategoryAndCommandingArea(stateOfEquipmentId1, stateOfEquipmentId2) {
+    this.dashboardService.getEquipmentCountByCategoryAndCommandingArea(stateOfEquipmentId1, stateOfEquipmentId2, this.branchId).subscribe(response => {
+      this.CountShipEquipment = response;
+    })
+  }
+  getCombatSystemEquipmentCount(combatSystemId, stateOfEquipmentId1, stateOfEquipmentId2) {
+    this.dashboardService.getCombatSystemEquipmentCount(combatSystemId, stateOfEquipmentId1, stateOfEquipmentId2).subscribe(response => {
       console.log(response);
-      this. combatSystemEquipmentCount = response;   
+      this.combatSystemEquipmentCount = response;
     })
-   }
+  }
+  getCombatSystemEquipmentCountByCommandingArea(combatSystemId, stateOfEquipmentId1, stateOfEquipmentId2) {
+    this.dashboardService.getCombatSystemEquipmentCountByCommandingArea(combatSystemId, stateOfEquipmentId1, stateOfEquipmentId2, this.branchId).subscribe(response => {
+      console.log(response);
+      this.combatSystemEquipmentCount = response;
+    })
+  }
 
-   getStateOfEquipments() {
+  getStateOfEquipments() {
     this.isLoading = true;
-    this.dashboardService.getStateOfEquipments(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {     
-      this.stateOfComponent= response.items; 
-      this.nonOpl = this.stateOfComponent[0]?.stateOfEquipmentId?? 0
-      this.opl = this.stateOfComponent[1]?.stateOfEquipmentId?? 0
+    this.dashboardService.getStateOfEquipments(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+      this.stateOfComponent = response.items;
+      this.nonOpl = this.stateOfComponent[0]?.stateOfEquipmentId ?? 0
+      this.opl = this.stateOfComponent[1]?.stateOfEquipmentId ?? 0
       this.stateOfEqupmentName1 = this.stateOfComponent[0]?.name
       this.stateOfEqupmentName2 = this.stateOfComponent[1]?.name
       console.log(this.stateOfEqupmentName1, this.stateOfEqupmentName2)
 
-      if(this.nonOpl && this.opl) {
-        this.getEquipmentCountByCategory(this.nonOpl, this.opl)
-        this.getCombatSystemEquipmentCount(this.masterData.equepmentCategory.combatSystem,this.nonOpl, this.opl)
-      } 
+      if (this.nonOpl && this.opl) {
+        if(this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff){
+          this.getEquipmentCountByCategoryAndCommandingArea(this.nonOpl, this.opl)
+          this.getCombatSystemEquipmentCountByCommandingArea(this.masterData.equepmentCategory.combatSystem, this.nonOpl, this.opl)
+        }
+        else{
+          this.getEquipmentCountByCategory(this.nonOpl, this.opl)
+          this.getCombatSystemEquipmentCount(this.masterData.equepmentCategory.combatSystem, this.nonOpl, this.opl)
+        }
+       
+       
+      }
     })
   }
 
 
-  getnominatedCourseListFromSpRequest(){
+  getnominatedCourseListFromSpRequest() {
   }
 
-  getrunningCourseTotalOfficerListfromprocedure(){
-    let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
+  getrunningCourseTotalOfficerListfromprocedure() {
+    let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy');
     // this.dashboardService.getrunningCourseTotalOfficerListfromprocedureRequest(currentDateTime, this.masterData.TraineeStatus.officer).subscribe(response => {         
     //   this.runningOfficerCount=response.length;
     // })
@@ -286,34 +332,34 @@ export class MainComponent implements OnInit {
   getSpSchoolCount() {
     // this.dashboardService.getSpSchoolCount().subscribe(response => {   
     //   this.schoolCount=response
-    
+
     // })
   }
 
-  getLocalCourseCount(){
+  getLocalCourseCount() {
     // let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
     // this.dashboardService.getSpRunningCourseDurationsByType(this.masterData.coursetype.LocalCourse,currentDateTime).subscribe(response => {           
     //   this.localCourseCount=response.length;
     // })
   }
-  getForeignCourseCount(){
-    let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
+  getForeignCourseCount() {
+    let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy');
     // this.dashboardService.getSpRunningForeignCourseDurationsByType(this.masterData.coursetype.ForeignCourse,currentDateTime).subscribe(response => {           
     //   this.foreignCourseCount=response.length;
     //   console.log("foreign count"+this.foreignCourseCount)
     // })
   }
-  getIntServiceCount(){
-    let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
+  getIntServiceCount() {
+    let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy');
     // this.dashboardService.getSpRunningForeignCourseDurationsByType(this.masterData.coursetype.InterService,currentDateTime).subscribe(response => {           
     //   this.intServiceCount=response.length;
     // })
   }
-  
-  
 
 
-  
+
+
+
 
 
 

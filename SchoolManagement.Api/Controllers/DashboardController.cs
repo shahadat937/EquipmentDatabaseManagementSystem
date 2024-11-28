@@ -4,6 +4,7 @@ using SchoolManagement.Application.DTOs.ShipInformations;
 using SchoolManagement.Application.Features.BaseSchoolNames.Requests.Queries;
 using SchoolManagement.Application.Features.CourseDurations.Requests.Queries;
 using SchoolManagement.Application.Features.ShipEquipmentInfos.Requests.Queries;
+using SchoolManagement.Application.Features.ShipInformations.Handlers.Queries;
 using SchoolManagement.Application.Features.ShipInformations.Requests.Queries;
 
 namespace SchoolManagement.Api.Controllers;
@@ -62,6 +63,18 @@ public class DashboardController : ControllerBase
         var shipLists = await _mediator.Send(new GetShipListFromSpRequest
         {
             ShipTypeId = shipTypeId,
+        });
+        return Ok(shipLists);
+    } 
+    
+    [HttpGet]
+    [Route("get-shipinformation-byshiptypeid-commandareaid")]
+    public async Task<ActionResult> GetShipInformationListByTypeAndCommandingAreaId(int shipTypeId, int commandingAreaId)
+    {
+        var shipLists = await _mediator.Send(new GetShipListByCommandingAreaIdFromSpRequest
+        {
+            ShipTypeId = shipTypeId,
+            CommandingAreaId = commandingAreaId
         });
         return Ok(shipLists);
     }
