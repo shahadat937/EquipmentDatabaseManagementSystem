@@ -30,7 +30,10 @@
                       <mat-label>Ship Name </mat-label>
                       <mat-select formControlName="baseSchoolNameId" required>
                         <input type="text" 
-                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;  position: sticky;
+                        top: 0;
+                        background-color: #969696;"
+                      
                         id="selectSearch" 
                         (keydown.space)="$event.stopPropagation()"
                         (input)="filterByShip($event.target.value)" placeholder="Search">
@@ -49,7 +52,12 @@
                       <mat-label>Equipment Category </mat-label>
                       <mat-select formControlName="equipmentCategoryId" (selectionChange)="onEquipmentCategorySelectionChange()" required>
                         <input type="text" 
-                        style="width:100%;height:50px;padding:10px; border: 1px solid white;"
+                        style="width:100%;height:50px;padding:10px; border: 1px solid white;
+                        position: sticky;
+                        top: 0;
+                        background-color: #fff;
+                        box-sizing: border-box;
+                        "
                         id="selectSearch" 
                         (keydown.space)="$event.stopPropagation()"
                         (input)="filterByEquipementCategory($event.target.value)" placeholder="Search">
