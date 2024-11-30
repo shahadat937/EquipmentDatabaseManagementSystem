@@ -2,6 +2,7 @@ import { Page404Component } from './../authentication/page404/page404.component'
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NewUserManual } from './new-usermanual/new-usermanual.component';
+import { UserManualList } from './user-manual-list/usermanual-list.component';
 
 const routes: Routes = [
     {
@@ -13,6 +14,10 @@ const routes: Routes = [
         path: 'add-usermanual',
         component: NewUserManual
     },
+    {
+        path: 'usermanual-list',
+        component: UserManualList
+    },
     { path: '**', component: Page404Component },
 
 ];
@@ -21,4 +26,4 @@ const routes: Routes = [
     exports: [RouterModule],
   })
 
-  export class UserNManualRoutingMOdule {}
+  export class UserManualRoutingModule {}

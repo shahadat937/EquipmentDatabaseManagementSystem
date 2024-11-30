@@ -14,23 +14,24 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserNManualRoutingMOdule } from './user-manual-routing.module';
+import { UserManualRoutingModule } from './user-manual-routing.module';
 import { NgModule } from '@angular/core';
+import { NewUserManual } from './new-usermanual/new-usermanual.component';
+import { UserManualList } from './user-manual-list/usermanual-list.component';
+import { MatTable, MatTableModule } from '@angular/material/table';
 
 @NgModule({
     declarations: [
-      
-      // ShipEquipmentInfoListComponent,
-      // NewShipEquipmentInfoComponent,
+      NewUserManual,
+      UserManualList
     ],
     imports: [
       CommonModule,
-      UserNManualRoutingMOdule,
+      MatTableModule,
+      UserManualRoutingModule,
       CommonModule,
       FormsModule,  
       ReactiveFormsModule,
-    //   NgxDatatableModule,
-    //   MatTableModule,
       MatPaginatorModule,
       MatFormFieldModule,
       MatInputModule,
@@ -44,8 +45,7 @@ import { NgModule } from '@angular/core';
       MaterialFileInputModule,
       MatProgressSpinnerModule,
       HttpClientModule,
-     MatAutocompleteModule
-      
+      MatAutocompleteModule  
     ]
   })
-  export class ShipsReturnModule { }
+  export class UserManualModule { }
