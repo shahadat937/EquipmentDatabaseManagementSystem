@@ -12,6 +12,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-bookusermanualbrinfo',
@@ -34,8 +35,8 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
   isLoading = false;
   private searchSubject: Subject<string> = new Subject(); 
   paging = {
-    pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageIndex: 1,
+    pageSize: 10,
     length: 1
   }
   searchText="";
@@ -45,7 +46,7 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
 
   selection = new SelectionModel<BookUserManualBRInfo>(true, []);
 
-  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private BookUserManualBRInfoService: BookUserManualBRInfoService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private BookUserManualBRInfoService: BookUserManualBRInfoService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('bookUserManualBRInfoId'); 

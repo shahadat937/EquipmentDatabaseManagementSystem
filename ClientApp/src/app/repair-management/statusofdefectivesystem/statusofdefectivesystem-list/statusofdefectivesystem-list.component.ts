@@ -12,6 +12,7 @@ import { Role } from 'src/app/core/models/role';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-statusofdefectivesystem-list',
@@ -45,7 +46,7 @@ export class StatusOfDefectiveSystemListComponent implements OnInit {
 
   selection = new SelectionModel<OperationalState>(true, []);
   
-  constructor(private snackBar: MatSnackBar,private authService: AuthService,private OperationalStateService: OperationalStateService,private router: Router,private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private authService: AuthService,private OperationalStateService: OperationalStateService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
   
   ngOnInit() {
 

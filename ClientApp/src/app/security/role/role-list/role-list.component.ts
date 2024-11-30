@@ -8,6 +8,7 @@ import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { Router } from '@angular/router';
 import { MasterData } from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SharedService } from 'src/app/shared/shared.service';
 
 
 @Component({
@@ -22,8 +23,8 @@ export class RoleListComponent implements OnInit {
   isLoading = false;
 
   paging = {
-    pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageIndex: 1,
+    pageSize: 10,
     length: 1
   }
   searchText="";
@@ -34,7 +35,7 @@ export class RoleListComponent implements OnInit {
   selection = new SelectionModel<Role>(true, []);
 
   
-  constructor(private snackBar: MatSnackBar,private roleService: RoleService,private router: Router,private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private roleService: RoleService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
   
   ngOnInit() {
     this.getRoles();

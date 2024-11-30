@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-tenderopeningdatetype-list',
@@ -32,7 +33,7 @@ export class TenderOpeningDateTypeListComponent implements OnInit {
 
   selection = new SelectionModel<TenderOpeningDateType>(true, []);
   
-  constructor(private snackBar: MatSnackBar,private TenderOpeningDateTypeService: TenderOpeningDateTypeService,private router: Router,private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private TenderOpeningDateTypeService: TenderOpeningDateTypeService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
   
   ngOnInit() {
     this.getTenderOpeningDateTypes();

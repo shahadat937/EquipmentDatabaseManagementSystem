@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import{MasterData} from 'src/assets/data/master-data';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { SharedService } from 'src/app/shared/shared.service';
 
 
 @Component({
@@ -23,8 +24,8 @@ export class UserListComponent implements OnInit {
   isLoading = false;
   
   paging = {
-    pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageIndex: 1,
+    pageSize: 10,
     length: 1
   }
   searchText="";
@@ -36,7 +37,7 @@ export class UserListComponent implements OnInit {
 
   selection = new SelectionModel<User>(true, []);
   
-  constructor(private snackBar: MatSnackBar,private fb: FormBuilder,private UserService: UserService,private router: Router,private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private fb: FormBuilder,private UserService: UserService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
   // ngOnInit() {
   //   this.dataSource2.paginator = this.paginator;
   // }

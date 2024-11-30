@@ -1,3 +1,4 @@
+import { SharedService } from 'src/app/shared/shared.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { MasterData } from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-procurement-list',
@@ -44,7 +46,7 @@ export class ProcurementListComponent implements OnInit {
 
   selection = new SelectionModel<Procurement>(true, []);
 
-  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService) { }
 
   ngOnInit() {
     this.getProcurementMethods()

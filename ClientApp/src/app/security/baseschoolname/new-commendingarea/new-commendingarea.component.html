@@ -191,7 +191,14 @@
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
               </mat-table>
+              <div  class="icon-button-demo m-t-10">
+                <button class="btn-space"  mat-raised-button
+                color="primary" (click)="SharedService.goBack()"> Back
+                  <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                </button>
+              </div>
             </div>
+
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-groupname-list',
@@ -32,7 +33,7 @@ export class GroupNameListComponent implements OnInit {
 
   selection = new SelectionModel<GroupName>(true, []);
   
-  constructor(private snackBar: MatSnackBar,private GroupNameService: GroupNameService,private router: Router,private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private GroupNameService: GroupNameService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
   
   ngOnInit() {
     this.getGroupNames();

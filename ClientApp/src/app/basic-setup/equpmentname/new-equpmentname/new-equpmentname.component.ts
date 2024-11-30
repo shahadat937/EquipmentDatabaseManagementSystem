@@ -11,6 +11,7 @@ import { EqupmentName } from '../../models/EqupmentName';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/core/service/auth.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-equpmentname',
@@ -48,7 +49,7 @@ export class NewEqupmentNameComponent implements OnInit {
 
   selection = new SelectionModel<EqupmentName>(true, []);
 
-  constructor(private snackBar: MatSnackBar,private authService: AuthService,private confirmService: ConfirmService,private EqupmentNameService: EqupmentNameService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private authService: AuthService,private confirmService: ConfirmService,private EqupmentNameService: EqupmentNameService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
     this.role = this.authService.currentUserValue.role.trim();

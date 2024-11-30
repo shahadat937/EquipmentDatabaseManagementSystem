@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/core/service/auth.service';
 import { Role } from 'src/app/core/models/role';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-shipinformation-list',
@@ -45,9 +46,9 @@ export class ShipInformationListComponent implements OnInit {
   dataSource: MatTableDataSource<ShipInformation> = new MatTableDataSource();
 
   selection = new SelectionModel<ShipInformation>(true, []);
-
-  constructor(private snackBar: MatSnackBar, private authService: AuthService, private ShipInformationService: ShipInformationService, private router: Router, private confirmService: ConfirmService) { }
-
+  
+  constructor(private snackBar: MatSnackBar,private authService: AuthService,private ShipInformationService: ShipInformationService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
+  
   ngOnInit() {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId = this.authService.currentUserValue.traineeId.trim();

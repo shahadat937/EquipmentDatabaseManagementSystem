@@ -12,7 +12,8 @@ import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { ShipDrowingService } from 'src/app/ship-drawing/Services/ShipDrowing.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
-import {BaseSchoolNameService} from 'src/app/security/service/BaseSchoolName.service'
+import {BaseSchoolNameService} from 'src/app/security/service/BaseSchoolName.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-ship-drawing',
@@ -56,7 +57,7 @@ export class NewShipDrawingComponent implements OnInit {
 
   selection = new SelectionModel<ShipDrowing>(true, []);
 
-  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipDrowingService: ShipDrowingService, private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipDrowingService: ShipDrowingService, private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   
   ngOnInit(): void {

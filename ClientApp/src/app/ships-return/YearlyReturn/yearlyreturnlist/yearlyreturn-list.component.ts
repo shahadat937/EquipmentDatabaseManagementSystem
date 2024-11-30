@@ -9,6 +9,7 @@ import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
     selector: 'app-yearlyretrun-list',
@@ -36,7 +37,7 @@ import { debounceTime } from 'rxjs/operators';
   itemCount: number;
   showHideDiv: boolean;
 
-  constructor(private snackBar: MatSnackBar,private YearlyReturnService: YearlyReturnService,private router: Router,private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private YearlyReturnService: YearlyReturnService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
     ngOnInit(): void {
       this.getYearlyReturn()
       this.searchSubject.pipe(
