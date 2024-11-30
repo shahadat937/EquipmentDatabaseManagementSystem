@@ -50,7 +50,6 @@
 
 
               </div>
-
               <div [routerLink]="['/admin/dashboard/shipinformationbytype-list']"
                 class="col-lg-4 col-md-4 col-sm-4 ships">
 
@@ -60,7 +59,13 @@
                 <div>
                   <div class="rounded-design"></div>
                   <div class="rounded-design1"></div>
-                  <p>Total Ship</p>
+                  <p *ngIf="role === roles.AreaCommander || role === roles.FLO || role === roles.FLOStaff || role === roles.CSO; else shipInfo">
+                    Total Ship <br> Under Admin <br> Authority
+                  </p>
+                  <ng-template #shipInfo>
+                    <p>Total Ship</p>
+                  </ng-template>
+                  
                   <h1>{{this.shipCount}}</h1>
                 </div>
 
@@ -73,7 +78,12 @@
                 <div>
                   <div class="rounded-design"></div>
                   <div class="rounded-design1"></div>
-                  <p>Boat Info</p>
+                  <p *ngIf="role === roles.AreaCommander || role === roles.FLO || role === roles.FLOStaff || role === roles.CSO; else boatInfo">
+                    Boat Info <br> Under Admin <br> Authority
+                  </p>
+                  <ng-template #boatInfo>
+                    <p>Boat Info</p>
+                  </ng-template>
                   <h1>{{this.boatcount}}</h1>
                 </div>
 
@@ -86,7 +96,13 @@
                 <div>
                   <div class="rounded-design"></div>
                   <div class="rounded-design1"></div>
-                  <p>Total <br>Eastablish</p>
+                  <p *ngIf="role === roles.AreaCommander || role === roles.FLO || role === roles.FLOStaff || role === roles.CSO; else eastablish">
+                    Total Eastablish<br> Under Admin <br> Authority
+                  </p>
+                  <ng-template #eastablish>
+                    <p>Total <br>Eastablish</p>
+                  </ng-template>
+                 
                   <h1>{{this.establishmentCount}}</h1>
                 </div>
 

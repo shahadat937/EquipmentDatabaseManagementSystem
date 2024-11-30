@@ -15,7 +15,7 @@ import { SharedService } from 'src/app/shared/shared.service';
 @Component({
   selector: 'app-shipequipmentinfo-list',
   templateUrl: './shipequipmentinfo-list.component.html',
-  styleUrls: ['./shipequipmentinfo-list.component.sass','./shipequipmentinfo-list.component.css']
+  styleUrls: ['./shipequipmentinfo-list.component.sass', './shipequipmentinfo-list.component.css']
 })
 export class ShipEquipmentInfoListComponent implements OnInit {
   userRole = Role;
@@ -29,16 +29,16 @@ export class ShipEquipmentInfoListComponent implements OnInit {
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
-    pageSize: 5,
+    pageSize: 10,
     length: 1
   }
   searchText = "";
   equipmentCategoryId: string;
   stateOfEquipmentId: string;
-  equipmentNameId : string;
+  equipmentNameId: string;
 
-  displayedColumns: string[] = ['ser',  'shipName', 'equipmentCategory', 'equpmentName', 'qty',  'model', 'brand', 'techSpecification', 'manufacturerNameAndAddress', 'acquisitionMethodName', 'yearOfInstallation', 'location', 'stateOfEquipment', 'powerSupply', 'avrbrand', 'avrmodel', 'interfaceProtocol' , 'composition', 'defectDescription', 'remarks', 'actions'];
-  dataSource: MatTableDataSource<ShipEquipmentInfo> = new MatTableDataSource();
+  displayedColumns: string[] = ['ser', 'shipName', 'equipmentCategory', 'equpmentName', 'qty', 'model', 'brand', 'techSpecification', 'manufacturerNameAndAddress', 'acquisitionMethodName', 'yearOfInstallation', 'location', 'stateOfEquipment', 'powerSupply', 'avrbrand', 'avrmodel', 'interfaceProtocol', 'composition', 'defectDescription', 'remarks', 'actions'];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   selection = new SelectionModel<ShipEquipmentInfo>(true, []);
 
@@ -61,26 +61,58 @@ export class ShipEquipmentInfoListComponent implements OnInit {
   }
 
   getShipEquipmentInfos(shipId) {
-    if(this.stateOfEquipmentId && this.equipmentCategoryId &&  this.equipmentNameId ){
-      this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdNameIdAndStateOfEquipmentStatus(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.equipmentNameId, this.stateOfEquipmentId).subscribe(response => {
-        this.dataSource.data = response.items;
-        this.paging.length = response.totalItemsCount
-      })
+    if (this.stateOfEquipmentId && this.equipmentCategoryId && this.equipmentNameId) {
+      if (this.role === this.userRole.AreaCommander) {
+
+        this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdNameIdStateOfEquipmentStatusAndCommandingAreaId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.equipmentNameId, this.stateOfEquipmentId, this.branchId).subscribe(response => {
+          this.dataSource.data = response
+          this.paging.length = response[0]?.totalCount || 0
+        })
+
+      }
+      else {
+        this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdNameIdAndStateOfEquipmentStatus(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.equipmentNameId, this.stateOfEquipmentId).subscribe(response => {
+          this.dataSource.data = response.items;
+          this.paging.length = response.totalItemsCount
+        })
+      }
     }
     else if (this.stateOfEquipmentId && this.equipmentCategoryId) {
-      this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdAndStateOfEquipmentStatus(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.stateOfEquipmentId).subscribe(response => {
-        this.dataSource.data = response.items;
-        this.paging.length = response.totalItemsCount
-      })
+
+      if (this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.FLOStaff || this.role === this.userRole.CSO) {
+        this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdAndStateOfEquipmentAndCommandingAreaId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.stateOfEquipmentId, this.branchId).subscribe(response => {
+          console.log(response[0]);
+          this.dataSource.data = response
+          this.paging.length = response[0]?.totalCount || 0
+        })
+
+      }
+      else {
+        this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdAndStateOfEquipmentStatus(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.stateOfEquipmentId).subscribe(response => {
+          this.dataSource.data = response.items;
+          this.paging.length = response.totalItemsCount
+        })
+      }
+
 
     } else {
-      this.isLoading = true;
-      this.ShipEquipmentInfoService.getShipEquipmentInfos(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
-        console.log(response.items);
-        this.dataSource.data = response.items;
-        this.paging.length = response.totalItemsCount
-        this.isLoading = false;
-      })
+      if (this.role === this.userRole.AreaCommander) {
+
+        this.isLoading = true;
+        this.ShipEquipmentInfoService.getShipEquipmentByCategoryByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
+          this.dataSource.data = response;
+          this.paging.length = response[0]?.totalCount || 0
+        })
+
+      } else {
+        this.isLoading = true;
+        this.ShipEquipmentInfoService.getShipEquipmentInfos(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
+          console.log(response.items);
+          this.dataSource.data = response.items;
+          this.paging.length = response.totalItemsCount
+          this.isLoading = false;
+        })
+      }
     }
   }
 
@@ -99,7 +131,8 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     this.searchText = searchText;
     if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO) {
       this.getShipEquipmentInfos(this.branchId);
-    } else {
+    }
+     else {
       this.getShipEquipmentInfos(0);
     }
   }
@@ -243,8 +276,8 @@ export class ShipEquipmentInfoListComponent implements OnInit {
             </thead>
             <tbody>
               ${dataSource
-                .map((row, index) => {
-                  return `
+        .map((row, index) => {
+          return `
                     <tr>
                       <td class="vertical-header">${index + 1 || '-'}</td>
                       <td class="vertical-header">${row.schoolName || "-"}</td>
@@ -268,16 +301,16 @@ export class ShipEquipmentInfoListComponent implements OnInit {
                       <td class="vertical-header">${row.remarks || '-'}</td>
                     </tr>
                   `;
-                })
-                .join('')}
+        })
+        .join('')}
             </tbody>
           </table>
         </body>
       </html>
     `);
-    
-    
-    
+
+
+
     popupWin.document.close();
   }
 
