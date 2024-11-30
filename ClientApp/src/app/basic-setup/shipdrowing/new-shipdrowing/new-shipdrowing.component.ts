@@ -224,7 +224,7 @@ export class NewShipDrowingComponent implements OnInit {
     // this.ProcurementForm.get('dateOfDelivery').setValue((new Date(this.ProcurementForm.get('dateOfDelivery').value)).toUTCString()) ;
     
    // console.log(this.ProcurementForm.value)
-
+    console.log("Test",this.ShipDrowingForm.value);
     const formData = new FormData();
     for (const key of Object.keys(this.ShipDrowingForm.value)) {
       const value = this.ShipDrowingForm.value[key];

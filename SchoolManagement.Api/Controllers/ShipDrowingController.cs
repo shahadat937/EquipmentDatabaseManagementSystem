@@ -31,6 +31,19 @@ public class ShipDrowingController : ControllerBase
         return Ok(ShipDrowings);
     }
 
+    
+    [HttpGet]
+    [Route("get-ShipDrowings-By-AuthorityId")]
+    public async Task<ActionResult<List<ShipDrowingDto>>> GetShipDrawingByAuthorityId([FromQuery] QueryParams queryParams, int authorityId)
+    {
+        var ShipDrowings = await _mediator.Send(new GetShipDrowingByAuthorityIdListRequest
+        { 
+            QueryParams = queryParams,
+            AuthorityId = authorityId
+        });
+        return Ok(ShipDrowings);
+    }
+
 
     [HttpGet]
     [Route("get-ShipDrowingDetail/{id}")]

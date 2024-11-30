@@ -34,6 +34,27 @@ export class ShipDrowingService {
     );
    
   }
+  getShipDrowingsByAuthorityId(pageNumber, pageSize, searchText, authorityId) { 
+
+    let params = new HttpParams();
+
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    params = params.append('authorityId', authorityId.toString());
+    // params = params.append('departmentNameId', departmentNameId.toString());
+
+    
+    return this.http.get<IShipDrowingPagination>(this.baseUrl + '/ship-drowing/get-ShipDrowings-By-AuthorityId', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.ShipDrowings = [...this.ShipDrowings, ...response.body.items];
+        this.ShipDrowingPagination = response.body;
+        return this.ShipDrowingPagination;
+      })
+    );
+   
+  }
 
   find(id: number) {
     return this.http.get<ShipDrowing>(this.baseUrl + '/ship-drowing/get-ShipDrowingDetail/' + id);

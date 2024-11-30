@@ -82,7 +82,7 @@ const routes: Routes = [
         path: 'ship-drawing',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff]
+          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff, Role.AreaCommander, Role.CSO, Role.FLO, Role.FLOStaff]
         },
         loadChildren: () =>
           import('./ship-drawing/ship-drawing.module').then((m) => m.ShipDrawingModule),

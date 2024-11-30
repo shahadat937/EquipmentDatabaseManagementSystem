@@ -12,7 +12,7 @@ import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { ShipDrowingService } from 'src/app/ship-drawing/Services/ShipDrowing.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
-import {BaseSchoolNameService} from 'src/app/security/service/BaseSchoolName.service';
+import { BaseSchoolNameService } from 'src/app/security/service/BaseSchoolName.service';
 import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
@@ -23,53 +23,53 @@ import { SharedService } from 'src/app/shared/shared.service';
 export class NewShipDrawingComponent implements OnInit {
 
   pageTitle: string;
-  destination:string;
-  btnText:string;
+  destination: string;
+  btnText: string;
   ShipDrowingForm: FormGroup;
   validationErrors: string[] = [];
-  selectedModel:SelectedModel[]; 
-  traineeId:any;
-  role:any;
-  branchId:any;
+  selectedModel: SelectedModel[];
+  traineeId: any;
+  role: any;
+  branchId: any;
   userRole = Role;
-  selectedDepartmentName:SelectedModel[];
-  ShipDrowingList:SelectedModel[];
+  selectedDepartmentName: SelectedModel[];
+  ShipDrowingList: SelectedModel[];
   masterData = MasterData;
-  organizationId:any;
-  selectedCommendingArea:any[];
-  selectedBaseName:any[];
-  commendingAreaId:any;
-  selectedBaseSchoolName:any[];
+  organizationId: any;
+  selectedCommendingArea: any[];
+  selectedBaseName: any[];
+  commendingAreaId: any;
+  selectedBaseSchoolName: any[];
 
 
   ELEMENT_DATA: ShipDrowing[] = [];
   isLoading = false;
-  
+
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
     pageSize: this.masterData.paging.pageSize,
     length: 1
   }
-  searchText="";
+  searchText = "";
 
-  displayedColumns: string[] = [ 'ser','authority','baseName','baseSchoolName','name','fileUpload','actions'];
+  displayedColumns: string[] = ['ser', 'authority', 'baseName', 'baseSchoolName', 'name', 'fileUpload', 'actions'];
   dataSource: MatTableDataSource<ShipDrowing> = new MatTableDataSource();
 
   selection = new SelectionModel<ShipDrowing>(true, []);
 
-  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipDrowingService: ShipDrowingService, private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
+  constructor(private snackBar: MatSnackBar, private BaseSchoolNameService: BaseSchoolNameService, private authService: AuthService, private confirmService: ConfirmService, private ShipDrowingService: ShipDrowingService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, public SharedService: SharedService) { }
 
-  
+
   ngOnInit(): void {
-    this.intitializeForm();   
+
     this.route.params.subscribe((params) => {
-      const id = params['shipDrowingId']; 
-  
+      const id = params['shipDrowingId'];
+
       if (id) {
         this.pageTitle = 'Edit Ship Drowing';
         this.destination = 'Edit';
         this.btnText = 'Update';
-  
+
         this.ShipDrowingService.find(+id).subscribe((res) => {
           this.ShipDrowingForm.patchValue({
             shipDrowingId: res.shipDrowingId,
@@ -83,7 +83,7 @@ export class NewShipDrawingComponent implements OnInit {
             isActive: res.isActive,
           });
           console.log('res:', res);
-  
+
           this.onCommendingAreaSelectionChangeGetBaseName();
           this.onOrganizationSelectionChange();
         });
@@ -91,50 +91,51 @@ export class NewShipDrawingComponent implements OnInit {
         this.pageTitle = 'Create Ship Drowing';
         this.destination = 'Add';
         this.btnText = 'Save';
-        this.ShipDrowingForm.reset(); 
+        this.ShipDrowingForm.reset();
       }
     });
-  
+
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId = this.authService.currentUserValue.traineeId.trim();
     this.branchId = this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId, this.branchId);
+    // console.log("test",this.role, this.traineeId, this.branchId);
     this.getShipDrowings();
     this.onOrganizationSelectionChangeGetCommendingArea();
-  
-   
+    this.intitializeForm();
+
+
     // if (this.role !== this.userRole.SuperAdmin) {
     //   this.ShipDrowingForm.get('departmentNameId').setValue(this.branchId);
     //   this.onDepartmentSelectionChangeGetShipDrowingList();
     // }
   }
-  
+
   intitializeForm() {
     this.ShipDrowingForm = this.fb.group({
       shipDrowingId: [0],
-      authorityId:[],
-      baseNameId:[],
-      baseSchoolNameId:[''],
+      authorityId: [],
+      baseNameId: [],
+      baseSchoolNameId: [''],
       name: [''],
       shortName: [''],
       fileUpload: [''],
-      remarks:[''],
-      menuPosition:[1],
-      doc:[''],
+      remarks: [''],
+      menuPosition: [1],
+      doc: [''],
       isActive: [true]
     })
   }
 
-  onOrganizationSelectionChangeGetCommendingArea(){
-    this.organizationId=MasterData.UserLevel.navy;
-    console.log(this.organizationId+" organization")    
-    this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res=>{
-      this.selectedCommendingArea=res
+  onOrganizationSelectionChangeGetCommendingArea() {
+    this.organizationId = MasterData.UserLevel.navy;
+    console.log(this.organizationId + " organization")
+    this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res => {
+      this.selectedCommendingArea = res
       console.log("selected comanding area");
-    //  console.log(this.selectedCommendingArea);
-    });        
+      //  console.log(this.selectedCommendingArea);
+    });
   }
-  onOrganizationSelectionChange(){
+  onOrganizationSelectionChange() {
     var baseNameId = this.ShipDrowingForm.value['baseNameId'];
     // this.ShipInformationService.getSelectedSchoolByBranchLevelAndThirdLevel(baseNameId).subscribe(res=>{
     //   this.selectedBaseSchoolName=res
@@ -142,23 +143,23 @@ export class NewShipDrawingComponent implements OnInit {
     //   console.log(res)
     // }); 
 
-   // this.baseNameId=this.UserForm.value['thirdLevel'];
+    // this.baseNameId=this.UserForm.value['thirdLevel'];
     console.log(baseNameId);
-    this.BaseSchoolNameService.getSelectedSchoolName(baseNameId).subscribe(res=>{
-      this.selectedBaseSchoolName=res
+    this.BaseSchoolNameService.getSelectedSchoolName(baseNameId).subscribe(res => {
+      this.selectedBaseSchoolName = res
       console.log(this.selectedBaseName);
-    }); 
+    });
   }
-  onCommendingAreaSelectionChangeGetBaseName(){
-    this.commendingAreaId=this.ShipDrowingForm.value['authorityId'];
+  onCommendingAreaSelectionChangeGetBaseName() {
+    this.commendingAreaId = this.ShipDrowingForm.value['authorityId'];
     console.log("comandinf area")
     console.log(this.commendingAreaId);
-    this.BaseSchoolNameService.getSelectedBaseName(this.commendingAreaId).subscribe(res=>{
-      this.selectedBaseName=res
+    this.BaseSchoolNameService.getSelectedBaseName(this.commendingAreaId).subscribe(res => {
+      this.selectedBaseName = res
       console.log(this.selectedBaseName);
-    });  
+    });
     //this.getBaseNameList(this.commendingAreaId);
-            
+
   }
 
   pageChanged(event: PageEvent) {
@@ -168,34 +169,45 @@ export class NewShipDrawingComponent implements OnInit {
     this.getShipDrowings();
   }
 
-  applyFilter(searchText: any){ 
+  applyFilter(searchText: any) {
     this.searchText = searchText;
     this.getShipDrowings();
-  } 
+  }
 
 
-  getShipDrowings(){
-    this.ShipDrowingService.getShipDrowings(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-      console.log(response);
-      this.dataSource.data = response.items; 
-      this.paging.length = response.totalItemsCount    
-      this.isLoading = false;
-    })
+  getShipDrowings() {
+    if (this.role === this.userRole.AreaCommander) {
+      this.ShipDrowingService.getShipDrowingsByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
+        console.log(response);
+        this.dataSource.data = response.items;
+        this.paging.length = response.totalItemsCount
+        this.isLoading = false;
+      })
+    }
+    else {
+      this.ShipDrowingService.getShipDrowings(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+        console.log(response);
+        this.dataSource.data = response.items;
+        this.paging.length = response.totalItemsCount
+        this.isLoading = false;
+      })
+    }
+
   }
 
   reloadCurrentRoute() {
     let currentUrl = this.router.url;
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
     });
   }
   deleteItem(row) {
-    const id = row.shipDrowingId; 
+    const id = row.shipDrowingId;
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
       console.log(result);
       if (result) {
         this.ShipDrowingService.delete(id).subscribe(() => {
-         this.getShipDrowings();
+          this.getShipDrowings();
           this.snackBar.open('Information Deleted Successfully ', '', {
             duration: 2000,
             verticalPosition: 'bottom',
@@ -204,13 +216,13 @@ export class NewShipDrawingComponent implements OnInit {
           });
         })
       }
-    })    
+    })
   }
 
   onFileChanged(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-     console.log(file);
+      console.log(file);
       this.ShipDrowingForm.patchValue({
         doc: file,
       });
@@ -218,14 +230,14 @@ export class NewShipDrawingComponent implements OnInit {
   }
 
   onSubmit() {
-    const id = this.ShipDrowingForm.get('shipDrowingId').value;   
+    const id = this.ShipDrowingForm.get('shipDrowingId').value;
 
-   // this.ShipDrowingForm.get('date').setValue((new Date(this.ShipDrowingForm.get('date').value)).toUTCString()) ;
+    // this.ShipDrowingForm.get('date').setValue((new Date(this.ShipDrowingForm.get('date').value)).toUTCString()) ;
     // this.ProcurementForm.get('tenderopeningDate').setValue((new Date(this.ProcurementForm.get('tenderopeningDate').value)).toUTCString()) ;
     // this.ProcurementForm.get('workOrderDate').setValue((new Date(this.ProcurementForm.get('workOrderDate').value)).toUTCString()) ;
     // this.ProcurementForm.get('dateOfDelivery').setValue((new Date(this.ProcurementForm.get('dateOfDelivery').value)).toUTCString()) ;
-    
-   // console.log(this.ProcurementForm.value)
+
+    // console.log(this.ProcurementForm.value)
 
     const formData = new FormData();
     for (const key of Object.keys(this.ShipDrowingForm.value)) {
@@ -235,10 +247,10 @@ export class NewShipDrawingComponent implements OnInit {
 
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
-        
+
         if (result) {
-          this.ShipDrowingService.update(+id,formData).subscribe(response => {
-            this.reloadCurrentRoute();
+          this.ShipDrowingService.update(+id, formData).subscribe(response => {
+            this.router.navigateByUrl('/ship-drawing/add-shipdrowing');
             this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,
               verticalPosition: 'bottom',
@@ -264,7 +276,7 @@ export class NewShipDrawingComponent implements OnInit {
         this.validationErrors = error;
       })
     }
- 
+
   }
 
 }
