@@ -110,7 +110,7 @@ export class BoatInformationByTypeListComponent implements OnInit {
   }
   getBoatInfoByShipType(){
 
-    if(this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff){
+    if(this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.role ===  this.roles.FLOStaff){
       this.dashboardService.getShipInformationListByShipTypeAndCommandingArea(9, this.branchId).subscribe(response => {           
         this.shipinfoList=response;
         const groups = this.shipinfoList.reduce((groups, courses) => {

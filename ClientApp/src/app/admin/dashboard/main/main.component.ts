@@ -201,7 +201,7 @@ export class MainComponent implements OnInit {
   // }
 
   getShipInfoByShipType() {
-    if (this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff) {
+    if (this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.role === this.roles.FLOStaff) {
       this.dashboardService.getShipInformationListByShipTypeAndCommandingArea(11, this.branchId).subscribe(response => {
         this.shipCount = response.length;
         this.shipinfoList = response;
@@ -216,12 +216,19 @@ export class MainComponent implements OnInit {
 
   }
   getBoatByShipType() {
-    if (this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff) {
+
+    console.log(this.role === this.roles.AreaCommander)
+    console.log(this.role === this.roles.FLO)
+    console.log(this.role === this.roles.CSO)
+    console.log(this.role === this.roles.FLOStaff)
+    if (this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.role === this.roles.FLOStaff) {
+      console.log(this.role);
       this.dashboardService.getShipInformationListByShipTypeAndCommandingArea(9, this.branchId).subscribe(response => {
         this.boatcount = response.length;
         this.boatList = response;
       })
-    } else {
+    }
+     else {
       this.dashboardService.getShipInformationListByShipType(9).subscribe(response => {
         this.boatcount = response.length;
         this.boatList = response;
@@ -230,7 +237,7 @@ export class MainComponent implements OnInit {
 
   }
   getEstablishmentByShipType() {
-    if (this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff) {
+    if (this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.role ===this.roles.FLOStaff) {
       this.dashboardService.getShipInformationListByShipTypeAndCommandingArea(6, this.branchId).subscribe(response => {
         this.establishmentCount = response.length;
         this.establishmentList = response;
@@ -257,6 +264,7 @@ export class MainComponent implements OnInit {
 
   getEquipmentCountByCategory(stateOfEquipmentId1, stateOfEquipmentId2) {
     this.dashboardService.getEquipmentCountByCategory(stateOfEquipmentId1, stateOfEquipmentId2).subscribe(response => {
+      console.log(response);
       this.CountShipEquipment = response;
     })
   }
@@ -289,7 +297,7 @@ export class MainComponent implements OnInit {
       console.log(this.stateOfEqupmentName1, this.stateOfEqupmentName2)
 
       if (this.nonOpl && this.opl) {
-        if(this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.roles.FLOStaff){
+        if(this.role === this.roles.AreaCommander || this.role === this.roles.FLO || this.role === this.roles.CSO || this.role === this.roles.FLOStaff){
           this.getEquipmentCountByCategoryAndCommandingArea(this.nonOpl, this.opl)
           this.getCombatSystemEquipmentCountByCommandingArea(this.masterData.equepmentCategory.combatSystem, this.nonOpl, this.opl)
         }

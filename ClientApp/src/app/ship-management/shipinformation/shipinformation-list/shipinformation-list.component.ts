@@ -54,7 +54,7 @@ export class ShipInformationListComponent implements OnInit {
     this.branchId =  this.authService.currentUserValue.branchId.trim();
     console.log(this.role, this.traineeId,  this.branchId)
 
-    if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser){
+    if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser || this.role === this.userRole.AreaCommander){
       this.getShipInformations(this.branchId);
     }else{
       this.getShipInformations(0);
@@ -75,12 +75,7 @@ export class ShipInformationListComponent implements OnInit {
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;
-      console.log(this.dataSource.data);
       this.itemCount = response.items.length;
-      console.log("itemCount");
-      console.log(this.itemCount);
-
-       // this gives an object with dates as keys
        const groups = this.dataSource.data.reduce((groups, courses) => {
         const schoolName = courses.authorityName;
         if (!groups[schoolName]) {
