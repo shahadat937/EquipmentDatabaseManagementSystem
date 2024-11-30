@@ -10,6 +10,7 @@ import{MasterData} from 'src/assets/data/master-data';
 import { ProcurementType } from '../../models/ProcurementType';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-procurementtype',
@@ -40,7 +41,7 @@ export class NewProcurementTypeComponent implements OnInit {
 
   selection = new SelectionModel<ProcurementType>(true, []);
 
-  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private ProcurementTypeService: ProcurementTypeService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private ProcurementTypeService: ProcurementTypeService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('procurementTypeId'); 
