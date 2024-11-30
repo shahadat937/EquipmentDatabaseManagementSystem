@@ -10,6 +10,7 @@ import { MasterData } from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-dailyworkstate-list',
@@ -43,7 +44,8 @@ export class DailyWorkStateListComponent implements OnInit {
     private snackBar: MatSnackBar,
     private DailyWorkStateService: DailyWorkStateService,
     private router: Router,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    public SharedService: SharedService
   ) { }
 
   ngOnInit() {

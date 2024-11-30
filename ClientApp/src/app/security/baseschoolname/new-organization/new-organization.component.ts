@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { BaseSchoolName } from '../../models/BaseSchoolName';
 import { MasterData } from 'src/assets/data/master-data';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-organization',
@@ -24,14 +25,14 @@ export class NewOrganizationComponent implements OnInit {
   selectedBaseName:SelectedModel[];
 
   paging = {
-    pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageIndex: 1,
+    pageSize: 10,
     length: 1
   }
 
   displayedColumns: string[] = [ 'ser','schoolLogo', 'schoolName', 'shortName',  'actions'];
 
-  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService: BaseSchoolNameService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute,private confirmService:ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService: BaseSchoolNameService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute,private confirmService:ConfirmService, public SharedService: SharedService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('baseSchoolNameId'); 

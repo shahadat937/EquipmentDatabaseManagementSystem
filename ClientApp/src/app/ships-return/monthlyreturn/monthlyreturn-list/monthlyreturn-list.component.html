@@ -223,10 +223,16 @@
                     </button>
                   </div>
               </div>
-                <!-- <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
                   [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
                   (page)="pageChanged($event)">
-                </mat-paginator> -->
+                </mat-paginator>
+              </div>
+              <div  class="icon-button-demo">
+                <button class="btn-space"  mat-raised-button
+                color="primary" (click)="SharedService.goBack()"> Back
+                  <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                </button>
               </div>
             </div>
           </div>

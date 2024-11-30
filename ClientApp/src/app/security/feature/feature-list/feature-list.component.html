@@ -133,14 +133,25 @@
 
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                 
                  </mat-table>
             
                  <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
                 [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
                 (page)="pageChanged($event)">
+                
                 </mat-paginator>
+                <div  class="icon-button-demo">
+                  <button class="btn-space"  mat-raised-button
+                  color="primary" (click)="SharedService.goBack()"> Back
+                    <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                  </button>
+                </div>
               </div>
+              
             </div>
+
+           
           </div>
         </div>
       </div>
