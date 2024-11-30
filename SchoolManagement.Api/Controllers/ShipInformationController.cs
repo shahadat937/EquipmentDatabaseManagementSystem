@@ -31,6 +31,19 @@ public class ShipInformationController : ControllerBase
     }
 
 
+
+    [HttpGet]
+    [Route("get-ship-informations-by-authorityid")]
+    public async Task<ActionResult<List<ShipInformationDto>>> GetShipInfoByAuthrityId([FromQuery] QueryParams queryParams, int authorityId)
+    {
+        var ShipInformations = await _mediator.Send(new GetShipInformationByAuthorityIdListRequest { 
+            QueryParams = queryParams,
+            AuthorityId = authorityId
+        });
+        return Ok(ShipInformations);
+    }
+
+
     [HttpGet]
     [Route("get-ship-information-detail/{id}")]
     public async Task<ActionResult<ShipInformationDto>> Get(int id)

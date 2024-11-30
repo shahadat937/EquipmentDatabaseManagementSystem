@@ -35,6 +35,26 @@ export class ShipInformationService {
     );
    
   }
+  getShipInformationsByAuthorityId(pageNumber, pageSize, searchText, authorityId) { 
+
+    let params = new HttpParams();
+
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    params = params.append('authorityId', authorityId.toString());
+
+    
+    return this.http.get<IShipInformationPagination>(this.baseUrl + '/ship-information/get-ship-informations-by-authorityid', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.ShipInformations = [...this.ShipInformations, ...response.body.items];
+        this.ShipInformationPagination = response.body;
+        return this.ShipInformationPagination;
+      })
+    );
+   
+  }
 
   find(id: number) {
     return this.http.get<ShipInformation>(this.baseUrl + '/ship-information/get-ship-information-detail/' + id);
