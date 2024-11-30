@@ -10,6 +10,7 @@ import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-monthlyreturn-list',
@@ -29,8 +30,8 @@ export class MonthlyReturnListComponent implements OnInit {
   showHideDiv = false;
   itemCount:any =0;
   paging = {
-    pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageIndex: 1,
+    pageSize: 10,
     length: 1
   }
   searchText="";
@@ -42,7 +43,7 @@ export class MonthlyReturnListComponent implements OnInit {
   selection = new SelectionModel<MonthlyReturn>(true, []);
   selectedFilter: any;
   
-  constructor(private snackBar: MatSnackBar,private MonthlyReturnService: MonthlyReturnService,private router: Router,private confirmService: ConfirmService) { }
+  constructor(private snackBar: MatSnackBar,private MonthlyReturnService: MonthlyReturnService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
   
   ngOnInit() {
     this.getMonthlyReturns();

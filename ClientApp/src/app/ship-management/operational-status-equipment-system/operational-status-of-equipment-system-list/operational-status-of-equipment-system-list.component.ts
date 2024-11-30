@@ -9,6 +9,7 @@ import { MasterData } from 'src/assets/data/master-data';
 import { OperationalStatusOfEquipmentSystem } from 'src/app/ship-management/models/OperationalStatusOfEquipment';
 import { MatTableDataSource } from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-operational-status-of-equipment-system-list',
@@ -39,7 +40,7 @@ export class OperationalStatusOfEquipmentSystemListComponent implements OnInit {
   displayedColumns: string[] = ['ser', 'actions'];
   dataSource: MatTableDataSource<OperationalStatusOfEquipmentSystem> = new MatTableDataSource();
 
-  constructor(private OperationalStatusOfEquipmentSystemService: OperationalStatusOfEquipmentSystemService, private snackBar: MatSnackBar, private authService: AuthService, private router: Router, private confirmService: ConfirmService, private route: ActivatedRoute) { }
+  constructor(private OperationalStatusOfEquipmentSystemService: OperationalStatusOfEquipmentSystemService, private snackBar: MatSnackBar, private authService: AuthService, private router: Router, private confirmService: ConfirmService, private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
     this. getOperationalStatusOfEquipment();

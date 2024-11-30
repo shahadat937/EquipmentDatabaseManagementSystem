@@ -10,6 +10,7 @@ import{MasterData} from 'src/assets/data/master-data';
 import { Tec } from '../../models/Tec';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-tec',
@@ -40,7 +41,7 @@ export class NewTecComponent implements OnInit {
 
   selection = new SelectionModel<Tec>(true, []);
 
-  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private TecService: TecService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private TecService: TecService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('tecId'); 

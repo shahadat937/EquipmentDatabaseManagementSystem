@@ -12,6 +12,10 @@ export class SharedService {
     private authService: AuthService,
     private location: Location) { }
 
+    goBack() {
+      this.location.back();
+    }
+
   formatDateTime(date: any): string {
 
     let validDate: Date;
@@ -26,7 +30,7 @@ export class SharedService {
         validDate = new Date(date.replace('T', ' '));
       }
     } 
-
+  
   
     const year = validDate.getFullYear();
     const month = (validDate.getMonth() + 1).toString().padStart(2, '0'); //  2-digit month
@@ -39,3 +43,5 @@ export class SharedService {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 }
+
+

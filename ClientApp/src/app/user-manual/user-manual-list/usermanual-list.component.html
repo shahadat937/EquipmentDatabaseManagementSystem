@@ -1,0 +1,58 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-12">
+            <ul class="breadcrumb breadcrumb-style">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">Yearly Return</h4>
+              </li>
+              <li class="breadcrumb-item">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i>
+                </a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="#" (click)="false">Yearly Return</a>
+              </li>
+              <li class="breadcrumb-item active">All</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row clearfix">
+        <div class="col-12">
+          <div class="card">
+            <div class="body">
+              <!-- Yearly Return Form -->
+              <form class="m-4" [formGroup]="YearlyReturnForm" (ngSubmit)="onSubmit()">
+                <h4 class="mb-3">Basic Information</h4>
+                <div class="row">
+                  <!-- Ship Name -->
+                  <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Ship Name</mat-label>
+                      <mat-select formControlName="baseSchoolNameId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <!-- <mat-option
+                          *ngFor="let dropdown of selectedBaseSchoolName"
+                          [value]="dropdown.value"
+                        >
+                          {{ dropdown.text }}
+                        </mat-option> -->
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+  
+                
+                  
+              </form>
+              <!-- End of Form -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

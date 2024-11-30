@@ -10,6 +10,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-overall-ship-status-list',
@@ -32,7 +33,7 @@ export class OverallShipStatusListComponent implements OnInit {
   private searchSubject: Subject<string> = new Subject(); 
   showHideDiv: boolean;
 
-  constructor(private snackBar: MatSnackBar, private OverallStatusOfShip: OverallStatusOfShip, private router: Router, private confirmService: ConfirmService) {}
+  constructor(private snackBar: MatSnackBar, private OverallStatusOfShip: OverallStatusOfShip, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService) {}
 
   ngOnInit(): void {
     this.getOverallStatusofShip()

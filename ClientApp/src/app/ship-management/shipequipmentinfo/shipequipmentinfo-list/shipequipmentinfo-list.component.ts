@@ -10,6 +10,7 @@ import { MasterData } from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { Role } from 'src/app/core/models/role';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-shipequipmentinfo-list',
@@ -41,7 +42,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
 
   selection = new SelectionModel<ShipEquipmentInfo>(true, []);
 
-  constructor(private snackBar: MatSnackBar, private authService: AuthService, private ShipEquipmentInfoService: ShipEquipmentInfoService, private router: Router, private confirmService: ConfirmService, private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar, private authService: AuthService, private ShipEquipmentInfoService: ShipEquipmentInfoService, private router: Router, private confirmService: ConfirmService, private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit() {
     this.role = this.authService.currentUserValue.role.trim();

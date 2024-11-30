@@ -12,7 +12,8 @@ import { ShipDrowing } from '../../models/ShipDrowing';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import {BaseSchoolNameService} from '../../../../app/security/service/BaseSchoolName.service'
+import {BaseSchoolNameService} from '../../../../app/security/service/BaseSchoolName.service';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-shipdrowing',
@@ -44,8 +45,8 @@ export class NewShipDrowingComponent implements OnInit {
   isLoading = false;
   
   paging = {
-    pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageIndex: 1,
+    pageSize: 10,
     length: 1
   }
   searchText="";
@@ -55,7 +56,7 @@ export class NewShipDrowingComponent implements OnInit {
 
   selection = new SelectionModel<ShipDrowing>(true, []);
 
-  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipDrowingService: ShipDrowingService, private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipDrowingService: ShipDrowingService, private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('shipDrowingId'); 

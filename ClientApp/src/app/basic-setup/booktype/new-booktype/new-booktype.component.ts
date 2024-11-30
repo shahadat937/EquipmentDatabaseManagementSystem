@@ -10,6 +10,7 @@ import{MasterData} from 'src/assets/data/master-data';
 import { BookType } from '../../models/BookType';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-booktype',
@@ -29,8 +30,8 @@ export class NewBookTypeComponent implements OnInit {
   isLoading = false;
   
   paging = {
-    pageIndex: this.masterData.paging.pageIndex,
-    pageSize: this.masterData.paging.pageSize,
+    pageIndex: 1,
+    pageSize: 10,
     length: 1
   }
   searchText="";
@@ -40,7 +41,7 @@ export class NewBookTypeComponent implements OnInit {
 
   selection = new SelectionModel<BookType>(true, []);
 
-  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private BookTypeService: BookTypeService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private BookTypeService: BookTypeService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('bookTypeId'); 
