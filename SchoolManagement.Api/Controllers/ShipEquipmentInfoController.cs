@@ -31,6 +31,17 @@ public class ShipEquipmentInfoController : ControllerBase
         });
         return Ok(ShipEquipmentInfos);
     }
+    
+    [HttpGet]
+    [Route("get-ShipEquipmentInfos-by-authority")]
+    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetEquipmentByAuthorityId([FromQuery] QueryParams queryParams, int authorityId)
+    {
+        var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoByAuthorityIdListRequest { 
+            QueryParams = queryParams,
+            AuthorityId= authorityId
+        });
+        return Ok(ShipEquipmentInfos);
+    }
 
     [HttpGet]
     [Route("get-ShipEquipmentInfos-by-CategoryId-StateOfEquipmentId")]

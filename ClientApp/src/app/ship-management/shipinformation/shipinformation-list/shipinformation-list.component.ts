@@ -87,9 +87,7 @@ export class ShipInformationListComponent implements OnInit {
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
-
-
-      // this gives an object with dates as keys
+      
       const groups = this.dataSource.data.reduce((groups, courses) => {
         const schoolName = courses.authorityName;
         if (!groups[schoolName]) {

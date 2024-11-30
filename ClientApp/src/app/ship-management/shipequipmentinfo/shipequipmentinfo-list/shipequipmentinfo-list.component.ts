@@ -28,7 +28,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
-    pageSize: 5,
+    pageSize: 10,
     length: 1
   }
   searchText = "";
@@ -95,13 +95,23 @@ export class ShipEquipmentInfoListComponent implements OnInit {
 
 
     } else {
-      this.isLoading = true;
-      this.ShipEquipmentInfoService.getShipEquipmentInfos(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
-        console.log(response.items);
-        this.dataSource.data = response.items;
-        this.paging.length = response.totalItemsCount
-        this.isLoading = false;
-      })
+      if (this.role === this.userRole.AreaCommander) {
+
+        this.isLoading = true;
+        this.ShipEquipmentInfoService.getShipEquipmentByCategoryByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
+          this.dataSource.data = response;
+          this.paging.length = response[0]?.totalCount || 0
+        })
+
+      } else {
+        this.isLoading = true;
+        this.ShipEquipmentInfoService.getShipEquipmentInfos(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
+          console.log(response.items);
+          this.dataSource.data = response.items;
+          this.paging.length = response.totalItemsCount
+          this.isLoading = false;
+        })
+      }
     }
   }
 
@@ -120,7 +130,8 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     this.searchText = searchText;
     if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO) {
       this.getShipEquipmentInfos(this.branchId);
-    } else {
+    }
+     else {
       this.getShipEquipmentInfos(0);
     }
   }
