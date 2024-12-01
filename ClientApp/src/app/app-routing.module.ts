@@ -25,7 +25,7 @@ const routes: Routes = [
         path: 'ships-return',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff, Role.LOEO, Role.ShipStaff, Role.Director, Role.SOL]
+          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff, Role.LOEO, Role.ShipStaff, Role.Director, Role.SOL, Role.AreaCommander, Role.FLO, Role.FLOStaff, Role.CSO]
         },
         loadChildren: () =>
           import('./ships-return/ships-return.module').then((m) => m.ShipsReturnModule),

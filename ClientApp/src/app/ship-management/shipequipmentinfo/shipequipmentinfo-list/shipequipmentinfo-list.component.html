@@ -45,7 +45,7 @@
                       <ul class="header-buttons">
                         <li>
                           <div class="icon-button-demo">
-                            <button class="btn-space"  mat-raised-button
+                            <button [hidden]="isCommandingAreaUsers" class="btn-space"  mat-raised-button
                             color="primary" routerLink="/ship-management/add-shipequipmentinfo"> Add
                               <mat-icon class="col-white">add</mat-icon>
                             </button>
@@ -202,7 +202,7 @@
                         <th class="custom-header">Composition</th>
                         <th class="custom-header">Defect Description</th>
                         <th class="custom-header">Remarks</th>
-                        <th class="custom-header">Actions</th>
+                        <th [hidden]="isCommandingAreaUsers" class="custom-header">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -227,7 +227,7 @@
                         <td>{{ element.composition }}</td>
                         <td>{{ element.defectDescription }}</td>
                         <td>{{ element.remarks }}</td>
-                        <td class="cl-action">
+                        <td [hidden]="isCommandingAreaUsers" class="cl-action">
                           <!-- <button class="btn btn-sm btn-primary" >
                             Edit
                           </button> -->
