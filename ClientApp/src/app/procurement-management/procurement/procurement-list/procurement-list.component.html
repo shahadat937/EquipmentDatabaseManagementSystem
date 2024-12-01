@@ -50,7 +50,7 @@
                     <ul class="header-buttons">
                       <li>
                         <div class="icon-button-demo">
-                          <button class="btn-space" mat-raised-button color="primary"
+                          <button [hidden]="isCommandingAreaUsers" class="btn-space" mat-raised-button color="primary"
                             routerLink="/procurement-management/add-procurement"> Add
                             <mat-icon class="col-white">add</mat-icon>
                           </button>
@@ -337,7 +337,7 @@
                         <th class="custom-header">Sent for Contract Date</th>                        
                         <th class="custom-header">Contract Signed Date</th>
                         <th class="custom-header">Remarks</th>
-                        <th class="custom-header">Actions</th>
+                        <th [hidden]="isCommandingAreaUsers" class="custom-header">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -361,7 +361,7 @@
                         <td>{{ element.contractSignedDate | date: 'dd MMM, yyyy' }}</td>
                        
                         <td>{{ element.remarks }}</td>
-                        <td class="cl-action">
+                        <td [hidden]="isCommandingAreaUsers" class="cl-action">
                           <!-- <button class="btn-tbl-edit mb-2" 
                                 [routerLink]="['/procurement-management/update-procurement', element.procurementId]">
                                 <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
@@ -416,7 +416,7 @@
                         <th class="vertical-header custom-header">Sent for Contract Date</th>                        
                         <th class="vertical-header custom-header">Contract Signed Date</th>
                         <th class="vertical-header custom-header">Remarks</th>
-                        <th class="vertical-header custom-header">Actions</th>
+                        <th [hidden]="isCommandingAreaUsers" class="vertical-header custom-header">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -453,7 +453,7 @@
                         <td class="vertical-cell">{{ element.sentForContractDate | date: 'dd MMM, yyyy' }}</td>                       
                         <td class="vertical-cell">{{ element.contractSignedDate | date: 'dd MMM, yyyy' }}</td>                       
                         <td class="vertical-cell">{{ element.remarks }}</td>
-                        <td class="cl-action">
+                        <td [hidden]="isCommandingAreaUsers" class="cl-action">
                           
                           <button mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
                             [routerLink]="['/procurement-management/update-procurement', element.procurementId]">
