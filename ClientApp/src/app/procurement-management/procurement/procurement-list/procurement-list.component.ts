@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { MasterData } from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Role } from 'src/app/core/models/role';
 
 
 @Component({
@@ -29,6 +30,9 @@ export class ProcurementListComponent implements OnInit {
     pageSize: 5,
     length: 1
   }
+  userRoles  = Role
+  role : string;
+  branchId : string;
   searchByOptions = ["shipname", "equipmentname"]
   searchText = "";
   isShipNameChecked: boolean = true;
@@ -76,17 +80,33 @@ export class ProcurementListComponent implements OnInit {
 
   getProcurementMethods() {
     this.isLoading = true;
-    this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+    if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO || this.role === this.userRoles.FLOStaff){
+      this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
 
-      console.log(response);
-      this.procurementMethodId1 = response.items[0]?.procurementMethodId;
-      this.procurementMethodId2 = response.items[1]?.procurementMethodId;
-      this.procurementMethodName1 = response.items[0]?.name;
-      this.procurementMethodName2 = response.items[1]?.name;
-      this.selectedProcurementTypeId = response.items[0]?.procurementMethodId;
-      this.getProcurementsByPeocureMethodId(this.procurementMethodId1)
+        console.log(response);
+        this.procurementMethodId1 = response.items[0]?.procurementMethodId;
+        this.procurementMethodId2 = response.items[1]?.procurementMethodId;
+        this.procurementMethodName1 = response.items[0]?.name;
+        this.procurementMethodName2 = response.items[1]?.name;
+        this.selectedProcurementTypeId = response.items[0]?.procurementMethodId;
+        this.getProcurementsByPeocureMethodId(this.procurementMethodId1)
+  
+      })
+    }
+    else{
+      this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
 
-    })
+        console.log(response);
+        this.procurementMethodId1 = response.items[0]?.procurementMethodId;
+        this.procurementMethodId2 = response.items[1]?.procurementMethodId;
+        this.procurementMethodName1 = response.items[0]?.name;
+        this.procurementMethodName2 = response.items[1]?.name;
+        this.selectedProcurementTypeId = response.items[0]?.procurementMethodId;
+        this.getProcurementsByPeocureMethodId(this.procurementMethodId1)
+  
+      })
+    }
+    
 
   }
   pageChanged(event: PageEvent) {

@@ -63,15 +63,15 @@ export class NewYearlyRetrunComponent implements OnInit {
     console.log(this.role)
     if(this.role === this.userRoles.AreaCommander){
       this.YearlyReturnService.getYearlyReturnByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
-        console.log(response);
-        this.dataSource.data = response;
-        this.dataSource.data = response.map((item) => ({
+        
+        this.dataSource.data = response.items;
+        this.dataSource.data = response.items.map((item) => ({
           ...item,
           year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
         }));
-        this.paging.length = response[0]?.totatCount || 0
+        this.paging.length = response.totalItemsCount
         this.isLoading = false;
-        this.itemCount = response[0]?.totatCount || 0
+        this.itemCount = response.items.length;
   
       })
 
@@ -101,7 +101,7 @@ export class NewYearlyRetrunComponent implements OnInit {
     this.getYearlyReturn();
   }
   checkUserRoles() {
-    
+
     if (this.role === this.userRoles.AreaCommander || this.role === this.userRoles.CSO || this.role === this.userRoles.FLO || this.role === this.userRoles.FLOStaff ){
       this.isCommandingAreaUsers = true;
     }

@@ -63,7 +63,7 @@ const routes: Routes = [
         path: 'procurement-management',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff]
+          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff, Role.AreaCommander, Role.CSO, Role.FLO, Role.FLOStaff]
         },
         loadChildren: () =>
           import('./procurement-management/procurement-management.module').then((m) => m.ProcurementManagementModule),

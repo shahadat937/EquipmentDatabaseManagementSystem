@@ -13,10 +13,10 @@ import { SelectedModel } from '../../core/models/selectedModel';
   export class YearlyReturnService{
     baseUrl = environment.apiUrl;
     
-    // YearlyReturns: YearlyReturn[] = [];
-    YearlyReturns: any[] = [];
-    // YearlyReturnsPagination = new YearlyReturnPagination();
-    YearlyReturnsPagination : any;
+    YearlyReturns: YearlyReturn[] = [];
+    // YearlyReturns: any[] = [];
+    YearlyReturnsPagination = new YearlyReturnPagination();
+    // YearlyReturnsPagination : any;
     constructor(private http: HttpClient) { }
 
     getYearlyReturn(pageNumber, pageSize, searchText){
@@ -51,11 +51,31 @@ import { SelectedModel } from '../../core/models/selectedModel';
     })
     .pipe(
         map(response=>{
-          this.YearlyReturnsPagination = response.body;
-          return this.YearlyReturnsPagination;
+            this.YearlyReturns = [...this.YearlyReturns,...response.body.items];
+            this.YearlyReturnsPagination = response.body;
+            return this.YearlyReturnsPagination
         })
     );
     }
+
+    // getYearlyReturnByAuthorityId(pageNumber, pageSize, searchText, authorityId){
+    //     let params = new HttpParams();
+
+    // params = params.append('searchText', searchText.toString());
+    // params = params.append('pageNumber', pageNumber.toString());
+    // params = params.append('pageSize', pageSize.toString());
+    // params = params.append('authorityId', authorityId.toString());
+
+    // return this.http.get<IYearlyReturnPagination>(this.baseUrl + '/yearly-return/get-YearlyReturn-by-AuthorityId',{
+    //     observe: 'response', params
+    // })
+    // .pipe(
+    //     map(response=>{
+    //       this.YearlyReturnsPagination = response.body;
+    //       return this.YearlyReturnsPagination;
+    //     })
+    // );
+    // }
     find(id: number) {
         return this.http.get<YearlyReturn>(this.baseUrl + '/yearly-return/get-YearlyReturnDetail/' + id);
       }

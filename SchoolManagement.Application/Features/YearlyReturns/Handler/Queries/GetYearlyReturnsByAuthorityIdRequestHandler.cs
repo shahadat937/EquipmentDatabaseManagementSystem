@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SchoolManagement.Application.Contracts.Persistence;
+using SchoolManagement.Application.DTOs.Common.Validators;
+using SchoolManagement.Application.DTOs.YearlyReturns;
+using SchoolManagement.Application.Exceptions;
 using SchoolManagement.Application.Features.YearlyReturns.Request.Queries;
+using SchoolManagement.Application.Models;
 using SchoolManagement.Domain;
 using System;
 using System.Collections.Generic;
@@ -13,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Queries
 {
-    public class GetYearlyReturnsByAuthorityIdRequestHandler : IRequestHandler<GetYearlyReturnsByAuthorityIdRequest, object>
+    public class GetYearlyReturnsByAuthorityIdRequestHandler : IRequestHandler<GetYearlyReturnsByAuthorityIdRequest, PagedResult<YearlyReturnDto>>
     {
         private readonly ISchoolManagementRepository<YearlyReturn> _yearlyReturn;
         private readonly IMapper _mapper;
@@ -26,26 +31,41 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Queries
             _yearlyReturn = yearlyReturn;
             _config = config;
         }
-        public async Task<object> Handle(GetYearlyReturnsByAuthorityIdRequest request, CancellationToken cancellationToken)
+        public async Task<PagedResult< YearlyReturnDto>> Handle(GetYearlyReturnsByAuthorityIdRequest request, CancellationToken cancellationToken)
         {
-            var spQuery = String.Format("exec [spGetYearlyReturnByAuthorityId] {0}, {1}, {2}, {3}",
 
-           string.IsNullOrEmpty(request.QueryParams.SearchText) ? "''" : $"'{request.QueryParams.SearchText}'",
-           request.QueryParams.PageSize,
-           request.QueryParams.PageNumber,
-           request.AuthorityId);
+            var validator = new QueryParamsValidator();
+            var validationResult = await validator.ValidateAsync(request.QueryParams);
 
-            DataTable dataTable = _yearlyReturn.ExecWithSqlQuery(spQuery);
+            if (!validationResult.IsValid)
+                throw new ValidationException(validationResult);
 
-            foreach (DataRow row in dataTable.Rows)
-            {
-                if (row["FileUpload"] != DBNull.Value && row["FileUpload"] is string fileUpload && !string.IsNullOrEmpty(fileUpload))
-                {
-                    row["FileUpload"] = $"{_config["ApiUrl"]}{fileUpload}";
-                }
-            }
 
-            return dataTable;
+            IQueryable<YearlyReturn> yearlyReturns = _yearlyReturn.FilterWithInclude(
+                x => x.BaseSchoolName.ShipInformations.Any(u=> u.AuthorityId == request.AuthorityId) && (string.IsNullOrEmpty(request.QueryParams.SearchText) ||
+                     x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
+                "BaseSchoolName", "OperationalStatus", "ReportingMonth"
+            );
+
+
+            var totalCount = await yearlyReturns.CountAsync();
+
+
+            yearlyReturns = yearlyReturns
+                .OrderByDescending(x => x.YearlyReturnId)
+                .Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize)
+                .Take(request.QueryParams.PageSize);
+
+            var yearlyReturnDtos = _mapper.Map<List<YearlyReturnDto>>(yearlyReturns);
+
+            var result = new PagedResult<YearlyReturnDto>(
+                yearlyReturnDtos,
+                totalCount,
+                request.QueryParams.PageNumber,
+                request.QueryParams.PageSize
+            );
+
+            return result;
         }
     }
 }
