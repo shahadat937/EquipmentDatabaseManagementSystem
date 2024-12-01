@@ -53,6 +53,7 @@ using SchoolManagement.Application.DTOs.YearlyReturns;
 using SchoolManagement.Application.DTOs.AspNetRoles;
 using SchoolManagement.Application.DTOs.OperationalStatusOfEquipmentSystem;
 using SchoolManagement.Application.DTOs.StatusOfShip;
+using SchoolManagement.Application.DTOs.UserManual;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -399,6 +400,11 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(d=> d.BaseSchoolName, o=> o.MapFrom( s=> s.BaseSchoolName.SchoolName))
                 .ForMember(d=> d.StateOfEquipment, o=> o.MapFrom(s=> s.StateOfEquipment.Name))
                 .ForMember(d=> d.NameOfEquipment, o=>o.MapFrom(s=>s.EqupmentName.Name));
+            #endregion
+            #region UserManual Mappings
+            CreateMap<UserManualDto, UserManual>().ReverseMap()
+                .ForMember(d => d.Doc, o => o.MapFrom<UserManualUrlResolver>());
+            CreateMap<UserManual, CreateUserManualDto>().ReverseMap();
             #endregion
 
             //.CreateMap<StatusOfShipDto, StatusOfShipSpace>().ReverseMap()

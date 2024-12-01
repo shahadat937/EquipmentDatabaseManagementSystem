@@ -114,13 +114,25 @@
               </form>
             </div>
           </div>
+          
           <div class="card m-t-10">
+            
             <div class="row">
+
               <div class="col-xl-12 col-lg-12 col-md-12 list-title">
                 <h3 class="align-center m-0">Organization List</h3>
               </div>
             </div>
+            <div class="row mb-3">
+              <div  class="icon-button-demo col-12">
+                      <button class="btn-success float-end rounded-pill px-4"  mat-raised-button
+                     (click)="SharedService.goBack()"> Back
+                        <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                      </button>
+                    </div>
+            </div>
             <div class="body">
+              
               <mat-table #table [dataSource]="organizationList" matSort class="mat-cell">
                 <ng-container matColumnDef="ser">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Ser. </mat-header-cell>
@@ -168,12 +180,7 @@
               </mat-table>
               
             </div>
-            <div  class="icon-button-demo m-l-10">
-                <button class="btn-space"  mat-raised-button
-                color="primary" (click)="SharedService.goBack()"> Back
-                  <mat-icon class="col-white">keyboard_backspace</mat-icon>
-                </button>
-              </div>
+            
           </div>
         </div>
       </div>

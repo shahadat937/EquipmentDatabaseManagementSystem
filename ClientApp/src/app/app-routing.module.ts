@@ -1,3 +1,4 @@
+import { UserManualModule } from './user-manual/user-manual.module';
 import { Page404Component } from './authentication/page404/page404.component';
 import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
@@ -86,6 +87,15 @@ const routes: Routes = [
         },
         loadChildren: () =>
           import('./ship-drawing/ship-drawing.module').then((m) => m.ShipDrawingModule),
+      },
+      {
+        path: 'user-manual',
+        canActivate: [AuthGuard],
+        data: {
+          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff]
+        },
+        loadChildren: () =>
+          import('./user-manual/user-manual.module').then((m) => m.UserManualModule),
       },
 
 

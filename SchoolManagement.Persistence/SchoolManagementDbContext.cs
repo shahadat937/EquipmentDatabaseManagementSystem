@@ -87,6 +87,10 @@ namespace SchoolManagement.Persistence
             {
 
             });
+            modelBuilder.Entity<UserManual>(entity =>
+            {
+
+            });
 
 
             modelBuilder.Entity<DailyWorkState>(entity =>
@@ -593,6 +597,7 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<MonthlyReturn> MonthlyReturn { get; set; }
         public virtual DbSet<OperationalState> OperationalState { get; set; }
         public virtual DbSet<YearlyReturn> YearlyReturn { get; set; }
+        public virtual DbSet<UserManual> UserManual { get; set; } = null!;
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystem { get; set; }
     }
