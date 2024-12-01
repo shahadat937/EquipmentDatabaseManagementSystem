@@ -15,7 +15,7 @@ export class NewRoleFeatureComponent implements OnInit {
   pageTitle: string; 
   destination:string;
   btnText:string;
-  Roleid:number;
+  Roleid:string;
   FeatureKey:number;
   RoleFeatureForm: FormGroup;
   buttonText:string;
@@ -28,7 +28,8 @@ export class NewRoleFeatureComponent implements OnInit {
 
   ngOnInit(): void {
     const rid = this.route.snapshot.paramMap.get('roleId'); 
-    this.Roleid = Number(rid);
+    console.log(this.route.snapshot.paramMap);
+    this.Roleid = rid;
     console.log(rid);
     const fid = this.route.snapshot.paramMap.get('featureId'); 
     this.FeatureKey = Number(fid)
@@ -38,10 +39,10 @@ export class NewRoleFeatureComponent implements OnInit {
       this.buttonText= "Update"
       this.RoleFeatureService.find(this.Roleid, this.FeatureKey).subscribe(
         res => {
-          console.log(res);
+          console.log("Rs",res);
           this.RoleFeatureForm.patchValue({          
             roleId: res.roleId,
-            featureId: res.featureKey,
+            featureKey: res.featureKey,
             add: res.add,
             update:res.update,
             delete:res.delete,
@@ -90,7 +91,7 @@ export class NewRoleFeatureComponent implements OnInit {
 
   onSubmit() {
     const rid = this.route.snapshot.paramMap.get('roleId'); 
-    this.Roleid = Number(rid);
+    this.Roleid = rid;
     console.log(this.Roleid)
     const fid = this.route.snapshot.paramMap.get('featureKey'); 
     this.FeatureKey = Number(fid)
