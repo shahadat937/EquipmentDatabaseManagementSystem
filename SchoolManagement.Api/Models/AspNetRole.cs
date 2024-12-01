@@ -19,5 +19,7 @@ namespace SchoolManagement.Api.Models
         public virtual ICollection<AspNetRoleClaim> AspNetRoleClaims { get; set; }
 
         public virtual ICollection<AspNetUser> Users { get; set; }
+
+        public virtual ICollection<UserManual> RoleName { get; set; }
     }
 }

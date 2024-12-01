@@ -16,5 +16,9 @@ namespace SchoolManagement.Application.Exceptions
                 Errors.Add(error.ErrorMessage);
             }
         }
+
+        public ValidationException(string? message) : base(message)
+        {
+        }
     }
 }
