@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectedModel } from 'src/app/core/models/selectedModel';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 // import { SharedServiceService } from 'src/app/shared/shared-service.service';
+import { RoleService } from 'src/app/security/service/role.service';
 
 @Component({
   selector: 'app-new-usermanual',
@@ -21,17 +22,18 @@ export class NewUserManual extends UnsubscribeOnDestroyAdapter implements OnInit
   destination:string;
   selectedRoles:any;
   selectRoles:SelectedModel[];
+  roleValues:SelectedModel[]; 
   UserManualForm: FormGroup;
   validationErrors: string[] = [];
 
-  constructor(private snackBar: MatSnackBar,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) {
+  constructor(private snackBar: MatSnackBar,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private RoleService: RoleService) {
     super();
   }
 
   ngOnInit(): void {
    
     this.intitializeForm();
-  
+    this.getRoleName();
   }
   intitializeForm() {
     this.UserManualForm = this.fb.group({
@@ -41,6 +43,13 @@ export class NewUserManual extends UnsubscribeOnDestroyAdapter implements OnInit
       docfile: [''],
       isActive: [true],
     })
+  }
+
+  getRoleName(){
+    this.RoleService.getselectedrole().subscribe(res=>{
+      this.roleValues=res
+      
+    });
   }
   onFileChanged(event) {
     if (event.target.files.length > 0) {

@@ -48,7 +48,7 @@
                           (keydown.space)="$event.stopPropagation()"
                           (input)="filterByRoles($event.target.value)"
                           placeholder="Search">
-                        <mat-option *ngFor="let batch of selectedRoles" [value]="batch.value">
+                        <mat-option *ngFor="let batch of roleValues" [value]="batch.value">
                             {{batch.text}} 
                           </mat-option>                          
                     </mat-select>
