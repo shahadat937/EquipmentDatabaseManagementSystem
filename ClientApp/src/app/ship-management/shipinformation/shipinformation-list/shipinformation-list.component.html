@@ -67,7 +67,7 @@
                       <ul class="header-buttons">
                         <li>
                           <div class="icon-button-demo">
-                            <button class="btn-space"  mat-raised-button
+                            <button [hidden]="isCommsndingAreaUsers" class="btn-space"  mat-raised-button
                             color="primary" routerLink="/ship-management/add-shipinformation"> Add
                               <mat-icon class="col-white">add</mat-icon>
                             </button>
@@ -126,11 +126,11 @@
                             <button mat-icon-button class="btn-tbl-view" title="View Course Details" [routerLink]="['/admin/dashboard/view-shipinformationdetails',number.shipInformationId,2]">
                               <mat-icon aria-label="Edit" class="col-white">visibility</mat-icon>
                             </button>
-                            <button mat-icon-button color="accent" class="btn-tbl-edit" 
+                            <button [hidden]="isCommsndingAreaUsers" mat-icon-button color="accent" class="btn-tbl-edit" 
                             [routerLink]="['/ship-management/update-shipinformation', number.shipInformationId]">
                               <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
                             </button>
-                            <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
+                            <button [hidden]="isCommsndingAreaUsers" mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
                             (click)="deleteItem(number)">
                             <mat-icon aria-label="Delete" class="col-white">delete</mat-icon> 
                           </button>

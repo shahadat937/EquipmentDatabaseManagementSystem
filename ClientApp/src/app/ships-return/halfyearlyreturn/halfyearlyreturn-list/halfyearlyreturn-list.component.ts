@@ -9,6 +9,8 @@ import { ConfirmService } from 'src/app/core/service/confirm.service';
 import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SharedService } from 'src/app/shared/shared.service';
+import { Role } from 'src/app/core/models/role';
+import { AuthService } from 'src/app/core/service/auth.service';
 
 @Component({
   selector: 'app-halfyearlyreturn-list',
@@ -30,47 +32,62 @@ export class HalfYearlyReturnListComponent implements OnInit {
     length: 1
   }
   searchText="";
+  userRoles = Role;
+  role : string;
+  branchId : string;
+  isCommandingAreaUsers : boolean;
 
   displayedColumns: string[] = [ 'ser','authorityName','baseName', 'baseSchoolName','sqnName','operationalStatus','actions'];
   dataSource: MatTableDataSource<HalfYearlyReturn> = new MatTableDataSource();
 
   selection = new SelectionModel<HalfYearlyReturn>(true, []);
   
-  constructor(private snackBar: MatSnackBar,private HalfYearlyReturnService: HalfYearlyReturnService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
+  constructor(private snackBar: MatSnackBar,private HalfYearlyReturnService: HalfYearlyReturnService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService, private  authService : AuthService) { }
   
   ngOnInit() {
+    this.branchId = this.authService.currentUserValue.branchId
+    this.role = this.authService.currentUserValue.role;
     this.getHalfYearlyReturns();
   }
  
   getHalfYearlyReturns() {
     this.isLoading = true;
-    this.HalfYearlyReturnService.getHalfYearlyReturns(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-    console.log(response);
-      
-      this.dataSource.data = response.items; 
-      this.paging.length = response.totalItemsCount    
-      this.isLoading = false;
-      console.log("response",this.dataSource.data);
 
+    if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLOStaff || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO){
+      this.isCommandingAreaUsers = true;
+      this.HalfYearlyReturnService.getHalfYearlyReturnsByAuthorityId(this.paging.pageIndex, this.paging.pageSize,this.searchText, this.branchId).subscribe(response => {
 
-       // this gives an object with dates as keys
-      //  const groups = this.dataSource.data.reduce((groups, courses) => {
-      //   const schoolName = courses.authorityName;
-      //   if (!groups[schoolName]) {
-      //     groups[schoolName] = [];
-      //   }
-      //   groups[schoolName].push(courses);
-      //   return groups;
-      // }, {});
+          this.dataSource.data = response.items; 
+          this.paging.length = response.totalItemsCount    
+          this.isLoading = false;                    
+        })
+    }
+    else{
+      this.HalfYearlyReturnService.getHalfYearlyReturns(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
 
-      // Edit: to add it in the array format instead
-      // this.groupArrays = Object.keys(groups).map((authorityName) => {
-      //   return {
-      //     authorityName,
-      //     courses: groups[authorityName]
-      //   };
-      // });
-    })
+          this.dataSource.data = response.items; 
+          this.paging.length = response.totalItemsCount    
+          this.isLoading = false;
+          
+           // this gives an object with dates as keys
+          //  const groups = this.dataSource.data.reduce((groups, courses) => {
+          //   const schoolName = courses.authorityName;
+          //   if (!groups[schoolName]) {
+          //     groups[schoolName] = [];
+          //   }
+          //   groups[schoolName].push(courses);
+          //   return groups;
+          // }, {});
+    
+          // Edit: to add it in the array format instead
+          // this.groupArrays = Object.keys(groups).map((authorityName) => {
+          //   return {
+          //     authorityName,
+          //     courses: groups[authorityName]
+          //   };
+          // });
+        })
+    }
   }
 
   pageChanged(event: PageEvent) {

@@ -15,7 +15,7 @@ export class NewRoleFeatureComponent implements OnInit {
   pageTitle: string; 
   destination:string;
   btnText:string;
-  Roleid:number;
+  Roleid:string;
   FeatureKey:number;
   RoleFeatureForm: FormGroup;
   buttonText:string;
@@ -28,8 +28,7 @@ export class NewRoleFeatureComponent implements OnInit {
 
   ngOnInit(): void {
     const rid = this.route.snapshot.paramMap.get('roleId'); 
-    this.Roleid = Number(rid);
-    console.log(rid);
+    this.Roleid = rid;
     const fid = this.route.snapshot.paramMap.get('featureId'); 
     this.FeatureKey = Number(fid)
     if (this.Roleid && this.FeatureKey) {
@@ -38,10 +37,9 @@ export class NewRoleFeatureComponent implements OnInit {
       this.buttonText= "Update"
       this.RoleFeatureService.find(this.Roleid, this.FeatureKey).subscribe(
         res => {
-          console.log(res);
           this.RoleFeatureForm.patchValue({          
             roleId: res.roleId,
-            featureId: res.featureKey,
+            featureKey: res.featureKey,
             add: res.add,
             update:res.update,
             delete:res.delete,
@@ -84,14 +82,12 @@ export class NewRoleFeatureComponent implements OnInit {
   getselectedfeature(){
     this.RoleFeatureService.getselectedfeature().subscribe(res=>{
       this.selectedfeature=res
-      console.log(this.selectedfeature);
     });
   }
 
   onSubmit() {
     const rid = this.route.snapshot.paramMap.get('roleId'); 
-    this.Roleid = Number(rid);
-    console.log(this.Roleid)
+    this.Roleid = rid;
     const fid = this.route.snapshot.paramMap.get('featureKey'); 
     this.FeatureKey = Number(fid)
     if (this.Roleid && this.FeatureKey) {
@@ -112,7 +108,6 @@ export class NewRoleFeatureComponent implements OnInit {
       })
     } else {
       this.RoleFeatureService.submit(this.RoleFeatureForm.value).subscribe(response => {
-        console.log('response', this.RoleFeatureForm.value)
         this.router.navigateByUrl('/security/rolefeature-list');
         this.snackBar.open('Information Inserted Successfully ', '', {
           duration: 2000,

@@ -40,6 +40,7 @@ export class NewShipDrawingComponent implements OnInit {
   selectedBaseName: any[];
   commendingAreaId: any;
   selectedBaseSchoolName: any[];
+  isAreaCommanderUsers: boolean;
 
 
   ELEMENT_DATA: ShipDrowing[] = [];
@@ -82,7 +83,6 @@ export class NewShipDrawingComponent implements OnInit {
             remarks: res.remarks,
             isActive: res.isActive,
           });
-          console.log('res:', res);
 
           this.onCommendingAreaSelectionChangeGetBaseName();
           this.onOrganizationSelectionChange();
@@ -91,7 +91,9 @@ export class NewShipDrawingComponent implements OnInit {
         this.pageTitle = 'Create Ship Drowing';
         this.destination = 'Add';
         this.btnText = 'Save';
-        this.ShipDrowingForm.reset();
+        console.log(this.role);
+        // this.ShipDrowingForm.reset();
+       
       }
     });
 
@@ -108,6 +110,11 @@ export class NewShipDrawingComponent implements OnInit {
     //   this.ShipDrowingForm.get('departmentNameId').setValue(this.branchId);
     //   this.onDepartmentSelectionChangeGetShipDrowingList();
     // }
+    if(this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.CSO || this.role === this.userRole.FLOStaff){
+      this.ShipDrowingForm.get('authorityId')?.setValue(this.branchId);
+      this.isAreaCommanderUsers = true;
+      this.onCommendingAreaSelectionChangeGetBaseName();     
+  }
   }
 
   intitializeForm() {

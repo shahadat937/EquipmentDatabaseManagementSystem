@@ -36,6 +36,27 @@ export class HalfYearlyReturnService {
    
   }
 
+  getHalfYearlyReturnsByAuthorityId(pageNumber, pageSize, searchText, authorityId) { 
+
+    let params = new HttpParams();
+
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    params = params.append('authorityId', authorityId.toString());
+
+    
+    return this.http.get<IHalfYearlyReturnPagination>(this.baseUrl + '/half-yearly-return/get-HalfYearlyReturns-by-AuthorityId', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.HalfYearlyReturns = [...this.HalfYearlyReturns, ...response.body.items];
+        this.HalfYearlyReturnPagination = response.body;
+        return this.HalfYearlyReturnPagination;
+      })
+    );
+   
+  }
+
   find(id: number) {
     return this.http.get<HalfYearlyReturn>(this.baseUrl + '/half-yearly-return/get-HalfYearlyReturnDetail/' + id);
   }
