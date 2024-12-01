@@ -23,6 +23,14 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
             <div class="body">
+              <div class="row mb-3">
+                <div class="icon-button-demo col-12">
+                        <button class="btn-success float-end rounded-pill px-4"  mat-raised-button
+                       (click)="SharedService.goBack()"> Back
+                          <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                        </button>
+                      </div>
+              </div>
               <div class="responsive_table">
                 <div class="materialTableHeader">
                   <div class="row">
@@ -76,13 +84,11 @@
                  
                 <div class="row">
         
-                  <!-- Damage Return List Table -->
-                  
-        
-                  <!-- Defect Return List Table -->
+                
                   <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                       <div class="card">
                           <div class="body">
+                            
                               <div class="responsive_table">
                                   <div class="materialTableHeader">
                                       <div class="row">
@@ -116,12 +122,7 @@
                           </div>
                       </div>
                   </div>
-                  <div  class="icon-button-demo">
-                    <button class="btn-space"  mat-raised-button
-                    color="primary" (click)="SharedService.goBack()"> Back
-                      <mat-icon class="col-white">keyboard_backspace</mat-icon>
-                    </button>
-                  </div>
+                 
               </div>
                 <!-- <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
                   [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
