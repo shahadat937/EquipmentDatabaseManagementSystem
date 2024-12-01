@@ -24,7 +24,7 @@
           <div class="header">
           </div>
           <div class="body">
-            <form class="m-4" [formGroup]="UserManualForm">
+            <form class="m-4" [formGroup]="UserManualForm" (ngSubmit)="onSubmit()">
               <div class="row">
 
 
@@ -46,7 +46,7 @@
                         style="width:100%;height:50px;padding:10px; border: 1px solid white;"
                           id="selectPayType"
                           (keydown.space)="$event.stopPropagation()"
-                          (input)="filterByRoles($event.target.value)"
+                          (input)="($event.target.value)"
                           placeholder="Search">
                         <mat-option *ngFor="let batch of roleValues" [value]="batch.value">
                             {{batch.text}} 

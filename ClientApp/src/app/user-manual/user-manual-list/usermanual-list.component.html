@@ -65,7 +65,7 @@
                   </div>
                 </div>
               </div>
-               <mat-table #table  matSort class="mat-cell">  
+               <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">  
                 <ng-container matColumnDef="ser">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Ser: </mat-header-cell>
                   <mat-cell *matCellDef="let element; let i = index;"> {{ ((paging.pageIndex-1) *  paging.pageSize) + i+1}} </mat-cell>
@@ -106,10 +106,10 @@
               </mat-table>
               
           
-               <!-- <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+               <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
               [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
               (page)="pageChanged($event)">
-              </mat-paginator> -->
+              </mat-paginator>
             </div>
           </div>
         </div>

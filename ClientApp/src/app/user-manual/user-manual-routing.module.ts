@@ -14,6 +14,9 @@ const routes: Routes = [
         path: 'add-usermanual',
         component: NewUserManual
     },
+    { path: 'update-usermanual/:userManualId', 
+        component: NewUserManual 
+        },
     {
         path: 'usermanual-list',
         component: UserManualList
