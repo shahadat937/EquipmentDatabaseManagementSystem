@@ -29,7 +29,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
-    pageSize: 10,
+    pageSize: 5,
     length: 1
   }
   searchText = "";
@@ -262,12 +262,11 @@ export class ShipEquipmentInfoListComponent implements OnInit {
                 <th class="vertical-header">Tech Specification</th>
                 <th class="vertical-header">Manufacturer Info</th>
                 <th class="vertical-header">Acquisition Method</th>
-                <th class="vertical-header">Year Of Installation</th>
+                <th class="vertical-header">Year of Installation</th>
                 <th class="vertical-header">Location</th>   
                 <th class="vertical-header">State of Equipment</th>
                 <th class="vertical-header">Power Supply</th>
-                <th class="vertical-header">AVR Brand</th>
-                <th class="vertical-header">AVR Model</th>                
+                               
                 <th class="vertical-header">Interface Protocol</th>
                 <th class="vertical-header">Composition</th>
                 <th class="vertical-header">Defect Description</th>
@@ -293,8 +292,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
                       <td class="vertical-header">${row.location || '-'}</td>
                       <td class="vertical-header">${row.stateOfEquipment || '-'}</td>
                       <td class="vertical-header">${row.powerSupply || '-'}</td>
-                      <td class="vertical-header">${row.avrbrand || '-'}</td>
-                      <td class="vertical-header">${row.avrmodel || '-'}</td>
+                      
                       <td class="vertical-header">${row.interfaceProtocol || "-"}</td>
                       <td class="vertical-header">${row.composition || '-'}</td>               
                       <td class="vertical-header">${row.defectDescription || '-'}</td>
