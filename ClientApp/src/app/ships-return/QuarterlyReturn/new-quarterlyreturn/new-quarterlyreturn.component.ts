@@ -30,6 +30,8 @@ export class NewQuarterlyReturnComponent implements OnInit {
     { id: 3, year: '2022' },
     { id: 4, year: '2023' }
   ];
+  selectShip: SelectedModel[];
+  selectReportingMonth: SelectedModel[];
   
   constructor(
     private fb: FormBuilder, 
@@ -91,12 +93,19 @@ export class NewQuarterlyReturnComponent implements OnInit {
   getSelectedSchoolByBranchLevelAndThirdLevel() {
     this.YearlyReturnService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(
       (res: SelectedModel[]) => {
-        this.selectedBaseSchoolName = res; // Ensure API response matches SelectedModel type
+        this.selectedBaseSchoolName = res; 
+        this.selectShip=res// Ensure API response matches SelectedModel type
       },
       (error) => {
         console.error('Error loading Ship Names:', error);
       }
     );
+  }
+  filterByShip(value:any){
+    this.selectedBaseSchoolName=this.selectShip.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  }
+  filterByMonth(value:any){
+    this.selectedReportingMonth=this.selectReportingMonth.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   // Load data for Reporting Month
@@ -104,6 +113,7 @@ export class NewQuarterlyReturnComponent implements OnInit {
     this.YearlyReturnService.getSelectedReportingMonth().subscribe(
       (res: SelectedModel[]) => {
         this.selectedReportingMonth = res;
+        this.selectReportingMonth=res
       },
       (error) => {
         console.error('Error loading Reporting Month:', error);

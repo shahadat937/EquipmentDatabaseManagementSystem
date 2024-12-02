@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {dashboardService} from '../services/dashboard.service'
 import { AuthService } from 'src/app/core/service/auth.service';
 import { Role } from 'src/app/core/models/role';
+import { debounceTime } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-boatinformationbytype-list',
@@ -26,16 +28,27 @@ export class BoatInformationByTypeListComponent implements OnInit {
   role : string;
   branchId : any
   roles = Role
+  searchText="";
+  private searchSubject: Subject<string> = new Subject();
   
   constructor(private snackBar: MatSnackBar,private dashboardService:dashboardService,private router: Router,private confirmService: ConfirmService, private authService : AuthService) { }
   
   ngOnInit() {
     this.role = this.authService.currentUserValue.role;
     this.branchId = this.authService.currentUserValue.branchId;
+    this.searchSubject.pipe(
+      debounceTime(300) 
+    ).subscribe((searchText) => {
+      this.searchText = searchText;
+      this.getBoatInfoByShipType();
+    });
     this.getBoatInfoByShipType();
   }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
+  }
+  applyFilter(searchText: string) {
+    this.searchSubject.next(searchText);
   }
   printSingle() {
     this.showHideDiv = false;

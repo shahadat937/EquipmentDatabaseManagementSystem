@@ -16,6 +16,7 @@ export class YearlyReturnComponent implements OnInit {
   selectedBaseSchoolName: SelectedModel[] = [];
   selectedReportingMonth: SelectedModel[] = [];
   selectedOperationalStatus: SelectedModel[] = [];
+  selectShip: SelectedModel[];
   // confirmService: any;
 
   validationErrors: string[] = [];
@@ -29,6 +30,7 @@ export class YearlyReturnComponent implements OnInit {
     { id: 3, year: '2022' },
     { id: 4, year: '2023' }
   ];
+  selectReportingMonth: SelectedModel[];
 
   constructor(
     private fb: FormBuilder,
@@ -97,6 +99,7 @@ export class YearlyReturnComponent implements OnInit {
     this.YearlyReturnService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(
       (res: SelectedModel[]) => {
         this.selectedBaseSchoolName = res;
+        this.selectShip = res;
       },
       (error) => {
         console.error('Error loading Ship Names:', error);
@@ -109,13 +112,19 @@ export class YearlyReturnComponent implements OnInit {
     this.YearlyReturnService.getSelectedReportingMonth().subscribe(
       (res: SelectedModel[]) => {
         this.selectedReportingMonth = res;
+        this.selectReportingMonth = res
       },
       (error) => {
         console.error('Error loading Reporting Month:', error);
       }
     );
   }
-
+  filterByShip(value:any){
+    this.selectedBaseSchoolName=this.selectShip.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  }
+  filterByMonth(value:any){
+    this.selectedReportingMonth=this.selectReportingMonth.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  }
   // Load data for Operational Status
   getSelectedOperationalStatus() {
     this.YearlyReturnService.getSelectedOperationalStatus().subscribe(

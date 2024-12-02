@@ -29,11 +29,21 @@
                   <div class="col-8">
                     
                     <ul class="header-buttons-left ml-0 text-center">
-                      <h4 class="text-center">Ship Information List</h4>
-                      <!-- <li class="dropdown">
-                        <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
-                          aria-label="Search box">
-                      </li> -->
+                      
+                     
+                      <li class="dropdown">
+                        <mat-form-field appearance="outline" class="full-width">
+                          <mat-label>Search</mat-label>
+                          <input
+                            matInput
+                            type="text"
+                            placeholder="Search..."
+                            (input)="applyFilter($event.target.value)" />
+                        </mat-form-field>
+                      </li>
+                      <li>
+                        <h4 class="text-center">Ship Information List</h4>
+                      </li>
                       <li>
                         <div class="icon-button-demo m-l-10">                          
                           <!-- <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">

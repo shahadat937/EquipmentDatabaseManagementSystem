@@ -8,6 +8,8 @@ import{MasterData} from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {dashboardService} from '../services/dashboard.service'
 import { AuthService } from 'src/app/core/service/auth.service';
+import { debounceTime } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-shipinformationbytype-list',
@@ -24,16 +26,27 @@ export class ShipInformationByTypeListComponent implements OnInit {
   groupArrays:{ schoolName: string; courses: any; }[];
   role : string;
   branchId : string
+  searchText="";
+  private searchSubject: Subject<string> = new Subject();
   
   constructor(private snackBar: MatSnackBar,private dashboardService:dashboardService,private router: Router,private confirmService: ConfirmService, private authService: AuthService) { }
   
   ngOnInit() {
     this.role = this.authService.currentUserValue.role;
     this.branchId = this.authService.currentUserValue.branchId;
+    this.searchSubject.pipe(
+      debounceTime(300) 
+    ).subscribe((searchText) => {
+      this.searchText = searchText;
+      this.getShipInfoByShipType();
+    });
     this.getShipInfoByShipType();
   }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
+  }
+  applyFilter(searchText: string) {
+    this.searchSubject.next(searchText);
   }
   printSingle() {
     this.showHideDiv = false;
