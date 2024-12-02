@@ -151,7 +151,7 @@ export class NewDailyWorkStateComponent implements OnInit {
   getSelectedPriority(){
     this.DailyWorkStateService.getSelectedPriority().subscribe(res=>{
       this.selectedPriority=res
-      this.selectLetterType=res
+      
     }); 
   }
   filterByPriority(value:any){
