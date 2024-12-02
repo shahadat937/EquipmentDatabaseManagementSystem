@@ -22,6 +22,8 @@ import {StatusOfDefectiveSystemListComponent} from './statusofdefectivesystem/st
 import {NewStatusOfDefectiveSystemComponent} from './statusofdefectivesystem/new-statusofdefectivesystem/new-statusofdefectivesystem.component'
 import { NewOverallStatusofShip } from './overallstatusofship/new-statusofship/new-overallstatusofship.component';
 import { OverallShipStatusListComponent } from './overallstatusofship/statusofship-list/overallstatusofship-list.component';
+import { NewOperationalStatusOfEquipmentSystemComponent } from './operational-status-equipment-system/new-operational-status-of-equipment-system/new-operational-status-of-equipment-system.component';
+import { OperationalStatusOfEquipmentSystemListComponent } from './operational-status-equipment-system/operational-status-of-equipment-system-list/operational-status-of-equipment-system-list.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { OverallShipStatusListComponent } from './overallstatusofship/statusofsh
     StatusOfDefectiveSystemListComponent,
     NewStatusOfDefectiveSystemComponent,
     NewOverallStatusofShip,
-    OverallShipStatusListComponent
+    OverallShipStatusListComponent,
+    NewOperationalStatusOfEquipmentSystemComponent,
+    OperationalStatusOfEquipmentSystemListComponent
   ],
   imports: [
     CommonModule,
