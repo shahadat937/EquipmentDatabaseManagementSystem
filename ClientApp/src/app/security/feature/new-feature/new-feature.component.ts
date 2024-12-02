@@ -19,6 +19,7 @@ export class NewFeatureComponent implements OnInit {
   buttonText:string;
   validationErrors: string[] = [];
   selectedModel:SelectedModel[];
+  selectModule: SelectedModel[];
 
   constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private FeatureService: FeatureService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
 
@@ -81,7 +82,11 @@ export class NewFeatureComponent implements OnInit {
   getModule(){
     this.FeatureService.getselectedmodule().subscribe(res=>{
       this.selectedModel=res
+      this.selectModule=res
     });
+  }
+  filterByModule(value: any) {
+    this.selectedModel = this.selectModule.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   onSubmit() {

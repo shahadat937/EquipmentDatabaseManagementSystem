@@ -43,7 +43,13 @@
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Role</mat-label>                        
                       <mat-select formControlName="roleId" required>
-                        <mat-option  value="0">--Select--</mat-option >
+                       
+                          <input type="text" style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                        id="selectSearch" (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByRole($event.target.value)" placeholder="Search">
+
+                         <mat-option  value="0">--Select--</mat-option >
+
                           <mat-option *ngFor="let school of selectedrole" [value]="school.value">
                               {{school.text}}  
                             </mat-option>                          
@@ -57,6 +63,9 @@
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>feature</mat-label>                        
                       <mat-select formControlName="featureKey" required>
+                        <input type="text" style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                        id="selectSearch" (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByFeature($event.target.value)" placeholder="Search">
                         <mat-option  value="0">--Select--</mat-option >
                           <mat-option *ngFor="let school of selectedfeature" [value]="school.value">
                               {{school.text}}  
