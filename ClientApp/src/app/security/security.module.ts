@@ -31,7 +31,7 @@ import {RoleListComponent} from './role/role-list/role-list.component';
 import { NewOrganizationComponent } from './baseschoolname/new-organization/new-organization.component';
 import { NewCommendingAreaComponent } from './baseschoolname/new-commendingarea/new-commendingarea.component';
 import { NewBaseNameComponent } from './baseschoolname/new-basename/new-basename.component';
-import { NewSchoolNameComponent } from './baseschoolname/new-schoolname/new-schoolname.component';
+// import { NewSchoolNameComponent } from './baseschoolname/new-schoolname/new-schoolname.component';
 import { NewUserListComponent } from './user/new-userlist/new-userlist.component';
 
 @NgModule({
@@ -49,7 +49,7 @@ import { NewUserListComponent } from './user/new-userlist/new-userlist.component
     NewOrganizationComponent,
     NewCommendingAreaComponent,
     NewBaseNameComponent,
-    NewSchoolNameComponent,
+    // NewSchoolNameComponent,
     InstructorListComponent,
     NewInstructorComponent,
     NewUserListComponent

@@ -18,7 +18,7 @@ import { NewRoleFeatureComponent } from './rolefeature/new-rolefeature/new-rolef
 import { NewOrganizationComponent } from './baseschoolname/new-organization/new-organization.component';
 import { NewCommendingAreaComponent } from './baseschoolname/new-commendingarea/new-commendingarea.component';
 import { NewBaseNameComponent } from './baseschoolname/new-basename/new-basename.component';
-import { NewSchoolNameComponent } from './baseschoolname/new-schoolname/new-schoolname.component';
+// import { NewSchoolNameComponent } from './baseschoolname/new-schoolname/new-schoolname.component';
 import { NewUserListComponent } from './user/new-userlist/new-userlist.component';
 
 const routes:Routes =[
@@ -64,15 +64,15 @@ const routes:Routes =[
     component: NewBaseNameComponent,
   },
   
-  {
-    path: 'new-baseschool',
-    component: NewSchoolNameComponent,
-  },
+  // {
+  //   path: 'new-baseschool',
+  //   component: NewSchoolNameComponent,
+  // },
 
-  {
-    path: 'update-baseschool/:baseSchoolNameId',
-    component: NewSchoolNameComponent,
-  },
+  // {
+  //   path: 'update-baseschool/:baseSchoolNameId',
+  //   component: NewSchoolNameComponent,
+  // },
 
   {
     path: 'feature-list',
