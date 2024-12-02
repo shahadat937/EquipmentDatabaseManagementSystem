@@ -1,11 +1,14 @@
+import { BaseSchoolName } from './../../security/models/BaseSchoolName';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseSchoolNameService } from '../../service/BaseSchoolName.service';
+// import { BaseSchoolNameService } from '../../service/BaseSchoolName.service';
+import { BaseSchoolNameService } from 'src/app/security/service/BaseSchoolName.service';
 import { SelectedModel } from 'src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
-import { BaseSchoolName } from '../../models/BaseSchoolName';
+// import { BaseSchoolName } from '../../models/BaseSchoolName';
+
 import { MasterData } from 'src/assets/data/master-data';
 
 @Component({
@@ -23,6 +26,7 @@ export class NewSchoolNameComponent implements OnInit {
   validationErrors: string[] = [];
   selectedOrganization:SelectedModel[];
   selectedCommendingArea:SelectedModel[];
+  selectCommandingArea: SelectedModel[];
   selectedBaseName:SelectedModel[];
   organizationId:any;
   commendingAreaId:any;
@@ -99,7 +103,7 @@ export class NewSchoolNameComponent implements OnInit {
     console.log(this.organizationId)    
     this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res=>{
       this.selectedCommendingArea=res
-      console.log(this.selectedCommendingArea);
+      this.selectCommandingArea=res
     });        
   }
   
@@ -109,7 +113,7 @@ export class NewSchoolNameComponent implements OnInit {
     this.BaseSchoolNameService.getSelectedBaseName(this.baseNameId).subscribe(res=>{
       console.log(res);
       this.selectedBaseName=res
-      console.log(this.selectedBaseName);
+      
     });  
     //this.getBaseNameList(this.commendingAreaId);
             
@@ -126,7 +130,7 @@ export class NewSchoolNameComponent implements OnInit {
     this.isShown=true;
     this.BaseSchoolNameService.getBaseSchoolList(baseNameId).subscribe(res=>{
       this.baseSchoolList=res
-      console.log(this.baseSchoolList);
+      
     });
   }
   onFileChanged(event) {
@@ -166,7 +170,9 @@ export class NewSchoolNameComponent implements OnInit {
     
     })
   }
-  
+  filterbyCommandingArea(value:any){
+    this.selectedCommendingArea=this.selectCommandingArea.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  }
   onSubmit() {
     const id = this.BaseSchoolForm.get('baseSchoolNameId').value;
     //console.log(id);

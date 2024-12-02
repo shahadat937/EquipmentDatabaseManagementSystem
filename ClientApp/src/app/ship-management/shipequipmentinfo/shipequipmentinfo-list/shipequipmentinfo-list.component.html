@@ -204,8 +204,8 @@
                         <th class="custom-header">Location</th>
                         <th class="custom-header">State of Equipment</th>
                         <th class="custom-header">Power Supply</th>
-                        <th class="custom-header">AVR Brand</th>
-                        <th class="custom-header">AVR Model</th>
+                        <!-- <th class="custom-header">AVR Brand</th>
+                        <th class="custom-header">AVR Model</th> -->
                         <th class="custom-header">Interface Protocol</th>
                         <th class="custom-header">Composition</th>
                         <th class="custom-header">Defect Description</th>
@@ -229,8 +229,8 @@
                         <td>{{ element.location }}</td>
                         <td>{{ element.stateOfEquipment }}</td>
                         <td>{{ element.powerSupply }}</td>
-                        <td>{{ element.avrbrand }}</td>
-                        <td>{{ element.avrmodel }}</td>
+                        <!-- <td>{{ element.avrbrand }}</td>
+                        <td>{{ element.avrmodel }}</td> -->
                         <td>{{ element.interfaceProtocol }}</td>
                         <td>{{ element.composition }}</td>
                         <td>{{ element.defectDescription }}</td>
@@ -266,6 +266,7 @@
                   [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
                   (page)="pageChanged($event)">
                 </mat-paginator>
+                
                 
               </div>
             </div>

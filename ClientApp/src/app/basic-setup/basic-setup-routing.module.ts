@@ -37,6 +37,7 @@ import { NewProcurementMethodComponent } from './procurementmethod/new-procureme
 import { NewPaymentStatusComponent } from './paymentstatus/new-paymentstatus/new-paymentstatus.component';
 import { NewEnvelopeComponent } from './envelope/new-envelope/new-envelope.component';
 import { NewBookTypeComponent } from './booktype/new-booktype/new-booktype.component';
+import {NewSchoolNameComponent} from './new-schoolname/new-schoolname.component'
 const routes: Routes = [
   {
     path: '',
@@ -301,6 +302,15 @@ const routes: Routes = [
   {
     path: 'add-booktype',
     component: NewBookTypeComponent,
+  },
+  {
+    path: 'new-baseschool',
+    component: NewSchoolNameComponent,
+  },
+
+  {
+    path: 'update-baseschool/:baseSchoolNameId',
+    component: NewSchoolNameComponent,
   },
 
 

@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { Page404Component } from '../authentication/page404/page404.component';
 import {StatusOfDefectiveSystemListComponent} from './statusofdefectivesystem/statusofdefectivesystem-list/statusofdefectivesystem-list.component';
 import {NewStatusOfDefectiveSystemComponent} from './statusofdefectivesystem/new-statusofdefectivesystem/new-statusofdefectivesystem.component'
+import {NewOperationalStatusOfEquipmentSystemComponent} from './operational-status-equipment-system/new-operational-status-of-equipment-system/new-operational-status-of-equipment-system.component'
+import {OperationalStatusOfEquipmentSystemListComponent} from './operational-status-equipment-system/operational-status-of-equipment-system-list/operational-status-of-equipment-system-list.component'
 const routes: Routes = [
   {
     path: '',
@@ -35,6 +37,22 @@ const routes: Routes = [
  {
   path: 'update-StatusOfShips/:statusOfShipId',
   component: NewOverallStatusofShip,
+},
+{
+  path: 'add-operational-status-of-equipment-system',
+  component: NewOperationalStatusOfEquipmentSystemComponent
+},
+{
+  path: 'operational-status-of-equipment-system-list',
+  component: OperationalStatusOfEquipmentSystemListComponent
+},
+{
+  path: 'add-overall-operational-status-of-equipment-system-list',
+  component: NewOperationalStatusOfEquipmentSystemComponent
+},
+{
+  path: 'update-overall-operational-status-of-equipment-system-list/:operationalStatusOfEquipmentSystemId',
+  component: NewOperationalStatusOfEquipmentSystemComponent
 },
 
 

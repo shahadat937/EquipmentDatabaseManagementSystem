@@ -22,7 +22,9 @@ export class NewRoleFeatureComponent implements OnInit {
   validationErrors: string[] = [];
   selectedModel:SelectedModel[];
   selectedrole:SelectedModel[];
+  selectRole: SelectedModel[];
   selectedfeature:SelectedModel[];
+  selectFeature:SelectedModel[];
 
   constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private RoleFeatureService: RoleFeatureService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
 
@@ -75,14 +77,23 @@ export class NewRoleFeatureComponent implements OnInit {
   getselectedrole(){
     this.RoleFeatureService.getselectedrole().subscribe(res=>{
       this.selectedrole=res
-
+      this.selectRole=res
     });
+  }
+  filterByRole(value: any) {
+    this.selectedrole = this.selectRole.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   getselectedfeature(){
     this.RoleFeatureService.getselectedfeature().subscribe(res=>{
       this.selectedfeature=res
+
+      this.selectFeature=res
+
     });
+  }
+  filterByFeature(value: any) {
+    this.selectedfeature = this.selectFeature.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   onSubmit() {

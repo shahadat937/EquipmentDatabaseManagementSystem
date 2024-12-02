@@ -53,6 +53,8 @@ import { NewProcurementMethodComponent } from './procurementmethod/new-procureme
 import { NewPaymentStatusComponent } from './paymentstatus/new-paymentstatus/new-paymentstatus.component';
 import { NewEnvelopeComponent } from './envelope/new-envelope/new-envelope.component';
 import { NewBookTypeComponent } from './booktype/new-booktype/new-booktype.component';
+import { NewSchoolNameComponent } from './new-schoolname/new-schoolname.component';
+// import {NewSchoolNameComponent} from './new-schoolname/new-schoolname.component'
 
 @NgModule({
   declarations: [
@@ -92,6 +94,7 @@ import { NewBookTypeComponent } from './booktype/new-booktype/new-booktype.compo
     NewProcurementMethodComponent,
     NewPaymentStatusComponent,
     NewEnvelopeComponent,
+    NewSchoolNameComponent
 
   ],
   imports: [

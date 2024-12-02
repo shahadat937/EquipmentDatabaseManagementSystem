@@ -31,17 +31,21 @@
                 <div class="row">
                   <!-- Ship Name -->
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <mat-label>Ship Name</mat-label>
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Ship Name </mat-label>
                       <mat-select formControlName="baseSchoolNameId" required>
+                        <input type="text" 
+                        style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                      
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByShip($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
-                        <mat-option
-                          *ngFor="let dropdown of selectedBaseSchoolName"
-                          [value]="dropdown.value"
-                        >
-                          {{ dropdown.text }}
+                        <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                          {{dropdown.text}}
                         </mat-option>
                       </mat-select>
+                      
                     </mat-form-field>
                   </div>
   
@@ -65,17 +69,20 @@
                 <div class="row">
                   <!-- Report Month -->
                   <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <mat-label>Report Month</mat-label>
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Reporting Month</mat-label>
                       <mat-select formControlName="reportingMonthId" required>
+                        <input type="text" 
+                        style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByMonth($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
-                        <mat-option
-                          *ngFor="let dropdown of selectedReportingMonth"
-                          [value]="dropdown.value"
-                        >
-                          {{ dropdown.text }}
+                        <mat-option *ngFor="let dropdown of selectedReportingMonth" [value]="dropdown.value">
+                          {{dropdown.text}}
                         </mat-option>
                       </mat-select>
+                     
                     </mat-form-field>
                   </div>
   

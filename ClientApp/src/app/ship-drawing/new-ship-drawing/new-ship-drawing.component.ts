@@ -37,7 +37,9 @@ export class NewShipDrawingComponent implements OnInit {
   masterData = MasterData;
   organizationId: any;
   selectedCommendingArea: any[];
+  selectComandinArea: SelectedModel[]
   selectedBaseName: any[];
+  selectBaseName: SelectedModel[]
   commendingAreaId: any;
   selectedBaseSchoolName: any[];
   isAreaCommanderUsers: boolean;
@@ -57,6 +59,7 @@ export class NewShipDrawingComponent implements OnInit {
   dataSource: MatTableDataSource<ShipDrowing> = new MatTableDataSource();
 
   selection = new SelectionModel<ShipDrowing>(true, []);
+  selectSchoolName: SelectedModel[];
 
   constructor(private snackBar: MatSnackBar, private BaseSchoolNameService: BaseSchoolNameService, private authService: AuthService, private confirmService: ConfirmService, private ShipDrowingService: ShipDrowingService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, public SharedService: SharedService) { }
 
@@ -138,9 +141,19 @@ export class NewShipDrawingComponent implements OnInit {
     console.log(this.organizationId + " organization")
     this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res => {
       this.selectedCommendingArea = res
+      this.selectComandinArea=res
       console.log("selected comanding area");
       //  console.log(this.selectedCommendingArea);
     });
+  }
+  filterByCommandingArea(value: any) {
+    this.selectedCommendingArea = this.selectComandinArea.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
+  }
+  filterByBaseName(value: any) {
+    this.selectedBaseSchoolName = this.selectBaseName.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
+  }
+  filterByShipName(value: any) {
+    this.selectedBaseSchoolName = this.selectSchoolName.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
   onOrganizationSelectionChange() {
     var baseNameId = this.ShipDrowingForm.value['baseNameId'];
@@ -154,7 +167,7 @@ export class NewShipDrawingComponent implements OnInit {
     console.log(baseNameId);
     this.BaseSchoolNameService.getSelectedSchoolName(baseNameId).subscribe(res => {
       this.selectedBaseSchoolName = res
-      console.log(this.selectedBaseName);
+      this.selectSchoolName=res
     });
   }
   onCommendingAreaSelectionChangeGetBaseName() {
@@ -163,7 +176,7 @@ export class NewShipDrawingComponent implements OnInit {
     console.log(this.commendingAreaId);
     this.BaseSchoolNameService.getSelectedBaseName(this.commendingAreaId).subscribe(res => {
       this.selectedBaseName = res
-      console.log(this.selectedBaseName);
+      this.selectBaseName=res
     });
     //this.getBaseNameList(this.commendingAreaId);
 

@@ -19,6 +19,7 @@ export class NewUserManual extends UnsubscribeOnDestroyAdapter implements OnInit
   pageTitle: string;
   destination:string;
   roleValues:SelectedModel[];
+  selectRoleValue: SelectedModel[];
   selectedRoles:any;
   selectRoles:SelectedModel[];
   UserManualForm: FormGroup;
@@ -73,8 +74,11 @@ export class NewUserManual extends UnsubscribeOnDestroyAdapter implements OnInit
   getRoleName(){
     this.RoleService.getselectedrole().subscribe(res=>{
       this.roleValues=res
-      console.log(this.roleValues);
+      this.selectRoleValue=res
     });
+  }
+  filterByRole(value: any) {
+    this.roleValues = this.selectRoleValue.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   onSubmit() {

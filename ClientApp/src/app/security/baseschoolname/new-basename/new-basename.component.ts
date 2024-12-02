@@ -23,6 +23,7 @@ export class NewBaseNameComponent implements OnInit {
   validationErrors: string[] = [];
   selectedOrganization:SelectedModel[];
   selectedCommendingArea:SelectedModel[];
+  selectCommandingArea:SelectedModel[];
   organizationId:any;
   commendingAreaId:any;
   isShown:boolean=false;
@@ -96,10 +97,12 @@ export class NewBaseNameComponent implements OnInit {
     console.log(this.organizationId)    
     this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res=>{
       this.selectedCommendingArea=res
-      console.log(this.selectedCommendingArea);
+      this.selectCommandingArea=res
     });        
   }
-  
+  filterByCommandingArea(value: any) {
+    this.selectedCommendingArea = this.selectCommandingArea.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
+  }
   onCommendingAreaSelectionChangeGetBaseList(){
     this.commendingAreaId=this.BaseNameForm.value['secondLevel'];
     console.log(this.commendingAreaId);

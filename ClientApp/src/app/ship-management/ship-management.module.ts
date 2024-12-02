@@ -22,8 +22,8 @@ import {NewShipInformationComponent} from './shipinformation/new-shipinformation
 import {ShipInformationListComponent} from './shipinformation/shipinformation-list/shipinformation-list.component'
 import { ShipEquipmentInfoListComponent } from './shipequipmentinfo/shipequipmentinfo-list/shipequipmentinfo-list.component';
 import { NewShipEquipmentInfoComponent } from './shipequipmentinfo/new-shipequipmentinfo/new-shipequipmentinfo.component';
-import { OperationalStatusOfEquipmentSystemListComponent } from './operational-status-equipment-system/operational-status-of-equipment-system-list/operational-status-of-equipment-system-list.component';
-import { NewOperationalStatusOfEquipmentSystemComponent } from './operational-status-equipment-system/new-operational-status-of-equipment-system/new-operational-status-of-equipment-system.component';
+// import { OperationalStatusOfEquipmentSystemListComponent } from './operational-status-equipment-system/operational-status-of-equipment-system-list/operational-status-of-equipment-system-list.component';
+// import { NewOperationalStatusOfEquipmentSystemComponent } from './operational-status-equipment-system/new-operational-status-of-equipment-system/new-operational-status-of-equipment-system.component';
 
 
 
@@ -33,8 +33,8 @@ import { NewOperationalStatusOfEquipmentSystemComponent } from './operational-st
     ShipInformationListComponent,
     ShipEquipmentInfoListComponent,
     NewShipEquipmentInfoComponent,
-    OperationalStatusOfEquipmentSystemListComponent,
-    NewOperationalStatusOfEquipmentSystemComponent,
+    // OperationalStatusOfEquipmentSystemListComponent,
+    // NewOperationalStatusOfEquipmentSystemComponent,
   ],
   imports: [
     CommonModule,

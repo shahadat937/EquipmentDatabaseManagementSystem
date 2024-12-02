@@ -24,6 +24,7 @@ selectedBaseSchoolName: SelectedModel[] = [];
   pageTitle: string;
   destination: string;
   validationErrors: string[] = [];
+  selectShip: SelectedModel[];
 
     constructor( private fb: FormBuilder,private YearlyReturnService: YearlyReturnService, private OverallStatusOfShip: OverallStatusOfShip, private router: Router,  private route: ActivatedRoute, private confirmService: ConfirmService, private sharedService : SharedService, private snackBar: MatSnackBar,) { }
     ngOnInit(): void {
@@ -67,9 +68,12 @@ selectedBaseSchoolName: SelectedModel[] = [];
     getSelectedSchoolByBranchLevelAndThirdLevel(){
       this.OverallStatusOfShip.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
         this.selectedBaseSchoolName=res;
-     
+        this.selectShip=res;
       }); 
       
+    }
+    filterByShip(value:any){
+      this.selectedBaseSchoolName=this.selectShip.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
     }
     getSelectedOperationalStatus() {
       this.OverallStatusOfShip.getSelectedOperationalStatus().subscribe(

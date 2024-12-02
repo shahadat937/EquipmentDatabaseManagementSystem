@@ -45,6 +45,9 @@
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                         <mat-label>Commending Area</mat-label>                       
                         <mat-select formControlName="secondLevel" required (selectionChange)="onCommendingAreaSelectionChangeGetBaseList()">
+                          <input type="text" style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                        id="selectSearch" (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByCommandingArea($event.target.value)" placeholder="Search">
                             <mat-option *ngFor="let code of selectedCommendingArea" [value]="code.value">
                                 {{code.text}}
                               </mat-option>                          

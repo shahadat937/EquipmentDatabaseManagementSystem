@@ -28,7 +28,20 @@
                 <div class="row">
                   <div class="col-8">
                     <ul class="header-buttons-left ml-0">
-                      <h4 class="page-title">Establishment Information List</h4>
+                     
+                      <li class="dropdown">
+                        <mat-form-field appearance="outline" class="full-width">
+                          <mat-label>Search by Authority</mat-label>
+                          <input
+                            matInput
+                            type="text"
+                            placeholder="Search by Authority"
+                            (input)="applyFilter($event.target.value)" />
+                        </mat-form-field>
+                      </li>
+                      <li>
+                        <h4 class="page-title">Establishment Information List</h4>
+                      </li>
                     </ul>
                   </div>
                   <div class="col-4">
