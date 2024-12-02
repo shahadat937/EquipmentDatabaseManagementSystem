@@ -35,6 +35,28 @@ export class MonthlyReturnService {
    
   }
 
+  getMonthlyReturnsByAuthorityId(pageNumber, pageSize, searchText, authorityId) { 
+
+    let params = new HttpParams();
+
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    params = params.append('authorityId', authorityId.toString());
+
+    
+    return this.http.get<IMonthlyReturnPagination>(this.baseUrl + '/monthly-return/get-MonthlyReturns-by-AuthorityId', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        console.log(response)
+        this.MonthlyReturns = [...this.MonthlyReturns, ...response.body.items];
+        this.MonthlyReturnPagination = response.body;
+        return this.MonthlyReturnPagination;
+      })
+    );
+   
+  }
+
   find(id: number) {
     return this.http.get<MonthlyReturn>(this.baseUrl + '/monthly-return/get-MonthlyReturnDetail/' + id);
   }

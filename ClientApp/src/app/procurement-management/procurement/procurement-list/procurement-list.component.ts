@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { MasterData } from 'src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Role } from 'src/app/core/models/role';
+import { AuthService } from 'src/app/core/service/auth.service';
 
 
 @Component({
@@ -29,6 +31,10 @@ export class ProcurementListComponent implements OnInit {
     pageSize: 5,
     length: 1
   }
+  userRoles  = Role
+  role : string;
+  branchId : string;
+  isCommandingAreaId : boolean;
   searchByOptions = ["shipname", "equipmentname"]
   searchText = "";
   isShipNameChecked: boolean = true;
@@ -40,15 +46,17 @@ export class ProcurementListComponent implements OnInit {
   procurementMethodName1: string
   procurementMethodName2: string
   selectedProcurementTypeId: number;
-
+  isCommandingAreaUsers : boolean;
   displayedColumns: string[] = ['ser', 'schoolName', 'procurementType', 'groupName', 'equpmentName', 'qty', 'ePrice', 'fcLcName', 'dgdpNssdName', 'controlledName', 'tecName', 'sentToDgdpNssdDate', 'tenderOpeningDateTypeName', 'tenderOpeningDate', 'offerReceivedDate', 'sentForContractDate', 'clarificationToOemSentDate', 'contractSignedDate', 'paymentStatus', 'remarks', 'actions'];
   dataSource: MatTableDataSource<Procurement> = new MatTableDataSource();
 
   selection = new SelectionModel<Procurement>(true, []);
 
-  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService) { }
+  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService) { }
 
   ngOnInit() {
+    this.role = this.authService.currentUserValue.role;
+    this.branchId = this.authService.currentUserValue.branchId;
     this.getProcurementMethods()
     // this.getProcurements();
 
@@ -74,19 +82,48 @@ export class ProcurementListComponent implements OnInit {
     })
   }
 
+  getProcurementsByPeocureMethodIdAndAuthorityId(procurementMethodId) {
+    this.ProcurementService.getProcurementsByProcurementMethodIdAndAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.searchBy, procurementMethodId, this.branchId).subscribe(response => {
+      this.dataSource.data = response.items;
+      this.paging.length = response.totalItemsCount
+      this.isLoading = false;
+      this.itemCount = response.items.length;
+    })
+  }
+
   getProcurementMethods() {
     this.isLoading = true;
-    this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
-
-      console.log(response);
-      this.procurementMethodId1 = response.items[0]?.procurementMethodId;
-      this.procurementMethodId2 = response.items[1]?.procurementMethodId;
-      this.procurementMethodName1 = response.items[0]?.name;
-      this.procurementMethodName2 = response.items[1]?.name;
-      this.selectedProcurementTypeId = response.items[0]?.procurementMethodId;
-      this.getProcurementsByPeocureMethodId(this.procurementMethodId1)
-
-    })
+    // if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO || this.role === this.userRoles.FLOStaff){
+    //   this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+    //     this.procurementMethodId1 = response.items[0]?.procurementMethodId;
+    //     this.procurementMethodId2 = response.items[1]?.procurementMethodId;
+    //     this.procurementMethodName1 = response.items[0]?.name;
+    //     this.procurementMethodName2 = response.items[1]?.name;
+    //     this.selectedProcurementTypeId = response.items[0]?.procurementMethodId;
+    //     this.getProcurementsByPeocureMethodIdAndAuthorityId(this.procurementMethodId1)
+  
+    //   })
+    // }
+    // else{
+      this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+        this.procurementMethodId1 = response.items[0]?.procurementMethodId;
+        this.procurementMethodId2 = response.items[1]?.procurementMethodId;
+        this.procurementMethodName1 = response.items[0]?.name;
+        this.procurementMethodName2 = response.items[1]?.name;
+        this.selectedProcurementTypeId = response.items[0]?.procurementMethodId;
+        if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO || this.role === this.userRoles.FLOStaff){
+          this.getProcurementsByPeocureMethodIdAndAuthorityId(this.procurementMethodId1)
+          this.isCommandingAreaUsers = true;
+          
+        }
+        else{
+          this.getProcurementsByPeocureMethodId(this.procurementMethodId1)
+        }
+        
+  
+      })
+    // }
+    
 
   }
   pageChanged(event: PageEvent) {

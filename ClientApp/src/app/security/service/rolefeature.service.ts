@@ -37,12 +37,12 @@ export class RoleFeatureService {
 
   
 
-  find(Roleid:number,Featureid:number) {
+  find(Roleid:string,Featureid:number) {
     return this.http.get<RoleFeature>(this.baseUrl + '/RoleFeature/get-RoleFeatureDetail?RoleId='+Roleid+'&FeatureId='+Featureid);
   }
    
 
-  update(Roleid:number,Featureid:number,model: any) { 
+  update(Roleid:string,Featureid:number,model: any) { 
     //return this.http.put(this.baseUrl + '/RoleFeature/update-RoleFeature/'+id, model);
     return this.http.put(this.baseUrl + '/RoleFeature/update-RoleFeature?RoleId='+Roleid+'&FeatureId='+Featureid, model);
   }

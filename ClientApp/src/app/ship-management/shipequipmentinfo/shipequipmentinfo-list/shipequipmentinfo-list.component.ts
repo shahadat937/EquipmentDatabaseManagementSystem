@@ -36,6 +36,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
   equipmentCategoryId: string;
   stateOfEquipmentId: string;
   equipmentNameId: string;
+  isCommandingAreaUsers : boolean;
 
   displayedColumns: string[] = ['ser', 'shipName', 'equipmentCategory', 'equpmentName', 'qty', 'model', 'brand', 'techSpecification', 'manufacturerNameAndAddress', 'acquisitionMethodName', 'yearOfInstallation', 'location', 'stateOfEquipment', 'powerSupply', 'avrbrand', 'avrmodel', 'interfaceProtocol', 'composition', 'defectDescription', 'remarks', 'actions'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -58,6 +59,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     } else {
       this.getShipEquipmentInfos(0);
     }
+    this.userRoleCheck();
   }
 
   getShipEquipmentInfos(shipId) {
@@ -134,6 +136,12 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     }
      else {
       this.getShipEquipmentInfos(0);
+    }
+  }
+
+  userRoleCheck(){
+    if(this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.FLOStaff){
+      this.isCommandingAreaUsers = true;
     }
   }
   printSingle() {
