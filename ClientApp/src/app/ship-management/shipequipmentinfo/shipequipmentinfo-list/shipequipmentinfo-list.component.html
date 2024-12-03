@@ -210,7 +210,7 @@
                         <th class="custom-header">Composition</th>
                         <th class="custom-header">Defect Description</th>
                         <th class="custom-header">Remarks</th>
-                        <th [hidden]="isCommandingAreaUsers" class="custom-header">Actions</th>
+                        <th [hidden]="isCommandingAreaUsers" class="custom-header" style="position: sticky; right: 0; background-color: #db143c; z-index: 1000;">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -235,7 +235,7 @@
                         <td>{{ element.composition }}</td>
                         <td>{{ element.defectDescription }}</td>
                         <td>{{ element.remarks }}</td>
-                        <td [hidden]="isCommandingAreaUsers" class="cl-action">
+                        <td [hidden]="isCommandingAreaUsers" class="cl-action" style="position: sticky; right: 0; background-color: #f2f2da; z-index: 1000;">
                           <!-- <button class="btn btn-sm btn-primary" >
                             Edit
                           </button> -->

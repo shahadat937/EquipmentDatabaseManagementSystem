@@ -69,11 +69,12 @@
                 <table class="table tbl-by-group db-li-s-in">
                   <thead>
                     <tr>
-                      <th class="cl-mrk-rmrk"><h5>Authority</h5></th>
-                      <th class="cl-mrk-rmrk"><h5>Ship Name</h5></th>
-                      <th class="cl-mrk-rmrk"><h5>SQN</h5></th>
-                      <th class="cl-mrk-rmrk"><h5>OPL/NON-OPL</h5></th>
-                      <th class="cl-action"><h5></h5></th>
+                      <th class="cl-mrk-rmrk"><h5>Admin Authority</h5></th>
+                      <th class="cl-mrk-rmrk"><h5>Eastablishment Name</h5></th>
+                      <th class="cl-mrk-rmrk"><h5>Address</h5></th>
+                      <!-- <th class="cl-mrk-rmrk"><h5>SQN</h5></th>
+                      <th class="cl-mrk-rmrk"><h5>OPL/NON-OPL</h5></th> -->
+                      <!-- <th class="cl-action"><h5></h5></th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -85,14 +86,15 @@
                         <td >
                           {{number.shipName}}
                         </td>
-                        <td >
+                        <td>Address N/A </td>
+                        <!-- <td >
                           {{number.sqnName}}
                         </td>
                         <td >
                           {{number.osName}}
-                        </td>
+                        </td> -->
                      
-                        <td class="col table-img  img-on-hover">
+                        <!-- <td class="col table-img  img-on-hover">
                           <button mat-icon-button class="btn-tbl-view" title="View Course Details" [routerLink]="['/admin/dashboard/view-shipinformationdetails',number.shipInformationId,4]">
                             <mat-icon aria-label="Edit" class="col-white">visibility</mat-icon>
                           </button>
@@ -100,7 +102,7 @@
                           <div class="pop-on-hover">
                             <img [src]="masterData.fileUrl.imgUrl +number.fileUpload" />
                           </div>
-                        </td>
+                        </td> -->
                       </tr>
                      </ng-container>
                   </tbody>

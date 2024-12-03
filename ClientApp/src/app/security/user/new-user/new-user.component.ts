@@ -38,6 +38,10 @@ export class NewUserComponent implements OnInit {
 
   options = [];
   filteredOptions;
+  selectRole: SelectedModel[];
+  selectAdminAuthority: SelectedModel[];
+  selectBaseName: SelectedModel[];
+  selectShipName: SelectedModel[];
 
   constructor(private snackBar: MatSnackBar,private RoleService: RoleService,private BaseSchoolNameService: BaseSchoolNameService,private confirmService: ConfirmService,private UserService: UserService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
 
@@ -155,8 +159,11 @@ export class NewUserComponent implements OnInit {
   getRoleName(){
     this.RoleService.getselectedrole().subscribe(res=>{
       this.roleValues=res
-      console.log(this.roleValues);
+     this.selectRole=res
     });
+  }
+  filterByRole(value: any) {
+    this.roleValues = this.selectRole.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   getSelectedOrganization(){
@@ -171,8 +178,11 @@ export class NewUserComponent implements OnInit {
     console.log(this.organizationId+" organization")    
     this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res=>{
       this.selectedCommendingArea=res
-      console.log(this.selectedCommendingArea);
+      this.selectAdminAuthority=res
     });        
+  }
+  filterByCommandingArea(value: any) {
+    this.selectedCommendingArea = this.selectAdminAuthority.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
   
   onCommendingAreaSelectionChangeGetBaseName(){
@@ -180,18 +190,23 @@ export class NewUserComponent implements OnInit {
     console.log(this.commendingAreaId);
     this.BaseSchoolNameService.getSelectedBaseName(this.commendingAreaId).subscribe(res=>{
       this.selectedBaseName=res
-      console.log(this.selectedBaseName);
+      this.selectBaseName = res
     });  
-    //this.getBaseNameList(this.commendingAreaId);
-            
+    
+  }
+  filterByBaseName(value: any) {
+    this.selectedBaseName = this.selectBaseName.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
   onBaseNameSelectionChangeGetBaseSchoolName(){
     this.baseNameId=this.UserForm.value['thirdLevel'];
     console.log(this.baseNameId);
     this.BaseSchoolNameService.getSelectedSchoolName(this.baseNameId).subscribe(res=>{
       this.selectedSchoolName=res
-      console.log(this.selectedBaseName);
+      this.selectShipName = res
     }); 
+  }
+  filterByShipName(value: any) {
+    this.selectedSchoolName = this.selectShipName.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   

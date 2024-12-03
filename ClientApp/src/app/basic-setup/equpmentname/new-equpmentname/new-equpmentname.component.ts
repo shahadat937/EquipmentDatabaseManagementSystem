@@ -26,6 +26,7 @@ export class NewEqupmentNameComponent implements OnInit {
   validationErrors: string[] = [];
   selectedModel:SelectedModel[];
   selectedOperationalStatus:SelectedModel[];
+  selectEquipmentCategory: SelectedModel[]
   masterData = MasterData;
   ELEMENT_DATA: EqupmentName[] = [];
   equpmentNameList:EqupmentName[];
@@ -109,8 +110,11 @@ export class NewEqupmentNameComponent implements OnInit {
   getSelectedEquipmentCategory(){
     this.EqupmentNameService.getSelectedEquipmentCategory().subscribe(res=>{
       this.selectedOperationalStatus=res
- 
+      this.selectEquipmentCategory=res
     }); 
+  }
+  filterByEquipmentCategory(value: any) {
+    this.selectedOperationalStatus = this.selectEquipmentCategory.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
   pageChanged(event: PageEvent) {
     this.paging.pageIndex = event.pageIndex
