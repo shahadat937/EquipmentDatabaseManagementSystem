@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/core/service/auth.service';
 import { MasterData } from 'src/assets/data/master-data';
 import {BaseSchoolNameService} from '../../../../app/security/service/BaseSchoolName.service'
 import { Role } from 'src/app/core/models/role';
+import { ShipEquipmentInfoService } from '../../service/ShipEquipmentInfo.service'; 
 
 @Component({
   selector: 'app-new-shipinformation',
@@ -47,7 +48,7 @@ export class NewShipInformationComponent implements OnInit {
   isFile : boolean;
   isCommandingAreaUsers : boolean;
 
-  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipInformationService: ShipInformationService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService
+  constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipInformationService: ShipInformationService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService, private ShipEquipmentInfoService: ShipEquipmentInfoService
   ) { }
 
   ngOnInit(): void {
@@ -108,7 +109,8 @@ export class NewShipInformationComponent implements OnInit {
           });       
  
         this.onCommendingAreaSelectionChangeGetBaseName();
-        this.onOrganizationSelectionChange();
+        
+        // this.onOrganizationSelectionChange();
         }
       );
     } else {
@@ -118,7 +120,7 @@ export class NewShipInformationComponent implements OnInit {
     }
     this.intitializeForm();
  
-
+this.getSelectedSchoolByBranchLevelAndThirdLevel();
     if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){
       this.ShipInformationForm.get('baseSchoolNameId').setValue(this.branchId);
       this.BaseSchoolNameService.find(this.branchId).subscribe(res=>{
@@ -134,7 +136,7 @@ export class NewShipInformationComponent implements OnInit {
   }
 
 
-    this.getSelectedBaseName(this.branchId);
+    // this.getSelectedBaseName(this.branchId);
     this.getSelectedOrganizationByBranch();
     this.getSelectedSqn();
     this.getSelectedOperationalStatus();
@@ -145,7 +147,7 @@ export class NewShipInformationComponent implements OnInit {
     this.ShipInformationForm = this.fb.group({
       shipInformationId: [0],
       authorityId:[],
-      baseNameId: [],
+      baseNameId: [181],
       baseSchoolNameId: [],
       sqnId: [],
       operationalStatusId: [],
@@ -202,36 +204,35 @@ export class NewShipInformationComponent implements OnInit {
       this.selectedBaseName=res
 
     });  
-    //this.getBaseNameList(this.commendingAreaId);
             
+  }
+  getSelectedSchoolByBranchLevelAndThirdLevel(){
+    //var baseNameId = this.ShipEquipmentInfoForm.value['baseNameId'];
+    this.ShipEquipmentInfoService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
+      this.selectedBaseSchoolName=res;
+      // this.selectSchoolName = res;
+
+    }); 
   }
   filterBySchool(value:any){
     this.selectedBaseName=this.selectBaseName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
-  getSelectedBaseName(value){
+  // getSelectedBaseName(value){
 
-    this.ShipInformationService.getSelectedSchoolName(value).subscribe(res=>{
-      this.selectedBaseName=res
+  //   this.ShipInformationService.getSelectedSchoolName(value).subscribe(res=>{
+  //     this.selectedBaseName=res
 
-    }); 
-  }
-  onOrganizationSelectionChange(){
-    var baseNameId = this.ShipInformationForm.value['baseNameId'];
-    // this.ShipInformationService.getSelectedSchoolByBranchLevelAndThirdLevel(baseNameId).subscribe(res=>{
-    //   this.selectedBaseSchoolName=res
-    //   console.log(res)
-
-    // }); 
-
-   // this.baseNameId=this.UserForm.value['thirdLevel'];
-
+  //   }); 
+  // }
+  // onOrganizationSelectionChange(){
+  //   var baseNameId = this.ShipInformationForm.value['baseNameId'];
   
-    this.BaseSchoolNameService.getSelectedSchoolName(baseNameId).subscribe(res=>{
-      this.selectedBaseSchoolName=res
-      this.selectBaseName=res
-    }); 
-  }
+  //   this.BaseSchoolNameService.getSelectedSchoolName(baseNameId).subscribe(res=>{
+  //     this.selectedBaseSchoolName=res
+  //     this.selectBaseName=res
+  //   }); 
+  // }
   filterByShip(value:any){
     this.selectedBaseSchoolName=this.selectBaseName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
