@@ -175,7 +175,7 @@ export class NewSchoolNameComponent implements OnInit {
   }
   onSubmit() {
     const id = this.BaseSchoolForm.get('baseSchoolNameId').value;
-    //console.log(id);
+  
     const formData = new FormData();
     for (const key of Object.keys(this.BaseSchoolForm.value)) {
       const value = this.BaseSchoolForm.value[key];
