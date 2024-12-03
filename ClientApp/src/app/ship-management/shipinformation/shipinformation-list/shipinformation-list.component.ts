@@ -33,6 +33,7 @@ export class ShipInformationListComponent implements OnInit {
   traineeId: any;
   role: any;
   branchId: any;
+  isCommsndingAreaUsers : boolean;
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
@@ -64,6 +65,8 @@ export class ShipInformationListComponent implements OnInit {
       this.paging.length = 1;
       this.getShips();
     });
+
+    this.userRoleCheck();
 
   }
 
@@ -157,6 +160,13 @@ export class ShipInformationListComponent implements OnInit {
   applyFilter(searchText: string) {
     this.searchSubject.next(searchText);
   }
+
+  userRoleCheck(){
+    if(this.role === this.userRole.AreaCommander || this.role === this.userRole.CSO || this.role === this.userRole.FLO || this.role === this.userRole.FLOStaff){
+      this.isCommsndingAreaUsers = true;
+    }
+  }
+
   toggle() {
     this.showHideDiv = !this.showHideDiv;
   }

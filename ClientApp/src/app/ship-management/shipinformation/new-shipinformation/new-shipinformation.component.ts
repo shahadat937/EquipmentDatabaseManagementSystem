@@ -46,6 +46,7 @@ export class NewShipInformationComponent implements OnInit {
   shipImage : any;
   isImage : boolean;
   isFile : boolean;
+  isCommandingAreaUsers : boolean;
 
   constructor(private snackBar: MatSnackBar,private BaseSchoolNameService:BaseSchoolNameService,private authService: AuthService,private confirmService: ConfirmService,private ShipInformationService: ShipInformationService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, private sharedService : SharedService, private ShipEquipmentInfoService: ShipEquipmentInfoService
   ) { }
@@ -128,6 +129,11 @@ this.getSelectedSchoolByBranchLevelAndThirdLevel();
         this.ShipInformationForm.get('authorityId').setValue(res.secondLevel);
       });
     }
+    if(this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.CSO || this.role === this.userRole.FLOStaff){
+      this.ShipInformationForm.get('authorityId')?.setValue(this.branchId);
+      this.isCommandingAreaUsers = true;
+      this.onCommendingAreaSelectionChangeGetBaseName();     
+  }
 
 
     // this.getSelectedBaseName(this.branchId);

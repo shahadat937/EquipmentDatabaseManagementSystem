@@ -13,6 +13,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SharedService } from 'src/app/shared/shared.service';
+import { Role } from 'src/app/core/models/role';
+import { AuthService } from 'src/app/core/service/auth.service';
 @Component({
     selector: 'app-yearlyretrun-list',
     templateUrl: './quarterlyreturn-list.component.html',
@@ -26,6 +28,9 @@ import { SharedService } from 'src/app/shared/shared.service';
       pageSize: this.masterData.paging.pageSize,
       length: 1
     }
+    userRoles = Role
+    role : string;
+    branchId : string;
     reportYears = [
       { id: 1, year: '2020' },
       { id: 2, year: '2021' },
@@ -39,9 +44,12 @@ import { SharedService } from 'src/app/shared/shared.service';
   itemCount: number;
   selection = new SelectionModel<YearlyReturn>(true, []);
   showHideDiv: boolean;
+  isCommandingAreaUser : boolean;
 
-  constructor(private snackBar: MatSnackBar,private YearlyReturnService: YearlyReturnService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
+  constructor(private snackBar: MatSnackBar,private YearlyReturnService: YearlyReturnService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService) { }
     ngOnInit(): void {
+      this.role = this.authService.currentUserValue.role;
+      this.branchId = this.authService.currentUserValue.branchId;
       this.getYearlyReturn()
       this.searchSubject.pipe(
         debounceTime(300) // Adjust debounce time as needed
@@ -51,18 +59,52 @@ import { SharedService } from 'src/app/shared/shared.service';
       });
     }
 
-    getYearlyReturn(){
+    // getYearlyReturn(){
+    //   this.isLoading = true;
+    //   this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response=>{
+    //     this.dataSource.data = response.items; 
+    //     this.dataSource.data = response.items.map((item) => ({
+    //       ...item,
+    //       year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || 'Unknown'
+    //     }));
+    //   this.paging.length = response.totalItemsCount 
+    //   this.isLoading = false;  
+    //   this.itemCount = response.items.length;
+    //   })
+    // }
+
+    getYearlyReturn() {
       this.isLoading = true;
-      this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response=>{
-        this.dataSource.data = response.items; 
-        this.dataSource.data = response.items.map((item) => ({
-          ...item,
-          year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || 'Unknown'
-        }));
-      this.paging.length = response.totalItemsCount 
-      this.isLoading = false;  
-      this.itemCount = response.items.length;
-      })
+      if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO || this.role === this.userRoles.FLOStaff){
+        this.isCommandingAreaUser = true;
+        this.YearlyReturnService.getYearlyReturnByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
+          
+          this.dataSource.data = response.items;
+          this.dataSource.data = response.items.map((item) => ({
+            ...item,
+            year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
+          }));
+          this.paging.length = response.totalItemsCount
+          this.isLoading = false;
+          this.itemCount = response.items.length;
+    
+        })
+  
+      }
+      else{
+        this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+          this.dataSource.data = response.items;
+          this.dataSource.data = response.items.map((item) => ({
+            ...item,
+            year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
+          }));
+          this.paging.length = response.totalItemsCount
+          this.isLoading = false;
+          this.itemCount = response.items.length;
+    
+        })
+      }
+     
     }
 
     pageChanged(event: PageEvent) {

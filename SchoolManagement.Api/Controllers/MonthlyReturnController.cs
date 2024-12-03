@@ -27,6 +27,17 @@ public class MonthlyReturnController : ControllerBase
         return Ok(MonthlyReturns);
     }
 
+    [HttpGet]
+    [Route("get-MonthlyReturns-by-AuthorityId")]
+    public async Task<ActionResult<List<MonthlyReturnDto>>> GetAuthorityId([FromQuery] QueryParams queryParams, int authorityId)
+    {
+        var MonthlyReturns = await _mediator.Send(new GetMonthlyReturnByAuthorityIdRequest { 
+            QueryParams = queryParams,
+            AuthorityId = authorityId
+        });
+        return Ok(MonthlyReturns);
+    }
+
 
     [HttpGet]
     [Route("get-MonthlyReturnDetail/{id}")]

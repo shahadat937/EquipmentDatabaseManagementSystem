@@ -7,86 +7,120 @@ import { YearlyReturnService } from '../../service/YearlyReturn.service';
 import { Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
 import { PageEvent } from '@angular/material/paginator';
-import { SelectionModel } from '@angular/cdk/collections';import { Subject } from 'rxjs';
+import { SelectionModel } from '@angular/cdk/collections'; import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SharedService } from 'src/app/shared/shared.service';
+import { AuthService } from 'src/app/core/service/auth.service';
+import { Role } from 'src/app/core/models/role';
 
 @Component({
-    selector: 'app-yearlyretrun-list',
-    templateUrl: './yearlyreturn-list.component.html',
-    styleUrls: ['./yearlyreturn-list.component.css']
-  })
-  export class NewYearlyRetrunComponent implements OnInit{
-    masterData = MasterData;
-    paging = {
-      pageIndex: 1,
-      pageSize: 5,
-      length: 1
-    }
-    reportYears = [
-      { id: 1, year: '2020' },
-      { id: 2, year: '2021' },
-      { id: 3, year: '2022' },
-      { id: 4, year: '2023' }
-    ];
+  selector: 'app-yearlyretrun-list',
+  templateUrl: './yearlyreturn-list.component.html',
+  styleUrls: ['./yearlyreturn-list.component.css']
+})
+export class NewYearlyRetrunComponent implements OnInit {
+  masterData = MasterData;
+  paging = {
+    pageIndex: 1,
+    pageSize: 5,
+    length: 1
+  }
+  role: string;
+  branchId : string
+  userRoles = Role
+  isCommandingAreaUsers: boolean;
 
-    searchText="";
-    private searchSubject: Subject<string> = new Subject(); 
-    dataSource: MatTableDataSource<YearlyReturn> = new MatTableDataSource();
+  reportYears = [
+    { id: 1, year: '2020' },
+    { id: 2, year: '2021' },
+    { id: 3, year: '2022' },
+    { id: 4, year: '2023' }
+  ];
+
+  searchText = "";
+  private searchSubject: Subject<string> = new Subject();
+  dataSource: MatTableDataSource<YearlyReturn> = new MatTableDataSource();
   isLoading: boolean;
   itemCount: number;
   showHideDiv: boolean;
 
-  constructor(private snackBar: MatSnackBar,private YearlyReturnService: YearlyReturnService,private router: Router,private confirmService: ConfirmService, public SharedService: SharedService) { }
-    ngOnInit(): void {
-      this.getYearlyReturn()
-      this.searchSubject.pipe(
-        debounceTime(300) 
-      ).subscribe((searchText) => {
-        this.searchText = searchText;
-        this.getYearlyReturn();
-      });
-    }
+  constructor(private snackBar: MatSnackBar, private YearlyReturnService: YearlyReturnService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authSerive: AuthService) { }
+  ngOnInit(): void {
+    this.role = this.authSerive.currentUserValue.role;
+    this.branchId = this.authSerive.currentUserValue.branchId;
+    this.getYearlyReturn()
+    this.searchSubject.pipe(
+      debounceTime(300)
+    ).subscribe((searchText) => {
+      this.searchText = searchText;
+      this.getYearlyReturn();
+    });
+    this.checkUserRoles();
+  }
 
-    getYearlyReturn(){
-      this.isLoading = true;
-      this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response=>{
-        console.log(response);
+  getYearlyReturn() {
+    this.isLoading = true;
+    console.log(this.role)
+    if(this.role === this.userRoles.AreaCommander){
+      this.YearlyReturnService.getYearlyReturnByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
+        
         this.dataSource.data = response.items;
         this.dataSource.data = response.items.map((item) => ({
           ...item,
-          year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || 'Unknown'
+          year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
         }));
-      this.paging.length = response.totalItemsCount 
-      this.isLoading = false;  
-      this.itemCount = response.items.length;
+        this.paging.length = response.totalItemsCount
+        this.isLoading = false;
+        this.itemCount = response.items.length;
+  
+      })
 
+    }
+    else{
+      this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+        this.dataSource.data = response.items;
+        this.dataSource.data = response.items.map((item) => ({
+          ...item,
+          year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
+        }));
+        this.paging.length = response.totalItemsCount
+        this.isLoading = false;
+        this.itemCount = response.items.length;
+  
       })
     }
-    applyFilter(searchText: string) {
-      this.searchSubject.next(searchText);
+   
+  }
+  applyFilter(searchText: string) {
+    this.searchSubject.next(searchText);
+  }
+  pageChanged(event: PageEvent) {
+    this.paging.pageIndex = event.pageIndex
+    this.paging.pageSize = event.pageSize
+    this.paging.pageIndex = this.paging.pageIndex + 1
+    this.getYearlyReturn();
+  }
+  checkUserRoles() {
+
+    if (this.role === this.userRoles.AreaCommander || this.role === this.userRoles.CSO || this.role === this.userRoles.FLO || this.role === this.userRoles.FLOStaff ){
+      this.isCommandingAreaUsers = true;
     }
-    pageChanged(event: PageEvent) {
-      this.paging.pageIndex = event.pageIndex
-      this.paging.pageSize = event.pageSize
-      this.paging.pageIndex = this.paging.pageIndex + 1
-      this.getYearlyReturn();
     }
-    toggle() {
-      this.showHideDiv = !this.showHideDiv;
-    }
-    printSingle() {
-      this.showHideDiv = false;
-      this.print();
-    }
-    print() {
-      let printContents, popupWin;
-  
-      printContents = document.getElementById("print-routine").innerHTML;
-      popupWin = window.open("", "top=0,left=0,height=100%,width=auto");
-    
-      popupWin.document.open();
-      popupWin.document.write(`
+  toggle() {
+    this.showHideDiv = !this.showHideDiv;
+  }
+  printSingle() {
+    this.showHideDiv = false;
+    this.print();
+  }
+  print() {
+    let printContents, popupWin;
+
+    printContents = document.getElementById("print-routine").innerHTML;
+    popupWin = window.open("", "top=0,left=0,height=100%,width=auto");
+
+    popupWin.document.open();
+    popupWin.document.write(`
         <html>
           <head>
             <style>
@@ -144,27 +178,27 @@ import { SharedService } from 'src/app/shared/shared.service';
             ${printContents}
           </body>
         </html>`);
-      popupWin.document.close();
-    }
-    deleteItem(row) {
-      const id = row.yearlyReturnId; 
-      this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-    
-        if (result) {
-          this.YearlyReturnService.delete(id).subscribe(() => {
-            this.getYearlyReturn();
-            this.snackBar.open('Information Deleted Successfully ', '', {
-              duration: 2000,
-              verticalPosition: 'bottom',
-              horizontalPosition: 'right',
-              panelClass: 'snackbar-danger'
-            });
-          })
-        }
-      })    
-    }
-    
+    popupWin.document.close();
   }
+  deleteItem(row) {
+    const id = row.yearlyReturnId;
+    this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
+
+      if (result) {
+        this.YearlyReturnService.delete(id).subscribe(() => {
+          this.getYearlyReturn();
+          this.snackBar.open('Information Deleted Successfully ', '', {
+            duration: 2000,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'right',
+            panelClass: 'snackbar-danger'
+          });
+        })
+      }
+    })
+  }
+
+}
 
 
 

@@ -1,30 +1,31 @@
 <section class="content">
-    <div class="container-fluid">
-      <div class="block-header">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <ul class="breadcrumb breadcrumb-style ">
-              <li class="breadcrumb-item">
-                <h4 class="page-title">{{pageTitle}}</h4>
-              </li>
-              <li class="breadcrumb-item bcrumb-1">
-                <a routerLink="/admin/dashboard/main">
-                  <i class="fas fa-home"></i> </a>
-              </li>
-              <li class="breadcrumb-item bcrumb-2">
-                <a href="#" onClick="return false;">Ship Drowing</a>
-              </li>
-              <li class="breadcrumb-item active">{{destination}}</li>
-            </ul>
-          </div> 
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">{{pageTitle}}</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/admin/dashboard/main">
+                <i class="fas fa-home"></i> </a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Ship Drowing</a>
+            </li>
+            <li class="breadcrumb-item active">{{destination}}</li>
+          </ul>
         </div>
       </div>
-      <div class="row clearfix">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-          <div class="card">
-            <div class="body">
-              <form class="m-4" [formGroup]="ShipDrowingForm" (ngSubmit)="onSubmit()">
-                <div class="row">
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="body">
+            <form [hidden]="isAreaCommanderUsers" class="m-4" [formGroup]="ShipDrowingForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+
 
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
@@ -79,144 +80,187 @@
                     </mat-form-field>
                   </div>
 
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Name</mat-label>
-                      <input matInput formControlName="name" required>
-                    </mat-form-field>
-                  </div>
-              
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Documents</mat-label>
-                      <ngx-mat-file-input (change)="onFileChanged($event)"
-                        accept=".txt,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx">
-                      </ngx-mat-file-input>
-                      <mat-icon matSuffix>attachment</mat-icon>
-                    </mat-form-field>
-                  </div>
+                <div [hidden]="isAreaCommanderUsers"
+                  class="col-xl-3 col-lg-3 col-md-6 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Commending Area</mat-label>
+                    <mat-select formControlName="authorityId"
+                      (selectionChange)="onCommendingAreaSelectionChangeGetBaseName()">
+                      <mat-option *ngFor="let code of selectedCommendingArea" [value]="code.value">
+                        {{code.text}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
 
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Base Name </mat-label>
+                    <mat-select formControlName="baseNameId" (selectionChange)="onOrganizationSelectionChange()"
+                      required>
+                      <mat-option value="0">--Select--</mat-option>
+                      <mat-option *ngFor="let dropdown of selectedBaseName" [value]="dropdown.value">
+                        {{dropdown.text}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ShipDrowingForm.get('baseNameId').hasError('required')">
+                      Organization is required
+                    </mat-error>
+                  </mat-form-field>
                 </div>
-               
-                <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                    <button class="btn-space" [disabled]="!ShipDrowingForm.valid " mat-raised-button
-                      color="primary">{{btnText}}</button>
-                    <!-- <button type="button" mat-button routerLink="/basic-setup/ShipDrowing-list">Cancel</button> -->
-                  </div>
+
+
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Ship Name </mat-label>
+                    <mat-select formControlName="baseSchoolNameId" required>
+                      <mat-option value="0">--Select--</mat-option>
+                      <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                        {{dropdown.text}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ShipDrowingForm.get('baseSchoolNameId').hasError('required')">
+                      Ship Name is required
+                    </mat-error>
+                  </mat-form-field>
                 </div>
-              </form>
-              <div class="row mb-3">
-                <div class="icon-button-demo col-12">
-                        <button class="btn-success float-end rounded-pill px-4"  mat-raised-button
-                       (click)="SharedService.goBack()"> Back
-                          <mat-icon class="col-white">keyboard_backspace</mat-icon>
-                        </button>
-                      </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Documents</mat-label>
+                    <ngx-mat-file-input (change)="onFileChanged($event)"
+                      accept=".txt,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx">
+                    </ngx-mat-file-input>
+                    <mat-icon matSuffix>attachment</mat-icon>
+                  </mat-form-field>
+                </div>
+
               </div>
-              <div class="responsive_table">
-                <div class="materialTableHeader">
-                  
-                  <div class="row">
-                    <div class="col-8">
-                      <ul class="header-buttons-left ml-0">
-                        <li class="dropdown">
-                          <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
-                            aria-label="Search box">
-                        </li>
-                        <li>
-                          <div class="icon-button-demo m-l-10">                          
-                            <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
-                              <mat-icon class="col-white">search</mat-icon>
-                            </button>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-4">
-                      <ul class="header-buttons">
-                        <li>
-                          <div class="icon-button-demo">
-                            <!---->
-                            <!-- <button class="btn-space"  mat-raised-button
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <button class="btn-space" [disabled]="!ShipDrowingForm.valid " mat-raised-button
+                    color="primary">{{btnText}}</button>
+                  <!-- <button type="button" mat-button routerLink="/basic-setup/ShipDrowing-list">Cancel</button> -->
+                </div>
+              </div>
+            </form>
+
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ml-0">
+                      <li class="dropdown">
+                        <input placeholder="Search" type="text" [(ngModel)]="searchText" #filter
+                          class="browser-default search-field" aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="icon-button-demo m-l-10">
+                          <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
+                            <mat-icon class="col-white">search</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="icon-button-demo">
+                          <!---->
+                          <!-- <button class="btn-space"  mat-raised-button
                             color="primary" routerLink="/basic-setup/add-ShipDrowing"> Add
                               <mat-icon class="col-white">add</mat-icon>
                             </button> -->
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-                <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
-                  <ng-container matColumnDef="ser">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Ser. </mat-header-cell>
-                    <mat-cell *matCellDef="let element; let i = index;"> {{ ((paging.pageIndex-1) *  paging.pageSize) + i+1}} </mat-cell>
-                  </ng-container>       
-                
-                  <!-- <ng-container matColumnDef="departmentNameId">
+              </div>
+              <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                <ng-container matColumnDef="ser">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Ser. </mat-header-cell>
+                  <mat-cell *matCellDef="let element; let i = index;"> {{ ((paging.pageIndex-1) * paging.pageSize) +
+                    i+1}} </mat-cell>
+                </ng-container>
+
+                <!-- <ng-container matColumnDef="departmentNameId">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Flight Line/Squadron</mat-header-cell>
                     <mat-cell *matCellDef="let element"> 
                       <span *ngIf="element.departmentName == null"> All </span>   
                       <span *ngIf="element.departmentName != null"> {{element.departmentName}} </span>   
                     </mat-cell>
                   </ng-container> -->
-                  <!-- <ng-container matColumnDef="date">
+                <!-- <ng-container matColumnDef="date">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.date | date:'dd/MMM/yyyy'}} </mat-cell>
                   </ng-container> -->
-                  <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="authority">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Authority</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.authority}} </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="baseName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Base Name</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.baseName}} </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="baseSchoolName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Ship Name</mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.baseSchoolName}} </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="fileUpload">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Doc</mat-header-cell>
-                    <mat-cell *matCellDef="let element">  <a target="_blank" [href]="element.fileUpload">	<i matTooltip="File" class="far fa-file-pdf tbl-pdf"></i>	</a></mat-cell>
-                  
-                  </ng-container>
-                  <!-- <ng-container matColumnDef="orderBy">
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="authority">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Authority</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.authority}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="baseName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Base Name</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.baseName}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="baseSchoolName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Ship Name</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.baseSchoolName}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="fileUpload">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Doc</mat-header-cell>
+                  <mat-cell *matCellDef="let element"> <a target="_blank" [href]="element.fileUpload"> <i
+                        matTooltip="File" class="far fa-file-pdf tbl-pdf"></i> </a></mat-cell>
+
+                </ng-container>
+                <!-- <ng-container matColumnDef="orderBy">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Order By</mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.orderBy}} </mat-cell>
                   </ng-container> -->
-                  <ng-container matColumnDef="actions">
-                    <mat-header-cell *matHeaderCellDef class="pr-0">Actions</mat-header-cell>
-                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                      <button mat-icon-button color="accent" class="btn-tbl-edit" 
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell [hidden]="isAreaCommanderUsers"  *matHeaderCellDef class="pr-0">Actions</mat-header-cell>
+                  <mat-cell [hidden]="isAreaCommanderUsers" *matCellDef="let row; let i=index;" class="pr-0">
+                    <button mat-icon-button color="accent" class="btn-tbl-edit"
                       [routerLink]="['/ship-drawing/update-shipdrowing', row.shipDrowingId]">
-                        <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
-                      </button>
-                      <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
-                        (click)="deleteItem(row)">
-                        <mat-icon aria-label="Delete" class="col-white">delete</mat-icon> 
-                      </button>
-                    </mat-cell>
-                  </ng-container>
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
-              
-                <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
-                  [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
-                  (page)="pageChanged($event)">
-                </mat-paginator>
-              </div>
-             
+                      <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
+                      (click)="deleteItem(row)">
+                      <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+
+              <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                (page)="pageChanged($event)">
+              </mat-paginator>
+            </div>
+            <div class="icon-button-demo">
+              <button class="btn-space" mat-raised-button color="primary" (click)="SharedService.goBack()">
+                Back
+                <mat-icon class="col-white">keyboard_backspace</mat-icon>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>
