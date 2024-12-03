@@ -47,6 +47,73 @@ export class ShipInformationByTypeListComponent implements OnInit {
   applyFilter(searchText: string) {
     this.searchSubject.next(searchText);
   }
+  print() {
+    let printContents, popupWin;
+    printContents = document.getElementById("print-routine").innerHTML;
+    popupWin = window.open("top=0,left=0,height=100%,width=auto");
+    popupWin.document.open();
+    popupWin.document.write(`
+      <html>
+        <head>
+          <style>
+            body{  width: 99%;}
+            label { font-weight: 400;
+                    font-size: 13px;
+                    padding: 2px;
+                    margin-bottom: 5px;
+                  }
+            table, td, th {
+                  border: 1px solid silver;
+                    }
+                    table td {
+                  font-size: 13px;
+                    }
+                    .table.table.tbl-by-group.db-li-s-in tr .col.table-img.img-on-hover{
+                      display: none;
+                    }
+        
+                    .table.table.tbl-by-group.db-li-s-in tr td{
+                      text-align:center;
+                      padding: 0px 5px;
+                    }
+                    
+                  }
+                  .table.table.tbl-by-group.db-li-s-in tr .btn-tbl-edit {
+                    display:none;
+                  }
+                  
+
+                    table th {
+                  font-size: 13px;
+                    }
+              table {
+                    border-collapse: collapse;
+                    width: 98%;
+                    }
+                th {
+                    height: 26px;
+                    }
+                .header-text{
+                  text-align:center;
+                }
+                .header-text h3{
+                  margin:0;
+                }
+          </style>
+        </head>
+        <body onload="window.print();window.close()">
+          <div class="header-text">
+          <h3>Total Establishment </h3>
+          
+          </div>
+          <br>
+          <hr>
+          ${printContents}
+          
+        </body>
+      </html>`);
+    popupWin.document.close();
+  }
 
   getShipInfoByShipType() {
     if (this.role === 'Area Commander') {

@@ -2067,8 +2067,9 @@ mat-header-cell.mat-header-cell.cdk-header-cell.child-ac.cdk-column-actions.mat-
 }
 
 .img-on-hover .pop-on-hover img {
-    width: 150px;
-    height: 150px;
+    position: relative;
+    width: 250px;
+    height: 180px;
 }
 
 .img-on-hover:hover .pop-on-hover {
