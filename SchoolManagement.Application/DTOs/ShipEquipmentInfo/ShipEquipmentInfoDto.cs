@@ -150,5 +150,6 @@
         public string? StateOfEquipment { get; set; }
         public string? SchoolName { get; set; }
         public string? ShortName { get; set; }
+        public DateTime  LastModifiedDate { get; set; }
     }
 }

@@ -37,7 +37,7 @@
                     <div class="col-8">
                       <ul class="header-buttons-left ml-0">
                         <li class="dropdown">
-                          <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
+                          <input  (input)="applyFilter(searchText)" placeholder="Search : Ship, EquipmentName, Model, Brand, Category" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
                             aria-label="Search box">
                         </li>
                         <li>
@@ -49,7 +49,7 @@
                         </li>
                       </ul>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                       <ul class="header-buttons">
                         <li>
                           <div class="icon-button-demo">
@@ -191,25 +191,26 @@
                     <thead>
                       <tr>
                         <th class="custom-header">Ser.</th>
-                        <th class="custom-header">Ship Name</th>
-                        <th class="custom-header">Equipment Category</th>
-                        <th class="custom-header">Equipment Name</th>
-                        <th class="custom-header">Qty</th>
-                        <th class="custom-header">Model</th>
-                        <th class="custom-header">Brand</th>
-                        <th class="custom-header">Technical Specification</th>
-                        <th class="custom-header">Manufacturer Info</th>
-                        <th class="custom-header">Acquisition Method</th>
-                        <th class="custom-header">Year of Installation</th>
-                        <th class="custom-header">Location</th>
-                        <th class="custom-header">State of Equipment</th>
-                        <th class="custom-header">Power Supply</th>
+                        <th class="custom-header" (click)="sortByKey('SchoolName')">Ship Name</th>
+                        <th class="custom-header" (click)="sortByKey('EquipmentCategory')">Equipment Category</th>
+                        <th class="custom-header" (click)="sortByKey('EqupmentName')">Equipment Name</th>
+                        <th class="custom-header" (click)="sortByKey('Qty')">Qty</th>
+                        <th class="custom-header" (click)="sortByKey('Model')">Model</th>
+                        <th class="custom-header" (click)="sortByKey('Brand')">Brand</th>
+                        <th class="custom-header" (click)="sortByKey('TechSpecification')">Technical Specification</th>
+                        <th class="custom-header" (click)="sortByKey('ManufacturerNameAndAddress')" style="max-width: 400px;">Manufacturer Info</th>
+                        <th class="custom-header" (click)="sortByKey('AcquisitionMethodName')">Acquisition Method</th>
+                        <th class="custom-header" (click)="sortByKey('YearOfInstallation')">Year of Installation</th>
+                        <th class="custom-header" (click)="sortByKey('Location')">Location</th>
+                        <th class="custom-header" (click)="sortByKey('StateOfEquipment')">State of Equipment</th>
+                        <th class="custom-header" (click)="sortByKey('PowerSupply')">Power Supply</th>
                         <!-- <th class="custom-header">AVR Brand</th>
                         <th class="custom-header">AVR Model</th> -->
-                        <th class="custom-header">Interface Protocol</th>
-                        <th class="custom-header">Composition</th>
-                        <th class="custom-header">Defect Description</th>
-                        <th class="custom-header">Remarks</th>
+                        <th class="custom-header" (click)="sortByKey('InterfaceProtocol')">Interface Protocol</th>
+                        <th class="custom-header" (click)="sortByKey('Composition')">Composition</th>
+                        <th class="custom-header" (click)="sortByKey('DefectDescription')">Defect Description</th>
+                        <th class="custom-header" (click)="sortByKey('Remarks')">Remarks</th>
+                        <th class="custom-header" (click)="sortByKey('LastModifiedDate')">Last Modification Date</th>
                         <th [hidden]="isCommandingAreaUsers" class="custom-header" style="position: sticky; right: 0; background-color: #db143c; z-index: 1000;">Actions</th>
                       </tr>
                     </thead>
@@ -223,7 +224,7 @@
                         <td>{{ element.model }}</td>
                         <td>{{ element.brand }}</td>
                         <td>{{ element.techSpecification }}</td>
-                        <td>{{ element.manufacturerNameAndAddress }}</td>
+                        <td style="max-width: 400px; width: 400px; white-space: normal; word-wrap: break-word;">{{ element.manufacturerNameAndAddress }}</td>
                         <td>{{ element.acquisitionMethodName }}</td>
                         <td>{{ element.yearOfInstallation }}</td>
                         <td>{{ element.location }}</td>
@@ -235,7 +236,8 @@
                         <td>{{ element.composition }}</td>
                         <td>{{ element.defectDescription }}</td>
                         <td>{{ element.remarks }}</td>
-                        <td [hidden]="isCommandingAreaUsers" class="cl-action" style="position: sticky; right: 0; background-color: #f2f2da; z-index: 1000;">
+                        <td>{{ element.lastModifiedDate   | date: 'dd MMMM yyyy' }}</td>
+                        <td [hidden]="isCommandingAreaUsers" class="cl-action" style="position: sticky; right: 0; background-color: #f2f2da;">
                           <!-- <button class="btn btn-sm btn-primary" >
                             Edit
                           </button> -->

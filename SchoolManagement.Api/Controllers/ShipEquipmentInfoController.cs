@@ -23,11 +23,13 @@ public class ShipEquipmentInfoController : ControllerBase
 
     [HttpGet]
     [Route("get-ShipEquipmentInfos")]
-    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> Get([FromQuery] QueryParams queryParams, int shipId)
+    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> Get([FromQuery] QueryParams queryParams, int shipId, string sortColumn, string sortDeriction)
     {
         var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoListRequest { 
             QueryParams = queryParams,
-            ShipId = shipId
+            ShipId = shipId,
+            SortColumn = sortColumn,
+            SortDirection = sortDeriction
         });
         return Ok(ShipEquipmentInfos);
     }

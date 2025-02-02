@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../src/environments/environment';
 import {IShipEquipmentInfoPagination,ShipEquipmentInfoPagination } from '../models/ShipEquipmentInfoPagination'
 import { ShipEquipmentInfo } from '../models/ShipEquipmentInfo';
 import { map } from 'rxjs';
@@ -14,7 +14,7 @@ export class ShipEquipmentInfoService {
   ShipEquipmentInfoPagination : any;
   constructor(private http: HttpClient) { }
 
-  getShipEquipmentInfos(pageNumber, pageSize, searchText,shipId) { 
+  getShipEquipmentInfos(pageNumber, pageSize, searchText,shipId, sortColumn, sortDeriction ) { 
 
     let params = new HttpParams();
 
@@ -22,12 +22,14 @@ export class ShipEquipmentInfoService {
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
     params = params.append('shipId', shipId.toString());
+    params = params.append('sortColumn', sortColumn.toString());
+    params = params.append('sortDeriction', sortDeriction.toString());
+  
 
     
     return this.http.get<IShipEquipmentInfoPagination>(this.baseUrl + '/ship-equipment-info/get-ShipEquipmentInfos', { observe: 'response', params })
     .pipe(
       map(response => {
-        console.log(response);
         this.ShipEquipmentInfos = [...this.ShipEquipmentInfos, ...response.body.items];
         this.ShipEquipmentInfoPagination = response.body;
 
@@ -68,7 +70,6 @@ export class ShipEquipmentInfoService {
     .pipe(
       map(response => {
         this.ShipEquipmentInfoPagination = response.body;
-        console.log(this.ShipEquipmentInfoPagination);
         return this.ShipEquipmentInfoPagination;
       })
     );
@@ -89,7 +90,6 @@ export class ShipEquipmentInfoService {
       map(response => {
         // this.ShipEquipmentInfos = [...this.ShipEquipmentInfos, ...response];
         this.ShipEquipmentInfoPagination = response.body;
-        console.log(this.ShipEquipmentInfoPagination);
         return this.ShipEquipmentInfoPagination;
       })
     );
@@ -106,7 +106,6 @@ export class ShipEquipmentInfoService {
     params = params.append('categoryId', categoryId.toString());
     params = params.append('equipmentNameId', equipmentNameId.toString())
     params = params.append('stateOfEquipmentId', stateOfEquipmentId.toString());
-    console.log(params);
     
     return this.http.get<IShipEquipmentInfoPagination>(this.baseUrl + '/ship-equipment-info/get-ShipEquipmentInfos-by-CategoryId-EquipmentNameId-StateOfEquipmentId', { observe: 'response', params })
     .pipe(
@@ -130,8 +129,6 @@ export class ShipEquipmentInfoService {
     params = params.append('equipmentNameId', equipmentNameId.toString())
     params = params.append('stateOfEquipmentId', stateOfEquipmentId.toString());
     params = params.append('commandingAreaId', commandingAreaId.toString());
-    console.log(params);
-    
     return this.http.get<any>(this.baseUrl + '/ship-equipment-info/get-ShipEquipmentInfos-by-CategoryId-EquipmentNameId-StateOfEquipmentId-CommandingAreaId', { observe: 'response', params })
     .pipe(
       map(response => {
