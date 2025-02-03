@@ -1,4 +1,5 @@
-﻿using SchoolManagement.Doamin;
+﻿using Microsoft.AspNetCore.Http;
+using SchoolManagement.Doamin;
 using SchoolManagement.Domain;
 
 namespace SchoolManagement.Application.DTOs.MonthlyReturns
@@ -29,5 +30,10 @@ namespace SchoolManagement.Application.DTOs.MonthlyReturns
         public string? ReportingMonth { get; set; }
         public string? SchoolName { get; set; }
         public string? ReturnType { get; set; }
+        public int? ShipEquipmentInfoId { get; set; }
+        public string? ModelName { get; set; }
+        public int? ReturnQty { get; set; }
+
+        public IFormFile? Doc { get; set; }
     }
 }

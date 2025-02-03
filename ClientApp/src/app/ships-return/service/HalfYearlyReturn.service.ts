@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../src/environments/environment';
 import {IHalfYearlyReturnPagination,HalfYearlyReturnPagination } from '../models/HalfYearlyReturnPagination'
 import { HalfYearlyReturn } from '../models/HalfYearlyReturn';
 import { map } from 'rxjs';
 import { SelectedModel } from '../../core/models/selectedModel';
-import { ShipEquipmentInfo } from 'src/app/ship-management/models/ShipEquipmentInfo';
+import { ShipEquipmentInfo } from '../../../../src/app/ship-management/models/ShipEquipmentInfo';
 import { shipEquipmentInfoList } from '../models/shipEquipmentInfoList';
 @Injectable({
   providedIn: 'root'

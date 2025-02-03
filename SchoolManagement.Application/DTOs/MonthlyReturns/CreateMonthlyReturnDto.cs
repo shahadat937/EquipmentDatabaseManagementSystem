@@ -23,6 +23,8 @@ namespace SchoolManagement.Application.DTOs.MonthlyReturns
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
         public IFormFile? Doc { get; set; }
+        public int? ShipEquipmentInfoId { get; set; }
+        public int? ReturnQty { get; set; }
     }
 }
  

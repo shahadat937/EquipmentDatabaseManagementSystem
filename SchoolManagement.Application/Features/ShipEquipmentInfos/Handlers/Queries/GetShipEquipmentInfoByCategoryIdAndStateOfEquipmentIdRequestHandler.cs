@@ -38,7 +38,7 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Quer
             IQueryable<ShipEquipmentInfo> query = _shipEquipmentRepository.FilterWithInclude(
                 x => x.EquipmentCategoryId == request.CategoryId &&
                      (request.StateOfEquipmentId == 0 || x.StateOfEquipmentId == request.StateOfEquipmentId) &&
-                     (x.Model.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
+                     (x.Model.Contains(request.QueryParams.SearchText) || x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || x.EqupmentName.Name.Contains((request.QueryParams.SearchText)) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
                 "EquipmentCategory", "EqupmentName", "StateOfEquipment", "BaseSchoolName", "AcquisitionMethod");
 
             // Total count before pagination
@@ -51,11 +51,19 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Quer
                 .Take(request.QueryParams.PageSize)
                 .ToListAsync(cancellationToken);
 
+            
+
             // Map to DTOs
             var resultDtos = _mapper.Map<List<ShipEquipmentInfoDto>>(pagedData);
 
             // Return paginated result
             return new PagedResult<ShipEquipmentInfoDto>(resultDtos, totalCount, request.QueryParams.PageNumber, request.QueryParams.PageSize);
         }
+
+      
+
+
     }
+
+
 }

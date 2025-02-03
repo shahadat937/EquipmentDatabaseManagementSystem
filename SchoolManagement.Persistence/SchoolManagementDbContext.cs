@@ -493,7 +493,12 @@ namespace SchoolManagement.Persistence
                 entity.HasOne(d => d.OperationalStatus)
                     .WithMany(p => p.MonthlyReturns)
                     .HasForeignKey(d => d.OperationalStatusId)
-                    .HasConstraintName("FK_MonthlyReturn_OperationalStatus");
+                    .HasConstraintName("FK_MonthlyReturn_OperationalStatus"); 
+                
+                //entity.HasOne(d => d.ShipEquipmentInfo)
+                //    .WithMany(p => p.MonthlyReturns)
+                //    .HasForeignKey(d => d.ShipEquipmentInfoId)
+                //    .HasConstraintName("FK_MonthlyReturn_ShipEquipmentInfo");
 
                 entity.HasOne(d => d.ReportingMonth)
                     .WithMany(p => p.MonthlyReturns)

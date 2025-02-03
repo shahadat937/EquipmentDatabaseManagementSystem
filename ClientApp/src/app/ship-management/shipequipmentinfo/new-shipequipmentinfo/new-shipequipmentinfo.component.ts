@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipEquipmentInfoService } from '../../service/ShipEquipmentInfo.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { MasterData } from 'src/assets/data/master-data';
-import { Role } from 'src/app/core/models/role';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
+import { MasterData } from '../../../../../src/assets/data/master-data';
+import { Role } from '../../../../../src/app/core/models/role';
 
 @Component({
   selector: 'app-new-shipequipmentinfo',
@@ -15,6 +15,7 @@ import { Role } from 'src/app/core/models/role';
   styleUrls: ['./new-shipequipmentinfo.component.sass']
 })
 export class NewShipEquipmentInfoComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>; 
   masterData = MasterData;
   userRole = Role;
   pageTitle: string;
@@ -152,6 +153,9 @@ export class NewShipEquipmentInfoComponent implements OnInit {
   AllExhaustFanMotor:boolean=false;
   AllSupplyFanMotor:boolean=false;
   WasteDisposerMachine:boolean=false;
+  isImage : boolean;
+  isFile : boolean;
+  shipImage : any;
 
   constructor(private snackBar: MatSnackBar,private authService: AuthService,private confirmService: ConfirmService,private ShipEquipmentInfoService: ShipEquipmentInfoService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute) { }
 
@@ -310,8 +314,11 @@ export class NewShipEquipmentInfoComponent implements OnInit {
             channel: res.channel,
             mode:res.mode,
             remarks: res.remarks,
+            fileUpload: res.fileUpload,
             menuPosition: res.menuPosition,
             isActive: res.isActive,
+            oplQty: res.oplQty,
+            nonOplQty : res.nonOplQty
             
           });   
           this.onEquipmentCategorySelectionChangeGetequipmentName();       
@@ -326,7 +333,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     this.intitializeForm();
 
     if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){
-      this.ShipEquipmentInfoForm.get('baseSchoolNameId').setValue(this.branchId);
+      this.ShipEquipmentInfoForm.get('baseSchoolNameId')?.setValue(this.branchId);
       // this.baseSchoolNameService.find(this.branchId).subscribe(res=>{
       //   this.MonthlyReturnForm.get('baseNameId').setValue(res.thirdLevel);
       //   this.MonthlyReturnForm.get('authorityId').setValue(res.secondLevel);
@@ -486,12 +493,16 @@ export class NewShipEquipmentInfoComponent implements OnInit {
       remarks: [''],
       menuPosition: [''],
       isActive: [true],
+      fileUpload : [''],
+      doc : [''],
+      oplQty : [''],
+      nonOplQty : ['']
      
     })
   }
 
   onEquipmentCategorySelectionChangeGetequipmentName(){
-    var equipmentCategoryId = this.ShipEquipmentInfoForm.get('equipmentCategoryId').value;     
+    var equipmentCategoryId = this.ShipEquipmentInfoForm.get('equipmentCategoryId')?.value;     
     this.ShipEquipmentInfoService.getSelectedEqupmentNameByEquepmentCategory(equipmentCategoryId).subscribe(res=>{
 
       this.selectedEqupmentName=res;
@@ -504,7 +515,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     this.selectedEqupmentName=this.selectEquipmentName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
   getequipmentName(){
-    var equpmentNameId = this.ShipEquipmentInfoForm.get('equpmentNameId').value;  
+    var equpmentNameId = this.ShipEquipmentInfoForm.get('equpmentNameId')?.value;  
     this.equpmentNameId = equpmentNameId;
     this.masterData.equepmentName.ACPlant;
     this.common = true;
@@ -1053,26 +1064,82 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     }); 
   }
 
-  getShipEquipmentByCategoryId(){
-    
+  checkImage(fileUrl: string) {
+    return /\.(jpg|jpeg|png|gif)$/i.test(fileUrl);
+  }
+
+  
+  checkFile(fileUrl: string): boolean {
+    const allowedExtensions = /\.(txt|pdf|xls|xlsx|doc|docx|ppt|pptx)$/i;
+  
+    const extractedFileName = fileUrl.split('/').pop() || ''; // Get the last segment after 
+    return allowedExtensions.test(extractedFileName);
+  }
+
+  onFileChanged(event: Event) {
+    const input = event.target as HTMLInputElement;  
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+  
+      // Check if it's an image
+      this.isImage = this.checkImage(file.name);
+      this.isFile = this.checkFile(file.name);
+      console.log(this.isFile);
+  
+      // If it's an image, read the file as a Data URL
+      if (this.isImage) {
+        reader.onload = () => {
+          this.shipImage = reader.result as string;      
+        };
+        reader.readAsDataURL(file);
+      } else {
+        // For non-image files, you can set the file name or handle it accordingly
+        this.shipImage = ''; // Optionally, clear previous image content if file is not an image
+      }
+      // Update the form with the selected file
+      if (this.ShipEquipmentInfoForm && this.ShipEquipmentInfoForm.controls['doc']) {
+
+        this.ShipEquipmentInfoForm.patchValue({
+          doc: file,
+        });
+      }
+    }
+  }
+
+  removeImage(event: Event) {
+    event.preventDefault(); 
+
+   
+    this.shipImage = '';
+
+   
+    if (this.fileInput && this.fileInput.nativeElement) {
+      this.fileInput.nativeElement.value = ''; 
+    }
   }
 
   onSubmit() {
-    const id = this.ShipEquipmentInfoForm.get('shipEquipmentInfoId').value;   
+    const id = this.ShipEquipmentInfoForm.get('shipEquipmentInfoId')?.value;   
 
     //this.ShipEquipmentInfoForm.get('dateOfCommission').setValue((new Date(this.ShipEquipmentInfoForm.get('dateOfCommission').value)).toUTCString());
 
-    // const formData = new FormData();
-    // for (const key of Object.keys(this.ShipEquipmentInfoForm.value)) {
-    //   const value = this.ShipEquipmentInfoForm.value[key];
-    //   formData.append(key, value);
-    // }
+    const formData = new FormData();
+   
+    for (const key of Object.keys(this.ShipEquipmentInfoForm.value)) {
+      let  value = this.ShipEquipmentInfoForm.value[key];
+      value = this.ShipEquipmentInfoForm.value[key];
+      if(value === null  || value === undefined ){
+        value = ""
+      }
+      formData.append(key, value);
+    }
 
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         
         if (result) {
-          this.ShipEquipmentInfoService.update(+id,this.ShipEquipmentInfoForm.value).subscribe(response => {
+          this.ShipEquipmentInfoService.update(+id,formData).subscribe(response => {
             this.router.navigateByUrl('/ship-management/shipequipmentinfo-list');
             this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,
@@ -1086,7 +1153,8 @@ export class NewShipEquipmentInfoComponent implements OnInit {
         }
       })
     } else {
-      this.ShipEquipmentInfoService.submit(this.ShipEquipmentInfoForm.value).subscribe(response => {
+      console.log(this.ShipEquipmentInfoForm.value);
+      this.ShipEquipmentInfoService.submit(formData).subscribe(response => {
         this.router.navigateByUrl('/ship-management/shipequipmentinfo-list');
         this.snackBar.open('Information Inserted Successfully ', '', {
           duration: 2000,

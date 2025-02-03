@@ -1,23 +1,26 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ShipEquipmentInfo } from '../../models/ShipEquipmentInfo';
 import { ShipEquipmentInfoService } from '../../service/ShipEquipmentInfo.service';
-import { SelectionModel } from '@angular/cdk/collections';
+import { SelectionModel, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
-import { MasterData } from 'src/assets/data/master-data';
+import { ConfirmService } from '../../../../../src/app/core/service/confirm.service';
+import { MasterData } from '../../../../../src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { Role } from 'src/app/core/models/role';
-import { SharedService } from 'src/app/shared/shared.service';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
+import { Role } from '../../../../../src/app/core/models/role';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-shipequipmentinfo-list',
   templateUrl: './shipequipmentinfo-list.component.html',
   styleUrls: ['./shipequipmentinfo-list.component.sass', './shipequipmentinfo-list.component.css']
 })
-export class ShipEquipmentInfoListComponent implements OnInit {
+export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher implements OnInit, OnDestroy {
   userRole = Role;
   masterData = MasterData;
   ELEMENT_DATA: ShipEquipmentInfo[] = [];
@@ -29,48 +32,49 @@ export class ShipEquipmentInfoListComponent implements OnInit {
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
-    pageSize: 5,
+    pageSize: 10,
     length: 1
   }
   searchText = "";
   equipmentCategoryId: string;
   stateOfEquipmentId: string;
   equipmentNameId: string;
-  isCommandingAreaUsers : boolean;
+  isCommandingAreaUsers: boolean;
+  searchTextChanged = new Subject<string>();
+  private searchSubscription!: Subscription;
+  sortColumn = "";
+  sortDirection = ""
+  currentSortKey = ""
 
   displayedColumns: string[] = ['ser', 'shipName', 'equipmentCategory', 'equpmentName', 'qty', 'model', 'brand', 'techSpecification', 'manufacturerNameAndAddress', 'acquisitionMethodName', 'yearOfInstallation', 'location', 'stateOfEquipment', 'powerSupply', 'avrbrand', 'avrmodel', 'interfaceProtocol', 'composition', 'defectDescription', 'remarks', 'actions'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   selection = new SelectionModel<ShipEquipmentInfo>(true, []);
 
-  constructor(private snackBar: MatSnackBar, private authService: AuthService, private ShipEquipmentInfoService: ShipEquipmentInfoService, private router: Router, private confirmService: ConfirmService, private route: ActivatedRoute, public SharedService: SharedService) { }
+  constructor(private snackBar: MatSnackBar, private authService: AuthService, private ShipEquipmentInfoService: ShipEquipmentInfoService, private router: Router, private confirmService: ConfirmService, private route: ActivatedRoute, public SharedService: SharedService) {
+    super();
+  }
 
   ngOnInit() {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId = this.authService.currentUserValue.traineeId.trim();
     this.branchId = this.authService.currentUserValue.branchId.trim();
-    this.equipmentCategoryId = this.route.snapshot.paramMap.get("shipequipmentCategoryId");
-    this.stateOfEquipmentId = this.route.snapshot.paramMap.get("stateOfEquipmentId");
-    this.equipmentNameId = this.route.snapshot.paramMap.get('equipmentNameId');
+    this.equipmentCategoryId = this.route.snapshot.paramMap.get("shipequipmentCategoryId") ?? "";
+    this.stateOfEquipmentId = this.route.snapshot.paramMap.get("stateOfEquipmentId") ?? "";
+    this.equipmentNameId = this.route.snapshot.paramMap.get('equipmentNameId') ?? "";
+    this.sortDirection = "desc"
 
 
-    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
-      this.getShipEquipmentInfos(this.branchId);
-    } else {
-      this.getShipEquipmentInfos(0);
-    }
+
+    this.loadData();
     this.userRoleCheck();
+    this.setupSearchDebounce();
   }
 
   getShipEquipmentInfos(shipId) {
     if (this.stateOfEquipmentId && this.equipmentCategoryId && this.equipmentNameId) {
       if (this.role === this.userRole.AreaCommander) {
-
-        this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdNameIdStateOfEquipmentStatusAndCommandingAreaId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.equipmentNameId, this.stateOfEquipmentId, this.branchId).subscribe(response => {
-          this.dataSource.data = response
-          this.paging.length = response[0]?.totalCount || 0
-        })
-
+        this.getShipEquipmentForAreaCommander();
       }
       else {
         this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdNameIdAndStateOfEquipmentStatus(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.equipmentNameId, this.stateOfEquipmentId).subscribe(response => {
@@ -83,7 +87,6 @@ export class ShipEquipmentInfoListComponent implements OnInit {
 
       if (this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.FLOStaff || this.role === this.userRole.CSO) {
         this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdAndStateOfEquipmentAndCommandingAreaId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.stateOfEquipmentId, this.branchId).subscribe(response => {
-          console.log(response[0]);
           this.dataSource.data = response
           this.paging.length = response[0]?.totalCount || 0
         })
@@ -107,13 +110,7 @@ export class ShipEquipmentInfoListComponent implements OnInit {
         })
 
       } else {
-        this.isLoading = true;
-        this.ShipEquipmentInfoService.getShipEquipmentInfos(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
-          console.log(response.items);
-          this.dataSource.data = response.items;
-          this.paging.length = response.totalItemsCount
-          this.isLoading = false;
-        })
+        this.getShipEquipments(shipId);
       }
     }
   }
@@ -129,21 +126,75 @@ export class ShipEquipmentInfoListComponent implements OnInit {
     }
   }
 
-  applyFilter(searchText: any) {
-    this.searchText = searchText;
-    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO) {
+  // applyFilter(searchText: any) {
+  //   this.searchText = searchText;
+  //   if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO) {
+  //     this.getShipEquipmentInfos(this.branchId);
+  //   }
+  //   else {
+  //     this.getShipEquipmentInfos(0);
+  //   }
+  // }
+
+  setupSearchDebounce() {
+    this.searchSubscription = this.searchTextChanged.pipe(
+      debounceTime(300), 
+      distinctUntilChanged()
+    ).subscribe(searchText => {
+      this.loadData();
+    });
+  }
+
+  loadData() {
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
       this.getShipEquipmentInfos(this.branchId);
-    }
-     else {
+    } else {
       this.getShipEquipmentInfos(0);
     }
   }
 
-  userRoleCheck(){
-    if(this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.FLOStaff){
+  applyFilter(searchText: any) {
+    this.searchTextChanged.next(searchText);
+  }
+
+  userRoleCheck() {
+    if (this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.FLOStaff) {
       this.isCommandingAreaUsers = true;
     }
   }
+
+  getShipEquipments(shipId) {
+    this.isLoading = true;
+    this.ShipEquipmentInfoService.getShipEquipmentInfos(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId, this.sortColumn, this.sortDirection).subscribe(response => {
+      this.dataSource.data = response.items;
+      console.log(response.items);
+      this.paging.length = response.totalItemsCount
+      this.isLoading = false;
+    })
+  }
+
+  sortByKey(key) {
+    this.sortDirection = this.sortDirection === 'desc' ? 'asc' : "desc"
+    this.sortColumn = key;
+
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
+      this.getShipEquipmentInfos(this.branchId);
+    } else {
+      this.getShipEquipmentInfos(0);
+    }
+  }
+
+  getShipEquipmentForAreaCommander() {
+    this.ShipEquipmentInfoService.getShipEquipmentByCategoryIdNameIdStateOfEquipmentStatusAndCommandingAreaId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.equipmentCategoryId, this.equipmentNameId, this.stateOfEquipmentId, this.branchId).subscribe(response => {
+      this.dataSource.data = response
+      this.paging.length = response[0]?.totalCount || 0
+    })
+  }
+
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe(); // Prevent memory leaks
+  }
+
   printSingle() {
     this.showHideDiv = false;
     this.print();
@@ -319,9 +370,6 @@ export class ShipEquipmentInfoListComponent implements OnInit {
 
     popupWin.document.close();
   }
-
-
-
 
   deleteItem(row) {
     const id = row.shipEquipmentInfoId;

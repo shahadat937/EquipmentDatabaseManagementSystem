@@ -5,6 +5,8 @@ using SchoolManagement.Application.DTOs.MonthlyReturns.Validators;
 using SchoolManagement.Application.Features.MonthlyReturns.Requests.Commands;
 using SchoolManagement.Application.Responses;
 using SchoolManagement.Domain;
+using System.Diagnostics.Metrics;
+using System;
 
 namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
 {
@@ -12,11 +14,13 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ISchoolManagementRepository<ShipEquipmentInfo> _shipEquipmentRepository;
 
-        public CreateMonthlyReturnCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public CreateMonthlyReturnCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ISchoolManagementRepository<ShipEquipmentInfo> shipEquipmentRepository)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _shipEquipmentRepository = shipEquipmentRepository;
         }
 
         public async Task<BaseCommandResponse> Handle(CreateMonthlyReturnCommand request, CancellationToken cancellationToken)
@@ -34,7 +38,11 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
             else
             {
 
-                /////// File Upload //////////
+                var shipEquipmentData = await _shipEquipmentRepository.Get(request.MonthlyReturnDto.ShipEquipmentInfoId ?? 0);
+
+                shipEquipmentData.OplQty -=  request.MonthlyReturnDto.ReturnQty;
+                shipEquipmentData.NonOplQty += request.MonthlyReturnDto.ReturnQty;
+                shipEquipmentData.LastModifiedDate = DateTime.Now;
 
                 string uniqueFileName = null;
 
@@ -52,12 +60,20 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
                 }
 
                 var MonthlyReturn = _mapper.Map<MonthlyReturn>(request.MonthlyReturnDto);
-                MonthlyReturn.UploadDocument = request.MonthlyReturnDto.UploadDocument ?? "files/damage-electrical/" + uniqueFileName;
+
+                if(uniqueFileName == null)
+                {
+                    MonthlyReturn.UploadDocument = request.MonthlyReturnDto.UploadDocument ?? "files/damage-electrical/" + uniqueFileName;
+
+                }
 
                 MonthlyReturn = await _unitOfWork.Repository<MonthlyReturn>().Add(MonthlyReturn);
 
                 try
                 {
+                    await _unitOfWork.Save();
+
+                    await _unitOfWork.Repository<ShipEquipmentInfo>().Update(shipEquipmentData);
                     await _unitOfWork.Save();
                 }
                 catch (Exception ex)

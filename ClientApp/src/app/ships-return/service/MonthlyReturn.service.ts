@@ -85,6 +85,10 @@ export class MonthlyReturnService {
   getSelectedEquipmentNameByCategory(equipmentCategoryId){
     return this.http.get<SelectedModel[]>(this.baseUrl + '/equpment-name/get-selectedEqupmentNameByCategory?equepmentCategoryId='+equipmentCategoryId)
   }
+
+  getSelectedModelByShip(baseSchoolNameId, equipmentNameId){
+    return this.http.get<SelectedModel[]>(this.baseUrl + `/ship-equipment-info/get-selectedShipEquipmentModelByShip?baseSchoolNameId=${baseSchoolNameId}&equipmentNameId=${equipmentNameId}`)
+  }
  
   getSelectedOperationalStatus(){
     return this.http.get<SelectedModel[]>(this.baseUrl + '/operational-status/get-selectedOperationalStatus')

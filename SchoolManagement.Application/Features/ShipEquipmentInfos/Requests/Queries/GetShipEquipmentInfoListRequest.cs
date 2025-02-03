@@ -9,5 +9,7 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Requests.Quer
     {
         public QueryParams QueryParams { get; set; }
         public int ShipId { get; set; }
+        public string? SortColumn { get; set; }
+        public string? SortDirection { get; set; }
     }
 }

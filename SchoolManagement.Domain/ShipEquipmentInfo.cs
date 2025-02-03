@@ -9,6 +9,7 @@ namespace SchoolManagement.Domain
         public ShipEquipmentInfo()
         {
             HalfYearlyReturns = new HashSet<HalfYearlyReturn>();
+            //MonthlyReturns = new HashSet<MonthlyReturn>();
         }
 
         public int ShipEquipmentInfoId { get; set; }
@@ -153,6 +154,11 @@ namespace SchoolManagement.Domain
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
 
+        public string? FileUpload { get; set; }
+        public int? OplQty { get; set; }
+        public int? NonOplQty { get; set; }
+        public DateTime? LastRetrunModificationDate { get; set; }
+
         public virtual AcquisitionMethod? AcquisitionMethod { get; set; }
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
         //public virtual Brand? Brand { get; set; }
@@ -162,5 +168,6 @@ namespace SchoolManagement.Domain
         public virtual StateOfEquipment? StateOfEquipment { get; set; }
 
         public virtual ICollection<HalfYearlyReturn> HalfYearlyReturns { get; set; }
+        //public virtual ICollection<MonthlyReturn> MonthlyReturns { get; set; }
     }
 }

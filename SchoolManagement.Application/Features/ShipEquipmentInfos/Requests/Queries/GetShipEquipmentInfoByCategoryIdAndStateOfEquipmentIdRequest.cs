@@ -15,5 +15,6 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Requests.Quer
         public QueryParams QueryParams { get; set; }
         public int CategoryId { get; set; }
         public int StateOfEquipmentId { get; set; }
+
     }
 }

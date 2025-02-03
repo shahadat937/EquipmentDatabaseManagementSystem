@@ -20,5 +20,7 @@
         public string? Remarks { get; set; }
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
+        public int? ShipEquipmentInfoId { get; set; }
+        public int? ReturnQty { get; set; }
     }
 }

@@ -105,9 +105,9 @@ namespace SchoolManagement.Application.Profiles
                  .ForMember(d => d.EquipmentCategory, o => o.MapFrom(s => s.EquipmentCategory.Name))
                  .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
                  .ForMember(d => d.BaseSchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
-                 .ForMember(d=> d.InputPowerSupply, o=> o.MapFrom(s=> s.ShipEquipmentInfo.PowerSupply));
-                 
-                 
+                 .ForMember(d => d.InputPowerSupply, o => o.MapFrom(s => s.ShipEquipmentInfo.PowerSupply));
+
+
             CreateMap<HalfYearlyReturn, CreateHalfYearlyReturnDto>().ReverseMap();
             #endregion
 
@@ -121,7 +121,7 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<YearlyReturn, CreateYearlyReturnDto>().ReverseMap();
 
 
-            
+
 
             #region HalfYearlyRunningTime Mapping    
             CreateMap<HalfYearlyRunningTime, HalfYearlyRunningTimeDto>().ReverseMap();
@@ -137,11 +137,12 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<MonthlyReturnDto, MonthlyReturn>().ReverseMap()
             .ForMember(d => d.EquipmentCategory, o => o.MapFrom(s => s.EquipmentCategory.Name))
             .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
+            .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
             .ForMember(d => d.OperationalStatus, o => o.MapFrom(s => s.OperationalStatus.Name))
             .ForMember(d => d.ReportingMonth, o => o.MapFrom(s => s.ReportingMonth.Name))
             .ForMember(d => d.ReturnType, o => o.MapFrom(s => s.ReturnType.Name))
-              .ForMember(d => d.UploadDocument, o => o.MapFrom<MonthlyReturnUrlResolver>())
-    .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName));
+            .ForMember(d => d.UploadDocument, o => o.MapFrom<MonthlyReturnUrlResolver>())
+            .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName));
             CreateMap<MonthlyReturn, CreateMonthlyReturnDto>().ReverseMap();
             #endregion
 
@@ -152,7 +153,7 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<StatusOfShipDto, StatusOfShip>().ReverseMap()
                 .ForMember(dest => dest.SchoolName, opt => opt.MapFrom(src => src.BaseSchoolName != null ? src.BaseSchoolName.SchoolName : null))
              .ForMember(d => d.OperationalStatus, o => o.MapFrom(s => s.OperationalStatus.Name));
-     
+
             CreateMap<StatusOfShip, CreateStatusOfShipDto>().ReverseMap();
 
 
@@ -223,7 +224,7 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<ProcurementDto, Procurement>().ReverseMap()
                 .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
                 .ForMember(d => d.ProcurementMethodName, o => o.MapFrom(s => s.ProcurementMethod.Name))
-                .ForMember(d => d.EnvelopeName, o => o.MapFrom(s=> s.Envelope.Name))
+                .ForMember(d => d.EnvelopeName, o => o.MapFrom(s => s.Envelope.Name))
                 .ForMember(d => d.ProcurementTypeName, o => o.MapFrom(s => s.ProcurementType.Name))
                 .ForMember(d => d.GroupName, o => o.MapFrom(s => s.GroupName.Name))
                 .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
@@ -232,7 +233,7 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(d => d.DgdpNssdName, o => o.MapFrom(s => s.DgdpNssd.Name))
                 .ForMember(d => d.TenderOpeningDateTypeName, o => o.MapFrom(s => s.TenderOpeningDateType.Name))
                 .ForMember(d => d.TecName, o => o.MapFrom(s => s.Tec.Name))
-                .ForMember(d => d.PaymentStatusName, o => o.MapFrom(s => s.PaymentStatus.Name))  ;
+                .ForMember(d => d.PaymentStatusName, o => o.MapFrom(s => s.PaymentStatus.Name));
             CreateMap<Procurement, CreateProcurementDto>().ReverseMap();
             #endregion
 
@@ -281,7 +282,8 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
                  .ForMember(d => d.StateOfEquipment, o => o.MapFrom(s => s.StateOfEquipment.Name))
                  .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
-                 .ForMember(d => d.AcquisitionMethodName, o => o.MapFrom(s => s.AcquisitionMethod.Name));
+                 .ForMember(d => d.AcquisitionMethodName, o => o.MapFrom(s => s.AcquisitionMethod.Name))
+                  .ForMember(d => d.FileUpload, o => o.MapFrom<ShipEquipmentFileUrlResolver>());
             CreateMap<ShipEquipmentInfo, CreateShipEquipmentInfoDto>().ReverseMap();
             #endregion
 
@@ -397,9 +399,9 @@ namespace SchoolManagement.Application.Profiles
             #region OperationalStatusOfEquipmentSystem
             CreateMap<OperationalStatusOfEquipmentSystem, CreateOperationalStatusOfEquipmentSystemDto>().ReverseMap();
             CreateMap<OperationalStatusOfEquipmentSystemDto, OperationalStatusOfEquipmentSystem>().ReverseMap()
-                .ForMember(d=> d.BaseSchoolName, o=> o.MapFrom( s=> s.BaseSchoolName.SchoolName))
-                .ForMember(d=> d.StateOfEquipment, o=> o.MapFrom(s=> s.StateOfEquipment.Name))
-                .ForMember(d=> d.NameOfEquipment, o=>o.MapFrom(s=>s.EqupmentName.Name));
+                .ForMember(d => d.BaseSchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
+                .ForMember(d => d.StateOfEquipment, o => o.MapFrom(s => s.StateOfEquipment.Name))
+                .ForMember(d => d.NameOfEquipment, o => o.MapFrom(s => s.EqupmentName.Name));
             #endregion
             #region UserManual Mappings
             CreateMap<UserManualDto, UserManual>().ReverseMap()
