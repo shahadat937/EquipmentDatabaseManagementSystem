@@ -154,6 +154,8 @@ namespace SchoolManagement.Domain
         public bool IsActive { get; set; }
 
         public string? FileUpload { get; set; }
+        public int? OplQty { get; set; }
+        public int? NonOplQty { get; set; }
 
         public virtual AcquisitionMethod? AcquisitionMethod { get; set; }
         public virtual BaseSchoolName? BaseSchoolName { get; set; }

@@ -317,6 +317,8 @@ export class NewShipEquipmentInfoComponent implements OnInit {
             fileUpload: res.fileUpload,
             menuPosition: res.menuPosition,
             isActive: res.isActive,
+            oplQty: res.oplQty,
+            nonOplQty : res.nonOplQty
             
           });   
           this.onEquipmentCategorySelectionChangeGetequipmentName();       
@@ -492,7 +494,9 @@ export class NewShipEquipmentInfoComponent implements OnInit {
       menuPosition: [''],
       isActive: [true],
       fileUpload : [''],
-      doc : ['']
+      doc : [''],
+      oplQty : [''],
+      nonOplQty : ['']
      
     })
   }

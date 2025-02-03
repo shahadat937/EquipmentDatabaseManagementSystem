@@ -144,5 +144,7 @@
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
         public string? FileUpload { get; set; }
+        public int? OplQty { get; set; }
+        public int? NonOplQty { get; set; }
     }
 }
