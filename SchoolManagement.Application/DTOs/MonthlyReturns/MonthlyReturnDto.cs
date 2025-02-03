@@ -29,5 +29,8 @@ namespace SchoolManagement.Application.DTOs.MonthlyReturns
         public string? ReportingMonth { get; set; }
         public string? SchoolName { get; set; }
         public string? ReturnType { get; set; }
+        public int? ShipEquipmentInfoId { get; set; }
+        public string? ModelName { get; set; }
+        public int? ReturnQty { get; set; }
     }
 }

@@ -160,6 +160,17 @@ public class ShipEquipmentInfoController : ControllerBase
         var ShipEquipmentInfo = await _mediator.Send(new GetSelectedShipEquipmentInfoRequest { });
         return Ok(ShipEquipmentInfo);
     }
+    
+    [HttpGet]
+    [Route("get-selectedShipEquipmentModelByShip")]
+    public async Task<ActionResult<List<SelectedModel>>> GetSelectedShipEquipmentModelByShip(int baseSchoolNameId, int equipmentNameId)
+    {
+        var ShipEquipmentInfo = await _mediator.Send(new GetSelectedShipEquipmentByShipIdEquipmentNameIdInfoRequest { 
+        BaseSchoolNameId = baseSchoolNameId,
+        EquipmentNameId = equipmentNameId
+        });
+        return Ok(ShipEquipmentInfo);
+    }
 
     [HttpGet]
     [Route("get-shipEquipmentInfoListForHalfYearly")]

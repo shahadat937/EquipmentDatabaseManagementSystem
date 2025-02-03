@@ -49,7 +49,7 @@
                             <input
                               matInput
                               type="text"
-                              placeholder="Search..."
+                              placeholder="Search : Ship Name, Equipment Name"
                               (input)="applyFilter($event.target.value)" />
                           </mat-form-field>
                         </li>
@@ -67,7 +67,7 @@
                          <li>
                           
                           <select class="filter" name="return-type" [(ngModel)]="selectedFilter">
-                            <option value="" disabled>Choose Return Type</option>
+                            <option selected disabled>Choose Return Type</option>
                             <option value="damage" id="1" selected>Damage</option>
                             <option value="defective" id="2">Defective</option>
                           </select>
@@ -110,7 +110,7 @@
                           <td>
                             {{number.equpmentName}}
                           </td>
-                          <td [routerLink]="['/admin/dashboard/returnType-list']">
+                          <td>
                             {{number.returnType}}
                           </td>
                           <td>

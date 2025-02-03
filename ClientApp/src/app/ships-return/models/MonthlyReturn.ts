@@ -20,5 +20,7 @@ export interface MonthlyReturn {
    menuPosition: number;
    isActive: boolean;
    equipmentCategory: string;
+   shipEquipmentInfoId : number;
+   returnQty : number
  }
  

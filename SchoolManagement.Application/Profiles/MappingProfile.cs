@@ -137,11 +137,12 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<MonthlyReturnDto, MonthlyReturn>().ReverseMap()
             .ForMember(d => d.EquipmentCategory, o => o.MapFrom(s => s.EquipmentCategory.Name))
             .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
+            .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
             .ForMember(d => d.OperationalStatus, o => o.MapFrom(s => s.OperationalStatus.Name))
             .ForMember(d => d.ReportingMonth, o => o.MapFrom(s => s.ReportingMonth.Name))
             .ForMember(d => d.ReturnType, o => o.MapFrom(s => s.ReturnType.Name))
-              .ForMember(d => d.UploadDocument, o => o.MapFrom<MonthlyReturnUrlResolver>())
-    .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName));
+            .ForMember(d => d.UploadDocument, o => o.MapFrom<MonthlyReturnUrlResolver>())
+            .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName));
             CreateMap<MonthlyReturn, CreateMonthlyReturnDto>().ReverseMap();
             #endregion
 

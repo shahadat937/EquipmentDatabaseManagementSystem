@@ -26,6 +26,8 @@ namespace SchoolManagement.Domain
        
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
+        public int? ShipEquipmentInfoId { get; set; }
+        public int? ReturnQty { get; set; }
 
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
         public virtual EquipmentCategory? EquipmentCategory { get; set; }
@@ -33,5 +35,6 @@ namespace SchoolManagement.Domain
         public virtual OperationalStatus? OperationalStatus { get; set; }
         public virtual ReportingMonth? ReportingMonth { get; set; }
         public virtual ReturnType? ReturnType { get; set; }
+        //public virtual ShipEquipmentInfo? ShipEquipmentInfo { get; set; }
     }
 }

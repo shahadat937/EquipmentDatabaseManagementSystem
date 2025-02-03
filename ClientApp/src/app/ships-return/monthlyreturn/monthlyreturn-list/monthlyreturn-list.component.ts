@@ -5,14 +5,14 @@ import { MonthlyReturn } from '../../models/MonthlyReturn';
 import { MonthlyReturnService } from '../../service/MonthlyReturn.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
-import { MasterData } from 'src/assets/data/master-data';
+import { ConfirmService } from '../../../../../src/app/core/service/confirm.service';
+import { MasterData } from '../../../../../src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SharedService } from 'src/app/shared/shared.service';
-import { Role } from 'src/app/core/models/role';
-import { AuthService } from 'src/app/core/service/auth.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
+import { Role } from '../../../../../src/app/core/models/role';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
 
 @Component({
   selector: 'app-monthlyreturn-list',
@@ -133,7 +133,7 @@ export class MonthlyReturnListComponent implements OnInit {
   }
   print() {
     let printContents, popupWin;
-    printContents = document.getElementById("print-routine").innerHTML;
+    printContents = document.getElementById("print-routine")?.innerHTML;
     popupWin = window.open("top=0,left=0,height=100%,width=auto");
     popupWin.document.open();
     popupWin.document.write(`
