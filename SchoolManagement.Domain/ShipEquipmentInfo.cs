@@ -157,6 +157,7 @@ namespace SchoolManagement.Domain
         public string? FileUpload { get; set; }
         public int? OplQty { get; set; }
         public int? NonOplQty { get; set; }
+        public DateTime? LastRetrunModificationDate { get; set; }
 
         public virtual AcquisitionMethod? AcquisitionMethod { get; set; }
         public virtual BaseSchoolName? BaseSchoolName { get; set; }

@@ -148,5 +148,6 @@ export interface ShipEquipmentInfo {
    schoolName: string,
    fileUpload:string,
    oplQty: number,
-   nonOplQty : number
+   nonOplQty : number,
+   lastRetrunModificationDate : string
 }

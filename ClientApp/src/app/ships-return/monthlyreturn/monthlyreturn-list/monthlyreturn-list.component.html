@@ -100,6 +100,7 @@
                         <th class="cl-mrk"><h5>Return Type</h5></th>
                         <th class="cl-mrk"><h5>Reporting Month</h5></th>
                         <th class="cl-mrk-opl"><h5> OPL/NON-OPL</h5></th>
+                        <th class="cl-mrk-opl"><h5>Damage Description </h5></th>
                         <th class="cl-action"><h5></h5></th>
                       </tr>
                     </thead>
@@ -119,8 +120,13 @@
                           <td>
                             {{number.operationalStatus}}
                           </td>
+                          <td>
+                            {{number.damageDescription }}
+                          </td>
                           <td class="col table-img  img-on-hover">
-                            <a target="_blank" [href]="number.uploadDocument">	<i matTooltip="File" class="far fa-file-pdf tbl-pdf"></i>	</a>
+                            <a *ngIf="number.uploadDocument" target="_blank" [href]="number.uploadDocument">
+                              <i matTooltip="File" class="far fa-file-pdf tbl-pdf"></i>
+                            </a>
                             <!-- <img class="img-size"  [src]="this.fileUrl+number.uploadDocument" />
                             <div class="pop-on-hover">
                               <img [src]="this.fileUrl+number.uploadDocument" />

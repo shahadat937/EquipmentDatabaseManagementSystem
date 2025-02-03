@@ -157,5 +157,6 @@ namespace SchoolManagement.Application.DTOs.ShipEquipmentInfo
         public IFormFile? Doc { get; set; }
         public int? OplQty { get; set; }
         public int? NonOplQty { get; set; }
+        public DateTime? LastRetrunModificationDate { get; set; }
     }
 }

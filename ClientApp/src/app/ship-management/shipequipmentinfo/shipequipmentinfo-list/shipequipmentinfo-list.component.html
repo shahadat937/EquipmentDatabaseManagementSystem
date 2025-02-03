@@ -197,6 +197,7 @@
                         <th class="custom-header" (click)="sortByKey('EqupmentName')">Equipment Name</th>
                         <th class="custom-header" (click)="sortByKey('Qty')">OPL Qty</th>
                         <th class="custom-header" (click)="sortByKey('Qty')">Non OPL Qty</th>
+                        <th class="custom-header" (click)="sortByKey('Qty')">Last Return Date</th>
                         <th class="custom-header" (click)="sortByKey('Model')">Model</th>
                         <th class="custom-header" (click)="sortByKey('Brand')">Brand</th>
                         <th class="custom-header" (click)="sortByKey('TechSpecification')">Technical Specification</th>
@@ -228,6 +229,7 @@
                         <td>{{ element.equpmentName }}</td>
                         <td>{{ element.oplQty?? "-" }}</td>
                         <td>{{ element.nonOplQty ?? "-" }}</td>
+                        <td>{{ element.lastRetrunModificationDate  | date: 'dd MMMM yyyy' }}</td>
                         <td>{{ element.model }}</td>
                         <td>{{ element.brand }}</td>
                         <td>{{ element.techSpecification }}</td>

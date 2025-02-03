@@ -49,6 +49,7 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
                 var difference = existingReturnQty - request.MonthlyReturnDto.ReturnQty;
                 ShipEquipmentInfo.OplQty += difference;
                 ShipEquipmentInfo.NonOplQty -= difference;
+                ShipEquipmentInfo.LastRetrunModificationDate = DateTime.Now;
                 isQtyChange = true;
             }
             else if (existingReturnQty > request.MonthlyReturnDto.ReturnQty)
@@ -56,6 +57,7 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
                 var difference =  request.MonthlyReturnDto.ReturnQty - existingReturnQty ;
                 ShipEquipmentInfo.OplQty -= difference;
                 ShipEquipmentInfo.NonOplQty += difference;
+                ShipEquipmentInfo.LastRetrunModificationDate = DateTime.Now;
                 isQtyChange = true;
             }
 

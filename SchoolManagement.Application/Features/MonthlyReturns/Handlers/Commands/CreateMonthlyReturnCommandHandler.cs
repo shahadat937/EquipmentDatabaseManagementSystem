@@ -42,6 +42,7 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
 
                 shipEquipmentData.OplQty -=  request.MonthlyReturnDto.ReturnQty;
                 shipEquipmentData.NonOplQty += request.MonthlyReturnDto.ReturnQty;
+                shipEquipmentData.LastModifiedDate = DateTime.Now;
 
                 string uniqueFileName = null;
 
@@ -59,7 +60,12 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
                 }
 
                 var MonthlyReturn = _mapper.Map<MonthlyReturn>(request.MonthlyReturnDto);
-                MonthlyReturn.UploadDocument = request.MonthlyReturnDto.UploadDocument ?? "files/damage-electrical/" + uniqueFileName;
+
+                if(uniqueFileName == null)
+                {
+                    MonthlyReturn.UploadDocument = request.MonthlyReturnDto.UploadDocument ?? "files/damage-electrical/" + uniqueFileName;
+
+                }
 
                 MonthlyReturn = await _unitOfWork.Repository<MonthlyReturn>().Add(MonthlyReturn);
 
