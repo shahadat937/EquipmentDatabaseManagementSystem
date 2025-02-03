@@ -72,16 +72,12 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Quer
             string sortColumn = capitilizeSortColumn; 
             bool isDescending = request.SortDirection?.ToLower() == "desc";
 
-            // Apply sorting after mapping
+
             ShipEquipmentInfoDtos = ApplyOrdering(ShipEquipmentInfoDtos, sortColumn, isDescending);
 
             var result = new PagedResult<ShipEquipmentInfoDto>(ShipEquipmentInfoDtos, totalCount, request.QueryParams.PageNumber, request.QueryParams.PageSize);
 
             return result;
-
-
-
-
         }
 
         private static List<T> ApplyOrdering<T>(List<T> source, string propertyName, bool descending)

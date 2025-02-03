@@ -33,19 +33,45 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Comm
             }
             else
             {
+
+                string uniqueFileName = null;
+
+
+                if (request.ShipEquipmentInfoDto.Doc != null)
+                {
+                    var fileName = Path.GetFileName(request.ShipEquipmentInfoDto.Doc.FileName);
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + fileName;
+                    var a = Directory.GetCurrentDirectory();
+                    var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Content\\files\\ship-equipment-files");
+
+                    // Ensure the directory exists
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
+
+                    var filePath = Path.Combine(directoryPath, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await request.ShipEquipmentInfoDto.Doc.CopyToAsync(fileStream);
+                    }
+                }
+
+              
+               
                 var ShipEquipmentInfo = _mapper.Map<ShipEquipmentInfo>(request.ShipEquipmentInfoDto);
+
+                if(uniqueFileName != null)
+                {
+                    ShipEquipmentInfo.FileUpload = request.ShipEquipmentInfoDto.FileUpload ?? "files/ship-equipment-files/" + uniqueFileName;
+
+                }
+
 
                 ShipEquipmentInfo = await _unitOfWork.Repository<ShipEquipmentInfo>().Add(ShipEquipmentInfo);
                 await _unitOfWork.Save();
-                //try
-                //{
-                //    await _unitOfWork.Save();
-                //}
-                //catch (Exception ex)
-                //{
-                //    System.Console.WriteLine(ex);
-                //}
-
+          
 
                 response.Success = true;
                 response.Message = "Creation Successful";

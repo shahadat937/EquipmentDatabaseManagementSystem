@@ -147,5 +147,5 @@ export interface ShipEquipmentInfo {
    shipName : string,
    schoolName: string
 
-   //fileUpload:string
+   fileUpload:string
 }

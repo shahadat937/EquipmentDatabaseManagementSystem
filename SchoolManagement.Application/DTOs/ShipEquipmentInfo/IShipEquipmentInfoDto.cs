@@ -143,5 +143,6 @@
         public string? Remarks { get; set; }
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
+        public string? FileUpload { get; set; }
     }
 }

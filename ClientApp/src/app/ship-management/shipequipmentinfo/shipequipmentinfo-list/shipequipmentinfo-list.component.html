@@ -1,73 +1,74 @@
 <section class="content">
-    <div class="container-fluid">
-      <div class="block-header">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <ul class="breadcrumb breadcrumb-style ">
-              <li class="breadcrumb-item">
-                <h4 class="page-title">Ship Equipment Information</h4>
-              </li>
-              <li class="breadcrumb-item bcrumb-1">
-                <a routerLink="/admin/dashboard/main">
-                  <i class="fas fa-home"></i> </a>
-              </li>
-              <li class="breadcrumb-item bcrumb-2">
-                <a href="#" onClick="return false;">Ship Equipment Information</a>
-              </li>
-              <li class="breadcrumb-item active">All</li>
-            </ul>
-          </div>
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb breadcrumb-style ">
+            <li class="breadcrumb-item">
+              <h4 class="page-title">Ship Equipment Information</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a routerLink="/admin/dashboard/main">
+                <i class="fas fa-home"></i> </a>
+            </li>
+            <li class="breadcrumb-item bcrumb-2">
+              <a href="#" onClick="return false;">Ship Equipment Information</a>
+            </li>
+            <li class="breadcrumb-item active">All</li>
+          </ul>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="card">
-            <div class="body">
-              <div class="row mb-3">
-                <div  class="icon-button-demo col-12">
-                        <button class="btn-success float-end rounded-pill px-4"  mat-raised-button
-                       (click)="SharedService.goBack()"> Back
-                          <mat-icon class="col-white">keyboard_backspace</mat-icon>
-                        </button>
-                      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="row mb-3">
+              <div class="icon-button-demo col-12">
+                <button class="btn-success float-end rounded-pill px-4" mat-raised-button
+                  (click)="SharedService.goBack()"> Back
+                  <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                </button>
               </div>
-              <div class="responsive_table">
-                <div class="materialTableHeader">
-                  <div class="row">
-                    <div class="col-8">
-                      <ul class="header-buttons-left ml-0">
-                        <li class="dropdown">
-                          <input  (input)="applyFilter(searchText)" placeholder="Search : Ship, EquipmentName, Model, Brand, Category" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
-                            aria-label="Search box">
-                        </li>
-                        <li>
-                          <div class="icon-button-demo m-l-10">                          
-                            <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
-                              <mat-icon class="col-white">search</mat-icon>
-                            </button>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-3">
-                      <ul class="header-buttons">
-                        <li>
-                          <div class="icon-button-demo">
-                            <button [hidden]="isCommandingAreaUsers" class="btn-space"  mat-raised-button
-                            color="primary" routerLink="/ship-management/add-shipequipmentinfo"> Add
-                              <mat-icon class="col-white">add</mat-icon>
-                            </button>
-                            <button class="btn-space" mat-raised-button  color="primary" (click)="printSingle()">
-                              <mat-icon class="col-white">print</mat-icon>
-                            </button>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
+            </div>
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ml-0">
+                      <li class="dropdown">
+                        <input (input)="applyFilter(searchText)"
+                          placeholder="Search : Ship, EquipmentName, Model, Brand, Category" type="text"
+                          [(ngModel)]="searchText" #filter class="browser-default search-field" aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="icon-button-demo m-l-10">
+                          <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
+                            <mat-icon class="col-white">search</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-3">
+                    <ul class="header-buttons">
+                      <li>
+                        <div class="icon-button-demo">
+                          <button [hidden]="isCommandingAreaUsers" class="btn-space" mat-raised-button color="primary"
+                            routerLink="/ship-management/add-shipequipmentinfo"> Add
+                            <mat-icon class="col-white">add</mat-icon>
+                          </button>
+                          <button class="btn-space" mat-raised-button color="primary" (click)="printSingle()">
+                            <mat-icon class="col-white">print</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-                <div class="table-container">
-                  <!-- <mat-table #table [dataSource]="dataSource" matSort id="show-shipInfo" class="no-wrap-table">
+              </div>
+              <div class="table-container">
+                <!-- <mat-table #table [dataSource]="dataSource" matSort id="show-shipInfo" class="no-wrap-table">
 
                     <ng-container matColumnDef="ser">
                       <mat-header-cell *matHeaderCellDef mat-sort-header style="width: 150px;">Ser.</mat-header-cell>
@@ -186,7 +187,7 @@
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                   </mat-table> -->
-                  <div style="overflow-x: auto; max-width: 100%;">
+                <div style="overflow-x: auto; max-width: 100%;">
                   <table class="custom-table">
                     <thead>
                       <tr>
@@ -198,7 +199,8 @@
                         <th class="custom-header" (click)="sortByKey('Model')">Model</th>
                         <th class="custom-header" (click)="sortByKey('Brand')">Brand</th>
                         <th class="custom-header" (click)="sortByKey('TechSpecification')">Technical Specification</th>
-                        <th class="custom-header" (click)="sortByKey('ManufacturerNameAndAddress')" style="max-width: 400px;">Manufacturer Info</th>
+                        <th class="custom-header" (click)="sortByKey('ManufacturerNameAndAddress')"
+                          style="max-width: 400px;">Manufacturer Info</th>
                         <th class="custom-header" (click)="sortByKey('AcquisitionMethodName')">Acquisition Method</th>
                         <th class="custom-header" (click)="sortByKey('YearOfInstallation')">Year of Installation</th>
                         <th class="custom-header" (click)="sortByKey('Location')">Location</th>
@@ -210,8 +212,11 @@
                         <th class="custom-header" (click)="sortByKey('Composition')">Composition</th>
                         <th class="custom-header" (click)="sortByKey('DefectDescription')">Defect Description</th>
                         <th class="custom-header" (click)="sortByKey('Remarks')">Remarks</th>
+
                         <th class="custom-header" (click)="sortByKey('LastModifiedDate')">Last Modification Date</th>
-                        <th [hidden]="isCommandingAreaUsers" class="custom-header" style="position: sticky; right: 0; background-color: #db143c; z-index: 1000;">Actions</th>
+                        <th class="custom-header">File</th>
+                        <th [hidden]="isCommandingAreaUsers" class="custom-header"
+                          style="position: sticky; right: 0; background-color: #db143c; z-index: 1000;">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -224,7 +229,8 @@
                         <td>{{ element.model }}</td>
                         <td>{{ element.brand }}</td>
                         <td>{{ element.techSpecification }}</td>
-                        <td style="max-width: 400px; width: 400px; white-space: normal; word-wrap: break-word;">{{ element.manufacturerNameAndAddress }}</td>
+                        <td style="max-width: 400px; width: 400px; white-space: normal; word-wrap: break-word;">{{
+                          element.manufacturerNameAndAddress }}</td>
                         <td>{{ element.acquisitionMethodName }}</td>
                         <td>{{ element.yearOfInstallation }}</td>
                         <td>{{ element.location }}</td>
@@ -236,8 +242,19 @@
                         <td>{{ element.composition }}</td>
                         <td>{{ element.defectDescription }}</td>
                         <td>{{ element.remarks }}</td>
-                        <td>{{ element.lastModifiedDate   | date: 'dd MMMM yyyy' }}</td>
-                        <td [hidden]="isCommandingAreaUsers" class="cl-action" style="position: sticky; right: 0; background-color: #f2f2da;">
+                        <td>{{ element.lastModifiedDate | date: 'dd MMMM yyyy' }}</td>
+                        <td><ng-container *ngIf="element.fileUpload; else noFile">
+                            <a [href]="element.fileUpload" aria-label="Download file" target="_blank"
+                              matTooltip="Download file">
+                              <mat-icon>description</mat-icon>
+                            </a>
+                          </ng-container>
+                          <ng-template #noFile>
+                            <span>-</span>
+                          </ng-template>
+                        </td>
+                        <td [hidden]="isCommandingAreaUsers" class="cl-action"
+                          style="position: sticky; right: 0; background-color: #f2f2da;">
                           <!-- <button class="btn btn-sm btn-primary" >
                             Edit
                           </button> -->
@@ -246,40 +263,34 @@
                           </button> -->
 
                           <button mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
-                          [routerLink]="['/ship-management/update-shipequipmentinfo', element.shipEquipmentInfoId]">
+                            [routerLink]="['/ship-management/update-shipequipmentinfo', element.shipEquipmentInfoId]">
                             <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
                           </button>
-                          <button (click)="deleteItem(element)" mat-icon-button color="accent" class="btn-tbl-delete" >
-                          <mat-icon aria-label="Delete" class="col-white">delete</mat-icon> 
-                        </button>
+                          <button (click)="deleteItem(element)" mat-icon-button color="accent" class="btn-tbl-delete">
+                            <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
+                          </button>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                  
-                  
-                </div>
-                
-                
-                
-              
-                <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
-                  [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
-                  (page)="pageChanged($event)">
-                </mat-paginator>
-                
-                
+
+
               </div>
+
+
+
+
+              <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                (page)="pageChanged($event)">
+              </mat-paginator>
+
+
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  
-  
-  
-  
-  
-   
+  </div>
+</section>

@@ -120,7 +120,7 @@ public class ShipEquipmentInfoController : ControllerBase
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [Route("save-ShipEquipmentInfo")]
-    public async Task<ActionResult<BaseCommandResponse>> Post([FromBody] CreateShipEquipmentInfoDto ShipEquipmentInfo)
+    public async Task<ActionResult<BaseCommandResponse>> Post([FromForm] CreateShipEquipmentInfoDto ShipEquipmentInfo)
     {
         var command = new CreateShipEquipmentInfoCommand { ShipEquipmentInfoDto = ShipEquipmentInfo };
         var response = await _mediator.Send(command);
@@ -133,7 +133,7 @@ public class ShipEquipmentInfoController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-ShipEquipmentInfo/{id}")]
-    public async Task<ActionResult> Put([FromBody] ShipEquipmentInfoDto ShipEquipmentInfo)
+    public async Task<ActionResult> Put([FromForm] ShipEquipmentInfoDto ShipEquipmentInfo)
     {
         var command = new UpdateShipEquipmentInfoCommand { ShipEquipmentInfoDto = ShipEquipmentInfo };
         await _mediator.Send(command);

@@ -153,6 +153,8 @@ namespace SchoolManagement.Domain
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
 
+        public string? FileUpload { get; set; }
+
         public virtual AcquisitionMethod? AcquisitionMethod { get; set; }
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
         //public virtual Brand? Brand { get; set; }

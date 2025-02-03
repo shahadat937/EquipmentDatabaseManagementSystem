@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ShipEquipmentInfo } from '../../models/ShipEquipmentInfo';
@@ -20,7 +20,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
   templateUrl: './shipequipmentinfo-list.component.html',
   styleUrls: ['./shipequipmentinfo-list.component.sass', './shipequipmentinfo-list.component.css']
 })
-export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher implements OnInit {
+export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher implements OnInit, OnDestroy {
   userRole = Role;
   masterData = MasterData;
   ELEMENT_DATA: ShipEquipmentInfo[] = [];
@@ -32,7 +32,7 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
-    pageSize: 5,
+    pageSize: 10,
     length: 1
   }
   searchText = "";
@@ -138,7 +138,7 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
 
   setupSearchDebounce() {
     this.searchSubscription = this.searchTextChanged.pipe(
-      debounceTime(300), // Wait 300ms after the last keystroke
+      debounceTime(300), 
       distinctUntilChanged()
     ).subscribe(searchText => {
       this.loadData();
@@ -167,16 +167,15 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
     this.isLoading = true;
     this.ShipEquipmentInfoService.getShipEquipmentInfos(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId, this.sortColumn, this.sortDirection).subscribe(response => {
       this.dataSource.data = response.items;
+      console.log(response.items);
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
     })
   }
 
   sortByKey(key) {
-
     this.sortDirection = this.sortDirection === 'desc' ? 'asc' : "desc"
     this.sortColumn = key;
-    console.log(this.sortDirection)
 
     if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
       this.getShipEquipmentInfos(this.branchId);
@@ -190,6 +189,10 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
       this.dataSource.data = response
       this.paging.length = response[0]?.totalCount || 0
     })
+  }
+
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe(); // Prevent memory leaks
   }
 
   printSingle() {
@@ -367,9 +370,6 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
 
     popupWin.document.close();
   }
-
-
-
 
   deleteItem(row) {
     const id = row.shipEquipmentInfoId;

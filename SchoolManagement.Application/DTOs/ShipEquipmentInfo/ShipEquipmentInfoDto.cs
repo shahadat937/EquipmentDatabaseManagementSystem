@@ -1,4 +1,6 @@
-﻿namespace SchoolManagement.Application.DTOs.ShipEquipmentInfo
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SchoolManagement.Application.DTOs.ShipEquipmentInfo
 {
     public class ShipEquipmentInfoDto : IShipEquipmentInfoDto
     {
@@ -151,5 +153,7 @@
         public string? SchoolName { get; set; }
         public string? ShortName { get; set; }
         public DateTime  LastModifiedDate { get; set; }
+        public string? FileUpload { get; set; }
+        public IFormFile? Doc { get; set; }
     }
 }

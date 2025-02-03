@@ -1,4 +1,6 @@
-﻿namespace SchoolManagement.Application.DTOs.ShipEquipmentInfo
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SchoolManagement.Application.DTOs.ShipEquipmentInfo
 {
     public class CreateShipEquipmentInfoDto : IShipEquipmentInfoDto
     {
@@ -143,6 +145,8 @@
         public string? Remarks { get; set; }
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
+        public string? FileUpload { get; set; }
+        public IFormFile? Doc { get; set; }
     }
 }
  
