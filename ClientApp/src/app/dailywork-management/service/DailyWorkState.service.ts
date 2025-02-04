@@ -14,13 +14,14 @@ export class DailyWorkStateService {
   DailyWorkStatePagination = new DailyWorkStatePagination();
   constructor(private http: HttpClient) { }
 
-  getDailyWorkStates(pageNumber, pageSize, searchText) { 
+  getDailyWorkStates(pageNumber, pageSize, searchText, actionTaken) { 
 
     let params = new HttpParams();
 
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
+    params = params.append('actionTaken', actionTaken.toString());
 
     
     return this.http.get<IDailyWorkStatePagination>(this.baseUrl + '/daily-work-state/get-DailyWorkStates', { observe: 'response', params })

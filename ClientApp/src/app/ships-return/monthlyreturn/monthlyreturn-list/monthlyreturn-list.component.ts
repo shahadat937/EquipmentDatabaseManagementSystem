@@ -67,38 +67,19 @@ export class MonthlyReturnListComponent implements OnInit {
   }
 
   getMonthlyReturns() {
+    console.log(this.branchId)
     this.isLoading = true;
     if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.FLOStaff || this.role === this.userRoles.CSO){
-      this.MonthlyReturnService.getMonthlyReturnsByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
-        console.log('API Response:', response);
-        this.dataSource.data = response.items;
-        this.paging.length = response.totalItemsCount
-  
-        this.damageReturns = response.items.filter(item => item.returnType === 'Damage');
-        this.defectReturns = response.items.filter(item => item.returnType === 'Defective');
-        this.monthlyReturns = response.items.filter(item => item.returnType === 'monthly');
-  
-        this.isLoading = false;
-        this.itemCount = response.items.length;
-  
-      })
+      this.getShipMonthlyReturnsByAuthority();
 
+    }
+    else if(this.role === this.userRoles.LOEO){
+      console.log(22)
+      this.getMonthltShipReturns(this.branchId);
     }
     else{
 
-      this.MonthlyReturnService.getMonthlyReturns(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
-        console.log('API Response:', response);
-        this.dataSource.data = response.items;
-        this.paging.length = response.totalItemsCount
-  
-        this.damageReturns = response.items.filter(item => item.returnType === 'Damage');
-        this.defectReturns = response.items.filter(item => item.returnType === 'Defective');
-        this.monthlyReturns = response.items.filter(item => item.returnType === 'monthly');
-  
-        this.isLoading = false;
-        this.itemCount = response.items.length;
-  
-      })
+     this.getMonthltShipReturns(0); // get All Ship Return 
 
     }
 
@@ -111,10 +92,37 @@ export class MonthlyReturnListComponent implements OnInit {
     this.getMonthlyReturns();
   }
 
-  // applyFilter(searchText: any){ 
-  //   this.searchText = searchText;
-  //   this.getMonthlyReturns();
-  // } 
+
+  getMonthltShipReturns (shipId){
+    this.MonthlyReturnService.getMonthlyReturns(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
+      this.dataSource.data = response.items;
+      this.paging.length = response.totalItemsCount
+
+      this.damageReturns = response.items.filter(item => item.returnType === 'Damage');
+      this.defectReturns = response.items.filter(item => item.returnType === 'Defective');
+      this.monthlyReturns = response.items.filter(item => item.returnType === 'monthly');
+
+      this.isLoading = false;
+      this.itemCount = response.items.length;
+
+    })
+  }
+
+  getShipMonthlyReturnsByAuthority(){
+    this.MonthlyReturnService.getMonthlyReturnsByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
+
+      this.dataSource.data = response.items;
+      this.paging.length = response.totalItemsCount
+
+      this.damageReturns = response.items.filter(item => item.returnType === 'Damage');
+      this.defectReturns = response.items.filter(item => item.returnType === 'Defective');
+      this.monthlyReturns = response.items.filter(item => item.returnType === 'monthly');
+
+      this.isLoading = false;
+      this.itemCount = response.items.length;
+
+    })
+  }
   applyFilter(searchText: string) {
     this.searchSubject.next(searchText);
   }

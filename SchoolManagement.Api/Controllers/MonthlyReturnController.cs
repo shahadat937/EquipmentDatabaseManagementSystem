@@ -21,9 +21,13 @@ public class MonthlyReturnController : ControllerBase
 
     [HttpGet]
     [Route("get-MonthlyReturns")]
-    public async Task<ActionResult<List<MonthlyReturnDto>>> Get([FromQuery] QueryParams queryParams)
+    public async Task<ActionResult<List<MonthlyReturnDto>>> Get([FromQuery] QueryParams queryParams, int shipId)
     {
-        var MonthlyReturns = await _mediator.Send(new GetMonthlyReturnListRequest { QueryParams = queryParams });
+        var MonthlyReturns = await _mediator.Send(new GetMonthlyReturnListRequest { 
+            QueryParams = queryParams,
+            ShipId = shipId
+            
+        });
         return Ok(MonthlyReturns);
     }
 

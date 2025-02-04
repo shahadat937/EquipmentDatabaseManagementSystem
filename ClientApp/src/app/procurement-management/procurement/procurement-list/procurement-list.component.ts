@@ -74,7 +74,7 @@ export class ProcurementListComponent implements OnInit {
   }
 
   getProcurementsByPeocureMethodId(procurementMethodId) {
-    this.ProcurementService.getProcurementsByProcurementMethodId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.searchBy, procurementMethodId).subscribe(response => {
+    this.ProcurementService.getProcurementsByProcurementMethodId(this.paging.pageIndex, this.paging.pageSize, this.searchText,  procurementMethodId).subscribe(response => {
       this.dataSource.data = response.items;
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
@@ -117,6 +117,7 @@ export class ProcurementListComponent implements OnInit {
           
         }
         else{
+          console.log(this.procurementMethodId1);
           this.getProcurementsByPeocureMethodId(this.procurementMethodId1)
         }
         
@@ -135,9 +136,11 @@ export class ProcurementListComponent implements OnInit {
 
   applyFilter(searchText: any) {
     this.searchText = searchText;
-    if (!this.isEquipmentChecked && !this.isShipNameChecked)
-      this.searchBy = ""
-    this.getProcurementsByPeocureMethodId(this.selectedProcurementTypeId);
+    // if (!this.isEquipmentChecked && !this.isShipNameChecked)
+    //   this.searchBy = ""
+    // this.getProcurementsByPeocureMethodId(this.selectedProcurementTypeId);
+    this.paging.pageIndex =  this.masterData.paging.pageIndex
+    this.getProcurementsByPeocureMethodId(this.selectedProcurementTypeId)
   }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
@@ -414,22 +417,22 @@ export class ProcurementListComponent implements OnInit {
       }
     })
   }
-  onShipNameCheckboxChange(event: any) {
+  // onShipNameCheckboxChange(event: any) {
 
-    if (this.isShipNameChecked) {
-      this.isEquipmentChecked = false;
-    }
-    this.searchBy = "shipname"
+  //   if (this.isShipNameChecked) {
+  //     this.isEquipmentChecked = false;
+  //   }
+  //   this.searchBy = "shipname"
 
-  }
-  onEquipmentCheckboxChange(event: any) {
+  // }
+  // onEquipmentCheckboxChange(event: any) {
 
-    if (this.isEquipmentChecked) {
-      this.isShipNameChecked = false;
-      this.searchBy = "equipmentname"
-    }
+  //   if (this.isEquipmentChecked) {
+  //     this.isShipNameChecked = false;
+  //     this.searchBy = "equipmentname"
+  //   }
 
-  }
+  // }
  formatDate(dateString) {
     const date = new Date(dateString);
   

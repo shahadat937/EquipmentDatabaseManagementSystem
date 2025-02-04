@@ -62,7 +62,6 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
     this.equipmentCategoryId = this.route.snapshot.paramMap.get("shipequipmentCategoryId") ?? "";
     this.stateOfEquipmentId = this.route.snapshot.paramMap.get("stateOfEquipmentId") ?? "";
     this.equipmentNameId = this.route.snapshot.paramMap.get('equipmentNameId') ?? "";
-    this.sortDirection = "desc"
 
 
 

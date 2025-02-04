@@ -7,6 +7,7 @@ using SchoolManagement.Application.Exceptions;
 using SchoolManagement.Application.DTOs.ShipEquipmentInfo;
 using SchoolManagement.Application.Features.ShipEquipmentInfos.Requests.Queries;
 using SchoolManagement.Domain;
+using System.Linq.Expressions;
 
 namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Queries
 {
@@ -28,20 +29,10 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Quer
             var validator = new QueryParamsValidator();
             var validationResult = await validator.ValidateAsync(request.QueryParams);
 
-            if (validationResult.IsValid == false)
+            if (!validationResult.IsValid)
                 throw new ValidationException(validationResult);
 
-            //IQueryable<ShipEquipmentInfo> ShipEquipmentInfos = _ShipEquipmentInfoRepository.FilterWithInclude(x => x.BaseSchoolNameId == (request.ShipId != 0 ? request.ShipId : x.BaseSchoolNameId) && (x.Model.Contains(request.QueryParams.SearchText) || x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || x.Brand.Contains(request.QueryParams.SearchText) || x.EqupmentName.Name.Contains(request.QueryParams.SearchText) || x.EquipmentCategory.Name.Contains(request.QueryParams.SearchText) || String.IsNullOrEmpty(request.QueryParams.SearchText)), "EquipmentCategory", "EqupmentName", "StateOfEquipment", "BaseSchoolName", "AcquisitionMethod");
-            //var totalCount = ShipEquipmentInfos.Count();
-            //ShipEquipmentInfos = ShipEquipmentInfos.OrderByDescending(x => x.ShipEquipmentInfoId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
-
-            //var ShipEquipmentInfoDtos = _mapper.Map<List<ShipEquipmentInfoDto>>(ShipEquipmentInfos);
-            //var result = new PagedResult<ShipEquipmentInfoDto>(ShipEquipmentInfoDtos, totalCount, request.QueryParams.PageNumber, request.QueryParams.PageSize);
-
-            //return result;
-
-            // Base query
-            // Base query
+            // Base query with filtering
             IQueryable<ShipEquipmentInfo> ShipEquipmentInfos = _ShipEquipmentInfoRepository.FilterWithInclude(
                 x => x.BaseSchoolNameId == (request.ShipId != 0 ? request.ShipId : x.BaseSchoolNameId) &&
                 (x.Model.Contains(request.QueryParams.SearchText) ||
@@ -55,43 +46,80 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Quer
 
             var totalCount = ShipEquipmentInfos.Count();
 
-        
+            // Apply Sorting before Pagination
+            if (!string.IsNullOrEmpty(request.SortColumn))
+            {
+                bool isDescending = request.SortDirection?.ToLower() == "desc";
+                ShipEquipmentInfos = ApplyOrdering(ShipEquipmentInfos, request.SortColumn, isDescending);
+            }
+            else
+            {
+                // Default sorting by ShipEquipmentInfoId
+                ShipEquipmentInfos = ShipEquipmentInfos.OrderByDescending(x => x.ShipEquipmentInfoId);
+            }
+
+            // Apply Pagination after sorting
             var pagedData = ShipEquipmentInfos
                 .Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize)
                 .Take(request.QueryParams.PageSize)
-                .ToList(); 
-
+                .ToList();
 
             var ShipEquipmentInfoDtos = _mapper.Map<List<ShipEquipmentInfoDto>>(pagedData);
-
-            // Get sorting parameters
-            string? capitilizeSortColumn =
-                !string.IsNullOrEmpty(request.SortColumn)
-                ? char.ToUpper(request.SortColumn[0]) + request.SortColumn.Substring(1)
-                : "ShipEquipmentInfoId"; // Default column
-            string sortColumn = capitilizeSortColumn; 
-            bool isDescending = request.SortDirection?.ToLower() == "desc";
-
-
-            ShipEquipmentInfoDtos = ApplyOrdering(ShipEquipmentInfoDtos, sortColumn, isDescending);
 
             var result = new PagedResult<ShipEquipmentInfoDto>(ShipEquipmentInfoDtos, totalCount, request.QueryParams.PageNumber, request.QueryParams.PageSize);
 
             return result;
         }
 
-        private static List<T> ApplyOrdering<T>(List<T> source, string propertyName, bool descending)
+        private static IQueryable<T> ApplyOrdering<T>(IQueryable<T> source, string propertyName, bool descending)
         {
             var entityType = typeof(T);
-            var property = entityType.GetProperty(propertyName);
+            var parameter = Expression.Parameter(entityType, "x");
 
-            if (property == null)
-                throw new ArgumentException($"Property '{propertyName}' not found on type '{entityType.Name}'");
+            // Mapping UI keys to actual Entity Framework property paths
+            var propertyMappings = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+    {
+        { "SchoolName", "BaseSchoolName.SchoolName" },
+        { "EquipmentCategory", "EquipmentCategory.Name" },
+        { "EqupmentName", "EqupmentName.Name" },
+        { "AcquisitionMethodName", "AcquisitionMethod.Name" },
+        { "StateOfEquipment", "StateOfEquipment.Name" },
+        { "LastModificationDate", "LastModifiedDate" }
+    };
 
-            return descending
-                ? source.OrderByDescending(x => property.GetValue(x, null)).ToList()
-                : source.OrderBy(x => property.GetValue(x, null)).ToList();
+            if (propertyMappings.ContainsKey(propertyName))
+            {
+                propertyName = propertyMappings[propertyName]; // Convert UI key to actual entity property
+            }
+
+            try
+            {
+                // Handle nested properties (e.g., "BaseSchoolName.SchoolName")
+                Expression propertyExpression = parameter;
+                foreach (var member in propertyName.Split('.'))
+                {
+                    propertyExpression = Expression.PropertyOrField(propertyExpression, member);
+                }
+
+                var lambda = Expression.Lambda(propertyExpression, parameter);
+                string methodName = descending ? "OrderByDescending" : "OrderBy";
+
+                var resultExpression = Expression.Call(
+                    typeof(Queryable),
+                    methodName,
+                    new Type[] { entityType, propertyExpression.Type },
+                    source.Expression,
+                    Expression.Quote(lambda)
+                );
+
+                return source.Provider.CreateQuery<T>(resultExpression);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException($"Sorting error: Property '{propertyName}' not found or invalid", ex);
+            }
         }
+
 
     }
 }

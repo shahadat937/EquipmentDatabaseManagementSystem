@@ -42,7 +42,7 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
 
                 shipEquipmentData.OplQty -=  request.MonthlyReturnDto.ReturnQty;
                 shipEquipmentData.NonOplQty += request.MonthlyReturnDto.ReturnQty;
-                shipEquipmentData.LastModifiedDate = DateTime.Now;
+                shipEquipmentData.LastRetrunModificationDate = DateTime.Now;
 
                 string uniqueFileName = null;
 

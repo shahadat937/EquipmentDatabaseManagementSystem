@@ -35,5 +35,6 @@ namespace SchoolManagement.Application.DTOs.MonthlyReturns
         public int? ReturnQty { get; set; }
 
         public IFormFile? Doc { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
     }
 }

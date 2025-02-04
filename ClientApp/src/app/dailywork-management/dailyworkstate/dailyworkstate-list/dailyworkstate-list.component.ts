@@ -5,20 +5,21 @@ import { DailyWorkState } from '../../models/DailyWorkState';
 import { DailyWorkStateService } from '../../service/DailyWorkState.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
-import { MasterData } from 'src/assets/data/master-data';
+import { ConfirmService } from '../../../../../src/app/core/service/confirm.service';
+import { MasterData } from '../../../../../src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
+import { UnsubscribeOnDestroyAdapter } from '../../../../../src/app/shared/UnsubscribeOnDestroyAdapter';
 
 @Component({
   selector: 'app-dailyworkstate-list',
   templateUrl: './dailyworkstate-list.component.html',
   styleUrls: ['./dailyworkstate-list.component.sass']
 })
-export class DailyWorkStateListComponent implements OnInit {
-  filterAction: 'yes' | 'no' = 'yes'; 
+export class DailyWorkStateListComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+  filterAction: 'yes' | 'no' = 'yes';
   masterData = MasterData;
   ELEMENT_DATA: DailyWorkState[] = [];
   isLoading = false;
@@ -28,7 +29,8 @@ export class DailyWorkStateListComponent implements OnInit {
   yesCount: any = 0;
   noCount: any = 0;
   searchText = "";
-  private searchSubject: Subject<string> = new Subject(); 
+  actionTaken: string;
+  private searchSubject: Subject<string> = new Subject();
 
   paging = {
     pageIndex: this.masterData.paging.pageIndex,
@@ -46,26 +48,31 @@ export class DailyWorkStateListComponent implements OnInit {
     private router: Router,
     private confirmService: ConfirmService,
     public SharedService: SharedService
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    this.getDailyWorkStates();
-    this.getDailyWorkStatesListByNoAction();
 
-    // Debounce logic for search
+    this.actionTaken = 'yes';
+    this.getDailyWorkStates();
+   
     this.searchSubject.pipe(
       debounceTime(300) // Adjust debounce time as needed
     ).subscribe((searchText) => {
       this.searchText = searchText;
+      console.log(this.searchText);
       this.getDailyWorkStates();
       // this.getDailyWorkStatesListByNoAction();
+
     });
   }
 
   getDailyWorkStates() {
     this.isLoading = true;
-    this.DailyWorkStateService.getDailyWorkStates(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
-      this.dataSource.data = response.items;
+    this.DailyWorkStateService.getDailyWorkStates(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.actionTaken).subscribe(response => {
+      console.log(response.items);
+      this.dailyWorkStateList = response.items;
       this.paging.length = response.totalItemsCount;
       this.isLoading = false;
       this.noCount = response.items.length;
@@ -85,14 +92,17 @@ export class DailyWorkStateListComponent implements OnInit {
     this.paging.pageSize = event.pageSize;
     this.paging.pageIndex = this.paging.pageIndex + 1;
     this.getDailyWorkStates();
-    this.getDailyWorkStatesListByNoAction();
+    // this.getDailyWorkStatesListByNoAction();
   }
 
   applyFilter(searchText: string) {
     this.searchSubject.next(searchText);
   }
   applyFilterByAction(action: 'yes' | 'no') {
-    this.filterAction = action;
+    this.actionTaken = action
+    this.paging.pageIndex =  this.masterData.paging.pageIndex
+      this.getDailyWorkStates();
+   
   }
 
   toggle() {

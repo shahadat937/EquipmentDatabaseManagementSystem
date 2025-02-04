@@ -95,13 +95,14 @@
                     
                     <thead>
                       <tr>
-                        <th class="cl-mrk-rmrk"><h5>Ship Name</h5></th>
-                        <th class="cl-mrk-rmrk"><h5>Equipment Name</h5></th>
-                        <th class="cl-mrk"><h5>Return Type</h5></th>
-                        <th class="cl-mrk"><h5>Reporting Month</h5></th>
-                        <th class="cl-mrk-opl"><h5> OPL/NON-OPL</h5></th>
-                        <th class="cl-mrk-opl"><h5>Damage Description </h5></th>
-                        <th class="cl-action"><h5></h5></th>
+                        <th class=""><h5>Ship Name</h5></th>
+                        <th class=""><h5>Equipment Name</h5></th>
+                        <th class=""><h5>Return Type</h5></th>
+                        <th class=""><h5>Reporting Month</h5></th>
+                        <th class=""><h5> OPL/NON-OPL</h5></th>
+                        <th class=""><h5>Damage Description </h5></th>
+                        <th class=""><h5>Last Modification Date </h5></th>
+                        <th class="cl-action" style="min-width: 100px;"><h5></h5></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -122,6 +123,9 @@
                           </td>
                           <td>
                             {{number.damageDescription }}
+                          </td>
+                          <td>
+                            {{number.lastModifiedDate  | date:'dd MMM yyyy'}}
                           </td>
                           <td class="col table-img  img-on-hover">
                             <a *ngIf="number.uploadDocument" target="_blank" [href]="number.uploadDocument">

@@ -40,7 +40,7 @@
 
 
                       <li class="dropdown">
-                        <input placeholder="Search" type="text" [(ngModel)]="searchText" #filter
+                        <input (click)="applyFilter(searchText)" placeholder="Search: Ship Name, Equipment Name, Procurement Type" type="text" [(ngModel)]="searchText" #filter
                           class="browser-default search-field" aria-label="Search box">
                       </li>
                       <li>
@@ -132,7 +132,7 @@
                 <div class="row align-items-center mt-2">
                   <!-- Column 1 -->
                   <div class="col-lg-6 d-flex align-items-center flex-wrap">
-                    <span class="me-3">Search By:</span>
+                    <!-- <span class="me-3">Search By:</span>
                     <mat-checkbox class="mx-2" [(ngModel)]="isShipNameChecked"
                       (change)="onShipNameCheckboxChange($event)" color="primary">
                       Ship Name
@@ -140,7 +140,7 @@
                     <mat-checkbox class="mx-2" [(ngModel)]="isEquipmentChecked"
                       (change)="onEquipmentCheckboxChange($event)" color="primary">
                       Equipment Name
-                    </mat-checkbox>
+                    </mat-checkbox> -->
                   </div>
 
                   <!-- Column 2 -->

@@ -14,19 +14,19 @@ export class MonthlyReturnService {
   MonthlyReturnPagination = new MonthlyReturnPagination();
   constructor(private http: HttpClient) { }
 
-  getMonthlyReturns(pageNumber, pageSize, searchText) { 
+  getMonthlyReturns(pageNumber, pageSize, searchText, shipId) { 
 
     let params = new HttpParams();
 
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
+    params = params.append('shipId', shipId.toString());
 
     
     return this.http.get<IMonthlyReturnPagination>(this.baseUrl + '/monthly-return/get-MonthlyReturns', { observe: 'response', params })
     .pipe(
       map(response => {
-        console.log(response)
         this.MonthlyReturns = [...this.MonthlyReturns, ...response.body.items];
         this.MonthlyReturnPagination = response.body;
         return this.MonthlyReturnPagination;
@@ -119,5 +119,9 @@ export class MonthlyReturnService {
   delete(id:number){
     return this.http.delete(this.baseUrl + '/monthly-return/delete-MonthlyReturn/'+id);
   }
+
+  findShipEquipmentInfoById(id: number) {
+      return this.http.get<any>(this.baseUrl + '/ship-equipment-info/get-ShipEquipmentInfoDetail/' + id);
+    }
 
 }
