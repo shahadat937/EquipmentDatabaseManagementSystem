@@ -45,7 +45,7 @@
                             <input
                               matInput
                               type="text"
-                              placeholder="Search..."
+                              placeholder="Search : Letter Type, Subject"
                               (input)="applyFilter($event.target.value)" />
                           </mat-form-field>
                         </li>
@@ -67,7 +67,7 @@
                           </div>
                           <div class="icon-button-demo">
                           
-                            <mat-form-field appearance="outline" class="m-10">
+                            <mat-form-field appearance="outline" class="m-10 pe-2">
                               <mat-label>Filter Action</mat-label>
                               <mat-select [(value)]="filterAction" (selectionChange)="applyFilterByAction($event.value)">
                                 <mat-option value="yes">Action Taken Yes</mat-option>
@@ -87,10 +87,10 @@
                    
                   </div>
                 </div>
-                <div class="container">
-                  <div *ngIf="filterAction === 'no'" id="print-routine"> 
+                <div class="mt-1">
+                  <div *ngIf="actionTaken === 'no'" id="print-routine"> 
                   <h4 style="background-color: #ebebed; padding: 10px;"> Daily Work State List By Action Taken No</h4>
-                  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                  <mat-table #table [dataSource]="dailyWorkStateList" matSort class="mat-cell">
                     
                     <ng-container matColumnDef="ser">
                       <mat-header-cell *matHeaderCellDef mat-sort-header> Ser. </mat-header-cell>
@@ -151,7 +151,7 @@
                   
                 </div>  
 
-                <div *ngIf="filterAction === 'yes'" id="print-routine">           
+                <div *ngIf="actionTaken === 'yes'" id="print-routine">           
                   <!-- <table class="table tbl-by-group db-li-s-in">
                     <thead>
                       <tr>

@@ -35,14 +35,13 @@ export class ProcurementService {
    
   }
 
-  getProcurementsByProcurementMethodId(pageNumber, pageSize, searchText, searchBy, procurementMethodId) { 
+  getProcurementsByProcurementMethodId(pageNumber, pageSize, searchText, procurementMethodId) { 
 
     let params = new HttpParams();
 
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
-    params = params.append('searchBy', searchBy.toString())
     params = params.append('procurementMethodId', procurementMethodId.toString())
 
     

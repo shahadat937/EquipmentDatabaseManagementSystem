@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HalfYearlyReturnService } from '../../service/HalfYearlyReturn.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
-import { MasterData } from 'src/assets/data/master-data';
+import { MasterData } from '../../../../../src/assets/data/master-data';
 import { HalfYearlyReturn } from '../../models/HalfYearlyReturn';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { ShipEquipmentInfo } from 'src/app/ship-management/models/ShipEquipmentInfo';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
+import { ShipEquipmentInfo } from '../../../../../src/app/ship-management/models/ShipEquipmentInfo';
 import { shipEquipmentInfoList } from '../../models/shipEquipmentInfoList';
-import { Role } from 'src/app/core/models/role';
+import { Role } from '../../../../../src/app/core/models/role';
 
 @Component({
   selector: 'app-new-halfyearlyreturn',
@@ -145,9 +145,15 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     })
   }
 
+
+
   getControlLabel(index: number, type: string) {
-    return (this.HalfYearlyReturnForm.get('shipEquipmentInfoList') as FormArray).at(index).get(type).value;
+    return (this.HalfYearlyReturnForm.get('shipEquipmentInfoList') as FormArray)
+      ?.at(index)
+      ?.get(type)
+      ?.value ?? '';
   }
+
   private createHalfYearlyReturnData() {
     return this.fb.group({
       baseSchoolNameId: [''],
@@ -157,6 +163,9 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       equpmentName: [''],
       brandId: [''],
       qty: [''],
+      oplQty: [''],
+      nonOplQty: [''],
+      brand: [''],
       powerSupply: [''],
       halfYearlyRunningTime: [],
       totalRunningTime: [],
@@ -220,7 +229,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   }
   onShipEquipmentInfoList() {
 
-    let shipNameId = this.HalfYearlyReturnForm.value['baseSchoolNameId'];
+    let shipNameId = this.HalfYearlyReturnForm.value['baseSchoolNameId'] || this.branchId;
     let equipmentCategoryId = this.HalfYearlyReturnForm.value['equipmentCategoryId'];
     let equpmentNameId = this.HalfYearlyReturnForm.value['equpmentNameId'];
 

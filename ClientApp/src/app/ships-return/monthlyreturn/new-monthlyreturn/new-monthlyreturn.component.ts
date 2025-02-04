@@ -52,7 +52,10 @@ export class NewMonthlyReturnComponent implements OnInit {
   selectModelName: SelectedModel[];
   probableDefectTime: any;
   picker: any;
-  // probableDefectTime: any;
+  totalOplCount : number = 0;
+  totalNonOplCount : number = 0;
+  showQty = false;
+  warningMessage = ""
 
   constructor(private snackBar: MatSnackBar, private authService: AuthService, private baseSchoolNameService: BaseSchoolNameService, private confirmService: ConfirmService, private MonthlyReturnService: MonthlyReturnService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private sharedService: SharedService) { }
 
@@ -97,7 +100,7 @@ export class NewMonthlyReturnComponent implements OnInit {
         }
       );
     } else {
-      this.pageTitle = 'Damage Electrical/Radio Electrical Equipment';
+      this.pageTitle = 'Monthly Return';
       this.destination = "Add";
       this.btnText = 'Save';
     }
@@ -174,17 +177,32 @@ export class NewMonthlyReturnComponent implements OnInit {
   }
 
   OnEquipmentSelectionChange() {
-    var baseNameId = this.MonthlyReturnForm.value['baseSchoolNameId'];
+    var baseNameId = this.MonthlyReturnForm.value['baseSchoolNameId'] || this.branchId;
     var equpmentNameId = this.MonthlyReturnForm.value['equpmentNameId'];
-    console.log(1)
     if (baseNameId && equpmentNameId) {
       this.MonthlyReturnService.getSelectedModelByShip(baseNameId, equpmentNameId).subscribe(res => {
-        console.log(2)
         this.selectedModelName = res;
         this.selectModelName = res;
+        
       })
     }
 
+  }
+  OnModelSelectionChange() {
+    var shipEquipmentInfoId = this.MonthlyReturnForm.value['shipEquipmentInfoId'];
+    if(shipEquipmentInfoId){
+      this.showQty = true;
+      this.findShipEquipmentInfoById(shipEquipmentInfoId);
+    }
+
+  }
+
+  findShipEquipmentInfoById(id){
+    this.MonthlyReturnService.findShipEquipmentInfoById(id).subscribe(res=>{
+          this.totalOplCount = res?.oplQty || 0;
+          this.totalNonOplCount = res?.nonOplQty || 0;
+        
+    })
   }
 
   filterByEquipementName(value: any) {
@@ -291,6 +309,14 @@ export class NewMonthlyReturnComponent implements OnInit {
         }
       })
     } else {
+
+      var returnQty = this.MonthlyReturnForm.value['returnQty'];
+      console.log(returnQty);
+      if(this.totalOplCount< returnQty){
+        this.warningMessage = "Return Qty Can't be  getter then total Opl Qty"
+        return
+      }
+
       this.MonthlyReturnService.submit(formData).subscribe(response => {
         console.log('res', response)
         this.router.navigateByUrl('/ships-return/monthlyreturn-list');

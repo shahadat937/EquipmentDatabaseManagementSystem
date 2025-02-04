@@ -22,9 +22,13 @@ public class HalfYearlyReturnController : ControllerBase
 
     [HttpGet]
     [Route("get-HalfYearlyReturns")]
-    public async Task<ActionResult<List<HalfYearlyReturnDto>>> Get([FromQuery] QueryParams queryParams)
+    public async Task<ActionResult<List<HalfYearlyReturnDto>>> Get([FromQuery] QueryParams queryParams, int shipId)
     {
-        var HalfYearlyReturns = await _mediator.Send(new GetHalfYearlyReturnListRequest { QueryParams = queryParams });
+        var HalfYearlyReturns = await _mediator.Send(new GetHalfYearlyReturnListRequest {
+            QueryParams = queryParams,
+            ShipId = shipId
+            
+        });
         return Ok(HalfYearlyReturns);
     }
     

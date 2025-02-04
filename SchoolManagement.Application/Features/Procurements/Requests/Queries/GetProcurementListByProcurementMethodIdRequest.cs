@@ -13,7 +13,6 @@ namespace SchoolManagement.Application.Features.Procurements.Requests.Queries
     public class GetProcurementListByProcurementMethodIdRequest : IRequest <PagedResult<ProcurementDto>>
     {
         public QueryParams QueryParams { get; set; }
-        public string? SearchBy { get; set; }
         public int ProcureMethodId { get; set; }
     }
 }

@@ -50,7 +50,7 @@ export class ReturnTypeListComponet implements OnInit {
   // Get MonthlyReturns from service
   getMonthlyReturns() {
     this.isLoading = true;
-    this.MonthlyReturnService.getMonthlyReturns(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+    this.MonthlyReturnService.getMonthlyReturns(this.paging.pageIndex, this.paging.pageSize, this.searchText,0).subscribe(response => {
         console.log('API Response:', response);
         
         // Filter damage and defect returns separately

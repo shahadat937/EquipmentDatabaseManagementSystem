@@ -8,5 +8,6 @@ namespace SchoolManagement.Application.Features.DailyWorkStates.Requests.Queries
     public class GetDailyWorkStateListRequest : IRequest<PagedResult<DailyWorkStateDto>>
     {
         public QueryParams QueryParams { get; set; }
+        public string? ActionTaken { get; set; }
     }
 }

@@ -5,12 +5,12 @@ import { HalfYearlyReturn } from '../../models/HalfYearlyReturn';
 import { HalfYearlyReturnService } from '../../service/HalfYearlyReturn.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
-import{MasterData} from 'src/assets/data/master-data';
+import { ConfirmService } from '../../../../../src/app/core/service/confirm.service';
+import{MasterData} from '../../../../../src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SharedService } from 'src/app/shared/shared.service';
-import { Role } from 'src/app/core/models/role';
-import { AuthService } from 'src/app/core/service/auth.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
+import { Role } from '../../../../../src/app/core/models/role';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
 
 @Component({
   selector: 'app-halfyearlyreturn-list',
@@ -53,41 +53,37 @@ export class HalfYearlyReturnListComponent implements OnInit {
   getHalfYearlyReturns() {
     this.isLoading = true;
 
+    console.log(this.branchId);
+
     if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLOStaff || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO){
-      this.isCommandingAreaUsers = true;
+      this.getHalfYearlyShipReturnByCommandingArea();
+    }
+    else if(this.role === this.userRoles.LOEO){
+      this.getHalfYearlyShipReturns(this.branchId)
+    }
+    else{
+      this.getHalfYearlyShipReturns(0);
+    }
+  }
+
+  getHalfYearlyShipReturns(shipId){
+    this.HalfYearlyReturnService.getHalfYearlyReturns(this.paging.pageIndex, this.paging.pageSize,this.searchText, shipId).subscribe(response => {
+
+      this.dataSource.data = response.items; 
+      this.paging.length = response.totalItemsCount    
+      this.isLoading = false;
+    
+    })
+  }
+
+  getHalfYearlyShipReturnByCommandingArea(){
+    this.isCommandingAreaUsers = true;
       this.HalfYearlyReturnService.getHalfYearlyReturnsByAuthorityId(this.paging.pageIndex, this.paging.pageSize,this.searchText, this.branchId).subscribe(response => {
 
           this.dataSource.data = response.items; 
           this.paging.length = response.totalItemsCount    
           this.isLoading = false;                    
         })
-    }
-    else{
-      this.HalfYearlyReturnService.getHalfYearlyReturns(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-
-          this.dataSource.data = response.items; 
-          this.paging.length = response.totalItemsCount    
-          this.isLoading = false;
-          
-           // this gives an object with dates as keys
-          //  const groups = this.dataSource.data.reduce((groups, courses) => {
-          //   const schoolName = courses.authorityName;
-          //   if (!groups[schoolName]) {
-          //     groups[schoolName] = [];
-          //   }
-          //   groups[schoolName].push(courses);
-          //   return groups;
-          // }, {});
-    
-          // Edit: to add it in the array format instead
-          // this.groupArrays = Object.keys(groups).map((authorityName) => {
-          //   return {
-          //     authorityName,
-          //     courses: groups[authorityName]
-          //   };
-          // });
-        })
-    }
   }
 
   pageChanged(event: PageEvent) {
@@ -110,7 +106,7 @@ export class HalfYearlyReturnListComponent implements OnInit {
   }
   print() {
     let printContents, popupWin;
-    printContents = document.getElementById("print-routine").innerHTML;
+    printContents = document.getElementById("print-routine")?.innerHTML;
     popupWin = window.open( "top=0,left=0,height=100%,width=auto");
     popupWin.document.open();
     popupWin.document.write(`

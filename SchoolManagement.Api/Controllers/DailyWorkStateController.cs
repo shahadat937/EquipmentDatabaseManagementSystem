@@ -21,9 +21,14 @@ public class DailyWorkStateController : ControllerBase
 
     [HttpGet]
     [Route("get-DailyWorkStates")]
-    public async Task<ActionResult<List<DailyWorkStateDto>>> Get([FromQuery] QueryParams queryParams)
+    public async Task<ActionResult<List<DailyWorkStateDto>>> Get([FromQuery] QueryParams queryParams, string actionTaken)
     {
-        var DailyWorkStates = await _mediator.Send(new GetDailyWorkStateListRequest { QueryParams = queryParams });
+        var DailyWorkStates = await _mediator.Send(new GetDailyWorkStateListRequest { 
+            
+            QueryParams = queryParams,
+            ActionTaken = actionTaken
+            
+        });
         return Ok(DailyWorkStates);
     }
     [HttpGet]

@@ -133,17 +133,17 @@
                               </th>
 
                               <th class="cl-mrk">
-                                <h5>Model/Type</h5>
+                                <h5>Model/Brand</h5>
                               </th>
 
                               <th class="cl-mrk">
                                 <h5>Input Power Supply</h5>
                               </th>
                               <th class="cl-mrk">
-                                <h5>State of Equipment</h5>
+                                <h5>OPL Qty</h5>
                               </th>
                               <th class="cl-mrk">
-                                <h5>Qty</h5>
+                                <h5>Non OPL Qty</h5>
                               </th>
                               <th class="cl-nm-rnk" *ngIf="echoSounder">
                                 Manufacturer Info
@@ -191,16 +191,16 @@
                               [formGroup]="unit">
                               <th class="cl-srl" scope="row">{{i+1}}</th>
                               <td class="cl-nm-rnk">
-                                {{getControlLabel(i,'model')}} - {{getControlLabel(i,'type')}}
+                                {{getControlLabel(i,'model')}} - {{getControlLabel(i,'brand')}}
                               </td>
                               <td class="cl-nm-rnk">
                                 {{getControlLabel(i,'powerSupply')}}
                               </td>
                               <td class="cl-nm-rnk">
-                                {{getControlLabel(i,'stateOfEquipment')}}
+                                {{getControlLabel(i,'oplQty')}}
                               </td>
                               <td class="cl-nm-rnk">
-                                {{getControlLabel(i,'qty')}}
+                                {{getControlLabel(i,'nonOplQty')}}
                               </td>
                               <td class="cl-nm-rnk" *ngIf="echoSounder">
                                 {{getControlLabel(i,'manufacturerNameAndAddress')}}

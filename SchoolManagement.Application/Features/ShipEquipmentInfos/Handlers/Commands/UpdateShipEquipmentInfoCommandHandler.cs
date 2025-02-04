@@ -55,7 +55,7 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Comm
 
             _mapper.Map(request.ShipEquipmentInfoDto, ShipEquipmentInfo);
 
-            if ((request.ShipEquipmentInfoDto.FileUpload != null && request.ShipEquipmentInfoDto.Doc != null) || request.ShipEquipmentInfoDto.Doc == null && request.ShipEquipmentInfoDto.FileUpload != null)
+            if ((request.ShipEquipmentInfoDto.FileUpload != null && request.ShipEquipmentInfoDto.Doc != null) || (request.ShipEquipmentInfoDto.Doc == null && request.ShipEquipmentInfoDto.FileUpload != null)  || (request.ShipEquipmentInfoDto.Doc != null && request.ShipEquipmentInfoDto.FileUpload == null))
             {
                 ShipEquipmentInfo.FileUpload = request.ShipEquipmentInfoDto.Doc != null ? "files/ship-equipment-files/" + uniqueFileName : ShipEquipmentInfo.FileUpload.Replace(apiUrl, String.Empty);
 

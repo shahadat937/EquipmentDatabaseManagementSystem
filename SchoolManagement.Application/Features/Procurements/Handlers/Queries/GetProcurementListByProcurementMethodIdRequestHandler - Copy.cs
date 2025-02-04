@@ -37,24 +37,11 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
 
             IQueryable<Procurement> Procurements;
 
-            if (request.SearchBy == "shipname")
-            {
+            
                 Procurements = _ProcurementRepository.FilterWithInclude(
-                    x => x.ProcurementMethodId == request.ProcureMethodId && (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
+                    x => x.ProcurementMethodId == request.ProcureMethodId && (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || x.ProcurementType.Name.Contains(request.QueryParams.SearchText) || x.EqupmentName.Name.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText) ),
                     "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
-            }
-            else if (request.SearchBy == "equipmentname")
-            {
-                Procurements = _ProcurementRepository.FilterWithInclude(
-                    x => x.ProcurementMethodId == request.ProcureMethodId && (x.EqupmentName.Name.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
-                    "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
-            }
-            else
-            {
-                Procurements = _ProcurementRepository.FilterWithInclude(
-                    x => x.ProcurementMethodId == request.ProcureMethodId && (string.IsNullOrEmpty(request.QueryParams.SearchText)),
-                    "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
-            }
+            
 
             var totalCount = Procurements.Count();
 

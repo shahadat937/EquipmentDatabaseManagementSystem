@@ -8,5 +8,6 @@ namespace SchoolManagement.Application.Features.HalfYearlyReturns.Requests.Queri
     public class GetHalfYearlyReturnListRequest : IRequest<PagedResult<HalfYearlyReturnDto>>
     {
         public QueryParams QueryParams { get; set; }
+        public int? ShipId { get; set; }
     }
 }

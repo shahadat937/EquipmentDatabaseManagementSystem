@@ -16,13 +16,14 @@ export class HalfYearlyReturnService {
   HalfYearlyReturnPagination = new HalfYearlyReturnPagination();
   constructor(private http: HttpClient) { }
 
-  getHalfYearlyReturns(pageNumber, pageSize, searchText) { 
+  getHalfYearlyReturns(pageNumber, pageSize, searchText, shipId) { 
 
     let params = new HttpParams();
 
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
+    params = params.append('shipId', shipId.toString());
 
     
     return this.http.get<IHalfYearlyReturnPagination>(this.baseUrl + '/half-yearly-return/get-HalfYearlyReturns', { observe: 'response', params })

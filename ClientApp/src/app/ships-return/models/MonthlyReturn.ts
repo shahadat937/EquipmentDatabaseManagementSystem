@@ -21,6 +21,7 @@ export interface MonthlyReturn {
    isActive: boolean;
    equipmentCategory: string;
    shipEquipmentInfoId : number;
-   returnQty : number
+   returnQty : number,
+   LastModifiedDate : string
  }
  
