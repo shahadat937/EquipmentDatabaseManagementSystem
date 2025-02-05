@@ -31,7 +31,7 @@ export class UserListComponent implements OnInit {
   searchText="";
   
 
-  displayedColumns: string[] = ['ser', 'userName','phoneNumber','email', 'actions'];
+  displayedColumns: string[] = ['ser', 'userName', 'roleName','phoneNumber','email', 'actions'];
   dataSource: MatTableDataSource<User> = new MatTableDataSource();
 
 

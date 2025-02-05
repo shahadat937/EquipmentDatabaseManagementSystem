@@ -280,7 +280,9 @@ namespace SchoolManagement.Identity.Services
                 FirstName = q.FirstName,
                 LastName = q.LastName,
                 UserName = q.UserName,
-                PhoneNumber =q.PhoneNumber
+                PhoneNumber =q.PhoneNumber,
+                RoleName = q.RoleName
+
             }).ToList();
 
             var result = new PagedResult<UserDto>(UsersDtos, totalCount, queryParams.PageNumber, queryParams.PageSize);
