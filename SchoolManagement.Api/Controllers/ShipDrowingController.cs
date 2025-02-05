@@ -22,11 +22,12 @@ public class ShipDrowingController : ControllerBase
 
     [HttpGet]
     [Route("get-ShipDrowings")]
-    public async Task<ActionResult<List<ShipDrowingDto>>> Get([FromQuery] QueryParams queryParams)
+    public async Task<ActionResult<List<ShipDrowingDto>>> Get([FromQuery] QueryParams queryParams, int shipId)
     {
         var ShipDrowings = await _mediator.Send(new GetShipDrowingListRequest 
         { 
-            QueryParams = queryParams
+            QueryParams = queryParams,
+            ShipId = shipId
         });
         return Ok(ShipDrowings);
     }
