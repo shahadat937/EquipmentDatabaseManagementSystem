@@ -72,7 +72,7 @@ export class ShipInformationListComponent implements OnInit {
 
 
   getShips(){
-    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEOWTR) {
       console.log("test");
       this.getShipInformations(this.branchId); // BaseSchoolNameId in DB
     }

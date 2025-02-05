@@ -18,7 +18,9 @@ export enum Role {
   OffceStaffDNWEE = 'Office Staff DNW&EE',
   FLO = 'FLO',
   CSO = 'CSO',
-  FLOStaff = 'FLO Staff'
+  FLOStaff = 'FLO Staff',
+  LOEOWTR = 'LO/EO WTR'
+ 
 
 
 

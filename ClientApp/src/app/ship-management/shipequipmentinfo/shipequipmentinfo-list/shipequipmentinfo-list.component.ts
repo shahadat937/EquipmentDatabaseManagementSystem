@@ -118,7 +118,7 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
     this.paging.pageIndex = event.pageIndex
     this.paging.pageSize = event.pageSize
     this.paging.pageIndex = this.paging.pageIndex + 1
-    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO) {
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO || this.role == this.userRole.LOEOWTR) {
       this.getShipEquipmentInfos(this.branchId);
     } else {
       this.getShipEquipmentInfos(0);
@@ -145,7 +145,7 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
   }
 
   loadData() {
-    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser || this.role === this.userRole.LOEOWTR) {
       this.getShipEquipmentInfos(this.branchId);
     } else {
       this.getShipEquipmentInfos(0);
@@ -176,7 +176,7 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
     this.sortDirection = this.sortDirection === 'desc' ? 'asc' : "desc"
     this.sortColumn = key;
 
-    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser || this.role === this.userRole.LOEOWTR) {
       this.getShipEquipmentInfos(this.branchId);
     } else {
       this.getShipEquipmentInfos(0);
@@ -375,7 +375,7 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
       if (result) {
         this.ShipEquipmentInfoService.delete(id).subscribe(() => {
-          if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO) {
+          if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO  || this.role == this.userRole.LOEOWTR || this.role == this.userRole.ShipUser) {
             this.getShipEquipmentInfos(this.branchId);
           } else {
             this.getShipEquipmentInfos(0);

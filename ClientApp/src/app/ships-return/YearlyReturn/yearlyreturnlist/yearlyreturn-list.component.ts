@@ -67,7 +67,7 @@ export class NewYearlyRetrunComponent implements OnInit {
       this.getYearlyShipReturnByCommandingArea();
 
     }
-    else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.ShipUser || this.role === this.userRoles.ShipStaff){
+    else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.LOEOWTR || this.role === this.userRoles.ShipUser || this.role === this.userRoles.ShipStaff){
       this.getYearlyShipReturns(this.branchId);
     }
     else{

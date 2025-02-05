@@ -120,8 +120,8 @@ export class NewShipDrawingComponent implements OnInit {
       this.isAreaCommanderUsers = true;
       this.onCommendingAreaSelectionChangeGetBaseName();
     }
-    else if (this.role === this.userRole.ShipUser || this.role === this.userRole.ShipStaff) {
-      console.log("Z");
+    else if (this.role === this.userRole.ShipUser || this.role === this.userRole.ShipStaff || this.role === this.userRole.LOEO || this.role === this.userRole.LOEOWTR) {
+
       this.getShipInfoById(this.branchId);
     }
   }
@@ -210,7 +210,7 @@ export class NewShipDrawingComponent implements OnInit {
         this.isLoading = false;
       })
     }
-    else if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO) {
+    else if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO || this.role == this.userRole.LOEOWTR) {
       this.getShipDrawing(this.branchId);
     }
     else {

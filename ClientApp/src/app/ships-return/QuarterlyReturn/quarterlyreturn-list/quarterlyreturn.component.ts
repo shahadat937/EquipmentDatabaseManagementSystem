@@ -81,7 +81,7 @@ import { AuthService } from 'src/app/core/service/auth.service';
         
         this.getQuarterlyReturnsByCommandingArea();
       }
-      else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.ShipUser || this.role === this.userRoles.ShipStaff ){
+      else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.LOEOWTR || this.role === this.userRoles.ShipUser || this.role === this.userRoles.ShipStaff ){
         this.getQuarterlyReturns(this.branchId);
       }
       else{

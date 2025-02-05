@@ -332,7 +332,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     }
     this.intitializeForm();
 
-    if(this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO){
+    if(this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO ||  this.role == this.userRole.LOEOWTR){
       this.ShipEquipmentInfoForm.get('baseSchoolNameId')?.setValue(this.branchId);
       // this.baseSchoolNameService.find(this.branchId).subscribe(res=>{
       //   this.MonthlyReturnForm.get('baseNameId').setValue(res.thirdLevel);

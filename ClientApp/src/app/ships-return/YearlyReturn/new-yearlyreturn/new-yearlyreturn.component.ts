@@ -82,7 +82,7 @@ export class YearlyReturnComponent implements OnInit {
     }
 
     this.initializeForm();
-    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO) {
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO || this.role == this.userRole.LOEOWTR) {
       this.YearlyReturnForm.get('baseSchoolNameId')?.setValue(this.branchId);
     }
     this.getSelectedReportingMonth();
