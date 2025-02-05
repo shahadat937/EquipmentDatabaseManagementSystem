@@ -26,7 +26,7 @@ const routes: Routes = [
         path: 'ships-return',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff, Role.LOEO, Role.ShipStaff, Role.Director, Role.SOL, Role.AreaCommander, Role.FLO, Role.FLOStaff, Role.CSO]
+          role: [Role.MasterAdmin, Role.ShipUser, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff, Role.LOEO, Role.ShipStaff, Role.Director, Role.SOL, Role.AreaCommander, Role.FLO, Role.FLOStaff, Role.CSO]
         },
         loadChildren: () =>
           import('./ships-return/ships-return.module').then((m) => m.ShipsReturnModule),
@@ -83,7 +83,7 @@ const routes: Routes = [
         path: 'ship-drawing',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff, Role.AreaCommander, Role.CSO, Role.FLO, Role.FLOStaff]
+          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.ShipUser, Role.DNWNEEOfficeStaff, Role.AreaCommander, Role.CSO, Role.FLO, Role.FLOStaff]
         },
         loadChildren: () =>
           import('./ship-drawing/ship-drawing.module').then((m) => m.ShipDrawingModule),

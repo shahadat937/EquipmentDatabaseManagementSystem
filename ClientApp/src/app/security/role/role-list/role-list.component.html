@@ -41,7 +41,7 @@
                       </li>
 
                       <li class="dropdown">
-                        <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
+                        <input ((input))="applyFilter(searchText)" placeholder="Search Role" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
                         aria-label="Search box">
                       </li>
                       <li> 

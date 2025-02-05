@@ -19,12 +19,14 @@ import { SelectedModel } from '../../core/models/selectedModel';
     // YearlyReturnsPagination : any;
     constructor(private http: HttpClient) { }
 
-    getYearlyReturn(pageNumber, pageSize, searchText){
+    getYearlyReturn(pageNumber, pageSize, searchText, shipId){
         let params = new HttpParams();
 
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
+    params = params.append('shipId', shipId.toString());
+    
 
     return this.http.get<IYearlyReturnPagination>(this.baseUrl + '/yearly-return/get-YearlyReturn',{
         observe: 'response', params

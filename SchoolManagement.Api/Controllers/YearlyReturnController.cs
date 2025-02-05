@@ -24,9 +24,13 @@ namespace SchoolManagement.Api.Controllers
 
         [HttpGet]
         [Route("get-YearlyReturn")]
-        public async Task<ActionResult<List<YearlyReturnDto>>> Get([FromQuery] QueryParams queryParams)
+        public async Task<ActionResult<List<YearlyReturnDto>>> Get([FromQuery] QueryParams queryParams, int shipId)
         {
-            var YearlyReturns = await _mediator.Send(new GetYearlyReturnListRequest { QueryParams = queryParams });
+            var YearlyReturns = await _mediator.Send(new GetYearlyReturnListRequest { 
+                QueryParams = queryParams,
+                ShipId  = shipId
+                
+            });
             return Ok(YearlyReturns);
         }
 

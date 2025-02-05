@@ -31,7 +31,7 @@ namespace SchoolManagement.Application.Features.ShipInformations.Handlers.Querie
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<ShipInformation> ShipInformations = _ShipInformationRepository.FilterWithInclude(x => x.BaseSchoolNameId == (request.ShipId != 0 ? request.ShipId : x.BaseSchoolNameId) && String.IsNullOrEmpty(request.QueryParams.SearchText) || (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText))||(x.Authority.Contains(request.QueryParams.SearchText)), "BaseSchoolName", "AuthorityNavigation", "BaseName", "Sqn", "OperationalStatus");
+            IQueryable<ShipInformation> ShipInformations = _ShipInformationRepository.FilterWithInclude(x => x.BaseSchoolNameId == (request.ShipId != 0 ? request.ShipId : x.BaseSchoolNameId) && (String.IsNullOrEmpty(request.QueryParams.SearchText) || (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText))||(x.Authority.Contains(request.QueryParams.SearchText))), "BaseSchoolName", "AuthorityNavigation", "BaseName", "Sqn", "OperationalStatus");
             var totalCount = ShipInformations.Count();
             ShipInformations = ShipInformations.OrderByDescending(x => x.ShipInformationId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 

@@ -67,7 +67,7 @@
                       <ul class="header-buttons">
                         <li>
                           <div class="icon-button-demo">
-                            <button [hidden]="isCommsndingAreaUsers" class="btn-space"  mat-raised-button
+                            <button *ngIf="role != userRole.ShipStaff && role != userRole.LOEO && role != userRole.ShipUser" [hidden]="isCommsndingAreaUsers" class="btn-space"  mat-raised-button
                             color="primary" routerLink="/ship-management/add-shipinformation"> Add
                               <mat-icon class="col-white">add</mat-icon>
                             </button>
@@ -130,7 +130,7 @@
                             [routerLink]="['/ship-management/update-shipinformation', number.shipInformationId]">
                               <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
                             </button>
-                            <button [hidden]="isCommsndingAreaUsers" mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
+                            <button *ngIf="role != userRole.ShipStaff && role != userRole.LOEO && role != userRole.ShipUser" [hidden]="isCommsndingAreaUsers" mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
                             (click)="deleteItem(number)">
                             <mat-icon aria-label="Delete" class="col-white">delete</mat-icon> 
                           </button>

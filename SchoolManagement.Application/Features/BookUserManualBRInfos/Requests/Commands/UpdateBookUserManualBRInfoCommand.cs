@@ -5,7 +5,7 @@ namespace SchoolManagement.Application.Features.BookUserManualBRInfos.Requests.C
 {
     public class UpdateBookUserManualBRInfoCommand : IRequest<Unit>
     { 
-        public BookUserManualBRInfoDto BookUserManualBRInfoDto { get; set; }
+        public CreateBookUserManualBRInfoDto BookUserManualBRInfoDto { get; set; }
     }
 }
  

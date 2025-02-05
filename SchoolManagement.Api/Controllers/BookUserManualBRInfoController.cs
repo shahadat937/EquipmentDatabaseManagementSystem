@@ -21,9 +21,12 @@ public class BookUserManualBRInfoController : ControllerBase
 
     [HttpGet]
     [Route("get-BookUserManualBRInfos")]
-    public async Task<ActionResult<List<BookUserManualBRInfoDto>>> Get([FromQuery] QueryParams queryParams)
+    public async Task<ActionResult<List<BookUserManualBRInfoDto>>> Get([FromQuery] QueryParams queryParams, int shipId)
     {
-        var BookUserManualBRInfos = await _mediator.Send(new GetBookUserManualBRInfoListRequest { QueryParams = queryParams });
+        var BookUserManualBRInfos = await _mediator.Send(new GetBookUserManualBRInfoListRequest { 
+            QueryParams = queryParams,
+            ShipId = shipId
+        });
         return Ok(BookUserManualBRInfos);
     }
 
@@ -54,7 +57,7 @@ public class BookUserManualBRInfoController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-BookUserManualBRInfo/{id}")]
-    public async Task<ActionResult> Put([FromBody] BookUserManualBRInfoDto BookUserManualBRInfo)
+    public async Task<ActionResult> Put([FromForm] CreateBookUserManualBRInfoDto BookUserManualBRInfo)
     {
         var command = new UpdateBookUserManualBRInfoCommand { BookUserManualBRInfoDto = BookUserManualBRInfo };
         await _mediator.Send(command);

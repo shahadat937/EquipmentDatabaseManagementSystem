@@ -35,7 +35,9 @@ import { AuthService } from 'src/app/core/service/auth.service';
       { id: 1, year: '2020' },
       { id: 2, year: '2021' },
       { id: 3, year: '2022' },
-      { id: 4, year: '2023' }
+      { id: 4, year: '2023' },
+      { id: 5, year: '2024' },
+      { id: 6, year: '2025' }
     ];
     searchText="";
     private searchSubject: Subject<string> = new Subject(); 
@@ -76,7 +78,34 @@ import { AuthService } from 'src/app/core/service/auth.service';
     getYearlyReturn() {
       this.isLoading = true;
       if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO || this.role === this.userRoles.FLOStaff){
-        this.isCommandingAreaUser = true;
+        
+        this.getQuarterlyReturnsByCommandingArea();
+      }
+      else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.ShipUser || this.role === this.userRoles.ShipStaff ){
+        this.getQuarterlyReturns(this.branchId);
+      }
+      else{
+        this.getQuarterlyReturns(0); // getAll
+      }
+     
+    }
+
+    getQuarterlyReturns (shipId){
+      this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
+        this.dataSource.data = response.items;
+        this.dataSource.data = response.items.map((item) => ({
+          ...item,
+          year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
+        }));
+        this.paging.length = response.totalItemsCount
+        this.isLoading = false;
+        this.itemCount = response.items.length;
+  
+      })
+    }
+
+    getQuarterlyReturnsByCommandingArea(){
+      this.isCommandingAreaUser = true;
         this.YearlyReturnService.getYearlyReturnByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
           
           this.dataSource.data = response.items;
@@ -89,22 +118,6 @@ import { AuthService } from 'src/app/core/service/auth.service';
           this.itemCount = response.items.length;
     
         })
-  
-      }
-      else{
-        this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
-          this.dataSource.data = response.items;
-          this.dataSource.data = response.items.map((item) => ({
-            ...item,
-            year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
-          }));
-          this.paging.length = response.totalItemsCount
-          this.isLoading = false;
-          this.itemCount = response.items.length;
-    
-        })
-      }
-     
     }
 
     pageChanged(event: PageEvent) {

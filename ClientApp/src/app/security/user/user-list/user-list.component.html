@@ -39,7 +39,7 @@
                           
                         </li>
                         <li class="dropdown">
-                          <input placeholder="Search" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
+                          <input placeholder="Search Username" type="text" [(ngModel)]="searchText"  #filter class="browser-default search-field"
                           aria-label="Search box">
                         </li>
                         <li> 
@@ -85,6 +85,10 @@
                   <ng-container matColumnDef="userName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> User Name</mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="roleName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Role Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.roleName}} </mat-cell>
                   </ng-container>
 
      

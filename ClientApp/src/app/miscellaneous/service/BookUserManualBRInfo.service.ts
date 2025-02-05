@@ -14,13 +14,14 @@ export class BookUserManualBRInfoService {
   BookUserManualBRInfoPagination = new BookUserManualBRInfoPagination();
   constructor(private http: HttpClient) { }
 
-  getBookUserManualBRInfos(pageNumber, pageSize, searchText) { 
+  getBookUserManualBRInfos(pageNumber, pageSize, searchText, shipId) { 
 
     let params = new HttpParams();
 
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
+    params = params.append('shipId', shipId.toString());
 
     
     return this.http.get<IBookUserManualBRInfoPagination>(this.baseUrl + '/book-user-manual-br-info/get-BookUserManualBRInfos', { observe: 'response', params })
