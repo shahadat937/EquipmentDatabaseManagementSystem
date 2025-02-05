@@ -7,7 +7,8 @@ namespace SchoolManagement.Application.Features.ShipDrowings.Requests.Queries
 {
     public class GetShipDrowingListRequest : IRequest<PagedResult<ShipDrowingDto>>
     {
-        public QueryParams QueryParams { get; set; } 
-       /// public int? DepartmentNameId { get; set; }
+        public QueryParams QueryParams { get; set; }
+        public int? ShipId { get; set; }
+        /// public int? DepartmentNameId { get; set; }
     }
 }

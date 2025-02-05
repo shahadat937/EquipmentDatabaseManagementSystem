@@ -3,13 +3,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipInformationService } from '../../service/ShipInformation.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { MasterData } from 'src/assets/data/master-data';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
+import { MasterData } from '../../../../../src/assets/data/master-data';
 import {BaseSchoolNameService} from '../../../../app/security/service/BaseSchoolName.service'
-import { Role } from 'src/app/core/models/role';
+import { Role } from '../../../../../src/app/core/models/role';
 import { ShipEquipmentInfoService } from '../../service/ShipEquipmentInfo.service'; 
 
 @Component({
@@ -36,6 +36,7 @@ export class NewShipInformationComponent implements OnInit {
   selectedOperationalStatus:SelectedModel[];
   selectedShipType:SelectedModel[];
   selectShipType:SelectedModel[];
+  selectBaseSchoolName : SelectedModel[];
   traineeId:any;
   role:any;
   branchId:any;
@@ -122,11 +123,11 @@ export class NewShipInformationComponent implements OnInit {
  
 this.getSelectedSchoolByBranchLevelAndThirdLevel();
     if(this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO){
-      this.ShipInformationForm.get('baseSchoolNameId').setValue(this.branchId);
+      this.ShipInformationForm.get('baseSchoolNameId')?.setValue(this.branchId);
       this.BaseSchoolNameService.find(this.branchId).subscribe(res=>{
 
-        this.ShipInformationForm.get('baseNameId').setValue(res.thirdLevel);
-        this.ShipInformationForm.get('authorityId').setValue(res.secondLevel);
+        this.ShipInformationForm.get('baseNameId')?.setValue(res.thirdLevel);
+        this.ShipInformationForm.get('authorityId')?.setValue(res.secondLevel);
       });
     }
     if(this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.CSO || this.role === this.userRole.FLOStaff){
@@ -210,7 +211,7 @@ this.getSelectedSchoolByBranchLevelAndThirdLevel();
     //var baseNameId = this.ShipEquipmentInfoForm.value['baseNameId'];
     this.ShipEquipmentInfoService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
       this.selectedBaseSchoolName=res;
-      // this.selectSchoolName = res;
+      this.selectBaseSchoolName = res;
 
     }); 
   }
@@ -234,7 +235,7 @@ this.getSelectedSchoolByBranchLevelAndThirdLevel();
   //   }); 
   // }
   filterByShip(value:any){
-    this.selectedBaseSchoolName=this.selectBaseName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+    this.selectedBaseSchoolName=this.selectBaseSchoolName.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
   }
 
   getSelectedSqn(){
@@ -257,7 +258,6 @@ this.getSelectedSchoolByBranchLevelAndThirdLevel();
   
   onFileChanged(event: Event) {
     const input = event.target as HTMLInputElement;
-    console.log(input.files[0]);
   
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
@@ -350,12 +350,12 @@ this.getSelectedSchoolByBranchLevelAndThirdLevel();
   
 
   onSubmit() {
-    const id = this.ShipInformationForm.get('shipInformationId').value;   
+    const id = this.ShipInformationForm.get('shipInformationId')?.value;   
 
     // this.ShipInformationForm.get('dateOfCommission').setValue((new Date(this.ShipInformationForm.get('dateOfCommission').value)));
     // this.ShipInformationForm.get('dateOfCommission').setValue(dateOfCommission);
-    const dateOfCommission = this.sharedService.formatDateTime(this.ShipInformationForm.get('dateOfCommission').value)
-    this.ShipInformationForm.get('dateOfCommission').setValue(dateOfCommission);
+    const dateOfCommission = this.sharedService.formatDateTime(this.ShipInformationForm.get('dateOfCommission')?.value)
+    this.ShipInformationForm.get('dateOfCommission')?.setValue(dateOfCommission);
 
     const formData = new FormData();
     if(!this.shipImage){

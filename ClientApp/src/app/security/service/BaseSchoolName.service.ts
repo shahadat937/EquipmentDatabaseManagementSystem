@@ -70,6 +70,9 @@ export class BaseSchoolNameService {
     return this.http.get<SelectedModel[]>(this.baseUrl + '/base-School-name/get-selectedSchoolNames?thirdLevel='+baseNameId)
   }
   
+  getShipInfosById(shipId){
+    return this.http.get<any>(this.baseUrl + '/base-School-name/get-baseSchoolNameDetail/'+shipId)
+  }
 
   update(id: number,model: any) {
     return this.http.put(this.baseUrl + '/base-School-name/update-baseSchoolName/'+id, model);

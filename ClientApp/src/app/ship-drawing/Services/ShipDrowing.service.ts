@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../src/environments/environment';
 import {IShipDrowingPagination,ShipDrowingPagination } from '../models/ShipDrowingPagination'
 import { ShipDrowing } from '../models/ShipDrowing';
 import { map } from 'rxjs';
@@ -14,13 +14,14 @@ export class ShipDrowingService {
   ShipDrowingPagination = new ShipDrowingPagination();
   constructor(private http: HttpClient) { }
 
-  getShipDrowings(pageNumber, pageSize, searchText) { 
+  getShipDrowings(pageNumber, pageSize, searchText, shipId) { 
 
     let params = new HttpParams();
 
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
+    params = params.append('shipId', shipId.toString());
     // params = params.append('departmentNameId', departmentNameId.toString());
 
     

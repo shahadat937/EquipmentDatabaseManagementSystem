@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
-import { Role } from 'src/app/core/models/role';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
-import { MasterData } from 'src/assets/data/master-data';
+import { Role } from '../../../../src/app/core/models/role';
+import { SelectedModel } from '../../../../src/app/core/models/selectedModel';
+import { MasterData } from '../../../../src/assets/data/master-data';
 import { ShipDrowing } from '../models/ShipDrowing';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
-import { ShipDrowingService } from 'src/app/ship-drawing/Services/ShipDrowing.service';
+import { AuthService } from '../../../../src/app/core/service/auth.service';
+import { ConfirmService } from '../../../../src/app/core/service/confirm.service';
+import { ShipDrowingService } from '../../../../src/app/ship-drawing/Services/ShipDrowing.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
-import { BaseSchoolNameService } from 'src/app/security/service/BaseSchoolName.service';
-import { SharedService } from 'src/app/shared/shared.service';
+import { BaseSchoolNameService } from '../../../../src/app/security/service/BaseSchoolName.service';
+import { SharedService } from '../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-ship-drawing',
@@ -96,7 +96,7 @@ export class NewShipDrawingComponent implements OnInit {
         this.btnText = 'Save';
         console.log(this.role);
         // this.ShipDrowingForm.reset();
-       
+
       }
     });
 
@@ -109,15 +109,21 @@ export class NewShipDrawingComponent implements OnInit {
     this.intitializeForm();
 
 
+
+
     // if (this.role !== this.userRole.SuperAdmin) {
     //   this.ShipDrowingForm.get('departmentNameId').setValue(this.branchId);
     //   this.onDepartmentSelectionChangeGetShipDrowingList();
     // }
-    if(this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.CSO || this.role === this.userRole.FLOStaff){
+    if (this.role === this.userRole.AreaCommander || this.role === this.userRole.FLO || this.role === this.userRole.CSO || this.role === this.userRole.FLOStaff) {
       this.ShipDrowingForm.get('authorityId')?.setValue(this.branchId);
       this.isAreaCommanderUsers = true;
-      this.onCommendingAreaSelectionChangeGetBaseName();     
-  }
+      this.onCommendingAreaSelectionChangeGetBaseName();
+    }
+    else if (this.role === this.userRole.ShipUser || this.role === this.userRole.ShipStaff) {
+      console.log("Z");
+      this.getShipInfoById(this.branchId);
+    }
   }
 
   intitializeForm() {
@@ -141,7 +147,7 @@ export class NewShipDrawingComponent implements OnInit {
     console.log(this.organizationId + " organization")
     this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res => {
       this.selectedCommendingArea = res
-      this.selectComandinArea=res
+      this.selectComandinArea = res
       console.log("selected comanding area");
       //  console.log(this.selectedCommendingArea);
     });
@@ -167,7 +173,7 @@ export class NewShipDrawingComponent implements OnInit {
     console.log(baseNameId);
     this.BaseSchoolNameService.getSelectedSchoolName(baseNameId).subscribe(res => {
       this.selectedBaseSchoolName = res
-      this.selectSchoolName=res
+      this.selectSchoolName = res
     });
   }
   onCommendingAreaSelectionChangeGetBaseName() {
@@ -176,7 +182,7 @@ export class NewShipDrawingComponent implements OnInit {
     console.log(this.commendingAreaId);
     this.BaseSchoolNameService.getSelectedBaseName(this.commendingAreaId).subscribe(res => {
       this.selectedBaseName = res
-      this.selectBaseName=res
+      this.selectBaseName = res
     });
     //this.getBaseNameList(this.commendingAreaId);
 
@@ -204,15 +210,31 @@ export class NewShipDrawingComponent implements OnInit {
         this.isLoading = false;
       })
     }
+    else if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO) {
+      this.getShipDrawing(this.branchId);
+    }
     else {
-      this.ShipDrowingService.getShipDrowings(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
-        console.log(response);
-        this.dataSource.data = response.items;
-        this.paging.length = response.totalItemsCount
-        this.isLoading = false;
-      })
+      this.getShipDrawing(0)
     }
 
+  }
+
+  getShipDrawing(shipId) {
+    this.ShipDrowingService.getShipDrowings(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
+      console.log(response);
+      this.dataSource.data = response.items;
+      this.paging.length = response.totalItemsCount
+      this.isLoading = false;
+    })
+  }
+
+  getShipInfoById(shipId) {
+    this.BaseSchoolNameService.getShipInfosById(this.branchId).subscribe(res => {
+        this.ShipDrowingForm.get('authorityId')?.setValue(res.secondLevel);
+        this.ShipDrowingForm.get('baseNameId')?.setValue(res.thirdLevel);
+        this.ShipDrowingForm.get('baseSchoolNameId')?.setValue(shipId);
+      
+    })
   }
 
   reloadCurrentRoute() {
@@ -250,7 +272,7 @@ export class NewShipDrawingComponent implements OnInit {
   }
 
   onSubmit() {
-    const id = this.ShipDrowingForm.get('shipDrowingId').value;
+    const id = this.ShipDrowingForm?.get('shipDrowingId')?.value;
 
     // this.ShipDrowingForm.get('date').setValue((new Date(this.ShipDrowingForm.get('date').value)).toUTCString()) ;
     // this.ProcurementForm.get('tenderopeningDate').setValue((new Date(this.ProcurementForm.get('tenderopeningDate').value)).toUTCString()) ;
