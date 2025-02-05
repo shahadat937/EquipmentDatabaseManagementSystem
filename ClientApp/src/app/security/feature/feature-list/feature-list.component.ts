@@ -61,6 +61,7 @@ export class FeatureListComponent implements OnInit {
  
   }
   applyFilter(searchText: any){ 
+    this.paging.pageIndex = 1;
     this.searchText = searchText;
     this.getFeatures();
   } 
