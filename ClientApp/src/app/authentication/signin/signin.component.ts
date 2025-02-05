@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/service/auth.service';
-import { Role } from 'src/app/core/models/role';
+import { Role } from '../../../../src/app/core/models/role';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { isNull } from '@angular/compiler/src/output/output_ast';
@@ -105,7 +105,7 @@ export class SigninComponent
                 if (role === Role.All || role === Role.MasterAdmin || role === Role.Director || role === Role.DNWNEEOfficeStaff || role === Role.StaffOfficer  || role === Role.DD ||  role === Role.AreaCommander || role === Role.SOL || role === Role.SOR || role === Role.OffceStaffDNWEE || role === Role.CSO || role === Role.FLO || role ===Role.FLOStaff  ) {
                   
                   this.router.navigate(['/admin/dashboard/main']);
-                }else if (role === Role.ShipUser || role === Role.CO || role === Role.EXO || role === Role.ShipStaff || role === Role.LOEO) {
+                }else if (role === Role.ShipUser || role === Role.CO || role === Role.EXO || role === Role.ShipStaff || role === Role.LOEO || role === Role.LOEOWTR) {
                   this.router.navigate(['/admin/dashboard/ship-dashboard']);
                 }else if (role === Role.DataEntry) {
                   this.router.navigate(['/admin/dashboard/school-dashboard']);

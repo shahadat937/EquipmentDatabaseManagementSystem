@@ -73,7 +73,7 @@ export class MonthlyReturnListComponent implements OnInit {
       this.getShipMonthlyReturnsByAuthority();
 
     }
-    else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.ShipUser){
+    else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.ShipUser || this.role === this.userRoles.LOEOWTR){
       console.log(22)
       this.getMonthltShipReturns(this.branchId);
     }

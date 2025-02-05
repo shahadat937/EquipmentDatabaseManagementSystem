@@ -26,7 +26,7 @@ const routes: Routes = [
         path: 'ships-return',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.ShipUser, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff, Role.LOEO, Role.ShipStaff, Role.Director, Role.SOL, Role.AreaCommander, Role.FLO, Role.FLOStaff, Role.CSO]
+          role: [Role.MasterAdmin, Role.ShipUser, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff, Role.LOEO, Role.LOEOWTR, Role.ShipStaff, Role.Director, Role.SOL, Role.AreaCommander, Role.FLO, Role.FLOStaff, Role.CSO]
         },
         loadChildren: () =>
           import('./ships-return/ships-return.module').then((m) => m.ShipsReturnModule),
@@ -36,7 +36,7 @@ const routes: Routes = [
         path: 'miscellaneous',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.ShipUser, Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff]
+          role: [Role.ShipUser, Role.LOEOWTR, Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff]
         },
         loadChildren: () =>
           import('./miscellaneous/miscellaneous.module').then((m) => m.MiscellaneousModule),
@@ -46,7 +46,7 @@ const routes: Routes = [
         path: 'ship-management',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.ShipUser, Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.LOEO, Role.DNWNEEOfficeStaff, Role.ShipStaff, Role.AreaCommander, Role.FLO, Role.FLOStaff, Role.CSO]
+          role: [Role.ShipUser, Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.LOEO, Role.LOEOWTR, Role.DNWNEEOfficeStaff, Role.ShipStaff, Role.AreaCommander, Role.FLO, Role.FLOStaff, Role.CSO]
         },
         loadChildren: () =>
           import('./ship-management/ship-management.module').then((m) => m.ShipManagementModule),
@@ -83,7 +83,7 @@ const routes: Routes = [
         path: 'ship-drawing',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.ShipUser, Role.DNWNEEOfficeStaff, Role.AreaCommander, Role.CSO, Role.FLO, Role.FLOStaff]
+          role: [Role.MasterAdmin,Role.LOEOWTR, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.ShipUser, Role.DNWNEEOfficeStaff, Role.AreaCommander, Role.CSO, Role.FLO, Role.FLOStaff]
         },
         loadChildren: () =>
           import('./ship-drawing/ship-drawing.module').then((m) => m.ShipDrawingModule),
@@ -92,7 +92,7 @@ const routes: Routes = [
         path: 'user-manual',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff]
+          role: [Role.MasterAdmin, Role.ShipUser, Role.LOEOWTR, Role.DD, Role.OffceStaffDNWEE, Role.Director, Role.SOL, Role.SOR, Role.StaffOfficer, Role.DNWNEEOfficeStaff]
         },
         loadChildren: () =>
           import('./user-manual/user-manual.module').then((m) => m.UserManualModule),
@@ -112,7 +112,7 @@ const routes: Routes = [
         path: 'password',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.SuperAdmin, Role.ShipStaff, Role.LOEO, Role.EXO, Role.DataEntry, Role.DNWNEEOfficeStaff, Role.CO, Role.StaffOfficer, Role.AreaCommander, Role.Director, Role.SOL, Role.SOR, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.ShipUser, Role.DataEntry, Role.FLO, Role.FLOStaff, Role.CSO],
+          role: [Role.MasterAdmin, Role.SuperAdmin, Role.ShipStaff, Role.LOEO,Role.LOEOWTR, Role.EXO, Role.DataEntry, Role.DNWNEEOfficeStaff, Role.CO, Role.StaffOfficer, Role.AreaCommander, Role.Director, Role.SOL, Role.SOR, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.ShipUser, Role.DataEntry, Role.FLO, Role.FLOStaff, Role.CSO],
         },
         loadChildren: () =>
           import('./password/password.module').then((m) => m.PasswordModule),
@@ -124,7 +124,7 @@ const routes: Routes = [
         path: 'admin',
         canActivate: [AuthGuard],
         data: {
-          role: [Role.MasterAdmin, Role.SuperAdmin, Role.ShipStaff, Role.LOEO, Role.EXO, Role.DataEntry, Role.DNWNEEOfficeStaff, Role.CO, Role.StaffOfficer, Role.AreaCommander, Role.Director, Role.SOL, Role.SOR, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.ShipUser, Role.DataEntry, Role.FLO, Role.FLOStaff, Role.CSO],
+          role: [Role.MasterAdmin, Role.SuperAdmin, Role.ShipStaff, Role.LOEO,Role.LOEOWTR, Role.EXO, Role.DataEntry, Role.DNWNEEOfficeStaff, Role.CO, Role.StaffOfficer, Role.AreaCommander, Role.Director, Role.SOL, Role.SOR, Role.DD, Role.OffceStaffDNWEE, Role.SOL, Role.SOR, Role.ShipUser, Role.DataEntry, Role.FLO, Role.FLOStaff, Role.CSO],
 
         },
         loadChildren: () =>

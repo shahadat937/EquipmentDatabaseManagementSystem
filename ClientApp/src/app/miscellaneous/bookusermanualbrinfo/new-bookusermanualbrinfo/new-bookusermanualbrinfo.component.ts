@@ -82,7 +82,7 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
       this.btnText = 'Save';
     }
     this.intitializeForm();
-    if (this.role == this.userRoles.ShipStaff || this.role == this.userRoles.ShipUser || this.role == this.userRoles.LOEO) {
+    if (this.role == this.userRoles.ShipStaff || this.role == this.userRoles.ShipUser || this.role == this.userRoles.LOEO || this.role == this.userRoles.LOEOWTR) {
       this.BookUserManualBRInfoForm.get('baseSchoolNameId')?.setValue(this.branchId);
     }
     this.getBookUserManualBRInfos();
@@ -154,7 +154,7 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
 
   getBookUserManualBRInfos() {
 
-    if(this.role == this.userRoles.ShipStaff || this.role == this.userRoles.ShipUser || this.role == this.userRoles.LOEO ){
+    if(this.role == this.userRoles.ShipStaff || this.role == this.userRoles.ShipUser || this.role == this.userRoles.LOEO || this.role == this.userRoles.LOEOWTR){
       this.getBookUserManualAndBR(this.branchId);
     }
     else{

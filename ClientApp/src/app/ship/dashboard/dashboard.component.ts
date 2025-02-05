@@ -208,7 +208,7 @@ export class DashboardComponent implements OnInit {
 
   getShipInformationBySchoolid(schoolId){
     this.schoolDashboardService.getShipInformationBySchoolid(schoolId).subscribe(response => {  
-      console.log(response) 
+      console.log("X",response) 
       this.shipInfoList=response;
       this.shipInfoId=response[0]?.shipInformationId;
     })
