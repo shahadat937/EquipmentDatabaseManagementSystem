@@ -31,7 +31,7 @@ namespace SchoolManagement.Application.Features.BookUserManualBRInfos.Handlers.Q
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            IQueryable<BookUserManualBRInfo> BookUserManualBRInfos = _BookUserManualBRInfoRepository.FilterWithInclude(x => (x.BookName.Contains(request.QueryParams.SearchText) ||(x.BookType.Name.Contains(request.QueryParams.SearchText)) ||String.IsNullOrEmpty(request.QueryParams.SearchText)), "BaseSchoolName", "BookType");
+            IQueryable<BookUserManualBRInfo> BookUserManualBRInfos = _BookUserManualBRInfoRepository.FilterWithInclude(x => (request.ShipId == 0 || x.BaseSchoolNameId == request.ShipId) && ((x.BookName.Contains(request.QueryParams.SearchText) ||(x.BookType.Name.Contains(request.QueryParams.SearchText)) ||String.IsNullOrEmpty(request.QueryParams.SearchText))), "BaseSchoolName", "BookType");
             var totalCount = BookUserManualBRInfos.Count();
             BookUserManualBRInfos = BookUserManualBRInfos.OrderByDescending(x => x.BookUserManualBRInfoId).Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize).Take(request.QueryParams.PageSize);
 

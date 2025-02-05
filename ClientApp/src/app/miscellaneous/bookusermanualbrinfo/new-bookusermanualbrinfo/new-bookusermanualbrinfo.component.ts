@@ -12,7 +12,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
+import { Role } from '../../../core/models/role';
+import { AuthService } from '../../../core/service/auth.service';
 
 @Component({
   selector: 'app-new-bookusermanualbrinfo',
@@ -40,15 +42,20 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
     length: 1
   }
   searchText="";
+  role : any;
+  userRoles = Role;
+  branchId : any;
 
   displayedColumns: string[] = [ 'ser', 'bookType','bookName','shipName','remarks','actions'];
   dataSource: MatTableDataSource<BookUserManualBRInfo> = new MatTableDataSource();
 
   selection = new SelectionModel<BookUserManualBRInfo>(true, []);
 
-  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private BookUserManualBRInfoService: BookUserManualBRInfoService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
+  constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private BookUserManualBRInfoService: BookUserManualBRInfoService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService, private authService : AuthService) { }
 
   ngOnInit(): void {
+    this.role = this.authService.currentUserValue.role;
+    this.branchId = this.authService.currentUserValue.branchId;
     const id = this.route.snapshot.paramMap.get('bookUserManualBRInfoId'); 
     if (id) {
       this.pageTitle = 'Edit Book User Manual & BR Info';
@@ -75,6 +82,9 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
       this.btnText = 'Save';
     }
     this.intitializeForm();
+    if (this.role == this.userRoles.ShipStaff || this.role == this.userRoles.ShipUser || this.role == this.userRoles.LOEO) {
+      this.BookUserManualBRInfoForm.get('baseSchoolNameId')?.setValue(this.branchId);
+    }
     this.getBookUserManualBRInfos();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
     this.getSelectedBookType();
@@ -143,13 +153,14 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
   }
 
   getBookUserManualBRInfos() {
-    this.isLoading = true;
-    this.BookUserManualBRInfoService.getBookUserManualBRInfos(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
-      
-      this.dataSource.data = response.items; 
-      this.paging.length = response.totalItemsCount    
-      this.isLoading = false;
-    })
+
+    if(this.role == this.userRoles.ShipStaff || this.role == this.userRoles.ShipUser || this.role == this.userRoles.LOEO ){
+      this.getBookUserManualAndBR(this.branchId);
+    }
+    else{
+      this.getBookUserManualAndBR(0); // get All
+    }
+   
   }
   reloadCurrentRoute() {
     let currentUrl = this.router.url;
@@ -157,7 +168,14 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
       this.router.navigate([currentUrl]);
     });
   }
-
+ getBookUserManualAndBR(shipId){
+  this.isLoading = true;
+  this.BookUserManualBRInfoService.getBookUserManualBRInfos(this.paging.pageIndex, this.paging.pageSize,this.searchText, shipId).subscribe(response => {
+    this.dataSource.data = response.items; 
+    this.paging.length = response.totalItemsCount    
+    this.isLoading = false;
+  })
+ }
   deleteItem(row) {
     const id = row.bookUserManualBRInfoId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {

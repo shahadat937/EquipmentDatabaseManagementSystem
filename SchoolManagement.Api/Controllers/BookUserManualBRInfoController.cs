@@ -21,9 +21,12 @@ public class BookUserManualBRInfoController : ControllerBase
 
     [HttpGet]
     [Route("get-BookUserManualBRInfos")]
-    public async Task<ActionResult<List<BookUserManualBRInfoDto>>> Get([FromQuery] QueryParams queryParams)
+    public async Task<ActionResult<List<BookUserManualBRInfoDto>>> Get([FromQuery] QueryParams queryParams, int shipId)
     {
-        var BookUserManualBRInfos = await _mediator.Send(new GetBookUserManualBRInfoListRequest { QueryParams = queryParams });
+        var BookUserManualBRInfos = await _mediator.Send(new GetBookUserManualBRInfoListRequest { 
+            QueryParams = queryParams,
+            ShipId = shipId
+        });
         return Ok(BookUserManualBRInfos);
     }
 

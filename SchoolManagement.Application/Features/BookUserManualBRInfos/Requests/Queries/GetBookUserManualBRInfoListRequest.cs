@@ -8,5 +8,6 @@ namespace SchoolManagement.Application.Features.BookUserManualBRInfos.Requests.Q
     public class GetBookUserManualBRInfoListRequest : IRequest<PagedResult<BookUserManualBRInfoDto>>
     {
         public QueryParams QueryParams { get; set; }
+        public int? ShipId { get; set; }
     }
 }
