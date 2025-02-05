@@ -25,15 +25,13 @@
   <ItemGroup>
     <Folder Include="wwwroot\assets\File Upload\" />
     <Folder Include="wwwroot\Content\files\base-school-name\" />
-    <Folder Include="wwwroot\Content\files\Bbook-user-manual\" />
+    <Folder Include="wwwroot\Content\files\Bbook-user-manual\NewFolder\" />
     <Folder Include="wwwroot\Content\files\course-names\" />
     <Folder Include="wwwroot\Content\files\daily-work-states\" />
     <Folder Include="wwwroot\Content\files\damage-electrical\" />
     <Folder Include="wwwroot\Content\files\foreign-course-other-documents\" />
     <Folder Include="wwwroot\Content\files\damage-electrical\" />
     <Folder Include="wwwroot\Content\files\daily-work-states\" />
-    <Folder Include="wwwroot\Content\files\Bbook-user-manual\" />
-    <Folder Include="wwwroot\Content\files\Bbook-user-manual\" />
     <Folder Include="wwwroot\Content\files\daily-work-states\" />
     <Folder Include="wwwroot\Content\files\damage-electrical\" />
     <Folder Include="wwwroot\Content\files\user-manuals\" />

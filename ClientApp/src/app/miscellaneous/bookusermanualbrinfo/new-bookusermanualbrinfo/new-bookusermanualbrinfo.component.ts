@@ -177,10 +177,13 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
   }
   
   onSubmit() {
-    const id = this.BookUserManualBRInfoForm.get('bookUserManualBRInfoId').value;  
+    const id = this.BookUserManualBRInfoForm?.get('bookUserManualBRInfoId')?.value;  
     const formData = new FormData();
     for (const key of Object.keys(this.BookUserManualBRInfoForm.value)) {
-      const value = this.BookUserManualBRInfoForm.value[key];
+      let value = this.BookUserManualBRInfoForm.value[key];
+      if(value === null || value === undefined){
+        value = "";
+      }
       formData.append(key, value);
     } 
     if (id) {

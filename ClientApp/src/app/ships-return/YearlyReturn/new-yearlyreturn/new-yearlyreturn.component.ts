@@ -5,6 +5,8 @@ import { SelectedModel } from 'src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmService } from 'src/app/core/service/confirm.service';
+import { AuthService } from '../../../core/service/auth.service';
+import { Role } from '../../../core/models/role';
 
 @Component({
   selector: 'app-new-yearlyreturn',
@@ -19,16 +21,20 @@ export class YearlyReturnComponent implements OnInit {
   selectShip: SelectedModel[];
   // confirmService: any;
 
+  role: any;
+  branchId: any;
+  userRole = Role
   validationErrors: string[] = [];
   pageTitle: string;
   destination: string;
   btnText: string;
-  authService: any;
   reportYears = [
     { id: 1, year: '2020' },
     { id: 2, year: '2021' },
     { id: 3, year: '2022' },
-    { id: 4, year: '2023' }
+    { id: 4, year: '2023' },
+    { id: 5, year: '2024' },
+    { id: 6, year: '2025' }
   ];
   selectReportingMonth: SelectedModel[];
 
@@ -38,13 +44,14 @@ export class YearlyReturnComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private confirmService : ConfirmService
+    private confirmService: ConfirmService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    // this.role = this.authService.currentUserValue.role.trim();
+    this.role = this.authService.currentUserValue.role.trim();
     // this.traineeId = this.authService.currentUserValue.traineeId.trim();
-    // this.branchId = this.authService.currentUserValue.branchId.trim();
+    this.branchId = this.authService.currentUserValue.branchId.trim();
 
     const id = this.route.snapshot.paramMap.get('yearlyReturnId');
     console.log(this.route.snapshot.paramMap);
@@ -75,6 +82,9 @@ export class YearlyReturnComponent implements OnInit {
     }
 
     this.initializeForm();
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO) {
+      this.YearlyReturnForm.get('baseSchoolNameId')?.setValue(this.branchId);
+    }
     this.getSelectedReportingMonth();
     this.getSelectedOperationalStatus();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
@@ -119,11 +129,11 @@ export class YearlyReturnComponent implements OnInit {
       }
     );
   }
-  filterByShip(value:any){
-    this.selectedBaseSchoolName=this.selectShip.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  filterByShip(value: any) {
+    this.selectedBaseSchoolName = this.selectShip.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
-  filterByMonth(value:any){
-    this.selectedReportingMonth=this.selectReportingMonth.filter(x=>x.text.toLowerCase().includes(value.toLowerCase()))
+  filterByMonth(value: any) {
+    this.selectedReportingMonth = this.selectReportingMonth.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
   // Load data for Operational Status
   getSelectedOperationalStatus() {

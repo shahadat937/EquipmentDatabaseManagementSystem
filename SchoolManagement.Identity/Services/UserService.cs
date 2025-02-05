@@ -269,7 +269,7 @@ namespace SchoolManagement.Identity.Services
             IQueryable<ApplicationUser> userQuery = _userManager.Users.AsQueryable();
             string[] searchingRoles = { CustomRoleTypes.Student, CustomRoleTypes.Instructor };
             var userQueryRoleFilter = userQuery.Where(x => !searchingRoles.Contains(x.RoleName));
-            userQuery = userQueryRoleFilter.Where(x => (x.UserName.Contains(queryParams.SearchText)) || String.IsNullOrEmpty(queryParams.SearchText));
+            userQuery = userQueryRoleFilter.Where(x => (x.UserName.Contains(queryParams.SearchText)) || (x.RoleName.Contains(queryParams.SearchText)) || String.IsNullOrEmpty(queryParams.SearchText));
             var totalCount = userQuery.Count();
             userQuery = userQuery.OrderByDescending(x => x.UserName).Skip((queryParams.PageNumber - 1) * queryParams.PageSize).Take(queryParams.PageSize);
 

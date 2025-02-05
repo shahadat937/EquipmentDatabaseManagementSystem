@@ -13,5 +13,6 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Request.Queries
     public class GetYearlyReturnListRequest : IRequest<PagedResult<YearlyReturnDto>>
     {
         public QueryParams QueryParams { get; set; }
+        public int? ShipId { get; set; }
     }
 }

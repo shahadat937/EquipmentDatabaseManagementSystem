@@ -51,7 +51,11 @@ namespace SchoolManagement.Application.Features.BookUserManualBRInfos.Handlers.C
                 }
 
                 var BookUserManualBRInfo = _mapper.Map<BookUserManualBRInfo>(request.BookUserManualBRInfoDto);
-                BookUserManualBRInfo.UploadDocument = request.BookUserManualBRInfoDto.UploadDocument ?? "files/Bbook-user-manual/" + uniqueFileName;
+                if (uniqueFileName != null)
+                {
+                    BookUserManualBRInfo.UploadDocument = request.BookUserManualBRInfoDto.UploadDocument ?? "files/Bbook-user-manual/" + uniqueFileName;
+                }
+               
                 BookUserManualBRInfo = await _unitOfWork.Repository<BookUserManualBRInfo>().Add(BookUserManualBRInfo);
 
                 try

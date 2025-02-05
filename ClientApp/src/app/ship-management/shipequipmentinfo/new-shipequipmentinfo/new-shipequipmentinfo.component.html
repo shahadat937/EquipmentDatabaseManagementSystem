@@ -40,7 +40,7 @@
                     </mat-form-field>
                   </div> -->
   
-                  <div *ngIf="role != userRole.ShipStaff && role != userRole.LOEO" class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-2">
+                  <div *ngIf="role != userRole.ShipStaff && role != userRole.ShipUser && role != userRole.LOEO" class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Ship Name </mat-label>
                       <mat-select formControlName="baseSchoolNameId" required>

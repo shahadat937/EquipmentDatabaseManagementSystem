@@ -54,7 +54,7 @@ public class BookUserManualBRInfoController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-BookUserManualBRInfo/{id}")]
-    public async Task<ActionResult> Put([FromBody] BookUserManualBRInfoDto BookUserManualBRInfo)
+    public async Task<ActionResult> Put([FromForm] CreateBookUserManualBRInfoDto BookUserManualBRInfo)
     {
         var command = new UpdateBookUserManualBRInfoCommand { BookUserManualBRInfoDto = BookUserManualBRInfo };
         await _mediator.Send(command);

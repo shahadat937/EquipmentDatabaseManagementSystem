@@ -106,14 +106,14 @@ export class NewMonthlyReturnComponent implements OnInit {
     }
     this.intitializeForm();
 
-    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO) {
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO) {
       this.MonthlyReturnForm.get('baseSchoolNameId')?.setValue(this.branchId);
       this.baseSchoolNameService.find(this.branchId).subscribe(res => {
-
-        this.MonthlyReturnForm.get('baseNameId')?.setValue(res.thirdLevel);
-        this.MonthlyReturnForm.get('authorityId')?.setValue(res.secondLevel);
+        this.MonthlyReturnForm.get('baseNameId')?.setValue(res?.thirdLevel);
+        this.MonthlyReturnForm.get('authorityId')?.setValue(res?.secondLevel);
       });
     }
+    
 
     this.getSelectedEquipmentCategory();
     this.getSelectedReportingMonth();

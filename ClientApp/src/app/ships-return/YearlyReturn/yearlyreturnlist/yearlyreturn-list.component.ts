@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MasterData } from 'src/assets/data/master-data';
+import { MasterData } from '../../../../../src/assets/data/master-data';
 import { YearlyReturn } from '../../models/YearlyReturn';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { YearlyReturnService } from '../../service/YearlyReturn.service';
 import { Router } from '@angular/router';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
+import { ConfirmService } from '../../../../../src/app/core/service/confirm.service';
 import { PageEvent } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections'; import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SharedService } from 'src/app/shared/shared.service';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { Role } from 'src/app/core/models/role';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
+import { Role } from '../../../../../src/app/core/models/role';
 
 @Component({
   selector: 'app-yearlyretrun-list',
@@ -34,7 +34,9 @@ export class NewYearlyRetrunComponent implements OnInit {
     { id: 1, year: '2020' },
     { id: 2, year: '2021' },
     { id: 3, year: '2022' },
-    { id: 4, year: '2023' }
+    { id: 4, year: '2023' },
+    { id: 5, year: '2024' },
+    { id: 6, year: '2025' }
   ];
 
   searchText = "";
@@ -62,35 +64,47 @@ export class NewYearlyRetrunComponent implements OnInit {
     this.isLoading = true;
     console.log(this.role)
     if(this.role === this.userRoles.AreaCommander){
-      this.YearlyReturnService.getYearlyReturnByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
-        
-        this.dataSource.data = response.items;
-        this.dataSource.data = response.items.map((item) => ({
-          ...item,
-          year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
-        }));
-        this.paging.length = response.totalItemsCount
-        this.isLoading = false;
-        this.itemCount = response.items.length;
-  
-      })
+      this.getYearlyShipReturnByCommandingArea();
 
     }
+    else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.ShipUser || this.role === this.userRoles.ShipStaff){
+      this.getYearlyShipReturns(this.branchId);
+    }
     else{
-      this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
-        this.dataSource.data = response.items;
-        this.dataSource.data = response.items.map((item) => ({
-          ...item,
-          year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
-        }));
-        this.paging.length = response.totalItemsCount
-        this.isLoading = false;
-        this.itemCount = response.items.length;
-  
-      })
+     this.getYearlyShipReturns(0); // getALl
     }
    
   }
+
+  getYearlyShipReturns(shipId){
+    this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
+      this.dataSource.data = response.items;
+      this.dataSource.data = response.items.map((item) => ({
+        ...item,
+        year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
+      }));
+      this.paging.length = response.totalItemsCount
+      this.isLoading = false;
+      this.itemCount = response.items.length;
+
+    })
+  }
+
+  getYearlyShipReturnByCommandingArea(){
+    this.YearlyReturnService.getYearlyReturnByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
+        
+      this.dataSource.data = response.items;
+      this.dataSource.data = response.items.map((item) => ({
+        ...item,
+        year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
+      }));
+      this.paging.length = response.totalItemsCount
+      this.isLoading = false;
+      this.itemCount = response.items.length;
+
+    })
+  }
+
   applyFilter(searchText: string) {
     this.searchSubject.next(searchText);
   }
@@ -116,7 +130,7 @@ export class NewYearlyRetrunComponent implements OnInit {
   print() {
     let printContents, popupWin;
 
-    printContents = document.getElementById("print-routine").innerHTML;
+    printContents = document.getElementById("print-routine")?.innerHTML;
     popupWin = window.open("", "top=0,left=0,height=100%,width=auto");
 
     popupWin.document.open();

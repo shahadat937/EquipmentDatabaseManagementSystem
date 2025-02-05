@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectedModel } from '../../../core/models/selectedModel';
+import { Role } from '../../../core/models/role';
+import { AuthService } from '../../../core/service/auth.service';
 
 @Component({
   selector: 'app-new-yearlyreturn',
@@ -22,13 +24,17 @@ export class NewQuarterlyReturnComponent implements OnInit {
   pageTitle: string;
   destination: string;
   btnText: string;
-  authService: any;
+  role: any;
+  userRole = Role;
+  branchId : any;
 
   reportYears = [
     { id: 1, year: '2020' },
     { id: 2, year: '2021' },
     { id: 3, year: '2022' },
-    { id: 4, year: '2023' }
+    { id: 4, year: '2023' },
+    { id: 5, year: '2024' },
+    { id: 6, year: '2025' }
   ];
   selectShip: SelectedModel[];
   selectReportingMonth: SelectedModel[];
@@ -38,13 +44,14 @@ export class NewQuarterlyReturnComponent implements OnInit {
     private YearlyReturnService: YearlyReturnService,
     private snackBar: MatSnackBar,
     private router: Router, 
-     private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService : AuthService
   ) {}
 
   ngOnInit(): void {
-    // this.role = this.authService.currentUserValue.role.trim();
+    this.role = this.authService.currentUserValue.role.trim();
     // this.traineeId = this.authService.currentUserValue.traineeId.trim();
-    // this.branchId = this.authService.currentUserValue.branchId.trim();
+    this.branchId = this.authService.currentUserValue.branchId.trim();
   
     const id = this.route.snapshot.paramMap.get('yearlyReturnId');
     if (id) {
@@ -73,6 +80,9 @@ export class NewQuarterlyReturnComponent implements OnInit {
     }
   
     this.initializeForm();
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO) {
+      this.YearlyReturnForm.get('baseSchoolNameId')?.setValue(this.branchId);
+    }
     this.getSelectedReportingMonth();
     this.getSelectedOperationalStatus();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();

@@ -5,14 +5,14 @@ import { ShipInformation } from '../../models/ShipInformation';
 import { ShipInformationService } from '../../service/ShipInformation.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
-import { MasterData } from 'src/assets/data/master-data';
+import { ConfirmService } from '../../../../../src/app/core/service/confirm.service';
+import { MasterData } from '../../../../../src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { Role } from 'src/app/core/models/role';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
+import { Role } from '../../../../../src/app/core/models/role';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-shipinformation-list',
@@ -73,6 +73,7 @@ export class ShipInformationListComponent implements OnInit {
 
   getShips(){
     if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser) {
+      console.log("test");
       this.getShipInformations(this.branchId); // BaseSchoolNameId in DB
     }
     else if (this.role === this.userRole.AreaCommander) {
@@ -243,7 +244,7 @@ export class ShipInformationListComponent implements OnInit {
   // }
   print() {
     let printContents, popupWin;
-    printContents = document.getElementById("print-routine").innerHTML;
+    printContents = document.getElementById("print-routine")?.innerHTML;
 
     // Remove the <img> elements and <button> elements with class 'btn-tbl-edit' and 'btn-tbl-view'
     printContents = printContents.replace(/<img[^>]*>/g, ''); // Remove images

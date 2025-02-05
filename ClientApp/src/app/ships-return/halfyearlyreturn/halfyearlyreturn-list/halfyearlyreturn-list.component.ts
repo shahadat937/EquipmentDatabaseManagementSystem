@@ -58,7 +58,7 @@ export class HalfYearlyReturnListComponent implements OnInit {
     if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLOStaff || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO){
       this.getHalfYearlyShipReturnByCommandingArea();
     }
-    else if(this.role === this.userRoles.LOEO){
+    else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.ShipUser){
       this.getHalfYearlyShipReturns(this.branchId)
     }
     else{

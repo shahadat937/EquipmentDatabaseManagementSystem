@@ -138,7 +138,6 @@ export class DashboardComponent implements OnInit {
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     // this.branchId =  this.authService.currentUserValue.branchId.trim();
     this.branchId =  this.authService.currentUserValue.branchId  ? this.authService.currentUserValue.branchId.trim() : "";
-    console.log(this.role, this.traineeId, this.branchId)
     // if(this.role == this.userRole.CO){
     //   this.schoolId = this.branchId;
       this.pageTitle = "Ship Dashboard";
@@ -169,7 +168,6 @@ export class DashboardComponent implements OnInit {
     //   this.isShown = true;
     // }
     this.schoolId = this.branchId;
-    console.log(this.schoolId)
       // this.baseSchoolNameService.find(this.schoolId).subscribe(response => {   
       //   this.schoolName = response.schoolName;
       //   console.log(this.schoolName);
@@ -209,10 +207,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getShipInformationBySchoolid(schoolId){
-    this.schoolDashboardService.getShipInformationBySchoolid(schoolId).subscribe(response => {   
+    this.schoolDashboardService.getShipInformationBySchoolid(schoolId).subscribe(response => {  
+      console.log(response) 
       this.shipInfoList=response;
-      this.shipInfoId=response[0].shipInformationId;
-      console.log(this.shipInfoId)
+      this.shipInfoId=response[0]?.shipInformationId;
     })
   }
   getShipEquipListBySchoolid(schoolId){

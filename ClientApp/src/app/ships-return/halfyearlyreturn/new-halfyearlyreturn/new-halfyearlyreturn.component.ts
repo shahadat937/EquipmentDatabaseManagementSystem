@@ -112,7 +112,13 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       this.destination = "Add";
       this.btnText = 'Save';
     }
+
     this.intitializeForm();
+    if (this.role == this.userRole.ShipStaff || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEO) {
+      this.HalfYearlyReturnForm.get('baseSchoolNameId')?.setValue(this.branchId);
+    }
+
+
     this.getSelectedEquipmentCategory();
     this.getSelectedBrand();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
@@ -342,7 +348,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     // if (this.role == this.userRole.ShipStaff || this.role != this.userRole.LOEO) {
     //   this.HalfYearlyReturnForm.get('baseSchoolNameId').setValue(this.branchId);
     // }
-    const id = this.HalfYearlyReturnForm.get('halfYearlyReturnId').value;
+    const id = this.HalfYearlyReturnForm.get('halfYearlyReturnId')?.value;
     // this.MonthlyReturnForm.get('reportingDate').setValue((new Date(this.MonthlyReturnForm.get('reportingDate').value)).toUTCString());
     // this.MonthlyReturnForm.get('timeOfDefect').setValue((new Date(this.MonthlyReturnForm.get('timeOfDefect').value)).toUTCString());
 
