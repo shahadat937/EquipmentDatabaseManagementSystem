@@ -197,13 +197,15 @@
                     [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, 0 ]">{{shipEquipment.totalCount}}</a>
                   <!-- 0 is Passing for both non-opl and opl -->
                 </td>
-                <td>
-                  <a
-                    [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, opl]">{{shipEquipment.totalOpl}}</a>
+                <td class="fw-bold">
+                  <!-- <a
+                    [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, opl]">{{shipEquipment.totalOpl}}</a> -->
+                    {{shipEquipment.totalOpl}}
                 </td>
-                <td>
-                  <a
-                    [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, nonOpl]">{{shipEquipment.totalNonOpl}}</a>
+                <td class="fw-bold">
+                  <!-- <a
+                    [routerLink]="['/ship-management/shipequipmentinfo-list',shipEquipment.equipmentCategoryId, nonOpl]">{{shipEquipment.totalNonOpl}}</a> -->
+                    {{shipEquipment.totalNonOpl}}
                 </td>
               </tr>
 
@@ -229,12 +231,14 @@
                     [routerLink]="['/ship-management/shipequipmentinfo-list',combatEqipment.equipmentCategoryId,combatEqipment.equpmentNameId, 0 ]">{{combatEqipment.totalCount}}</a>
                   <!-- 0 is Passing for both non-opl and opl -->
                 </td>
-                <td>
-                  <a [routerLink]="['/ship-management/shipequipmentinfo-list',combatEqipment.equipmentCategoryId,combatEqipment.equpmentNameId
-                  , opl ]">{{combatEqipment.totalNONOPL}}</a>
+                <td class="fw-bold">
+                  <!-- <a [routerLink]="['/ship-management/shipequipmentinfo-list',combatEqipment.equipmentCategoryId,combatEqipment.equpmentNameId
+                  , opl ]">{{combatEqipment.totalNONOPL}}</a> -->
+                  {{combatEqipment.totalOPL}}
                 </td>
-                <td>
-                  <a [routerLink]="['/ship-management/shipequipmentinfo-list',combatEqipment.equipmentCategoryId,combatEqipment.equpmentNameId, nonOpl ]">{{combatEqipment.totalOPL}}</a>
+                <td class="fw-bold">
+                  <!-- <a [routerLink]="['/ship-management/shipequipmentinfo-list',combatEqipment.equipmentCategoryId,combatEqipment.equpmentNameId, nonOpl ]">{{combatEqipment.totalOPL}}</a> -->
+                  {{combatEqipment.totalNONOPL}}
                 </td>
               </tr>
 

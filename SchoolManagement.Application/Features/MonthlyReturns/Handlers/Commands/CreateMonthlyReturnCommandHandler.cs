@@ -61,7 +61,7 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
 
                 var MonthlyReturn = _mapper.Map<MonthlyReturn>(request.MonthlyReturnDto);
 
-                if(uniqueFileName == null)
+                if(uniqueFileName != null)
                 {
                     MonthlyReturn.UploadDocument = request.MonthlyReturnDto.UploadDocument ?? "files/damage-electrical/" + uniqueFileName;
 

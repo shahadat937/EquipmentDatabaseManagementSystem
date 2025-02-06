@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Converters;
 using SchoolManagement.Api.Extensions;
@@ -18,6 +19,12 @@ builder.Services.ConfigureInfrastructureServices(builder.Configuration);
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
 builder.Services.ConfigureIdentityServices(builder.Configuration);
 builder.Services.AddSwaggerDocumentation();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Lockout for 5 minutes
+    options.Lockout.MaxFailedAccessAttempts = 3; // Max 3 attempts
+    options.Lockout.AllowedForNewUsers = true;  // Enable lockout for all users
+});
 //builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddControllers().AddNewtonsoftJson(jsonOptions =>
  {

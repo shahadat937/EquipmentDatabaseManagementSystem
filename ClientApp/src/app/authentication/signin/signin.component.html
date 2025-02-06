@@ -54,6 +54,20 @@
               </mat-form-field>
             </div>
           </div>
+          <div class="align-items-center mb-2">
+            <p class="fw-bold my-1 px-4">{{number1}} + {{number2}} = ?</p>
+           <div class="d-flex">
+            <mat-form-field   class="example-full-width me-2" appearance="outline">
+              <mat-label>Enter The Result</mat-label>
+              <input type="number" matInput formControlName="captchaAnswer" />
+              <mat-error *ngIf="authForm.get('captchaAnswer').hasError('required')">
+                Captcha is Required
+              </mat-error>
+            </mat-form-field>
+            <button type="button" (click)="generateCaptcha()" class="btn btn-dark mx-3 px-5">Reset</button>
+           </div>
+          </div>
+
           <div class="d-flex justify-content-between align-items-center mb-2">
             <div class="form-check">
               <label class="form-check-label">

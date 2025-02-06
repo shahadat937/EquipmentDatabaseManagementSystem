@@ -24,7 +24,9 @@ export class SigninComponent
   schoolId:any;
   instructorId:any;
   traineeId:any;
-
+  number1 : number;
+  number2 : number;
+  captchaSum : number;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -35,9 +37,11 @@ export class SigninComponent
   }
 
   ngOnInit() {
+    this.generateCaptcha();
     this.authForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
+      captchaAnswer : ['', Validators.required],
     });
     this.schoolId=20;
   }
@@ -56,6 +60,13 @@ export class SigninComponent
   //   this.authForm.get('username').setValue('student@school.org');
   //   this.authForm.get('password').setValue('student@123');
   // }
+
+  generateCaptcha(){
+    this.number1 = Math.floor(Math.random() *10 );
+    this.number2 = Math.floor(Math.random() *20 );
+    this.captchaSum = this.number1 + this.number2;
+  }
+
   onSubmit() {
     this.submitted = true;
     this.loading = true;
@@ -72,7 +83,7 @@ export class SigninComponent
       return;
     } else {
       this.subs.sink = this.authService
-        .login(this.f.email.value, this.f.password.value)
+        .login(this.f.email.value, this.f.password.value, this.f.captchaAnswer.value, this.captchaSum)
         .subscribe(
           (res) => {
             if (res) {
