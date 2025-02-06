@@ -79,20 +79,19 @@ namespace SchoolManagement.Application.Features.MonthlyReturns.Handlers.Commands
             _mapper.Map(request.MonthlyReturnDto, MonthlyReturn);
 
 
-            if ((request.MonthlyReturnDto.UploadDocument != null && request.MonthlyReturnDto.Doc != null) || request.MonthlyReturnDto.Doc == null && request.MonthlyReturnDto.UploadDocument != null)
+            if (request.MonthlyReturnDto.UploadDocument != null)
             {
-                MonthlyReturn.UploadDocument = request.MonthlyReturnDto.Doc != null ? "files/damage-electrical/" + uniqueFileName : MonthlyReturn.UploadDocument.Replace(apiUrl, String.Empty);
-
-
-            }
-            else if (request.MonthlyReturnDto.UploadDocument != null)
-            {
-                MonthlyReturn.UploadDocument = MonthlyReturn.UploadDocument.Replace(apiUrl, string.Empty);
+                MonthlyReturn.UploadDocument = request.MonthlyReturnDto.Doc != null
+                    ? "files/damage-electrical/" + uniqueFileName
+                    : MonthlyReturn.UploadDocument.Replace(apiUrl, string.Empty);
             }
             else
             {
-                MonthlyReturn.UploadDocument = "";
+                MonthlyReturn.UploadDocument = request.MonthlyReturnDto.Doc != null
+                    ? "files/damage-electrical/" + uniqueFileName
+                    : "";
             }
+
 
             await _unitOfWork.Repository<MonthlyReturn>().Update(MonthlyReturn);
             await _unitOfWork.Save();
