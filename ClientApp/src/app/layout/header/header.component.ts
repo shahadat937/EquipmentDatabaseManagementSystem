@@ -8,12 +8,12 @@ import {
   Renderer2,
   AfterViewInit,
 } from '@angular/core';
-import { AuthService } from 'src/app/core/service/auth.service';
+import { AuthService } from '../../../../src/app/core/service/auth.service';
 import { Router } from '@angular/router';
-import { RightSidebarService } from 'src/app/core/service/rightsidebar.service';
-import { Role } from 'src/app/core/models/role';
-import { LanguageService } from 'src/app/core/service/language.service';
-import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+import { RightSidebarService } from '../../../../src/app/core/service/rightsidebar.service';
+import { Role } from '../../../../src/app/core/models/role';
+import { LanguageService } from '../../../../src/app/core/service/language.service';
+import { UnsubscribeOnDestroyAdapter } from '../../../../src/app/shared/UnsubscribeOnDestroyAdapter';
 const document: any = window.document;
 
 @Component({
@@ -34,6 +34,7 @@ export class HeaderComponent
   langStoreValue: string;
   defaultFlag: string;
   isOpenSidebar: boolean;
+  username : string;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -42,7 +43,7 @@ export class HeaderComponent
     private configService: ConfigService,
     private authService: AuthService,
     private router: Router,
-    public languageService: LanguageService
+    public languageService: LanguageService,
   ) {
     super();
   }
@@ -96,7 +97,9 @@ export class HeaderComponent
     },
   ];
   ngOnInit() {
+
     this.config = this.configService.configData;
+    this.username = this.authService.currentUserValue.username;
 
     const userRole = this.authService.currentUserValue.role;
     this.userImg = this.authService.currentUserValue.img;
@@ -111,7 +114,7 @@ export class HeaderComponent
     //   this.homePage = 'admin/dashboard/main';
     // }
 
-    this.langStoreValue = localStorage.getItem('lang');
+    this.langStoreValue = localStorage.getItem('lang') ?? "";
     const val = this.listLang.filter((x) => x.lang === this.langStoreValue);
     this.countryName = val.map((element) => element.text);
     if (val.length === 0) {
@@ -126,7 +129,7 @@ export class HeaderComponent
     // set theme on startup
     if (localStorage.getItem('theme')) {
       this.renderer.removeClass(this.document.body, this.config.layout.variant);
-      this.renderer.addClass(this.document.body, localStorage.getItem('theme'));
+      this.renderer.addClass(this.document.body, localStorage.getItem('theme') ?? "");
     } else {
       this.renderer.addClass(this.document.body, this.config.layout.variant);
     }
@@ -134,7 +137,7 @@ export class HeaderComponent
     if (localStorage.getItem('menuOption')) {
       this.renderer.addClass(
         this.document.body,
-        localStorage.getItem('menuOption')
+        localStorage.getItem('menuOption') ?? ""
       );
     } else {
       this.renderer.addClass(
@@ -146,7 +149,7 @@ export class HeaderComponent
     if (localStorage.getItem('choose_logoheader')) {
       this.renderer.addClass(
         this.document.body,
-        localStorage.getItem('choose_logoheader')
+        localStorage.getItem('choose_logoheader') ?? ""
       );
     } else {
       this.renderer.addClass(
