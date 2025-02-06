@@ -36,41 +36,58 @@ namespace SchoolManagement.Identity.Services
 
         public async Task<AuthResponse> Login(AuthRequest request)
         {
-
+            // Validate CAPTCHA
             if (request.CaptchaAnswer != request.CaptchaSum)
             {
                 throw new BadRequestException("Invalid CAPTCHA answer.");
             }
 
-
-            var user = await  _userManager.Users.FirstOrDefaultAsync(x =>x.Email == request.Email || x.UserName == request.Email);
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == request.Email || x.UserName == request.Email);
             if (user == null)
             {
-              
                 throw new NotFoundException("User", request.Email);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
+            // Check if the user is locked out
+            if (await _userManager.IsLockedOutAsync(user))
+            {
+                var lockoutEnd = await _userManager.GetLockoutEndDateAsync(user);
+                var remainingTime = lockoutEnd.HasValue ? (lockoutEnd.Value.UtcDateTime - DateTime.UtcNow).Minutes : 0;
+                throw new BadRequestException($"Too many failed attempts. Your account is locked for {remainingTime} more minutes.");
+            }
+
+            // Attempt to sign in (enable lockout)
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: true);
 
             if (!result.Succeeded)
             {
-                throw new BadRequestException($"Credentials for '{request.Email} aren't valid'.");
+                var lockoutEnd = await _userManager.GetLockoutEndDateAsync(user);
+                var remainingTime = lockoutEnd.HasValue ? (lockoutEnd.Value.UtcDateTime - DateTime.UtcNow).Minutes : 0;
+                // If the account is now locked, inform the user
+                if (await _userManager.IsLockedOutAsync(user))
+                {
+                    throw new BadRequestException($"Too many failed attempts. Your account is locked for {remainingTime} minutes.");
+                }
+
+                throw new BadRequestException("Invalid credentials.");
             }
 
+            // Reset failed attempts on successful login
+            await _userManager.ResetAccessFailedCountAsync(user);
+
+            // Generate JWT token
             JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
 
-            AuthResponse response = new AuthResponse
+            return new AuthResponse
             {
                 Id = user.Id,
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Email = user.Email,
                 Username = user.UserName,
-                Role =user.RoleName,
+                Role = user.RoleName,
                 BranchId = user.BranchId,
                 TraineeId = user.PNo
             };
-
-            return response;
         }
 
         public async Task<RegistrationResponse> Register(RegistrationRequest request)
