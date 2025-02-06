@@ -37,7 +37,12 @@ namespace SchoolManagement.Identity.Services
         public async Task<AuthResponse> Login(AuthRequest request)
         {
 
-            
+            if (request.CaptchaAnswer != request.CaptchaSum)
+            {
+                throw new BadRequestException("Invalid CAPTCHA answer.");
+            }
+
+
             var user = await  _userManager.Users.FirstOrDefaultAsync(x =>x.Email == request.Email || x.UserName == request.Email);
             if (user == null)
             {

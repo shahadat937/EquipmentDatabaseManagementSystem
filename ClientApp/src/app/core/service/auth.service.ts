@@ -15,7 +15,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(
-      JSON.parse(localStorage.getItem('currentUser'))
+      JSON.parse(localStorage.getItem('currentUser')) ?? ""
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -24,11 +24,13 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string, captchaAnswer: number, captchaSum : number) {
     return this.http
       .post<any>(`${environment.securityUrl}/account/login`, {
         email,
         password,
+        captchaAnswer,
+        captchaSum
       })
       .pipe(
         map((user) => {
