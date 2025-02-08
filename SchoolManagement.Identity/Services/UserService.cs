@@ -123,6 +123,12 @@ namespace SchoolManagement.Identity.Services
                 throw new BadRequestException(resetPassResult.Errors.ToString());
                
             }
+
+            // if Account Lockout;
+            await _userManager.ResetAccessFailedCountAsync(user);
+            await _userManager.SetLockoutEndDateAsync(user, null);
+
+
             //await _userManager.ChangePasswordAsync(user, user.p, userDto.NewPassword);
             //var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
             ////await _userManager.ResetPasswordAsync(user, resetToken, userDto.Password);
