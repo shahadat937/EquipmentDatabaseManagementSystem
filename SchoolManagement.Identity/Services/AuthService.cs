@@ -53,7 +53,7 @@ namespace SchoolManagement.Identity.Services
             {
                 var lockoutEnd = await _userManager.GetLockoutEndDateAsync(user);
                 var remainingTime = lockoutEnd.HasValue ? (lockoutEnd.Value.UtcDateTime - DateTime.UtcNow).Minutes : 0;
-                throw new BadRequestException($"Too many failed attempts. Your account is locked for {remainingTime} more minutes.");
+                throw new BadRequestException($"Too many failed attempts. Your account is locked for {remainingTime + 1} more minutes.");
             }
 
             // Attempt to sign in (enable lockout)
@@ -66,10 +66,12 @@ namespace SchoolManagement.Identity.Services
                 // If the account is now locked, inform the user
                 if (await _userManager.IsLockedOutAsync(user))
                 {
-                    throw new BadRequestException($"Too many failed attempts. Your account is locked for {remainingTime} minutes.");
+                    throw new BadRequestException($"Too many failed attempts. Your account is locked for {remainingTime + 1} minutes.");
                 }
+                int failedAttempts = await _userManager.GetAccessFailedCountAsync(user);
+                int remainingAttempts = 3 - failedAttempts;
+                throw new BadRequestException($"Invalid credentials. {remainingAttempts} attempt(s) left before lockout.");
 
-                throw new BadRequestException("Invalid credentials.");
             }
 
             // Reset failed attempts on successful login
