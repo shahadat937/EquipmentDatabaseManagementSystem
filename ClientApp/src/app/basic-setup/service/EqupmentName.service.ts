@@ -33,7 +33,7 @@ export class EqupmentNameService {
     );
    
   }
-  getEqupmentNamesWhitoutPage() { 
+  getEqupmentNamesWhitoutPage(searchText) { 
 
     //let params = new HttpParams();
 
@@ -42,7 +42,7 @@ export class EqupmentNameService {
     // params = params.append('pageSize', pageSize.toString());
 
     
-    return this.http.get<any>(this.baseUrl + '/equpment-name/get-equipmentListWithoutPageRequest')
+    return this.http.get<any>(this.baseUrl + '/equpment-name/get-equipmentListWithoutPageRequest?searchText='+searchText)
   }
   find(id: number) {
     return this.http.get<EqupmentName>(this.baseUrl + '/equpment-name/get-EqupmentNameDetail/' + id);

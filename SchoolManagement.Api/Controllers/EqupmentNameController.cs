@@ -93,11 +93,11 @@ public class EqupmentNameController : ControllerBase
     }
     [HttpGet]
     [Route("get-equipmentListWithoutPageRequest")]
-    public async Task<ActionResult<List<EqupmentNameDto>>> GetGetEquipmentListWithoutPageRequest()
+    public async Task<ActionResult<List<EqupmentNameDto>>> GetGetEquipmentListWithoutPageRequest(string searchText)
     {
         var EqupmentNames = await _mediator.Send(new GetEquipmentListWithoutPageRequest
         {
-            
+            SearchText = searchText
         });
         return Ok(EqupmentNames);
     }

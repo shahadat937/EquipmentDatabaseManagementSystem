@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EqupmentNameService } from '../../service/EqupmentName.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
 import { MatTableDataSource } from '@angular/material/table';
-import{MasterData} from 'src/assets/data/master-data';
+import{MasterData} from '../../../../../src/assets/data/master-data';
 import { EqupmentName } from '../../models/EqupmentName';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { SharedService } from 'src/app/shared/shared.service';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-equpmentname',
@@ -125,7 +125,7 @@ export class NewEqupmentNameComponent implements OnInit {
 
   applyFilter(searchText: any){ 
     this.searchText = searchText;
-    //this.getEqupmentNames();
+    this.getEqupmentNamesWhitoutPage();
   } 
 
   // getEqupmentNames() {
@@ -155,35 +155,34 @@ export class NewEqupmentNameComponent implements OnInit {
   //     });
   //   })
   // }
-  getEqupmentNamesWhitoutPage() {
-    this.isLoading = true;
-    this.EqupmentNameService.getEqupmentNamesWhitoutPage().subscribe(response => {
-      
-      this.equpmentNameList = response;     
-      this.itemCount = response.length;
+getEqupmentNamesWhitoutPage() {
+  this.isLoading = true;
+  this.EqupmentNameService.getEqupmentNamesWhitoutPage(this.searchText).subscribe(response => {
+    this.equpmentNameList = response;     
+    this.itemCount = response.length;
 
-      //this.paging.length = response.totalItemsCount    
-      this.isLoading = false;
+    this.isLoading = false;
 
-      // this gives an object with dates as keys
-      const groups = this.equpmentNameList.reduce((groups, courses) => {
-        const schoolName = courses.equipmentCategory;
-        if (!groups[schoolName]) {
-          groups[schoolName] = [];
-        }
-        groups[schoolName].push(courses);
-        return groups;
-      }, {});
+    // Grouping the items by equipmentCategory
+    const groups = this.equpmentNameList.reduce((groups, courses) => {
+      const schoolName = courses.equipmentCategory;
+      if (!groups[schoolName]) {
+        groups[schoolName] = [];
+      }
+      groups[schoolName].push(courses);
+      return groups;
+    }, {});
 
-      // Edit: to add it in the array format instead
-      this.groupArrays = Object.keys(groups).map((equipmentCategory) => {
-        return {
-          equipmentCategory,
-          courses: groups[equipmentCategory]
-        };
-      });
-    })
-  }
+    // Sorting each group alphabetically by equipmentName or other property
+    this.groupArrays = Object.keys(groups).map((equipmentCategory) => {
+      return {
+        equipmentCategory,
+        courses: groups[equipmentCategory].sort((a, b) => a.name.localeCompare(b.name)) // Sort by equipmentName alphabetically
+      };
+    });
+  });
+};
+
   reloadCurrentRoute() {
     let currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -216,7 +215,7 @@ export class NewEqupmentNameComponent implements OnInit {
   }
   print() {
     let printContents, popupWin;
-    printContents = document.getElementById("print-routine").innerHTML;
+    printContents = document.getElementById("print-routine")?.innerHTML;
     popupWin = window.open( "top=0,left=0,height=100%,width=auto");
     popupWin.document.open();
     popupWin.document.write(`
@@ -282,7 +281,7 @@ export class NewEqupmentNameComponent implements OnInit {
     popupWin.document.close();
   }
   onSubmit() {
-    const id = this.EqupmentNameForm.get('equpmentNameId').value;   
+    const id = this.EqupmentNameForm.get('equpmentNameId')?.value;   
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         
