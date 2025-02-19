@@ -22,7 +22,7 @@ namespace SchoolManagement.Application.Features.EqupmentNames.Handlers.Queries
          
         public async Task<List<EqupmentNameDto>> Handle(GetEquipmentListWithoutPageRequest request, CancellationToken cancellationToken)
         {
-            var EqupmentNames = _EqupmentNameRepository.FilterWithInclude(x=>x.IsActive, "EquipmentCategory").OrderBy(x => x.EquipmentCategory.MenuPosition);
+            var EqupmentNames = _EqupmentNameRepository.FilterWithInclude(x=>x.IsActive &&(x.Name.Contains(request.SearchText) || x.EquipmentCategory.Name.Contains(request.SearchText) || String.IsNullOrEmpty(request.SearchText)), "EquipmentCategory").OrderBy(x => x.EquipmentCategory.MenuPosition);
 
             var EqupmentNameDtos = _mapper.Map<List<EqupmentNameDto>>(EqupmentNames);
 
