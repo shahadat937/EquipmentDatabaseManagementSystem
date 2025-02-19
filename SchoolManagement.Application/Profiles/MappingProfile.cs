@@ -54,6 +54,7 @@ using SchoolManagement.Application.DTOs.AspNetRoles;
 using SchoolManagement.Application.DTOs.OperationalStatusOfEquipmentSystem;
 using SchoolManagement.Application.DTOs.StatusOfShip;
 using SchoolManagement.Application.DTOs.UserManual;
+using SchoolManagement.Application.DTOs.YearSetup;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -412,6 +413,11 @@ namespace SchoolManagement.Application.Profiles
             //.CreateMap<StatusOfShipDto, StatusOfShipSpace>().ReverseMap()
             //    .ForMember(dest => dest.SchoolName, opt => opt.MapFrom(src => src.BaseSchoolName != null ? src.BaseSchoolName.SchoolName : null));
             //CreateMap<StatusOfShipSpace, CreateStatusOfShipDto>().ReverseMap();
+
+            #region YearSetup   
+            CreateMap<YearSetup, YearSetupDto>().ReverseMap();
+            CreateMap<YearSetup, CreateYearSetupDto>().ReverseMap();
+            #endregion
         }
     }
 
