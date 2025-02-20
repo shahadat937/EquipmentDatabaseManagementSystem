@@ -42,7 +42,7 @@ namespace SchoolManagement.Application.Features.QuarterlyReturns.Handler.Queries
             IQueryable<QuarterlyReturn> QuarterlyReturns = _QuarterlyReturnRepository.FilterWithInclude(
                 x => (request.ShipId == 0 || x.BaseSchoolNameId == request.ShipId) && (string.IsNullOrEmpty(request.QueryParams.SearchText) ||
                      x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
-                "BaseSchoolName", "OperationalStatus","ReportingMonth", "YearSetup"
+                "BaseSchoolName", "OperationalStatus","ReportingMonth", "ReportingYear"
             );
 
          

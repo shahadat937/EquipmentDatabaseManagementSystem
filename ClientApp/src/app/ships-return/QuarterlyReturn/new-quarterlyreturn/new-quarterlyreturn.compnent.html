@@ -26,7 +26,7 @@
           <div class="card">
             <div class="body">
               <!-- Yearly Return Form -->
-              <form class="m-4" [formGroup]="YearlyReturnForm" (ngSubmit)="onSubmit()">
+              <form class="m-4" [formGroup]="QuarterlyReturnForm" (ngSubmit)="onSubmit()">
                 <h4 class="mb-3">Basic Information</h4>
                 <div class="row">
                   <!-- Ship Name -->
@@ -91,8 +91,18 @@
                     <mat-form-field class="example-full-width" appearance="outline">
                       <mat-label>Report Year</mat-label>
                       <mat-select formControlName="reportingYearId" required>
-                        <mat-option *ngFor="let year of reportYears" [value]="year.id">{{ year.year }}</mat-option>
+                        <mat-option *ngFor="let year of selectedReportingYears" [value]="year.value">{{ year.text}}</mat-option>
                       </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>File Upload</mat-label>
+                      <ngx-mat-file-input (change)="onFileChanged($event)"
+                        accept=".txt,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx">
+                      </ngx-mat-file-input>
+                      <mat-icon matSuffix>attachment</mat-icon>
                     </mat-form-field>
                   </div>
                   
@@ -105,7 +115,7 @@
                       mat-raised-button
                       color="primary"
                       type="submit"
-                      [disabled]="YearlyReturnForm.invalid"
+                      [disabled]="QuarterlyReturnForm.invalid"
                     >
                       Save
                     </button>

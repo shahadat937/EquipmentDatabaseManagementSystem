@@ -62,6 +62,10 @@ const routes: Routes = [
     component: NewQuarterlyReturnComponent
   },
 
+  {
+    path: 'update-quaterlyreturn/:quarterlyReturnId',
+    component: NewQuarterlyReturnComponent,
+  },
 
   
   { path: '**', component: Page404Component },
