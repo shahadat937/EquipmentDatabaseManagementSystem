@@ -11,6 +11,6 @@ namespace SchoolManagement.Application.DTOs.YearSetup
 
         public int YearId { get; set; }
         public int Year { get; set; }
-        public string? IsActive { get; set; }
+        public bool IsActive { get; set; }
     }
 }

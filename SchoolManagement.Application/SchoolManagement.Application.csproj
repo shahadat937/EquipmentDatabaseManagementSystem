@@ -8,10 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="DTOs\User\Validators\**" />
+    <Compile Remove="Features\YearSetup\**" />
     <Compile Remove="Features\Users\**" />
     <EmbeddedResource Remove="DTOs\User\Validators\**" />
+    <EmbeddedResource Remove="Features\YearSetup\**" />
     <EmbeddedResource Remove="Features\Users\**" />
     <None Remove="DTOs\User\Validators\**" />
+    <None Remove="Features\YearSetup\**" />
     <None Remove="Features\Users\**" />
   </ItemGroup>
 
@@ -22,6 +25,21 @@
     <Compile Remove="DTOs\User\IUserDto.cs" />
     <Compile Remove="Features\TraineeAssignmentSubmits\Handlers\Queries\GetStudentAssignmentListFromSpRequestHandler.cs" />
     <Compile Remove="Features\TraineeAssignmentSubmits\Requests\Queries\GetStudentAssignmentListFromSpRequest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Features\YearSetup\Handlers\Commands\CreateYearSetupCommandHandler.cs" />
+    <Compile Include="Features\YearSetup\Handlers\Commands\DeleteYearSetupCommandHandler.cs" />
+    <Compile Include="Features\YearSetup\Handlers\Commands\UpdateYearSetupCommandHandler.cs" />
+    <Compile Include="Features\YearSetup\Handlers\Queries\GetYearSetupDetailRequestHandler.cs" />
+    <Compile Include="Features\YearSetup\Handlers\Queries\GetYearSetupListRequestHandler.cs" />
+    <Compile Include="Features\YearSetup\Handlers\Queries\GetSelectedYearSetupRequestHandler.cs" />
+    <Compile Include="Features\YearSetup\Requests\Commands\CreateYearSetupCommand.cs" />
+    <Compile Include="Features\YearSetup\Requests\Commands\DeleteYearSetupCommand.cs" />
+    <Compile Include="Features\YearSetup\Requests\Commands\UpdateYearSetupCommand.cs" />
+    <Compile Include="Features\YearSetup\Requests\Queries\GetYearSetupDetailRequest.cs" />
+    <Compile Include="Features\YearSetup\Requests\Queries\GetYearSetupListRequest.cs" />
+    <Compile Include="Features\YearSetup\Requests\Queries\GetSelectedYearSetupRequest.cs" />
   </ItemGroup>
 
   <ItemGroup>

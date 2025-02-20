@@ -473,10 +473,6 @@ namespace SchoolManagement.Persistence
             {
 
             });
-            modelBuilder.Entity<YearSetup>(entity =>
-            {
-
-            });
             modelBuilder.Entity<MonthlyReturn>(entity =>
             {
                 entity.HasOne(d => d.BaseSchoolName)
@@ -558,6 +554,11 @@ namespace SchoolManagement.Persistence
                 .HasConstraintName("FK_OperationalStatusOfEquipmentSystem_EquipmentName");
             });
 
+            modelBuilder.Entity<YearSetup>(entity => {
+
+                entity.HasKey(d => d.YearId);
+
+            });
         }
 
         public virtual DbSet<AcquisitionMethod> AcquisitionMethod { get; set; } = null!;
@@ -609,6 +610,6 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<UserManual> UserManual { get; set; } = null!;
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystem { get; set; }
-        public virtual DbSet<YearSetup> YearSetups { get; set; }
+        public virtual DbSet <YearSetup> YearSetup { get; set; }
     }
 }
