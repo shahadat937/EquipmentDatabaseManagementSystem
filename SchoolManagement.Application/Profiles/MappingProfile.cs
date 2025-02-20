@@ -54,8 +54,9 @@ using SchoolManagement.Application.DTOs.AspNetRoles;
 using SchoolManagement.Application.DTOs.OperationalStatusOfEquipmentSystem;
 using SchoolManagement.Application.DTOs.StatusOfShip;
 using SchoolManagement.Application.DTOs.UserManual;
-using SchoolManagement.Application.DTOs.YearSetup;
+using SchoolManagement.Application.DTOs.ReporingYear;
 using SchoolManagement.Application.DTOs.QuarterlyReturns;
+using SchoolManagement.Application.DTOs.ReportingYear;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -128,9 +129,10 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(dest => dest.SchoolName, opt => opt.MapFrom(src => src.BaseSchoolName != null ? src.BaseSchoolName.SchoolName : null))
                 .ForMember(d => d.OperationalStatus, o => o.MapFrom(s => s.OperationalStatus.Name))
                 .ForMember(d => d.ReportingMonth, o => o.MapFrom(s => s.ReportingMonth.Name))
+                .ForMember(d => d.ReportingYear, o => o.MapFrom(s => s.ReportingYear.Year))
                 .ForMember(d => d.FileUpload, o => o.MapFrom<QuarterlyReturnFileUrlResolver>());
 
-            CreateMap<YearlyReturn, CreateYearlyReturnDto>().ReverseMap();
+            CreateMap<CreateQuarterlyReturnDto, QuarterlyReturn>().ReverseMap();
             #endregion
 
 
@@ -425,9 +427,9 @@ namespace SchoolManagement.Application.Profiles
             //    .ForMember(dest => dest.SchoolName, opt => opt.MapFrom(src => src.BaseSchoolName != null ? src.BaseSchoolName.SchoolName : null));
             //CreateMap<StatusOfShipSpace, CreateStatusOfShipDto>().ReverseMap();
 
-            #region YearSetup   
-            CreateMap<YearSetup, YearSetupDto>().ReverseMap();
-            CreateMap<YearSetup, CreateYearSetupDto>().ReverseMap();
+            #region ReportingYear   
+            CreateMap<ReportingYear, ReportingYearDto>().ReverseMap();
+            CreateMap<ReportingYear, CreateReportingYearDto>().ReverseMap();
             #endregion
         }
     }

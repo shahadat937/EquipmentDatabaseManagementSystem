@@ -58,7 +58,8 @@ namespace SchoolManagement.Application
         public const string YearlyReturn = SMSRoutePrefixBase + "yearly-return";
         public const string StatusOfShip = SMSRoutePrefixBase + "statusof-ship";
         public const string OperationalStatusOfEquipmentSystem = SMSRoutePrefixBase + "operational-status-of-equipment-system";
-        public const string YearSetup = SMSRoutePrefixBase + "year-setup";
+        public const string ReportingYear = SMSRoutePrefixBase + "reporting-year";
+        public const string QuarterlyReturn = SMSRoutePrefixBase + "quarterly-returns";
     }
 }
  

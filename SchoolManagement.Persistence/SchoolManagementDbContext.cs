@@ -563,9 +563,8 @@ namespace SchoolManagement.Persistence
                 .HasConstraintName("FK_OperationalStatusOfEquipmentSystem_EquipmentName");
             });
 
-            modelBuilder.Entity<YearSetup>(entity => {
+            modelBuilder.Entity<ReportingYear>(entity => {
 
-                entity.HasKey(d => d.YearId);
 
             });
         }
@@ -620,6 +619,6 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<UserManual> UserManual { get; set; } = null!;
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystem { get; set; }
-        public virtual DbSet <YearSetup> YearSetup { get; set; }
+        public virtual DbSet <ReportingYear> ReportingYear { get; set; }
     }
 }

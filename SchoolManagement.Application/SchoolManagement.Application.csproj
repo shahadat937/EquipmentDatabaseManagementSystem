@@ -28,21 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Features\YearSetup\Handlers\Commands\CreateYearSetupCommandHandler.cs" />
-    <Compile Include="Features\YearSetup\Handlers\Commands\DeleteYearSetupCommandHandler.cs" />
-    <Compile Include="Features\YearSetup\Handlers\Commands\UpdateYearSetupCommandHandler.cs" />
-    <Compile Include="Features\YearSetup\Handlers\Queries\GetYearSetupDetailRequestHandler.cs" />
-    <Compile Include="Features\YearSetup\Handlers\Queries\GetYearSetupListRequestHandler.cs" />
-    <Compile Include="Features\YearSetup\Handlers\Queries\GetSelectedYearSetupRequestHandler.cs" />
-    <Compile Include="Features\YearSetup\Requests\Commands\CreateYearSetupCommand.cs" />
-    <Compile Include="Features\YearSetup\Requests\Commands\DeleteYearSetupCommand.cs" />
-    <Compile Include="Features\YearSetup\Requests\Commands\UpdateYearSetupCommand.cs" />
-    <Compile Include="Features\YearSetup\Requests\Queries\GetYearSetupDetailRequest.cs" />
-    <Compile Include="Features\YearSetup\Requests\Queries\GetYearSetupListRequest.cs" />
-    <Compile Include="Features\YearSetup\Requests\Queries\GetSelectedYearSetupRequest.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.4" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
