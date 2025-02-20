@@ -517,6 +517,15 @@ namespace SchoolManagement.Persistence
                     .HasForeignKey(d => d.BaseSchoolNameId)
                     .HasConstraintName("FK_YearlyReturn_BaseSchoolName");
             });
+
+            modelBuilder.Entity<QuarterlyReturn>(entity =>
+            {
+                entity.HasOne(d => d.BaseSchoolName)
+                    .WithMany(p => p.QuarterlyReturns)
+                    .HasForeignKey(d => d.BaseSchoolNameId)
+                    .HasConstraintName("FK_QuarterlyReturn_BaseSchoolName");
+            });
+
             modelBuilder.Entity<ReportingMonth>(entity =>
             {
 
@@ -554,6 +563,10 @@ namespace SchoolManagement.Persistence
                 .HasConstraintName("FK_OperationalStatusOfEquipmentSystem_EquipmentName");
             });
 
+            modelBuilder.Entity<ReportingYear>(entity => {
+
+
+            });
         }
 
         public virtual DbSet<AcquisitionMethod> AcquisitionMethod { get; set; } = null!;
@@ -602,8 +615,10 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<MonthlyReturn> MonthlyReturn { get; set; }
         public virtual DbSet<OperationalState> OperationalState { get; set; }
         public virtual DbSet<YearlyReturn> YearlyReturn { get; set; }
+        public virtual DbSet<QuarterlyReturn> QuarterlyReturn { get; set; }
         public virtual DbSet<UserManual> UserManual { get; set; } = null!;
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystem { get; set; }
+        public virtual DbSet <ReportingYear> ReportingYear { get; set; }
     }
 }

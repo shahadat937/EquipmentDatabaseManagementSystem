@@ -10,6 +10,7 @@ namespace SchoolManagement.Domain
         {
             ShipInformations = new HashSet<ShipInformation>();
             MonthlyReturns = new HashSet<MonthlyReturn>();
+            QuarterlyReturns = new HashSet<QuarterlyReturn>();
             //OperationalStatusOfEquipmentSystems = new HashSet<OperationalStatusOfEquipmentSystem>();
         }
         public int OperationalStatusId { get; set; }
@@ -21,6 +22,7 @@ namespace SchoolManagement.Domain
         public bool IsActive { get; set; }
         public virtual ICollection<ShipInformation> ShipInformations { get; set; }
         public virtual ICollection<MonthlyReturn> MonthlyReturns { get; set; }
+        public virtual ICollection<QuarterlyReturn> QuarterlyReturns { get; set; }
         //public virtual ICollection<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystems { get; set; }
     }
 }

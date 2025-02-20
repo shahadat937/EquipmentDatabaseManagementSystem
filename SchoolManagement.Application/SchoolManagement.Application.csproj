@@ -8,10 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="DTOs\User\Validators\**" />
+    <Compile Remove="Features\YearSetup\**" />
     <Compile Remove="Features\Users\**" />
     <EmbeddedResource Remove="DTOs\User\Validators\**" />
+    <EmbeddedResource Remove="Features\YearSetup\**" />
     <EmbeddedResource Remove="Features\Users\**" />
     <None Remove="DTOs\User\Validators\**" />
+    <None Remove="Features\YearSetup\**" />
     <None Remove="Features\Users\**" />
   </ItemGroup>
 
