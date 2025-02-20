@@ -10,6 +10,7 @@ namespace SchoolManagement.Doamin
         public ReportingMonth() 
         {
             MonthlyReturns = new HashSet<MonthlyReturn>();
+            QuarterlyReturns = new HashSet<QuarterlyReturn>();
         }
 
         public int ReportingMonthId { get; set; }
@@ -22,5 +23,6 @@ namespace SchoolManagement.Doamin
 
         public virtual ICollection<MonthlyReturn> MonthlyReturns { get; set; }
         public virtual ICollection<HalfYearlyReturn> HalfYearlyReturns { get; set; }
+        public virtual ICollection<QuarterlyReturn> QuarterlyReturns { get; set; }
     }
 }
