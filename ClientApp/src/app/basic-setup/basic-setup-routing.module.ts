@@ -38,6 +38,7 @@ import { NewPaymentStatusComponent } from './paymentstatus/new-paymentstatus/new
 import { NewEnvelopeComponent } from './envelope/new-envelope/new-envelope.component';
 import { NewBookTypeComponent } from './booktype/new-booktype/new-booktype.component';
 import {NewSchoolNameComponent} from './new-schoolname/new-schoolname.component'
+import { ReportingYearComponent } from './reporting-year/reporting-year.component';
 const routes: Routes = [
   {
     path: '',
@@ -65,6 +66,14 @@ const routes: Routes = [
   {
     path: 'update-reportingmonth/:reportingMonthId',
     component: ReportingMonthComponent,
+  },
+  {
+    path: 'add-reportingyear',
+    component: ReportingYearComponent,
+  },
+  {
+    path: 'update-reportingyear/:reportingYearId',
+    component: ReportingYearComponent,
   },
 
   {
