@@ -61,7 +61,7 @@ export class DailyWorkStateListComponent extends UnsubscribeOnDestroyAdapter imp
       debounceTime(300) // Adjust debounce time as needed
     ).subscribe((searchText) => {
       this.searchText = searchText;
-      console.log(this.searchText);
+      //console.log(this.searchText);
       this.getDailyWorkStates();
       // this.getDailyWorkStatesListByNoAction();
 
@@ -71,7 +71,7 @@ export class DailyWorkStateListComponent extends UnsubscribeOnDestroyAdapter imp
   getDailyWorkStates() {
     this.isLoading = true;
     this.DailyWorkStateService.getDailyWorkStates(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.actionTaken).subscribe(response => {
-      console.log(response.items);
+      //console.log(response.items);
       this.dailyWorkStateList = response.items;
       this.paging.length = response.totalItemsCount;
       this.isLoading = false;

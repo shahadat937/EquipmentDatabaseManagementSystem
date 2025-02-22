@@ -114,7 +114,7 @@ export class NewLetterTypeComponent implements OnInit {
   deleteItem(row) {
     const id = row.letterTypeId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.LetterTypeService.delete(id).subscribe(() => {
           this.getLetterTypes();

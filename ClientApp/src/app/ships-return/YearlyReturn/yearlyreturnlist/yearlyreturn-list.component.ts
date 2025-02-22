@@ -52,7 +52,7 @@ export class NewYearlyRetrunComponent implements OnInit {
 
   getYearlyReturn() {
     this.isLoading = true;
-    console.log(this.role)
+    //console.log(this.role)
     if(this.role === this.userRoles.AreaCommander){
       this.getYearlyShipReturnByCommandingArea();
 
@@ -69,7 +69,7 @@ export class NewYearlyRetrunComponent implements OnInit {
   getYearlyShipReturns(shipId){
     this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
       this.dataSource.data = response.items;
-      console.log(response.items)
+      //console.log(response.items)
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;

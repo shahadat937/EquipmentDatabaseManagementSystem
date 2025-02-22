@@ -55,7 +55,7 @@ export class YearlyReturnComponent implements OnInit {
     this.branchId = this.authService.currentUserValue.branchId.trim();
 
     const id = this.route.snapshot.paramMap.get('yearlyReturnId');
-    console.log(this.route.snapshot.paramMap);
+    //console.log(this.route.snapshot.paramMap);
     if (id) {
       this.pageTitle = 'Edit Yearly Return';
       this.destination = "Edit";
@@ -123,7 +123,7 @@ export class YearlyReturnComponent implements OnInit {
     this.YearlyReturnService.getSelectedReportingYears().subscribe(
       (res: SelectedModel[]) => {
         this.selectedReportingYears = res;
-        console.log(res);
+        //console.log(res);
 
       },
       (error) => {
@@ -173,9 +173,9 @@ export class YearlyReturnComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Form Value Before Submission:', this.YearlyReturnForm.value);
+    //console.log('Form Value Before Submission:', this.YearlyReturnForm.value);
     const id = this.YearlyReturnForm.get('yearlyReturnId')?.value;
-    console.log(id);
+    //console.log(id);
 
 
     const formData = new FormData();
@@ -190,7 +190,7 @@ export class YearlyReturnComponent implements OnInit {
       this.confirmService.confirm('Confirm Update', 'Are you sure you want to update this item?').subscribe(result => {
         if (result) {
           this.YearlyReturnService.update(+id, formData).subscribe(response => {
-            console.log('Update successful:', response);
+            //console.log('Update successful:', response);
             this.router.navigateByUrl('/ships-return/yearlyreturn-list');
             this.snackBar.open('Information Updated Successfully', '', {
               duration: 2000,

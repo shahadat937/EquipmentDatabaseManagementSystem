@@ -53,7 +53,7 @@ export class StatusOfDefectiveSystemListComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
+    //console.log(this.role, this.traineeId,  this.branchId)
 
     
 
@@ -73,10 +73,10 @@ export class StatusOfDefectiveSystemListComponent implements OnInit {
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    
       this.isLoading = false;
-      console.log(this.dataSource.data);
+      //console.log(this.dataSource.data);
       this.itemCount = response.items.length;
-      console.log("itemCountdata");
-      console.log(this.dataSource.data);
+      //console.log("itemCountdata");
+      //console.log(this.dataSource.data);
     })
   }
 
@@ -171,7 +171,7 @@ export class StatusOfDefectiveSystemListComponent implements OnInit {
   deleteItem(row) {
     const id = row.operationalStateId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.OperationalStateService.delete(id).subscribe(() => {
           this.getOperationalStates();

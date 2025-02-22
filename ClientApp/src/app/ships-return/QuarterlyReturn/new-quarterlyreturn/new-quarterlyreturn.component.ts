@@ -49,7 +49,7 @@ export class NewQuarterlyReturnComponent implements OnInit {
     this.branchId = this.authService.currentUserValue.branchId.trim();
 
     const id = this.route.snapshot.paramMap.get('quarterlyReturnId');
-    console.log(this.route.snapshot.paramMap);
+    //console.log(this.route.snapshot.paramMap);
     if (id) {
       this.pageTitle = 'Edit Yearly Return';
       this.destination = "Edit";
@@ -146,7 +146,7 @@ export class NewQuarterlyReturnComponent implements OnInit {
     this.QuarterlyReturnService.getSelectedReportingYears().subscribe(
       (res: SelectedModel[]) => {
         this.selectedReportingYears = res;
-        console.log(res);
+        //console.log(res);
 
       },
       (error) => {
@@ -169,7 +169,7 @@ export class NewQuarterlyReturnComponent implements OnInit {
 
   onSubmit() {
     const id = this.QuarterlyReturnForm.get('QuarterlyReturnId')?.value;
-    // console.log(this.QuarterlyReturnForm.value);
+    // //console.log(this.QuarterlyReturnForm.value);
 
 
     const formData = new FormData();
@@ -198,7 +198,7 @@ export class NewQuarterlyReturnComponent implements OnInit {
       });
     } else {
       this.QuarterlyReturnService.submit(formData).subscribe(response => {
-        console.log(response)
+        //console.log(response)
         this.router.navigateByUrl('/ships-return/quarterly-return');
         this.snackBar.open('Information Inserted Successfully', '', {
           duration: 2000,

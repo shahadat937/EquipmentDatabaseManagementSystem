@@ -26,14 +26,14 @@ export class OperationalStatusOfEquipmentSystemService {
     params = params.append('searchText', searchText.toString());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());
-    console.log(params);
+    //console.log(params);
 
 
     
     return this.http.get<any>(this.baseUrl + '/operational-status-of-equipment-system/get-operationalStatusOfEquipmentSystem', { observe: 'response', params })
     .pipe(
       map(response => {
-        console.log(response);
+        //console.log(response);
         this.OperationalStatusPaginationInfos = [...this.OperationalStatusPaginationInfos, ...response.body.items];
         this.OperationalStatusPaginationInfoPagination = response.body;
         return this.OperationalStatusPaginationInfoPagination;
@@ -51,11 +51,11 @@ export class OperationalStatusOfEquipmentSystemService {
     return this.http.get<SelectedModel[]>(this.baseUrl + '/state-of-equipment/get-selectedStateOfEquipment')
   }
   delete(id:number){
-    console.log(id);
+    //console.log(id);
     return this.http.delete(this.baseUrl + '/operational-status-of-equipment-system/delete-operationalStatusOfEquipmentSystem/'+id);
   }
   find(id: any) {
-    console.log(id);
+    //console.log(id);
     return this.http.get<any>(this.baseUrl + '/operational-status-of-equipment-system/get-operationalStatusOfEquipmentSystem/'+id);
   }
 

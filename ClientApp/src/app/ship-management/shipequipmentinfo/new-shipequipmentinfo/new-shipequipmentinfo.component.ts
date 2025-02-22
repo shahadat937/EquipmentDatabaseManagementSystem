@@ -172,7 +172,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
       this.btnText = 'Update';
       this.ShipEquipmentInfoService.find(+id).subscribe(
         res => {    
-          console.log(res);  
+          //console.log(res);  
           this.ShipEquipmentInfoForm.patchValue({          
 
             shipEquipmentInfoId: res.shipEquipmentInfoId,
@@ -873,7 +873,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
     else{
       this.allFormGroupFalse();
     }
-    console.log(this.equpmentNameId);
+    //console.log(this.equpmentNameId);
 
 
   }
@@ -1085,7 +1085,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
       // Check if it's an image
       this.isImage = this.checkImage(file.name);
       this.isFile = this.checkFile(file.name);
-      console.log(this.isFile);
+      //console.log(this.isFile);
   
       // If it's an image, read the file as a Data URL
       if (this.isImage) {
@@ -1153,7 +1153,7 @@ export class NewShipEquipmentInfoComponent implements OnInit {
         }
       })
     } else {
-      console.log(this.ShipEquipmentInfoForm.value);
+      //console.log(this.ShipEquipmentInfoForm.value);
       this.ShipEquipmentInfoService.submit(formData).subscribe(response => {
         this.router.navigateByUrl('/ship-management/shipequipmentinfo-list');
         this.snackBar.open('Information Inserted Successfully ', '', {

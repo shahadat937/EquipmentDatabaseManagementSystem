@@ -103,8 +103,8 @@ export class NewEqupmentNameComponent implements OnInit {
   //   var baseNameId = this.EqupmentNameForm.value['baseNameId'];
   //   this.EqupmentNameService.getSelectedSchoolByBranchLevelAndThirdLevel(baseNameId).subscribe(res=>{
   //     this.selectedBaseSchoolName=res
-  //     console.log(res)
-  //     console.log(res)
+  //     //console.log(res)
+  //     //console.log(res)
   //   }); 
   // }
   getSelectedEquipmentCategory(){

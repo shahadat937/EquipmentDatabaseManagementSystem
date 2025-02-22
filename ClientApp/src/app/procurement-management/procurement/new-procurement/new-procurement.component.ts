@@ -60,7 +60,7 @@ export class NewProcurementComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
+    //console.log(this.role, this.traineeId,  this.branchId)
 
     const id = this.route.snapshot.paramMap.get('procurementId'); 
     if (id) {
@@ -113,8 +113,8 @@ export class NewProcurementComponent implements OnInit {
             isActive: res.isActive,
             remarks: res.remarks,
           });       
-        console.log("res1");
-        console.log(res);
+        //console.log("res1");
+        //console.log(res);
         //this.onCommendingAreaSelectionChangeGetBaseName();
         //this.onOrganizationSelectionChange();
         }
@@ -187,7 +187,7 @@ export class NewProcurementComponent implements OnInit {
   onStatus(dropdown) {
     if (dropdown.isUserInput) {
       this.method = dropdown.source.value;
-      console.log(this.method);
+      //console.log(this.method);
     }
   }
   getSelectedSchoolByBranchLevelAndThirdLevel(){
@@ -278,22 +278,22 @@ export class NewProcurementComponent implements OnInit {
   getSelectedTec(){
     this.ProcurementService.getSelectedTec().subscribe(res=>{
       this.selectedTec=res
-      console.log(res)
-      console.log(res)
+      //console.log(res)
+      //console.log(res)
     }); 
   }
   getSelectedTenderOpeningDateType(){
     this.ProcurementService.getSelectedTenderOpeningDateType().subscribe(res=>{
       this.selectedTenderOpeningDateType=res
-      console.log(res)
-      console.log(res)
+      //console.log(res)
+      //console.log(res)
     }); 
   }
   getSelectedPaymentStatus(){
     this.ProcurementService.getSelectedPaymentStatus().subscribe(res=>{
       this.selectedPaymentStatus=res
-      console.log(res)
-      console.log(res)
+      //console.log(res)
+      //console.log(res)
     }); 
   }
 

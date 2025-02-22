@@ -266,7 +266,7 @@ this.getSelectedSchoolByBranchLevelAndThirdLevel();
       // Check if it's an image
       this.isImage = this.checkImage(file.name);
       this.isFile = this.checkFile(file.name);
-      console.log(this.isFile);
+      //console.log(this.isFile);
   
       // If it's an image, read the file as a Data URL
       if (this.isImage) {
@@ -361,7 +361,7 @@ this.getSelectedSchoolByBranchLevelAndThirdLevel();
     if(!this.shipImage){
       this.ShipInformationForm.value.fileUpload = null;
     }
-    console.log(this.ShipInformationForm.value)
+    //console.log(this.ShipInformationForm.value)
     for (const key of Object.keys(this.ShipInformationForm.value)) {
       let  value = this.ShipInformationForm.value[key];
       formData.append(key, value);

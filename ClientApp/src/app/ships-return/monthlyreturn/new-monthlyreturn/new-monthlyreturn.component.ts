@@ -166,7 +166,7 @@ export class NewMonthlyReturnComponent implements OnInit {
     });
   }
   isNonOPL(event){
-    console.log("Selected Value:", event.value);
+    //console.log("Selected Value:", event.value);
 
     // Find the selected item's text
     const selectedText = this.selectedOperationalStatus.find(item => item.value === event.value)?.text;
@@ -291,11 +291,11 @@ export class NewMonthlyReturnComponent implements OnInit {
 
 
     const formData = new FormData();
-    console.log('formdata', this.MonthlyReturnForm)
+    //console.log('formdata', this.MonthlyReturnForm)
     for (const key of Object.keys(this.MonthlyReturnForm.value)) {
 
       const value = this.MonthlyReturnForm.value[key];
-      console.log(value)
+      //console.log(value)
       if (value !== null && value !== undefined) {
         formData.append(key, value);
       }
@@ -306,9 +306,9 @@ export class NewMonthlyReturnComponent implements OnInit {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
 
         if (result) {
-          console.log('Proceeding with update');
+          //console.log('Proceeding with update');
           this.MonthlyReturnService.update(+id, formData).subscribe(response => {
-            console.log('id with form', id, formData)
+            //console.log('id with form', id, formData)
             this.router.navigateByUrl('/ships-return/monthlyreturn-list');
             this.snackBar.open('Information Updated Successfully', '', {
               duration: 2000,
@@ -324,14 +324,14 @@ export class NewMonthlyReturnComponent implements OnInit {
     } else {
 
       var returnQty = this.MonthlyReturnForm.value['returnQty'];
-      console.log(returnQty);
+      //console.log(returnQty);
       if(this.totalOplCount< returnQty){
         this.warningMessage = "Return Qty Can't be  getter then total Opl Qty"
         return
       }
 
       this.MonthlyReturnService.submit(formData).subscribe(response => {
-        console.log('res', response)
+        //console.log('res', response)
         this.router.navigateByUrl('/ships-return/monthlyreturn-list');
         this.snackBar.open('Information Inserted Successfully ', '', {
           duration: 2000,

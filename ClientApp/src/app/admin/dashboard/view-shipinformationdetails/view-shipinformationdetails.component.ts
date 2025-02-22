@@ -94,12 +94,12 @@ export class ViewShipInformationDetailsComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId, this.branchId)
+    //console.log(this.role, this.traineeId, this.branchId)
 
     const id = this.route.snapshot.paramMap.get('shipInformationId'); 
      this.dbType = Number(this.route.snapshot.paramMap.get('dbType')); 
     // this.courseTypeId = Number(this.route.snapshot.paramMap.get('courseTypeId'));
-    //console.log(this.schoolDb)
+    ////console.log(this.schoolDb)
     this.ShipInformationService.find(+id).subscribe( res => {
       this.shipInformationId = res.shipInformationId
        this.address=res.address,
@@ -149,8 +149,8 @@ export class ViewShipInformationDetailsComponent implements OnInit {
       // this.ShipInformation = res.ShipInformation,
       // this.status = res.status,            
       // this.additionaInformation = res.additionaInformation  
-      console.log("res");
-      console.log(res);      
+      //console.log("res");
+      //console.log(res);      
     })
    
     // this.getExamType();

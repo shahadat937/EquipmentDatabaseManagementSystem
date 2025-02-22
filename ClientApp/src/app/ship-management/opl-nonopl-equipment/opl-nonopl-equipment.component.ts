@@ -179,7 +179,7 @@ export class OplNonoplEquipmentComponent implements OnInit {
     this.isLoading = true;
     this.ShipEquipmentInfoService.getShipEquipmentInfos(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId, this.sortColumn, this.sortDirection).subscribe(response => {
       this.dataSource.data = response.items;
-      console.log(response.items);
+      //console.log(response.items);
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
     })

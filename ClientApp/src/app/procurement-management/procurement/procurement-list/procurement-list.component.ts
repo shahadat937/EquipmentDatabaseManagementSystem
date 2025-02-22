@@ -64,7 +64,7 @@ export class ProcurementListComponent implements OnInit {
 
   getProcurements() {
     this.isLoading = true;
-    console.log(this.searchBy);
+    //console.log(this.searchBy);
     this.ProcurementService.getProcurements(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.searchBy).subscribe(response => {
       this.dataSource.data = response.items;
       this.paging.length = response.totalItemsCount
@@ -117,7 +117,7 @@ export class ProcurementListComponent implements OnInit {
           
         }
         else{
-          console.log(this.procurementMethodId1);
+          //console.log(this.procurementMethodId1);
           this.getProcurementsByPeocureMethodId(this.procurementMethodId1)
         }
         
@@ -150,7 +150,7 @@ export class ProcurementListComponent implements OnInit {
     this.print();
   }
   filterByMethod(methodId: number) {
-    console.log(methodId);
+    //console.log(methodId);
     this.selectedProcurementTypeId = methodId;
     this.getProcurementsByPeocureMethodId(methodId);
   }

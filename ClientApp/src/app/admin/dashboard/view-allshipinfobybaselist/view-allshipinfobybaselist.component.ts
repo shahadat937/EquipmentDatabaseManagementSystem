@@ -129,8 +129,7 @@ print() {
    getShipInfoByByBase(){
     this.dashboardService.getShipInfoByBase(this.baseSchoolNameId,this.operationalStatusId).subscribe(response => {           
        this.shipInfoByBase=response;
-       console.log("this.shipInfoByBase");
-        console.log(this.shipInfoByBase);
+
      })
    }
 }

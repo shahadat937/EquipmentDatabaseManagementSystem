@@ -201,7 +201,7 @@ export class ShipEquipmentInfoService {
     return this.http.put(this.baseUrl + '/ship-equipment-info/update-ShipEquipmentInfo/'+id, model);
   }
   submit(model: any) {
-    console.log(model)
+    //console.log(model)
     return this.http.post(this.baseUrl + '/ship-equipment-info/save-ShipEquipmentInfo', model);
   } 
   delete(id:number){

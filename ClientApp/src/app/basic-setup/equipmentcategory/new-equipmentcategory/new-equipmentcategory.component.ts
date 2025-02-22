@@ -88,8 +88,8 @@ export class NewEquipmentCategoryComponent implements OnInit {
   // getSelectedGroupName(){
   //   this.EquipmentCategoryService.getSelectedGroupName().subscribe(res=>{
   //     this.selectedGroupName=res
-  //     console.log("Group Name")
-  //     console.log(res)
+  //     //console.log("Group Name")
+  //     //console.log(res)
   //   }); 
   // }
   pageChanged(event: PageEvent) {

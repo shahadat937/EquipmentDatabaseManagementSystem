@@ -73,7 +73,7 @@ export class ShipInformationListComponent implements OnInit {
 
   getShips(){
     if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO || this.role == this.userRole.ShipUser || this.role == this.userRole.LOEOWTR) {
-      console.log("test");
+      //console.log("test");
       this.getShipInformations(this.branchId); // BaseSchoolNameId in DB
     }
     else if (this.role === this.userRole.AreaCommander) {
@@ -87,7 +87,7 @@ export class ShipInformationListComponent implements OnInit {
   getShipInformations(shipId) {
     this.isLoading = true;
     this.ShipInformationService.getShipInformations(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
-      console.log(response);
+      //console.log(response);
       this.dataSource.data = response.items;
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
@@ -290,7 +290,7 @@ export class ShipInformationListComponent implements OnInit {
   deleteItem(row) {
     const id = row.shipInformationId;
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.ShipInformationService.delete(id).subscribe(() => {
           if (this.role == this.userRole.ShipStaff || this.role == this.userRole.LOEO) {

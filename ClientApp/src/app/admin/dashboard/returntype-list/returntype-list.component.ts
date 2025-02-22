@@ -51,7 +51,6 @@ export class ReturnTypeListComponet implements OnInit {
   getMonthlyReturns() {
     this.isLoading = true;
     this.MonthlyReturnService.getMonthlyReturns(this.paging.pageIndex, this.paging.pageSize, this.searchText,0).subscribe(response => {
-        console.log('API Response:', response);
         
         // Filter damage and defect returns separately
         this.damageReturns = response.items.filter(item => item.returnType === 'Damage');

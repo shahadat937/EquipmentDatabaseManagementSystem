@@ -48,7 +48,7 @@ export class MonthlyReturnService {
     return this.http.get<IMonthlyReturnPagination>(this.baseUrl + '/monthly-return/get-MonthlyReturns-by-AuthorityId', { observe: 'response', params })
     .pipe(
       map(response => {
-        console.log(response)
+        //console.log(response)
         this.MonthlyReturns = [...this.MonthlyReturns, ...response.body.items];
         this.MonthlyReturnPagination = response.body;
         return this.MonthlyReturnPagination;

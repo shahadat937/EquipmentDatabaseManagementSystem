@@ -114,7 +114,7 @@ export class NewTecComponent implements OnInit {
   deleteItem(row) {
     const id = row.tecId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.TecService.delete(id).subscribe(() => {
           this.getTecs();

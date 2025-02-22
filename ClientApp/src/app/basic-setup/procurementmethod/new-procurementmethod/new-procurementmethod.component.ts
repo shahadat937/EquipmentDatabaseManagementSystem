@@ -114,7 +114,7 @@ export class NewProcurementMethodComponent implements OnInit {
   deleteItem(row) {
     const id = row.procurementMethodId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.ProcurementMethodService.delete(id).subscribe(() => {
           this.getProcurementMethods();

@@ -94,7 +94,7 @@ export class NewShipDrawingComponent implements OnInit {
         this.pageTitle = 'Create Ship Drowing';
         this.destination = 'Add';
         this.btnText = 'Save';
-        console.log(this.role);
+        //console.log(this.role);
         // this.ShipDrowingForm.reset();
 
       }
@@ -103,7 +103,7 @@ export class NewShipDrawingComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId = this.authService.currentUserValue.traineeId.trim();
     this.branchId = this.authService.currentUserValue.branchId.trim();
-    // console.log("test",this.role, this.traineeId, this.branchId);
+    // //console.log("test",this.role, this.traineeId, this.branchId);
     this.getShipDrowings();
     this.onOrganizationSelectionChangeGetCommendingArea();
     this.intitializeForm();
@@ -144,12 +144,12 @@ export class NewShipDrawingComponent implements OnInit {
 
   onOrganizationSelectionChangeGetCommendingArea() {
     this.organizationId = MasterData.UserLevel.navy;
-    console.log(this.organizationId + " organization")
+    //console.log(this.organizationId + " organization")
     this.BaseSchoolNameService.getSelectedCommendingArea(this.organizationId).subscribe(res => {
       this.selectedCommendingArea = res
       this.selectComandinArea = res
-      console.log("selected comanding area");
-      //  console.log(this.selectedCommendingArea);
+      //console.log("selected comanding area");
+      //  //console.log(this.selectedCommendingArea);
     });
   }
   filterByCommandingArea(value: any) {
@@ -165,12 +165,12 @@ export class NewShipDrawingComponent implements OnInit {
     var baseNameId = this.ShipDrowingForm.value['baseNameId'];
     // this.ShipInformationService.getSelectedSchoolByBranchLevelAndThirdLevel(baseNameId).subscribe(res=>{
     //   this.selectedBaseSchoolName=res
-    //   console.log(res)
-    //   console.log(res)
+    //   //console.log(res)
+    //   //console.log(res)
     // }); 
 
     // this.baseNameId=this.UserForm.value['thirdLevel'];
-    console.log(baseNameId);
+    //console.log(baseNameId);
     this.BaseSchoolNameService.getSelectedSchoolName(baseNameId).subscribe(res => {
       this.selectedBaseSchoolName = res
       this.selectSchoolName = res
@@ -178,8 +178,8 @@ export class NewShipDrawingComponent implements OnInit {
   }
   onCommendingAreaSelectionChangeGetBaseName() {
     this.commendingAreaId = this.ShipDrowingForm.value['authorityId'];
-    console.log("comandinf area")
-    console.log(this.commendingAreaId);
+    //console.log("comandinf area")
+    //console.log(this.commendingAreaId);
     this.BaseSchoolNameService.getSelectedBaseName(this.commendingAreaId).subscribe(res => {
       this.selectedBaseName = res
       this.selectBaseName = res
@@ -204,7 +204,7 @@ export class NewShipDrawingComponent implements OnInit {
   getShipDrowings() {
     if (this.role === this.userRole.AreaCommander) {
       this.ShipDrowingService.getShipDrowingsByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
-        console.log(response);
+        //console.log(response);
         this.dataSource.data = response.items;
         this.paging.length = response.totalItemsCount
         this.isLoading = false;
@@ -221,7 +221,7 @@ export class NewShipDrawingComponent implements OnInit {
 
   getShipDrawing(shipId) {
     this.ShipDrowingService.getShipDrowings(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
-      console.log(response);
+      //console.log(response);
       this.dataSource.data = response.items;
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
@@ -246,7 +246,7 @@ export class NewShipDrawingComponent implements OnInit {
   deleteItem(row) {
     const id = row.shipDrowingId;
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.ShipDrowingService.delete(id).subscribe(() => {
           this.getShipDrowings();
@@ -264,7 +264,7 @@ export class NewShipDrawingComponent implements OnInit {
   onFileChanged(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      console.log(file);
+      //console.log(file);
       this.ShipDrowingForm.patchValue({
         doc: file,
       });
@@ -279,7 +279,7 @@ export class NewShipDrawingComponent implements OnInit {
     // this.ProcurementForm.get('workOrderDate').setValue((new Date(this.ProcurementForm.get('workOrderDate').value)).toUTCString()) ;
     // this.ProcurementForm.get('dateOfDelivery').setValue((new Date(this.ProcurementForm.get('dateOfDelivery').value)).toUTCString()) ;
 
-    // console.log(this.ProcurementForm.value)
+    // //console.log(this.ProcurementForm.value)
 
     const formData = new FormData();
     for (const key of Object.keys(this.ShipDrowingForm.value)) {

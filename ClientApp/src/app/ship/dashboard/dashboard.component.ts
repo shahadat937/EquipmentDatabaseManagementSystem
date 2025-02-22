@@ -170,15 +170,15 @@ export class DashboardComponent implements OnInit {
     this.schoolId = this.branchId;
       // this.baseSchoolNameService.find(this.schoolId).subscribe(response => {   
       //   this.schoolName = response.schoolName;
-      //   console.log(this.schoolName);
+      //   //console.log(this.schoolName);
       // })
     
 
     // this.baseSchoolNameService.getUserManualByRole(this.role).subscribe(response => {   
-    //   console.log("user manual");
-    //   console.log(response);
+    //   //console.log("user manual");
+    //   //console.log(response);
     //   this.userManual=response[0].doc;
-    //   console.log(this.userManual);
+    //   //console.log(this.userManual);
     // })
     this.getShipInformationBySchoolid(this.schoolId);
     this.getShipEquipListBySchoolid(this.schoolId);
@@ -189,7 +189,7 @@ export class DashboardComponent implements OnInit {
   // getActiveBulletins(baseSchoolNameId){
   //   this.studentDashboardService.getActiveBulletinList(baseSchoolNameId).subscribe(res=>{
   //     this.bulletinList=res;  
-  //     console.log(this.bulletinList);
+  //     //console.log(this.bulletinList);
   //   });
   // }
 
@@ -202,13 +202,13 @@ export class DashboardComponent implements OnInit {
   getReadingMetarialBySchool(schoolId){
     this.schoolDashboardService.getReadingMetarialBySchool(schoolId).subscribe(response => {   
       this.ReadIngMaterialList=response;
-      console.log(response)
+      //console.log(response)
     })
   }
 
   getShipInformationBySchoolid(schoolId){
     this.schoolDashboardService.getShipInformationBySchoolid(schoolId).subscribe(response => {  
-      console.log("X",response) 
+      //console.log("X",response) 
       this.shipInfoList=response;
       this.shipInfoId=response[0]?.shipInformationId;
     })
@@ -217,7 +217,7 @@ export class DashboardComponent implements OnInit {
     this.schoolDashboardService.getShipEquipListBySchoolid(schoolId).subscribe(response => {   
       this.shipEquipList=response;
       // this.shipInfoId=response[0].shipInformationId;
-      console.log(this.shipEquipList)
+      //console.log(this.shipEquipList)
     })
   }
   getCurrentRoutineBySchool(schoolId){
@@ -225,7 +225,7 @@ export class DashboardComponent implements OnInit {
     let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
     this.schoolDashboardService.getCurrentRoutineBySchool(currentDateTime,schoolId).subscribe(response => {   
       this.TodayRoutineList=response;
-      console.log(response)
+      //console.log(response)
     })
   }
 
@@ -233,9 +233,9 @@ export class DashboardComponent implements OnInit {
     let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
     this.schoolDashboardService.getCurrentAttendanceBySchool(currentDateTime,schoolId).subscribe(response => {   
       this.TodayAttendanceList=response;
-      console.log(response)
-      console.log("Param school");
-      console.log(this.paramBaseSchoolNameId);
+      //console.log(response)
+      //console.log("Param school");
+      //console.log(this.paramBaseSchoolNameId);
     })
   }
 
@@ -243,7 +243,7 @@ export class DashboardComponent implements OnInit {
     let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
     this.schoolDashboardService.getnominatedCourseListFromSpRequestBySchoolId(currentDateTime,schoolId).subscribe(response => {         
       this.nomineeCount=response.length;
-      console.log(response)
+      //console.log(response)
     })
   }
 
@@ -251,7 +251,7 @@ export class DashboardComponent implements OnInit {
     // let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
     this.schoolDashboardService.getNominatedTotalTraineeByBaseFromSp(schoolId).subscribe(response => {         
       this.nomineeCount=response.length;
-      console.log(response)
+      //console.log(response)
     })
   }
 
@@ -259,8 +259,8 @@ export class DashboardComponent implements OnInit {
     let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
     this.schoolDashboardService.getRunningCourseDurationByBase(currentDateTime,baseNameId).subscribe(response => {         
       this.runningCourses=response;
-      console.log("running");
-      console.log(this.runningCourses)
+      //console.log("running");
+      //console.log(this.runningCourses)
       // this gives an object with dates as keys
       const groups = this.runningCourses.reduce((groups, courses) => {
       const schoolName = courses.schoolName;
@@ -278,8 +278,8 @@ export class DashboardComponent implements OnInit {
           courses: groups[schoolName]
         };
       });
-      console.log("eeee");
-      console.log(this.groupArrays);
+      //console.log("eeee");
+      //console.log(this.groupArrays);
 
     })
   }
@@ -287,7 +287,7 @@ export class DashboardComponent implements OnInit {
   getInstructorByCourse(schoolId){
     this.schoolDashboardService.getInstructorByCourse(schoolId).subscribe(response => {         
       this.InstructorList=response;
-      console.log(response)
+      //console.log(response)
     })
   }
 
@@ -295,14 +295,14 @@ export class DashboardComponent implements OnInit {
     let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
     this.schoolDashboardService.getnominatedForeignTraineeFromSpRequestBySchoolId(currentDateTime,schoolId, this.masterData.OfficerType.Foreign).subscribe(response => {         
       this.foreignNomineeCount=response.length;
-      console.log(response)
+      //console.log(response)
     })
   }
   getNominetedForeignTraineeListByBase(schoolId){
     let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
     this.schoolDashboardService.getNominatedForeignTraineeByTypeAndBase(currentDateTime,schoolId, this.masterData.OfficerType.Foreign).subscribe(response => {         
       this.foreignNomineeCount=response.length;
-      console.log(response)
+      //console.log(response)
     })
   }
 
@@ -339,8 +339,8 @@ export class DashboardComponent implements OnInit {
       
       this.localCourseCount=response.length;
       this.runningCourses=response;
-      console.log("running");
-      console.log(response)
+      //console.log("running");
+      //console.log(response)
 
     })
   }
@@ -363,11 +363,11 @@ export class DashboardComponent implements OnInit {
   }
 
   courseWeekGenerate(row){
-    console.log(row)
+    //console.log(row)
     const id = row.courseDurationId; 
 
     this.confirmService.confirm('Confirm  message', 'Are You Sure ').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.schoolDashboardService.genarateCourseWeek(id).subscribe(() => {
           this.getrunningCourseListBySchool(this.schoolId);
@@ -385,7 +385,7 @@ export class DashboardComponent implements OnInit {
   getPendingExamEvaluation(schoolId){
     this.schoolDashboardService.getPendingExamEvaluation(schoolId).subscribe(response => {         
       this.PendingExamEvaluation=response;
-      console.log(response)
+      //console.log(response)
     })
   }
 
@@ -393,15 +393,15 @@ export class DashboardComponent implements OnInit {
     let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy');
     this.schoolDashboardService.getTraineeAbsentList(currentDateTime,schoolId).subscribe(response => {   
       this.TraineeAbsentList=response;
-      console.log("absent list")
-      console.log(response)
+      //console.log("absent list")
+      //console.log(response)
     })
   }
 
   getRoutineInfoByCourse(schoolId){
     this.schoolDashboardService.getRoutineByCourse(schoolId).subscribe(response => {         
       this.RoutineByCourse=response;
-      console.log(this.RoutineByCourse)
+      //console.log(this.RoutineByCourse)
     })
   }
 }
