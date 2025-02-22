@@ -5,6 +5,7 @@ export interface YearlyReturn{
     baseSchoolNameId:number,
     operationalStatusId: number,
     reportingYearId: number,
+    reportingYear : number,
     schoolName: string,
     
     menuPosition: number,

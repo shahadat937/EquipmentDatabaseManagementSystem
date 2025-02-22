@@ -191,6 +191,7 @@
                   <table class="custom-table">
                     <thead>
                       <tr>
+                        <th class="custom-header"><input type="checkbox" [(ngModel)]="selectAll" (change)="toggleSelectAll()" /></th>
                         <th class="custom-header">Ser.</th>
                         <th class="custom-header" (click)="sortByKey('SchoolName')">Ship Name</th>
                         <th class="custom-header" (click)="sortByKey('EquipmentCategory')">Equipment Category</th>
@@ -223,6 +224,7 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let element of dataSource.data; let i = index">
+                        <td><input type="checkbox" [(ngModel)]="element.selected" /></td>
                         <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
                         <td>{{ element.schoolName }}</td>
                         <td>{{ element.equipmentCategory }}</td>

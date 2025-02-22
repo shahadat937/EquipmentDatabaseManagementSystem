@@ -19,6 +19,7 @@ export class YearlyReturnComponent implements OnInit {
   selectedReportingMonth: SelectedModel[] = [];
   selectedOperationalStatus: SelectedModel[] = [];
   selectShip: SelectedModel[];
+  selectedReportingYears: SelectedModel[];
   // confirmService: any;
 
   role: any;
@@ -88,6 +89,7 @@ export class YearlyReturnComponent implements OnInit {
     this.getSelectedReportingMonth();
     this.getSelectedOperationalStatus();
     this.getSelectedSchoolByBranchLevelAndThirdLevel();
+    this.getSelectedReportingYear();
   }
 
 
@@ -113,6 +115,19 @@ export class YearlyReturnComponent implements OnInit {
       },
       (error) => {
         console.error('Error loading Ship Names:', error);
+      }
+    );
+  }
+
+  getSelectedReportingYear() {
+    this.YearlyReturnService.getSelectedReportingYears().subscribe(
+      (res: SelectedModel[]) => {
+        this.selectedReportingYears = res;
+        console.log(res);
+
+      },
+      (error) => {
+        console.error('Error loading Reporting Month:', error);
       }
     );
   }

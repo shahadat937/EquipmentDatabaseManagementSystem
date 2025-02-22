@@ -91,7 +91,7 @@
                   <mat-form-field class="example-full-width" appearance="outline">
                     <mat-label>Report Year</mat-label>
                     <mat-select formControlName="reportingYearId" required>
-                      <mat-option *ngFor="let year of reportYears" [value]="year.id">{{ year.year }}</mat-option>
+                      <mat-option *ngFor="let year of selectedReportingYears" [value]="year.value">{{ year.text }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>

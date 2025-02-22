@@ -84,6 +84,11 @@ import { SelectedModel } from '../../core/models/selectedModel';
       getSelectedSchoolByBranchLevelAndThirdLevel(){
         return this.http.get<SelectedModel[]>(this.baseUrl + '/base-School-name/get-selectedShipName')
       }
+
+      getSelectedReportingYears(){
+        return this.http.get<SelectedModel[]>(this.baseUrl + '/reporting-year/get-selectedReportingYear')
+      }
+
       getSelectedOperationalStatus(){
         return this.http.get<SelectedModel[]>(this.baseUrl + '/operational-status/get-selectedOperationalStatus')
       }

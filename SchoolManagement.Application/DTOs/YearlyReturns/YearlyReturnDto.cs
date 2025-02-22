@@ -14,6 +14,7 @@ namespace SchoolManagement.Application.DTOs.YearlyReturns
         public int? OperationalStatusId { get; set; }
         public int? ReportingMonthId { get; set; }
         public int? ReportingYearId { get; set; }
+        public int? ReportingYear { get; set; }
         public int? MenuPosition { get; set; }
         public string? CreatedBy { get; set; }
         public string? SchoolName { get; set; }

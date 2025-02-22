@@ -199,148 +199,240 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
     this.print();
   }
 
-  print() {
-    const dataSource = this.dataSource.data; // Access your mat-table dataSource
-    if (!dataSource || dataSource.length === 0) {
-      console.error('No data available for printing!');
-      return;
-    }
+  // print() {
+  //   const dataSource = this.dataSource.data; // Access your mat-table dataSource
+  //   if (!dataSource || dataSource.length === 0) {
+  //     console.error('No data available for printing!');
+  //     return;
+  //   }
 
-    const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-    if (!popupWin) {
-      console.error('Failed to open popup for printing!');
-      return;
-    }
+  //   const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+  //   if (!popupWin) {
+  //     console.error('Failed to open popup for printing!');
+  //     return;
+  //   }
 
-    // Generate headers dynamically
-    const tableHeaders = `
-    <tr>
-      <th >Ser.</th>
-      <th>Equipment Category</th>
-      <th>Equipment Name</th>
-      <th>State of Equipment</th>
-      <th>Qty</th>
-      <th>Model</th>
-    </tr>`;
+  //   // Generate headers dynamically
+  //   const tableHeaders = `
+  //   <tr>
+  //     <th >Ser.</th>
+  //     <th>Equipment Category</th>
+  //     <th>Equipment Name</th>
+  //     <th>State of Equipment</th>
+  //     <th>Qty</th>
+  //     <th>Model</th>
+  //   </tr>`;
 
-    // Generate rows dynamically
-    const tableRows = dataSource
-      .map((row, index) => {
-        return `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${row.equipmentCategory || ''}</td>
-          <td>${row.equpmentName || ''}</td>
-          <td>${row.stateOfEquipment || ''}</td>
-          <td>${row.qty || ''}</td>
-          <td>${row.model || ''}</td>
-        </tr>`;
-      })
-      .join('');
+  //   // Generate rows dynamically
+  //   const tableRows = dataSource
+  //     .map((row, index) => {
+  //       return `
+  //       <tr>
+  //         <td>${index + 1}</td>
+  //         <td>${row.equipmentCategory || ''}</td>
+  //         <td>${row.equpmentName || ''}</td>
+  //         <td>${row.stateOfEquipment || ''}</td>
+  //         <td>${row.qty || ''}</td>
+  //         <td>${row.model || ''}</td>
+  //       </tr>`;
+  //     })
+  //     .join('');
 
-    // Write the content to the popup
-    popupWin.document.open();
-    popupWin.document.write(`
-      <html>
-        <head>
-          <title>Print</title>
-          <style>
-            body {
-              font-family: Arial, sans-serif;
-            }
-            table {
-              border-collapse: collapse;
-              width: 100%;
-            }
-            th, td {
-              border: 1px solid #ddd;
-              text-align: left;
-              padding: 8px;
-            }
-             td {
-              font-size: 0.8rem;
-              }
-            th {
-              background-color: #f2f2f2;
-              font-weight: bold;
-            }
-            .header-text {
-              text-align: center;
-              margin-bottom: 20px;
-            }
-            .header-text h3 {
-              margin: 0;
-            }
+  //   // Write the content to the popup
+  //   popupWin.document.open();
+  //   popupWin.document.write(`
+  //     <html>
+  //       <head>
+  //         <title>Print</title>
+  //         <style>
+  //           body {
+  //             font-family: Arial, sans-serif;
+  //           }
+  //           table {
+  //             border-collapse: collapse;
+  //             width: 100%;
+  //           }
+  //           th, td {
+  //             border: 1px solid #ddd;
+  //             text-align: left;
+  //             padding: 8px;
+  //           }
+  //            td {
+  //             font-size: 0.8rem;
+  //             }
+  //           th {
+  //             background-color: #f2f2f2;
+  //             font-weight: bold;
+  //           }
+  //           .header-text {
+  //             text-align: center;
+  //             margin-bottom: 20px;
+  //           }
+  //           .header-text h3 {
+  //             margin: 0;
+  //           }
     
-            /* Custom Table */
-            .custom-table {
-              width: 100%;
-              border-collapse: collapse;
-              table-layout: auto;
-            }
+  //           /* Custom Table */
+  //           .custom-table {
+  //             width: 100%;
+  //             border-collapse: collapse;
+  //             table-layout: auto;
+  //           }
     
-            /* Vertical Header */
-            .vertical-header {
-              writing-mode: vertical-rl;
-              transform: rotate(180deg);
-              text-align: center;
-              max-height: 150px;
-              border: 1px solid rgba(0, 0, 0, 0.1);
-              padding: 3px;
-              word-wrap: break-word;
-              max-height: 150px;
-            }
+  //           /* Vertical Header */
+  //           .vertical-header {
+  //             writing-mode: vertical-rl;
+  //             transform: rotate(180deg);
+  //             text-align: center;
+  //             max-height: 150px;
+  //             border: 1px solid rgba(0, 0, 0, 0.1);
+  //             padding: 3px;
+  //             word-wrap: break-word;
+  //             max-height: 150px;
+  //           }
     
           
-            .btn-tbl-edit, .btn-tbl-delete {
-              margin: 5px;
-            }
+  //           .btn-tbl-edit, .btn-tbl-delete {
+  //             margin: 5px;
+  //           }
     
-            .col-white {
-              color: white;
-            }
+  //           .col-white {
+  //             color: white;
+  //           }
     
-          </style>
-        </head>
-        <body onload="window.print();window.close()">
-          <div class="header-text">
-            <h3>Ship Equipment List</h3>
-          </div>
-          <hr>
-          <table class="custom-table">
-            <thead>
-              <tr>
-                <th class="vertical-header">Ser.</th>
-                <th class="vertical-header">Ship Name</th>
-                <th class="vertical-header">Equipment Name</th>
-                <th class="vertical-header">Equipment Category</th>
-                <th class="vertical-header">Qty</th>
-                <th class="vertical-header">Brand</th>
-                <th class="vertical-header">Model</th>
-                <th class="vertical-header">Tech Specification</th>
-                <th class="vertical-header">Manufacturer Info</th>
-                <th class="vertical-header">Acquisition Method</th>
-                <th class="vertical-header">Year of Installation</th>
-                <th class="vertical-header">Location</th>   
-                <th class="vertical-header">State of Equipment</th>
-                <th class="vertical-header">Power Supply</th>
+  //         </style>
+  //       </head>
+  //       <body onload="window.print();window.close()">
+  //         <div class="header-text">
+  //           <h3>Ship Equipment List</h3>
+  //         </div>
+  //         <hr>
+  //         <table class="custom-table">
+  //           <thead>
+  //             <tr>
+  //               <th class="vertical-header">Ser.</th>
+  //               <th class="vertical-header">Ship Name</th>
+  //               <th class="vertical-header">Equipment Name</th>
+  //               <th class="vertical-header">Equipment Category</th>
+  //               <th class="vertical-header">Qty</th>
+  //               <th class="vertical-header">Brand</th>
+  //               <th class="vertical-header">Model</th>
+  //               <th class="vertical-header">Tech Specification</th>
+  //               <th class="vertical-header">Manufacturer Info</th>
+  //               <th class="vertical-header">Acquisition Method</th>
+  //               <th class="vertical-header">Year of Installation</th>
+  //               <th class="vertical-header">Location</th>   
+  //               <th class="vertical-header">State of Equipment</th>
+  //               <th class="vertical-header">Power Supply</th>
                                
-                <th class="vertical-header">Interface Protocol</th>
-                <th class="vertical-header">Composition</th>
-                <th class="vertical-header">Defect Description</th>
-                <th class="vertical-header">Remarks</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${dataSource
-        .map((row, index) => {
-          return `
-                    <tr>
-                      <td class="vertical-header">${index + 1 || '-'}</td>
+  //               <th class="vertical-header">Interface Protocol</th>
+  //               <th class="vertical-header">Composition</th>
+  //               <th class="vertical-header">Defect Description</th>
+  //               <th class="vertical-header">Remarks</th>
+  //             </tr>
+  //           </thead>
+  //           <tbody>
+  //             ${dataSource
+  //       .map((row, index) => {
+  //         return `
+  //                   <tr>
+  //                     <td class="vertical-header">${index + 1 || '-'}</td>
+  //                     <td class="vertical-header">${row.schoolName || "-"}</td>
+  //                     <td class="vertical-header">${row.equpmentName || '-'}</td>
+  //                     <td class="vertical-header">${row.equipmentCategory || '-'}</td>
+  //                     <td class="vertical-header">${row.qty || '-'}</td>
+  //                     <td class="vertical-header">${row.brand || '-'}</td>
+  //                     <td class="vertical-header">${row.model || '-'}</td>
+  //                     <td class="vertical-header">${row.techSpecification || '-'}</td>
+  //                     <td class="vertical-header">${row.manufacturerNameAndAddress || '-'}</td>
+  //                     <td class="vertical-header">${row.acquisitionMethodName || '-'}</td>
+  //                     <td class="vertical-header">${row.yearOfInstallation || '-'}</td>
+  //                     <td class="vertical-header">${row.location || '-'}</td>
+  //                     <td class="vertical-header">${row.stateOfEquipment || '-'}</td>
+  //                     <td class="vertical-header">${row.powerSupply || '-'}</td>
+                      
+  //                     <td class="vertical-header">${row.interfaceProtocol || "-"}</td>
+  //                     <td class="vertical-header">${row.composition || '-'}</td>               
+  //                     <td class="vertical-header">${row.defectDescription || '-'}</td>
+  //                     <td class="vertical-header">${row.remarks || '-'}</td>
+  //                   </tr>
+  //                 `;
+  //       })
+  //       .join('')}
+  //           </tbody>
+  //         </table>
+  //       </body>
+  //     </html>
+  //   `);
+
+
+
+  //   popupWin.document.close();
+  // }
+
+  selectAll = false;
+// Assuming this holds your table data
+
+// Function to toggle all checkboxes
+toggleSelectAll() {
+  this.dataSource.data.forEach(row => (row.selected = this.selectAll));
+}
+
+print() {
+  let selectedRows = this.dataSource.data.filter(row => row.selected);
+  
+  // If no rows selected, print all rows
+  if (selectedRows.length === 0) {
+    selectedRows = this.dataSource.data;
+  }
+
+  if (!selectedRows || selectedRows.length === 0) {
+    console.error('No data available for printing!');
+    return;
+  }
+
+  const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+  if (!popupWin) {
+    console.error('Failed to open popup for printing!');
+    return;
+  }
+
+  // Generate headers dynamically
+  const tableHeaders = `
+    <tr>
+      <th class="vertical-header">Ser.</th>
+                 <th class="vertical-header">Ship Name</th>
+                 <th class="vertical-header">Equipment Name</th>
+                 <th class="vertical-header">Equipment Category</th>
+                 <th class="vertical-header">OPL Qty</th>
+                 <th class="vertical-header">Non-OPL Qty</th>
+                 <th class="vertical-header">Brand</th>
+                 <th class="vertical-header">Model</th>
+                 <th class="vertical-header">Tech Specification</th>
+                 <th class="vertical-header">Manufacturer Info</th>
+                 <th class="vertical-header">Acquisition Method</th>
+                 <th class="vertical-header">Year of Installation</th>
+                 <th class="vertical-header">Location</th>   
+                 <th class="vertical-header">Power Supply</th>                               
+                 <th class="vertical-header">Interface Protocol</th>
+                 <th class="vertical-header">Composition</th>
+                 <th class="vertical-header">Defect Description</th>
+                 <th class="vertical-header">Remarks</th>
+                 <th class="vertical-header">Last Return</th>
+
+    </tr>`;
+// it work
+  // Generate rows dynamically based on selected data
+  const tableRows = selectedRows
+    .map((row, index) => {
+      return `
+        <tr>
+           <td class="vertical-header">${index + 1 || '-'}</td>
                       <td class="vertical-header">${row.schoolName || "-"}</td>
                       <td class="vertical-header">${row.equpmentName || '-'}</td>
                       <td class="vertical-header">${row.equipmentCategory || '-'}</td>
-                      <td class="vertical-header">${row.qty || '-'}</td>
+                      <td class="vertical-header">${row.oplQty || '-'}</td>
+                      <td class="vertical-header">${row.nonOplQty || '-'}</td>
                       <td class="vertical-header">${row.brand || '-'}</td>
                       <td class="vertical-header">${row.model || '-'}</td>
                       <td class="vertical-header">${row.techSpecification || '-'}</td>
@@ -348,27 +440,66 @@ export class ShipEquipmentInfoListComponent extends UniqueSelectionDispatcher im
                       <td class="vertical-header">${row.acquisitionMethodName || '-'}</td>
                       <td class="vertical-header">${row.yearOfInstallation || '-'}</td>
                       <td class="vertical-header">${row.location || '-'}</td>
-                      <td class="vertical-header">${row.stateOfEquipment || '-'}</td>
                       <td class="vertical-header">${row.powerSupply || '-'}</td>
                       
                       <td class="vertical-header">${row.interfaceProtocol || "-"}</td>
                       <td class="vertical-header">${row.composition || '-'}</td>               
                       <td class="vertical-header">${row.defectDescription || '-'}</td>
                       <td class="vertical-header">${row.remarks || '-'}</td>
-                    </tr>
-                  `;
-        })
-        .join('')}
-            </tbody>
-          </table>
-        </body>
-      </html>
-    `);
+                      <td class="vertical-header">${this.formatDate(row.lastRetrunModificationDate) || '-'}</td>
+        </tr>`;
+    })
+    .join('');
 
+  // Write the content to the popup
+  popupWin.document.open();
+  popupWin.document.write(`
+    <html>
+      <head>
+        <title>Print</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+          }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+          }
+          th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+          }
+        </style>
+      </head>
+      <body onload="window.print();window.close()">
+        <div class="header-text">
+          <h3>Ship Equipment List</h3>
+        </div>
+        <hr>
+        <table>
+          <thead>${tableHeaders}</thead>
+          <tbody>${tableRows}</tbody>
+        </table>
+      </body>
+    </html>
+  `);
 
+  popupWin.document.close();
+}
 
-    popupWin.document.close();
+formatDate(dateString: string): string {
+  if(dateString){
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
   }
+  return ""
+  
+}
 
   deleteItem(row) {
     const id = row.shipEquipmentInfoId;

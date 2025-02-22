@@ -26,5 +26,6 @@ namespace SchoolManagement.Domain
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
         public virtual OperationalStatus? OperationalStatus { get; set; }
         public virtual ReportingMonth? ReportingMonth { get; set; }
+        public virtual ReportingYear? ReportingYear { get; set; }
     }
 }

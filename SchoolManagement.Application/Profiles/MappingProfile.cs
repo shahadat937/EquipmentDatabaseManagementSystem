@@ -119,6 +119,7 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(dest => dest.SchoolName, opt => opt.MapFrom(src => src.BaseSchoolName != null ? src.BaseSchoolName.SchoolName : null))
                 .ForMember(d => d.OperationalStatus, o => o.MapFrom(s => s.OperationalStatus.Name))
                 .ForMember(d => d.ReportingMonth, o => o.MapFrom(s => s.ReportingMonth.Name))
+                .ForMember(d=> d.ReportingYear, o=> o.MapFrom(s=> s.ReportingYear.Year))
                 .ForMember(d => d.FileUpload, o => o.MapFrom<YearlyReturnFileUrlResolver>());
 
             CreateMap<YearlyReturn, CreateYearlyReturnDto>().ReverseMap();
