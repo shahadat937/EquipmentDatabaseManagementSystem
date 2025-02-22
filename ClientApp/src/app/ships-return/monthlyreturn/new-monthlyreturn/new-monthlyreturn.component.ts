@@ -56,6 +56,7 @@ export class NewMonthlyReturnComponent implements OnInit {
   totalNonOplCount : number = 0;
   showQty = false;
   warningMessage = ""
+  isDamageDiscriptionMadetory : boolean;
 
   constructor(private snackBar: MatSnackBar, private authService: AuthService, private baseSchoolNameService: BaseSchoolNameService, private confirmService: ConfirmService, private MonthlyReturnService: MonthlyReturnService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private sharedService: SharedService) { }
 
@@ -163,6 +164,18 @@ export class NewMonthlyReturnComponent implements OnInit {
       this.selectedBaseSchoolName = res;
       this.selectBaseSchoolName = res;
     });
+  }
+  isNonOPL(event){
+    console.log("Selected Value:", event.value);
+
+    // Find the selected item's text
+    const selectedText = this.selectedOperationalStatus.find(item => item.value === event.value)?.text;
+    if(selectedText === 'OPL'){
+      this.isDamageDiscriptionMadetory = false
+    }
+    else{
+      this.isDamageDiscriptionMadetory = true;
+    }
   }
 
   filterByShip(value: any) {

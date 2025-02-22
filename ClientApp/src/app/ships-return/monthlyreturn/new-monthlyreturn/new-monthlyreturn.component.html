@@ -143,8 +143,22 @@
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Operational Status</mat-label>
+                      <mat-select formControlName="operationalStatusId" required (selectionChange)="isNonOPL($event)">
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedOperationalStatus" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="MonthlyReturnForm.get('operationalStatusId').hasError('required')">
+                        Operational Status is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Damage Description</mat-label>
-                      <textarea matInput formControlName="damageDescription" required></textarea>
+                      <textarea matInput formControlName="damageDescription" [required]="isDamageDiscriptionMadetory"></textarea>
                       <mat-error *ngIf="MonthlyReturnForm.get('damageDescription').hasError('required')">
                         Damage Description is required
                       </mat-error>
@@ -165,6 +179,7 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+          
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Description of Present Condition</mat-label>
@@ -218,20 +233,7 @@
                       <mat-icon matSuffix>attachment</mat-icon>
                     </mat-form-field>
                   </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Operational Status</mat-label>
-                      <mat-select formControlName="operationalStatusId" required>
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedOperationalStatus" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="MonthlyReturnForm.get('operationalStatusId').hasError('required')">
-                        Operational Status is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+                 
                   <div *ngIf="showQty" class="col-xl-9 col-lg-9 col-md-9 col-sm-12 mb-2">
                     <h3><span class="text-success">Total Opl Qty : {{totalOplCount}} </span> <span class="mx-5 text-danger">Total Non Opl Qty : {{totalNonOplCount}}</span> </h3>
                   </div>
