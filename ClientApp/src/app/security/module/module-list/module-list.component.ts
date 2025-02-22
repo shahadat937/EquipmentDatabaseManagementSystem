@@ -46,7 +46,7 @@ export class ModuleListComponent implements OnInit {
     this.isLoading = true;
     this.ModuleService.getModules(this.paging.pageIndex, this.paging.pageSize,this.searchText).subscribe(response => {
      
-      console.log(response);
+      //console.log(response);
 
       this.dataSource.data = response.items; 
       this.paging.length = response.totalItemsCount    

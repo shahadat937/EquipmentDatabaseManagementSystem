@@ -64,7 +64,7 @@ export class SqnListComponent implements OnInit {
   deleteItem(row) {
     const id = row.sqnId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.SqnService.delete(id).subscribe(() => {
           this.getSqns();

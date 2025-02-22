@@ -29,16 +29,6 @@ export class NewYearlyRetrunComponent implements OnInit {
   branchId : string
   userRoles = Role
   isCommandingAreaUsers: boolean;
-
-  reportYears = [
-    { id: 1, year: '2020' },
-    { id: 2, year: '2021' },
-    { id: 3, year: '2022' },
-    { id: 4, year: '2023' },
-    { id: 5, year: '2024' },
-    { id: 6, year: '2025' }
-  ];
-
   searchText = "";
   private searchSubject: Subject<string> = new Subject();
   dataSource: MatTableDataSource<YearlyReturn> = new MatTableDataSource();
@@ -62,7 +52,7 @@ export class NewYearlyRetrunComponent implements OnInit {
 
   getYearlyReturn() {
     this.isLoading = true;
-    console.log(this.role)
+    //console.log(this.role)
     if(this.role === this.userRoles.AreaCommander){
       this.getYearlyShipReturnByCommandingArea();
 
@@ -79,10 +69,7 @@ export class NewYearlyRetrunComponent implements OnInit {
   getYearlyShipReturns(shipId){
     this.YearlyReturnService.getYearlyReturn(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
       this.dataSource.data = response.items;
-      this.dataSource.data = response.items.map((item) => ({
-        ...item,
-        year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
-      }));
+      //console.log(response.items)
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
@@ -94,10 +81,6 @@ export class NewYearlyRetrunComponent implements OnInit {
     this.YearlyReturnService.getYearlyReturnByAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.branchId).subscribe(response => {
         
       this.dataSource.data = response.items;
-      this.dataSource.data = response.items.map((item) => ({
-        ...item,
-        year: this.reportYears.find((r) => r.id === item.reportingYearId)?.year || '-'
-      }));
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;

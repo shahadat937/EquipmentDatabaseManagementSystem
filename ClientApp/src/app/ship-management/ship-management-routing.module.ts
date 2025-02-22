@@ -6,6 +6,7 @@ import {NewShipInformationComponent} from './shipinformation/new-shipinformation
 import {ShipInformationListComponent} from './shipinformation/shipinformation-list/shipinformation-list.component'
 import { ShipEquipmentInfoListComponent } from './shipequipmentinfo/shipequipmentinfo-list/shipequipmentinfo-list.component';
 import { NewShipEquipmentInfoComponent } from './shipequipmentinfo/new-shipequipmentinfo/new-shipequipmentinfo.component';
+import { OplNonoplEquipmentComponent } from './opl-nonopl-equipment/opl-nonopl-equipment.component';
 // import { NewOperationalStatusOfEquipmentSystemComponent } from './operational-status-equipment-system/new-operational-status-of-equipment-system/new-operational-status-of-equipment-system.component';
 // import { OperationalStatusOfEquipmentSystemListComponent } from './operational-status-equipment-system/operational-status-of-equipment-system-list/operational-status-of-equipment-system-list.component';
 
@@ -34,6 +35,14 @@ const routes: Routes = [
   {
     path: 'shipequipmentinfo-list/:shipequipmentCategoryId/:stateOfEquipmentId',
     component: ShipEquipmentInfoListComponent,
+  },
+  {
+    path: 'opl-nonopl-shipequipmentinfo-list/:shipequipmentCategoryId/:status',
+    component: OplNonoplEquipmentComponent,
+  },
+  {
+    path: 'opl-nonopl-shipequipmentinfo-list/:shipequipmentCategoryId/:equipmentNameId/:status',
+    component: OplNonoplEquipmentComponent,
   },
   {
     path: 'shipequipmentinfo-list/:shipequipmentCategoryId/:equipmentNameId/:stateOfEquipmentId',

@@ -114,7 +114,7 @@ export class NewProjectStatusComponent implements OnInit {
   deleteItem(row) {
     const id = row.projectStatusId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.ProjectStatusService.delete(id).subscribe(() => {
           this.getProjectStatuses();

@@ -44,7 +44,7 @@ namespace SchoolManagement.Application.Features.YearlyReturns.Handler.Queries
             IQueryable<YearlyReturn> yearlyReturns = _yearlyReturn.FilterWithInclude(
                 x => x.BaseSchoolName.ShipInformations.Any(u=> u.AuthorityId == request.AuthorityId) && (string.IsNullOrEmpty(request.QueryParams.SearchText) ||
                      x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
-                "BaseSchoolName", "OperationalStatus", "ReportingMonth"
+                "BaseSchoolName", "OperationalStatus", "ReportingMonth", "ReportingYear"
             );
 
 

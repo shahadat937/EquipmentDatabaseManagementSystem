@@ -26,7 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         //   this.authenticationService.logout();
         //   location.reload(true);
         // }
-        console.log(err);
+        //console.log(err);
         if (err) {
           switch (err.status) {
             case 400:
@@ -93,7 +93,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 panelClass: 'snackbar-danger'
               });
             
-              console.log(err);
+              //console.log(err);
               break;
           }
         }

@@ -25,7 +25,8 @@ public class ShipEquipmentInfoController : ControllerBase
     [Route("get-ShipEquipmentInfos")]
     public async Task<ActionResult<List<ShipEquipmentInfoDto>>> Get([FromQuery] QueryParams queryParams, int shipId, string sortColumn, string sortDeriction)
     {
-        var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoListRequest { 
+        var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoListRequest
+        {
             QueryParams = queryParams,
             ShipId = shipId,
             SortColumn = sortColumn,
@@ -33,14 +34,15 @@ public class ShipEquipmentInfoController : ControllerBase
         });
         return Ok(ShipEquipmentInfos);
     }
-    
+
     [HttpGet]
     [Route("get-ShipEquipmentInfos-by-authority")]
     public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetEquipmentByAuthorityId([FromQuery] QueryParams queryParams, int authorityId)
     {
-        var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoByAuthorityIdListRequest { 
+        var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoByAuthorityIdListRequest
+        {
             QueryParams = queryParams,
-            AuthorityId= authorityId
+            AuthorityId = authorityId
         });
         return Ok(ShipEquipmentInfos);
     }
@@ -68,7 +70,7 @@ public class ShipEquipmentInfoController : ControllerBase
             CategoryId = categoryId,
             StateOfEquipmentId = stateOfEquipmentId,
             CommandingAreaId = commandingAreaId
-            
+
 
         });
         return Ok(ShipEquipmentInfos);
@@ -81,7 +83,7 @@ public class ShipEquipmentInfoController : ControllerBase
     {
         var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoByCategoryIdNameIdAndStateOfEquipmentIdRequest
         {
-            QueryParams = queryParams,            
+            QueryParams = queryParams,
             CategoryId = categoryId,
             EquipmentNameId = equipmentNameId,
             StateOfEquipmentId = stateOfEquipmentId
@@ -89,19 +91,19 @@ public class ShipEquipmentInfoController : ControllerBase
         return Ok(ShipEquipmentInfos);
     }
 
-    
+
     [HttpGet]
     [Route("get-ShipEquipmentInfos-by-CategoryId-EquipmentNameId-StateOfEquipmentId-CommandingAreaId")]
     public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetShipEquipmentByCategoryIdEquipmentNameAndStateOfEquipmentIdAndCommandingArea([FromQuery] QueryParams queryParams, int categoryId, int equipmentNameId, int stateOfEquipmentId, int commandingAreaId)
     {
         var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentInfoByCategoryIdNameIdAndStateOfEquipmentIdCommandAreaIdRequest
         {
-            QueryParams = queryParams,            
+            QueryParams = queryParams,
             CategoryId = categoryId,
             EquipmentNameId = equipmentNameId,
             StateOfEquipmentId = stateOfEquipmentId,
             CommandingAreaId = commandingAreaId
-            
+
         });
         return Ok(ShipEquipmentInfos);
     }
@@ -160,14 +162,15 @@ public class ShipEquipmentInfoController : ControllerBase
         var ShipEquipmentInfo = await _mediator.Send(new GetSelectedShipEquipmentInfoRequest { });
         return Ok(ShipEquipmentInfo);
     }
-    
+
     [HttpGet]
     [Route("get-selectedShipEquipmentModelByShip")]
     public async Task<ActionResult<List<SelectedModel>>> GetSelectedShipEquipmentModelByShip(int baseSchoolNameId, int equipmentNameId)
     {
-        var ShipEquipmentInfo = await _mediator.Send(new GetSelectedShipEquipmentByShipIdEquipmentNameIdInfoRequest { 
-        BaseSchoolNameId = baseSchoolNameId,
-        EquipmentNameId = equipmentNameId
+        var ShipEquipmentInfo = await _mediator.Send(new GetSelectedShipEquipmentByShipIdEquipmentNameIdInfoRequest
+        {
+            BaseSchoolNameId = baseSchoolNameId,
+            EquipmentNameId = equipmentNameId
         });
         return Ok(ShipEquipmentInfo);
     }
@@ -189,22 +192,23 @@ public class ShipEquipmentInfoController : ControllerBase
     [Route("get-ship-equipment-count-by-category/{stateOfEquipmentId1}/{stateOfEquipmentId2}")]
     public async Task<ActionResult> GetShipEquipmentByCategory(int stateOfEquipmentId1, int stateOfEquipmentId2)
     {
-        var count = await _mediator.Send(new GetShipEquipmentCountByCategoryRequest { 
-        StateOfEquipmentId1 = stateOfEquipmentId1,
-        StateOfEquipmentId2 = stateOfEquipmentId2
+        var count = await _mediator.Send(new GetShipEquipmentCountByCategoryRequest
+        {
+            StateOfEquipmentId1 = stateOfEquipmentId1,
+            StateOfEquipmentId2 = stateOfEquipmentId2
         });
         return Ok(count);
-    }  
-    
+    }
+
     [HttpGet]
     [Route("get-ship-equipment-count-by-category-commandingArea/{stateOfEquipmentId1}/{stateOfEquipmentId2}/{commandingAreaId}")]
     public async Task<ActionResult> GetShipEquipmentByCategoryAndCommandingArea(int stateOfEquipmentId1, int stateOfEquipmentId2, int commandingAreaId)
     {
         var count = await _mediator.Send(new GetShipEquipmentCountByCategoryandCommaningAreaIdRequest
-        { 
-        StateOfEquipmentId1 = stateOfEquipmentId1,
-        StateOfEquipmentId2 = stateOfEquipmentId2,
-        CommandingAreaId = commandingAreaId
+        {
+            StateOfEquipmentId1 = stateOfEquipmentId1,
+            StateOfEquipmentId2 = stateOfEquipmentId2,
+            CommandingAreaId = commandingAreaId
         });
         return Ok(count);
     }
@@ -215,28 +219,40 @@ public class ShipEquipmentInfoController : ControllerBase
     {
         var shipLists = await _mediator.Send(new GetCompatSystemEequipmentCountRequest
         {
-           CombatSystemId = combatSystemId,
-           StateOfEquipmentId1 = stateOfEquipmentId1,
-           StateOfEquipmentId2 = stateOfEquipmentId2
+            CombatSystemId = combatSystemId,
+            StateOfEquipmentId1 = stateOfEquipmentId1,
+            StateOfEquipmentId2 = stateOfEquipmentId2
         });
         return Ok(shipLists);
     }
 
-     [HttpGet]
+    [HttpGet]
     [Route("get-combat-system-equipemnt-count-by-commandingarea/{combatSystemId}/{stateOfEquipmentId1}/{stateOfEquipmentId2}/{commandingAreaId}")]
     public async Task<ActionResult> GetCompatSystemEequipmentCountByCommandingAreaId(int combatSystemId, int stateOfEquipmentId1, int stateOfEquipmentId2, int commandingAreaID)
     {
         var shipLists = await _mediator.Send(new GetCompatSystemEequipmentCountRequestByCommandingAreaRequest
         {
-           CombatSystemId = combatSystemId,
-           StateOfEquipmentId1 = stateOfEquipmentId1,
-           StateOfEquipmentId2 = stateOfEquipmentId2,
-           CommandingAreaId = commandingAreaID
-           
+            CombatSystemId = combatSystemId,
+            StateOfEquipmentId1 = stateOfEquipmentId1,
+            StateOfEquipmentId2 = stateOfEquipmentId2,
+            CommandingAreaId = commandingAreaID
+
         });
         return Ok(shipLists);
     }
 
+    [HttpGet]
+    [Route("get-ShipEquipmentInfos-by-CategoryId-and-opl-nonopl-qty")]
+    public async Task<ActionResult<List<ShipEquipmentInfoDto>>> GetShipEquipmentByCategoryIdAndOplNonOplQty([FromQuery] QueryParams queryParams, int categoryId, bool isOpl)
+    {
+        var ShipEquipmentInfos = await _mediator.Send(new GetShipEquipmentByCategoryIdAndOplNonOplQtyRequest
+        {
+            QueryParams = queryParams,
+            CategoryId = categoryId,
+            IsOpl = isOpl
+        });
+        return Ok(ShipEquipmentInfos);
+    }
 
 
 }

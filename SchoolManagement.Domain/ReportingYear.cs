@@ -12,10 +12,12 @@ namespace SchoolManagement.Domain
         public ReportingYear()
         {
             QuarterlyReturns = new HashSet<QuarterlyReturn>();
+            YearlyReturns = new HashSet<YearlyReturn>();
         }
         public int ReportingYearId { get; set; }
         public int Year { get; set; }
         public bool  IsActive { get; set; }
         public virtual ICollection<QuarterlyReturn> QuarterlyReturns { get; set; }
+        public virtual ICollection<YearlyReturn> YearlyReturns { get; set; }
     }
 }

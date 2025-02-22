@@ -15,6 +15,8 @@ export class UnsubscribeOnDestroyAdapter implements OnDestroy {
    * The lifecycle hook that unsubscribes all subscriptions when the component / object gets destroyed
    */
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
   }
 }

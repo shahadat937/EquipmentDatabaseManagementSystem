@@ -64,7 +64,7 @@ export class OperationalStatusListComponent implements OnInit {
   deleteItem(row) {
     const id = row.operationalStatusId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.OperationalStatusService.delete(id).subscribe(() => {
           this.getOperationalStatuss();

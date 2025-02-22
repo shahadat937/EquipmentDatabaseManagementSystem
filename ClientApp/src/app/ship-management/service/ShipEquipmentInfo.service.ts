@@ -57,6 +57,26 @@ export class ShipEquipmentInfoService {
     );
    
   }
+
+  getShipEquipmentByCategoryIdAndOplNonOplQty (pageNumber, pageSize, searchText,categoryId, isOpl ) { 
+    let params = new HttpParams();
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    params = params.append('categoryId', categoryId.toString());
+    params = params.append('isOpl', isOpl);
+
+    
+    return this.http.get<IShipEquipmentInfoPagination>(this.baseUrl + '/ship-equipment-info/get-ShipEquipmentInfos-by-CategoryId-and-opl-nonopl-qty', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.ShipEquipmentInfos = [...this.ShipEquipmentInfos, ...response.body.items];
+        this.ShipEquipmentInfoPagination = response.body;
+        return this.ShipEquipmentInfoPagination;
+      })
+    );
+   
+  }
   getShipEquipmentByCategoryByAuthorityId (pageNumber, pageSize, searchText, authorityId ) { 
     let params = new HttpParams();
     params = params.append('searchText', searchText.toString());
@@ -181,7 +201,7 @@ export class ShipEquipmentInfoService {
     return this.http.put(this.baseUrl + '/ship-equipment-info/update-ShipEquipmentInfo/'+id, model);
   }
   submit(model: any) {
-    console.log(model)
+    //console.log(model)
     return this.http.post(this.baseUrl + '/ship-equipment-info/save-ShipEquipmentInfo', model);
   } 
   delete(id:number){

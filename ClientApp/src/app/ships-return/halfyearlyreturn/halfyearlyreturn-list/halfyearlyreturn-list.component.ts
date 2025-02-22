@@ -53,7 +53,7 @@ export class HalfYearlyReturnListComponent implements OnInit {
   getHalfYearlyReturns() {
     this.isLoading = true;
 
-    console.log(this.branchId);
+    //console.log(this.branchId);
 
     if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLOStaff || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO){
       this.getHalfYearlyShipReturnByCommandingArea();
@@ -174,7 +174,7 @@ export class HalfYearlyReturnListComponent implements OnInit {
   deleteItem(row) {
     const id = row.halfYearlyReturnId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.HalfYearlyReturnService.delete(id).subscribe(() => {
           this.getHalfYearlyReturns();

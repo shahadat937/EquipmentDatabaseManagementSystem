@@ -72,7 +72,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     this.branchId = this.authService.currentUserValue.branchId.trim();
 
     const id = this.route.snapshot.paramMap.get('halfYearlyReturnId');
-    console.log(id);
+    //console.log(id);
     if (id) {
       this.isUpdateing = true;
       this.pageTitle = 'Edit Half Yearly Return';
@@ -80,7 +80,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       this.btnText = 'Update';
       this.HalfYearlyReturnService.find(+id).subscribe(
         res => {
-          console.log(res.isSatisfactory);
+          //console.log(res.isSatisfactory);
           this.shipEquipmentInformationId = res.shipEquipmentInfoId;
           this.HalfYearlyReturnForm.patchValue({
             halfYearlyReturnId: res.halfYearlyReturnId,
@@ -221,7 +221,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   }
   onEquipmentCategorySelectionChange() {
     var equipmentCategoryId = this.HalfYearlyReturnForm.value['equipmentCategoryId'];
-    console.log(equipmentCategoryId);
+    //console.log(equipmentCategoryId);
     this.HalfYearlyReturnService.getSelectedEquipmentNameByCategory(equipmentCategoryId).subscribe(res => {
       this.selectedEquipmentNameByCategory = res
       this.selectEquipmentNameByCategory = res
@@ -261,13 +261,13 @@ export class NewHalfYearlyReturnComponent implements OnInit {
 
       this.isShown = true;
       this.HalfYearlyReturnService.getShipEquipmentInfoListForHalfYearly(equipmentCategoryId, equpmentNameId, shipNameId).subscribe(res => {
-        console.log("Res", res)
+        //console.log("Res", res)
         this.selectedShipEquipmentInfoList = res.map((item: any) => {
           return { ...item, remarks: '' };
         });
         this.clearList();
         this.getShipEquipmentInfoListonClick();
-        console.log(this.selectedShipEquipmentInfoList);
+        //console.log(this.selectedShipEquipmentInfoList);
       });
       
   
@@ -362,11 +362,11 @@ export class NewHalfYearlyReturnComponent implements OnInit {
         
       // this.HalfYearlyReturnForm.value);
   this.HalfYearlyReturnForm.value.shipEquipmentInfoList.shipEquipmentInfoId =this.shipEquipmentInformationId;
-  // console.log("result ",this.HalfYearlyReturnForm.value.shipEquipmentInfoList.shipEquipmentInfoId )
+  // //console.log("result ",this.HalfYearlyReturnForm.value.shipEquipmentInfoList.shipEquipmentInfoId )
 
 
         if (result) {
-          console.log(this.HalfYearlyReturnForm.value);
+          //console.log(this.HalfYearlyReturnForm.value);
           this.HalfYearlyReturnService.update(+id, this.HalfYearlyReturnForm.value).subscribe(response => {
             this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');
             this.snackBar.open('Information Updated Successfully ', '', {
@@ -382,7 +382,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       })
     }
     else {
-      console.log(this.HalfYearlyReturnForm.value.shipEquipmentInfoList);
+      //console.log(this.HalfYearlyReturnForm.value.shipEquipmentInfoList);
       this.HalfYearlyReturnService.submit(this.HalfYearlyReturnForm.value.shipEquipmentInfoList
       ).subscribe(response => {
         this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');

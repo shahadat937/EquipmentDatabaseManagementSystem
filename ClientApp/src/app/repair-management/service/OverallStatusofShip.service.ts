@@ -48,7 +48,7 @@ import { map } from 'rxjs';
       return this.http.put(this.baseUrl + '/statusof-ship/update-StatusOfShips/'+id, model);
     }
     submit(model: any) {
-      console.log('is null',model)
+      //console.log('is null',model)
       return this.http.post(this.baseUrl + '/statusof-ship/save-StatusOfShip', model);
     }
      

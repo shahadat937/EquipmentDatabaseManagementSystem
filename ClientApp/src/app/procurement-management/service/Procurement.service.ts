@@ -48,7 +48,7 @@ export class ProcurementService {
     return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-Procurements-by-procurementMethodId/'+procurementMethodId, { observe: 'response', params })
     .pipe(
       map(response => {
-        console.log(response);
+        //console.log(response);
         this.Procurements = [...this.Procurements, ...response.body.items];
         this.ProcurementPagination = response.body;
         return this.ProcurementPagination;
@@ -67,12 +67,12 @@ export class ProcurementService {
     params = params.append('procurementMethodId', procurementMethodId.toString())
     params = params.append('authorityId' , authorityId.toString())
     
-    console.log(params);
+    //console.log(params);
     
     return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-Procurements-by-procurementMethodId-authorityId/'+procurementMethodId+"/"+authorityId, { observe: 'response', params })
     .pipe(
       map(response => {
-        console.log(response);
+        //console.log(response);
         this.Procurements = [...this.Procurements, ...response.body.items];
         this.ProcurementPagination = response.body;
         return this.ProcurementPagination;

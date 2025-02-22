@@ -70,7 +70,7 @@ import { AuthService } from '../../../../../src/app/core/service/auth.service';
     getQuarterlyReturns (shipId){
       this.QuarterlyReturnService.getQuarterlyReturn(this.paging.pageIndex, this.paging.pageSize, this.searchText, shipId).subscribe(response => {
         this.dataSource.data = response.items;
-        console.log(response.items);
+        //console.log(response.items);
        
         this.paging.length = response.totalItemsCount
         this.isLoading = false;

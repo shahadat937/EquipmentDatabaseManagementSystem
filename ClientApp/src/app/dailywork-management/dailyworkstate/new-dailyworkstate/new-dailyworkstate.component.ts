@@ -43,7 +43,7 @@ export class NewDailyWorkStateComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim();
-    console.log(this.role, this.traineeId,  this.branchId)
+    //console.log(this.role, this.traineeId,  this.branchId)
 
     const id = this.route.snapshot.paramMap.get('dailyWorkStateId'); 
     if (id) {
@@ -71,8 +71,8 @@ export class NewDailyWorkStateComponent implements OnInit {
             isActive: res.isActive,
             remarks: res.remarks,
           });       
-        console.log("res1");
-        console.log(res);
+        //console.log("res1");
+        //console.log(res);
         //this.onCommendingAreaSelectionChangeGetBaseName();
         //this.onOrganizationSelectionChange();
         }
@@ -113,13 +113,13 @@ export class NewDailyWorkStateComponent implements OnInit {
   // getSelectedSchoolByBranchLevelAndThirdLevel(){
   //   this.DailyWorkStateService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res=>{
   //     this.selectedBaseSchoolName=res;
-  //     console.log(res);
+  //     //console.log(res);
   //   }); 
   // }
   onFileChanged(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      console.log(file);
+      //console.log(file);
       this.DailyWorkStateForm.patchValue({
         document: file,
       });
@@ -137,15 +137,15 @@ export class NewDailyWorkStateComponent implements OnInit {
   getSelectedDealingOfficer(){
     this.DailyWorkStateService.getSelectedDealingOfficer().subscribe(res=>{
       this.selectedDealingOfficer=res
-      console.log(res)
-      console.log(res)
+      //console.log(res)
+      //console.log(res)
     }); 
   }
   getSelectedActionTaken(){
     this.DailyWorkStateService.getSelectedActionTaken().subscribe(res=>{
       this.selectedActionTaken=res
-      console.log(res)
-      console.log(res)
+      //console.log(res)
+      //console.log(res)
     }); 
   }
   getSelectedPriority(){

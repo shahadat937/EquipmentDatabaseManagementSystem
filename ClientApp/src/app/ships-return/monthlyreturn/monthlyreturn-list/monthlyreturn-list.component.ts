@@ -67,14 +67,14 @@ export class MonthlyReturnListComponent implements OnInit {
   }
 
   getMonthlyReturns() {
-    console.log(this.branchId)
+    //console.log(this.branchId)
     this.isLoading = true;
     if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.FLOStaff || this.role === this.userRoles.CSO){
       this.getShipMonthlyReturnsByAuthority();
 
     }
     else if(this.role === this.userRoles.LOEO || this.role === this.userRoles.ShipUser || this.role === this.userRoles.LOEOWTR){
-      console.log(22)
+      //console.log(22)
       this.getMonthltShipReturns(this.branchId);
     }
     else{

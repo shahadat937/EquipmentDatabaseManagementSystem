@@ -112,7 +112,7 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
   onFileChanged(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      console.log(file);
+      //console.log(file);
       this.BookUserManualBRInfoForm.patchValue({
         document: file,
       });
@@ -179,7 +179,7 @@ export class NewBookUserManualBRInfoComponent implements OnInit {
   deleteItem(row) {
     const id = row.bookUserManualBRInfoId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.BookUserManualBRInfoService.delete(id).subscribe(() => {
           this.getBookUserManualBRInfos();

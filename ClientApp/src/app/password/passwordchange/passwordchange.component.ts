@@ -102,7 +102,7 @@ export class PasswordchangeComponent implements OnInit {
       if (result) {
         this.loading = true;
         this.subscription = this.userService.updatePassword(this.PasswordUpdateForm.value).subscribe(response => {
-          console.log(response);
+          //console.log(response);
           this.router.navigateByUrl('/password/password-change');
           this.reloadCurrentRoute();
           this.snackBar.open('Information Updated Successfully', '', {

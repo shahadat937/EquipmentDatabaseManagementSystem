@@ -116,7 +116,7 @@ export class ReportingYearComponent implements OnInit {
   deleteItem(row) {
     const id = row.reportingYearId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.ReportingYearService.delete(id).subscribe(() => {
           this.getReportingYears();

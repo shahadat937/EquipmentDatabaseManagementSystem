@@ -64,7 +64,7 @@ export class GroupNameListComponent implements OnInit {
   deleteItem(row) {
     const id = row.groupNameId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.GroupNameService.delete(id).subscribe(() => {
           this.getGroupNames();

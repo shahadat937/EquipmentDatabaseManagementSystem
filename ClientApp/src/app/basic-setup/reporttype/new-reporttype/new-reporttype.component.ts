@@ -114,7 +114,7 @@ export class NewReportTypeComponent implements OnInit {
   deleteItem(row) {
     const id = row.reportTypeId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.ReportTypeService.delete(id).subscribe(() => {
           this.getReportTypes();

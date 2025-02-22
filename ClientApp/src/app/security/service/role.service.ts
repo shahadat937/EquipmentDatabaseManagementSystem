@@ -39,14 +39,14 @@ export class RoleService {
    
 
   update(id: string,model: any) {
-    console.log("Test",id, model)
+    //console.log("Test",id, model)
     return this.http.put(this.baseUrl + `/Role/update-role/${id}`, model);
   }
   submit(model: any) {
     return this.http.post(this.baseUrl + '/role/save-role', model);
   }
   delete(id){
-    console.log(id);
+    //console.log(id);
     return this.http.delete(this.baseUrl + '/role/delete-role/'+id);
   }
   getselectedrole(){

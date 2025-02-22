@@ -59,13 +59,13 @@ export class NewOperationalStatusOfEquipmentSystemComponent implements OnInit {
     this.branchId = this.authService.currentUserValue.branchId.trim();
     const id = this.route.snapshot.paramMap.get('operationalStatusOfEquipmentSystemId');
     if (id) {
-      console.log(id);
+      //console.log(id);
       this.pageTitle = 'Edit Overall Operational Status Of Equipment System';
       this.destination = "Edit";
       this.btnText = 'Update';
       this.OperationalStatusOfEquipmentSystemService.find(+id).subscribe(
         res => {
-          console.log(res);
+          //console.log(res);
           this.OperationalStatusOfEquipmentForm.patchValue({
 
             operationalStatusOfEquipmentSystemId: res.operationalStatusOfEquipmentSystemId,
@@ -164,9 +164,9 @@ export class NewOperationalStatusOfEquipmentSystemComponent implements OnInit {
 
   onSubmit() {
     const id = this.OperationalStatusOfEquipmentForm.get('operationalStatusOfEquipmentSystemId').value;
-    console.log("Id",id);
+    //console.log("Id",id);
 
-    console.log(this.OperationalStatusOfEquipmentForm);
+    //console.log(this.OperationalStatusOfEquipmentForm);
 
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
@@ -186,7 +186,7 @@ export class NewOperationalStatusOfEquipmentSystemComponent implements OnInit {
         }
       })
     } else {
-      console.log(this.OperationalStatusOfEquipmentForm.value);
+      //console.log(this.OperationalStatusOfEquipmentForm.value);
       this.OperationalStatusOfEquipmentSystemService.submit(this.OperationalStatusOfEquipmentForm.value).subscribe(response => {
         this.router.navigateByUrl('/ship-management/operational-status-of-equipment-system-list');
         this.snackBar.open('Information Inserted Successfully ', '', {

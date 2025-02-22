@@ -105,7 +105,7 @@ selectedBaseSchoolName: SelectedModel[] = [];
         this.confirmService.confirm('Confirm Update', 'Are you sure you want to update this item?').subscribe(result => {
           if (result) {
             this.OverallStatusOfShip.update(+id, formData).subscribe(response => {
-              console.log('Update successful:', response);
+              //console.log('Update successful:', response);
               this.router.navigateByUrl('/repair-management/overallstatusofship-list');
               this.snackBar.open('Information Updated Successfully', '', {
                 duration: 2000,

@@ -28,7 +28,7 @@ export class NewRoleComponent implements OnInit {
       this.buttonText="Update";
       this.roleService.find(this.roleId).subscribe(
         res => {
-          console.log(res);
+          //console.log(res);
           this.roleForm.patchValue({      
 
             roleId: res.id,

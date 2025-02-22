@@ -114,7 +114,7 @@ export class NewDealingOfficerComponent implements OnInit {
   deleteItem(row) {
     const id = row.dealingOfficerId; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.DealingOfficerService.delete(id).subscribe(() => {
           this.getDealingOfficers();

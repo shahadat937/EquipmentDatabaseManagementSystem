@@ -53,7 +53,7 @@ export class InstructorListComponent implements OnInit {
     this.dataSource.data = response.items; 
     this.paging.length = response.totalItemsCount    
     this.isLoading = false;
-    console.log(response.items)
+    //console.log(response.items)
 
     })
   }
@@ -89,7 +89,7 @@ export class InstructorListComponent implements OnInit {
   deleteItem(row) {
     const id = row.id; 
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item').subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result) {
         this.UserService.delete(id).subscribe(() => {
           this.getInstructors();
@@ -125,11 +125,11 @@ export class InstructorListComponent implements OnInit {
   PasswordUpdate(row) {
     const id = row.id; 
     this.confirmService.confirm('Confirm Update message', 'Are You Sure Resetting This  User Password?').subscribe(result => {
-      //console.log(result);
+      ////console.log(result);
       if (id) {
         this.UserService.find(id).subscribe(
           res => {
-            console.log(res);
+            //console.log(res);
             this.InstructorForm.patchValue({          
   
               id: res.id,
@@ -142,8 +142,8 @@ export class InstructorListComponent implements OnInit {
               traineeId:res.traineeId     
             
             });   
-            console.log("form value of ",id); 
-            console.log(this.InstructorForm.value);
+            //console.log("form value of ",id); 
+            //console.log(this.InstructorForm.value);
             this.UserService.resetPassword(id,this.InstructorForm.value).subscribe(response => {
               // this.router.navigateByUrl('/security/instructor-list');
               //vaiya eta theke ami password nicchi
@@ -166,11 +166,11 @@ export class InstructorListComponent implements OnInit {
   ShiftRoleOfItem(row) {
     const id = row.id; 
     this.confirmService.confirm('Confirm Update message', 'Are You Sure Switch This  User?').subscribe(result => {
-      //console.log(result);
+      ////console.log(result);
       if (id) {
         this.UserService.find(id).subscribe(
           res => {
-            console.log(res);
+            //console.log(res);
             this.InstructorForm.patchValue({          
   
               id: res.id,
@@ -183,7 +183,7 @@ export class InstructorListComponent implements OnInit {
               traineeId:res.traineeId     
             
             });   
-            console.log("form value of ",id); 
+            //console.log("form value of ",id); 
             this.changeRole();
           }
         );
@@ -196,14 +196,14 @@ export class InstructorListComponent implements OnInit {
   changeRole(){
     var userId = this.InstructorForm.get('id').value; 
     var currentRole = this.InstructorForm.get('roleName').value; 
-    console.log("Role name ",currentRole); 
-    //console.log(this.InstructorForm.value); 
+    //console.log("Role name ",currentRole); 
+    ////console.log(this.InstructorForm.value); 
     if( currentRole == 'Instructor'){
       this.InstructorForm.get('roleName').setValue('Student');
     }else if( currentRole == 'Student'){
       this.InstructorForm.get('roleName').setValue('Instructor');
     }
-    console.log(this.InstructorForm.value);
+    //console.log(this.InstructorForm.value);
     
     this.UserService.update(userId,this.InstructorForm.value).subscribe(response => {
       // this.router.navigateByUrl('/security/instructor-list');
