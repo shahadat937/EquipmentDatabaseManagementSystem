@@ -1,4 +1,4 @@
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,11 +6,11 @@ import { Procurement } from '../../models/Procurement';
 import { ProcurementService } from '../../service/Procurement.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
-import { MasterData } from 'src/assets/data/master-data';
+import { ConfirmService } from '../../../../../src/app/core/service/confirm.service';
+import { MasterData } from '../../../../../src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Role } from 'src/app/core/models/role';
-import { AuthService } from 'src/app/core/service/auth.service';
+import { Role } from '../../../../../src/app/core/models/role';
+import { AuthService } from '../../../../../src/app/core/service/auth.service';
 
 
 @Component({
@@ -48,6 +48,7 @@ export class ProcurementListComponent implements OnInit {
   selectedProcurementTypeId: number;
   isCommandingAreaUsers : boolean;
   displayedColumns: string[] = ['ser', 'schoolName', 'procurementType', 'groupName', 'equpmentName', 'qty', 'ePrice', 'fcLcName', 'dgdpNssdName', 'controlledName', 'tecName', 'sentToDgdpNssdDate', 'tenderOpeningDateTypeName', 'tenderOpeningDate', 'offerReceivedDate', 'sentForContractDate', 'clarificationToOemSentDate', 'contractSignedDate', 'paymentStatus', 'remarks', 'actions'];
+  selectedMethod : any;
   dataSource: MatTableDataSource<Procurement> = new MatTableDataSource();
 
   selection = new SelectionModel<Procurement>(true, []);
@@ -74,11 +75,13 @@ export class ProcurementListComponent implements OnInit {
   }
 
   getProcurementsByPeocureMethodId(procurementMethodId) {
+    this.selectedMethod = procurementMethodId;
     this.ProcurementService.getProcurementsByProcurementMethodId(this.paging.pageIndex, this.paging.pageSize, this.searchText,  procurementMethodId).subscribe(response => {
       this.dataSource.data = response.items;
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
+
     })
   }
 
@@ -111,6 +114,7 @@ export class ProcurementListComponent implements OnInit {
         this.procurementMethodName1 = response.items[0]?.name;
         this.procurementMethodName2 = response.items[1]?.name;
         this.selectedProcurementTypeId = response.items[0]?.procurementMethodId;
+        this.selectedMethod = this.procurementMethodId1;
         if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO || this.role === this.userRoles.FLOStaff){
           this.getProcurementsByPeocureMethodIdAndAuthorityId(this.procurementMethodId1)
           this.isCommandingAreaUsers = true;
@@ -302,7 +306,7 @@ export class ProcurementListComponent implements OnInit {
         </head>
         <body onload="window.print();window.close()">
           <div class="header-text">
-            <h3>Ship Equipment List</h3>
+            <h3>Procurement List</h3>
           </div>
           <hr>
           <table class="custom-table">
@@ -366,26 +370,26 @@ export class ProcurementListComponent implements OnInit {
                       <td class="vertical-header">${row.sentToDgdpNssdDate? this.formatDate(row.sentToDgdpNssdDate) : '-' }</td>
                       <td class="vertical-header">${row.tenderOpeningDateTypeName || '-'}</td>
                       <td class="vertical-header">${row.tenderOpeningDate? this.formatDate(row.tenderOpeningDate) : '-'}</td>
-                      <td class="vertical-header">${row.offerReceivedDate || '-'}</td>
-                      <td class="vertical-header">${row.clarificationToOemSentDate || '-'}</td>
-                      <td class="vertical-header">${row.clarificationToOemReceivedDate || '-'}</td>
-                      <td class="vertical-header">${row.clarificationToUserSentDate || '-'}</td>
-                      <td class="vertical-header">${row.clarificationToUserReceivedDate || '-'}</td>
+                      <td class="vertical-header">${row.offerReceivedDate? this.formatDate(row.offerReceivedDate) : '-'}</td>
+                      <td class="vertical-header">${row.clarificationToOemSentDate? this.formatDate(row.clarificationToOemSentDate) : '-'}</td>
+                      <td class="vertical-header">${row.clarificationToOemReceivedDate? this.formatDate(row.clarificationToOemReceivedDate) : '-'}</td>
+                      <td class="vertical-header">${row.clarificationToUserSentDate? this.formatDate(row.clarificationToUserSentDate) : '-'}</td>
+                      <td class="vertical-header">${row.clarificationToUserReceivedDate? this.formatDate(row.clarificationToUserReceivedDate) : '-'}</td>
 
-                      <td class="vertical-header">${row.techTecSentDate || '-'}</td>
-                      <td class="vertical-header">${row.techTecReceivedDate || '-'}</td>
-                      <td class="vertical-header">${row.minForFoSentDate || '-'}</td>
-                      <td class="vertical-header">${row.minForFoReceivedDate || '-'}</td>
-                      <td class="vertical-header">${row.sentToDtsDate || '-'}</td>
+                      <td class="vertical-header">${row.techTecSentDate? this.formatDate(row.techTecSentDate) :  '-'}</td>
+                      <td class="vertical-header">${row.techTecReceivedDate?this.formatDate(row.techTecReceivedDate) : '-'}</td>
+                      <td class="vertical-header">${row.minForFoSentDate? this.formatDate(row.minForFoSentDate) : '-'}</td>
+                      <td class="vertical-header">${row.minForFoReceivedDate? this.formatDate(row.minForFoReceivedDate) : '-'}</td>
+                      <td class="vertical-header">${row.sentToDtsDate? this.formatDate(row.sentToDtsDate) : '-'}</td>
                       
-                      <td class="vertical-header">${row.foReceivedDate || '-'}</td>
-                      <td class="vertical-header">${row.foTecSentDate || '-'}</td>
-                      <td class="vertical-header">${row.foTecReceivedDate || '-'}</td>
+                      <td class="vertical-header">${row.foReceivedDate? this.formatDate(row.foReceivedDate): '-'}</td>
+                      <td class="vertical-header">${row.foTecSentDate? this.formatDate(row.foTecSentDate) : '-'}</td>
+                      <td class="vertical-header">${row.foTecReceivedDate? this.formatDate(row.foTecReceivedDate) : '-'}</td>
                       
-                      <td class="vertical-header">${row.finalContractMinSentDate || '-'}</td>
-                      <td class="vertical-header">${row.finalContractMinReceivedDate || '-'}</td>
-                      <td class="vertical-header">${row.sentForContractDate || '-'}</td>
-                      <td class="vertical-header">${row.contractSignedDate || '-'}</td>
+                      <td class="vertical-header">${row.finalContractMinSentDate? this.formatDate(row.finalContractMinSentDate): '-'}</td>
+                      <td class="vertical-header">${row.finalContractMinReceivedDate? this.formatDate(row.finalContractMinReceivedDate): '-'}</td>
+                      <td class="vertical-header">${row.sentForContractDate? this.formatDate(row.sentForContractDate): '-'}</td>
+                      <td class="vertical-header">${row.contractSignedDate? this.formatDate(row.contractSignedDate) : '-'}</td>
                       <td class="vertical-header">${row.remarks || '-'}</td>
                     </tr>
                   `;
