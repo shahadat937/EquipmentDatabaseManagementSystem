@@ -16,7 +16,6 @@ import { RoleFeatureListComponent } from './rolefeature/rolefeature-list/rolefea
 import { NewRoleFeatureComponent } from './rolefeature/new-rolefeature/new-rolefeature.component';
 
 import { NewOrganizationComponent } from './baseschoolname/new-organization/new-organization.component';
-import { NewCommendingAreaComponent } from './baseschoolname/new-commendingarea/new-commendingarea.component';
 import { NewBaseNameComponent } from './baseschoolname/new-basename/new-basename.component';
 // import { NewSchoolNameComponent } from './baseschoolname/new-schoolname/new-schoolname.component';
 import { NewUserListComponent } from './user/new-userlist/new-userlist.component';
@@ -44,15 +43,7 @@ const routes:Routes =[
     component: NewOrganizationComponent,
   },
 
-  {
-    path: 'new-commandingarea',
-    component: NewCommendingAreaComponent,
-  },
 
-  {
-    path: 'update-commandingarea/:baseSchoolNameId',
-    component: NewCommendingAreaComponent,
-  },
   
   {
     path: 'new-basename',

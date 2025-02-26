@@ -87,6 +87,7 @@ export class HalfYearlyReturnService {
     return this.http.put(this.baseUrl + '/half-yearly-return/update-HalfYearlyReturn/'+id, model);
   }
   submit(model: any) {
+    console.log(model);
     return this.http.post(this.baseUrl + '/half-yearly-return/save-HalfYearlyReturn', model);
   } 
   delete(id:number){

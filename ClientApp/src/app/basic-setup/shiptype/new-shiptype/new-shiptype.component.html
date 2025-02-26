@@ -46,7 +46,7 @@
                   <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Remarks</mat-label>
-                      <input matInput formControlName="remarks" required>
+                      <input matInput formControlName="remarks">
                       <mat-error *ngIf="ShipTypeForm.get('remarks').hasError('required')">
                         Remarks is required
                       </mat-error>
@@ -110,6 +110,19 @@
                           <ng-container matColumnDef="remarks">
                             <mat-header-cell *matHeaderCellDef mat-sort-header> Remarks </mat-header-cell>
                             <mat-cell *matCellDef="let element"> {{element.remarks}} </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="actions">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Actions </mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                              <button mat-icon-button color="accent" class="btn-tbl-edit" 
+                              [routerLink]="['/basic-setup/update-shiptype', row.shipTypeId]">
+                                <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+                              </button>
+                              <button mat-icon-button color="accent" class="btn-tbl-delete" (click)="$event.stopPropagation()"
+                                (click)="deleteItem(row)">
+                                <mat-icon aria-label="Delete" class="col-white">delete</mat-icon> 
+                              </button>
+                            </mat-cell>
                           </ng-container>
                           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

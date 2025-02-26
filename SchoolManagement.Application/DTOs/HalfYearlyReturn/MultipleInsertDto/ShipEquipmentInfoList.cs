@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace SchoolManagement.Application.DTOs.HalfYearlyReturn.MultipleInsertDto
         public double? TotalRunningTime { get; set; }
         public string? HalfYearlyProblem { get; set; }
         public string? PowerSupplyUnit { get; set; }
+        public string? DocumentUpload { get; set; }
+        public IFormFile? Doc { get; set; }
 
     }
 }

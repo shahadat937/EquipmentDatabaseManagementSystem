@@ -1,4 +1,6 @@
-﻿namespace SchoolManagement.Application.DTOs.HalfYearlyReturn
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SchoolManagement.Application.DTOs.HalfYearlyReturn
 {
     public class HalfYearlyReturnDto : IHalfYearlyReturnDto
     {
@@ -19,7 +21,8 @@
         public bool? IsSatisfactory { get; set; }
         public int? ShipEquipmentInfoId { get; set; }
         public int? Qty { get; set; }
-
+        public string?  UploadDocument { get; set; }
+        public IFormFile? Doc { get; set; }
 
         public string? EquipmentCategory { get; set; }
         public string? EqupmentName { get; set; }

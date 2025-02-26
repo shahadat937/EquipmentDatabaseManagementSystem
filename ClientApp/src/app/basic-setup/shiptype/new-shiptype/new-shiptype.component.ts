@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShipTypeService } from '../../service/ShipType.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
 import { MatTableDataSource } from '@angular/material/table';
-import{MasterData} from 'src/assets/data/master-data';
+import{MasterData} from '../../../../../src/assets/data/master-data';
 import { ShipType } from '../../models/ShipType';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-shiptype',
@@ -36,7 +36,7 @@ export class NewShipTypeComponent implements OnInit {
   }
   searchText="";
 
-  displayedColumns: string[] = [ 'ser', 'name','shortName','remarks'];
+  displayedColumns: string[] = [ 'ser', 'name','shortName','remarks', 'actions'];
   dataSource: MatTableDataSource<ShipType> = new MatTableDataSource();
 
   selection = new SelectionModel<ShipType>(true, []);
@@ -44,33 +44,38 @@ export class NewShipTypeComponent implements OnInit {
   constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private ShipTypeService: ShipTypeService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('shipTypeId'); 
-    if (id) {
-      this.pageTitle = 'Edit ShipType';
-      this.destination = "Edit";
-      this.btnText = 'Update';
-      this.ShipTypeService.find(+id).subscribe(
-        res => {
-          this.ShipTypeForm.patchValue({          
-
-            shipTypeId: res.shipTypeId,
-            name:  res.name,
-            shortName:  res.shortName,
-            remarks:  res.remarks,
-            status:  res.status,
-            menuPosition:  res.menuPosition,
-            isActive:  res.isActive
-          });          
-        }
-      );
-    } else {
-      this.pageTitle = 'Create ShipType';
-      this.destination = "Add";
-      this.btnText = 'Save';
-    }
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('shipTypeId'); 
+      if (id) {
+        this.pageTitle = 'Edit ShipType';
+        this.destination = "Edit";
+        this.btnText = 'Update';
+        this.loadShipType(+id);
+      } else {
+        this.pageTitle = 'Create ShipType';
+        this.destination = "Add";
+        this.btnText = 'Save';
+        // this.intitializeForm();
+      }
+    });
     this.intitializeForm();
     this.getShipTypes();
   }
+  
+  loadShipType(id: number) {
+    this.ShipTypeService.find(id).subscribe(res => {
+      this.ShipTypeForm.patchValue({          
+        shipTypeId: res.shipTypeId,
+        name: res.name,
+        shortName: res.shortName,
+        remarks: res.remarks,
+        status: res.status,
+        menuPosition: res.menuPosition,
+        isActive: res.isActive
+      });          
+    });
+  }
+  
   intitializeForm() {
     this.ShipTypeForm = this.fb.group({
       shipTypeId: [0],
@@ -130,7 +135,7 @@ export class NewShipTypeComponent implements OnInit {
   }
   
   onSubmit() {
-    const id = this.ShipTypeForm.get('shipTypeId').value;   
+    const id = this.ShipTypeForm.get('shipTypeId')?.value;   
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         

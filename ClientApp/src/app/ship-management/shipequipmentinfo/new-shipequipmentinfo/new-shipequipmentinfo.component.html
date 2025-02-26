@@ -131,7 +131,7 @@
                   <div *ngIf="common" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Total Opl Qty</mat-label>
-                      <input type="number" matInput formControlName="oplQty" required>
+                      <input type="number" min="0" matInput formControlName="oplQty">
                       <mat-error *ngIf="ShipEquipmentInfoForm.get('oplQty').hasError('required')">
                         Total Opl Qty  is required
                       </mat-error>
@@ -140,7 +140,7 @@
                   <div *ngIf="common" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Total Non Opl Qty</mat-label>
-                      <input type="number" matInput formControlName="nonOplQty" required>
+                      <input type="number" min="0" (input)="checkNonOplQty($event)" matInput formControlName="nonOplQty">
                       <mat-error *ngIf="ShipEquipmentInfoForm.get('nonOplQty').hasError('required')">
                         Total Non Opl Qty  is required
                       </mat-error>
@@ -253,17 +253,7 @@
                       <input matInput formControlName="avrbrand">
                     </mat-form-field>
                   </div>
-                  <!-- <div *ngIf="common" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>State of Equipment</mat-label>
-                      <mat-select formControlName="stateOfEquipmentId" required>
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedStateOfEquipment" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div> -->
+                 
 
                 
                   <div *ngIf="Generator || PMS || PCE" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
@@ -303,7 +293,7 @@
                   <div *ngIf="common" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Defect Description</mat-label>
-                      <input matInput formControlName="defectDescription">
+                      <textarea matInput formControlName="defectDescription" [required]="isDamageDescriptionRequired"></textarea>
                     </mat-form-field>
                   </div>
                   <div *ngIf="Transformer" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">

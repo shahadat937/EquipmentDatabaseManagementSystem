@@ -34,6 +34,7 @@
     <Folder Include="wwwroot\Content\files\daily-work-states\" />
     <Folder Include="wwwroot\Content\files\daily-work-states\" />
     <Folder Include="wwwroot\Content\files\damage-electrical\" />
+    <Folder Include="wwwroot\Content\files\half-yearly\" />
     <Folder Include="wwwroot\Content\files\user-manuals\" />
     <Folder Include="wwwroot\Content\files\ship-drowing\" />
     <Folder Include="wwwroot\Content\files\ship-drowing\" />

@@ -5,10 +5,10 @@ import { OperationalStatus } from '../../models/OperationalStatus';
 import { OperationalStatusService } from '../../service/OperationalStatus.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
-import{MasterData} from 'src/assets/data/master-data';
+import { ConfirmService } from '../../../../../src/app/core/service/confirm.service';
+import{MasterData} from '../../../../../src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-operationalstatus-list',
@@ -28,7 +28,7 @@ export class OperationalStatusListComponent implements OnInit {
   }
   searchText="";
 
-  displayedColumns: string[] = [ 'ser', 'name','shortName','remarks'];
+  displayedColumns: string[] = [ 'ser', 'name','shortName','remarks', 'actions'];
   dataSource: MatTableDataSource<OperationalStatus> = new MatTableDataSource();
 
   selection = new SelectionModel<OperationalStatus>(true, []);
