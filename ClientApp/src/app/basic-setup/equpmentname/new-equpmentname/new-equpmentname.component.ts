@@ -56,7 +56,8 @@ export class NewEqupmentNameComponent implements OnInit {
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId =  this.authService.currentUserValue.traineeId.trim();
     this.branchId =  this.authService.currentUserValue.branchId.trim(); 
-    const id = this.route.snapshot.paramMap.get('equpmentNameId'); 
+    this.route.paramMap.subscribe(params=>{
+      const id = params.get('equpmentNameId'); 
     if (id) {
       this.pageTitle = 'Edit Equpment Name';
       this.destination = "Edit";
@@ -81,6 +82,7 @@ export class NewEqupmentNameComponent implements OnInit {
       this.destination = "Add";
       this.btnText = 'Save';
     }
+    })
     this.intitializeForm();
     //this.onOrganizationSelectionChange();
     this.getSelectedEquipmentCategory();
@@ -195,7 +197,7 @@ getEqupmentNamesWhitoutPage() {
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
       if (result) {
         this.EqupmentNameService.delete(id).subscribe(() => {
-          //this.getEqupmentNames();
+          this.getEqupmentNamesWhitoutPage();
           this.snackBar.open('Information Deleted Successfully ', '', {
             duration: 2000,
             verticalPosition: 'bottom',

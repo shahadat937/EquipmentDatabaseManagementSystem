@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProcurementMethodService } from '../../service/ProcurementMethod.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
 import { MatTableDataSource } from '@angular/material/table';
-import{MasterData} from 'src/assets/data/master-data';
+import{MasterData} from '../../../../../src/assets/data/master-data';
 import { ProcurementMethod } from '../../models/ProcurementMethod';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-procurementmethod',
@@ -44,30 +44,32 @@ export class NewProcurementMethodComponent implements OnInit {
   constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private ProcurementMethodService: ProcurementMethodService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('procurementMethodId'); 
-    if (id) {
-      this.pageTitle = 'Edit Procurement Method';
-      this.destination = "Edit";
-      this.btnText = 'Update';
-      this.ProcurementMethodService.find(+id).subscribe(
-        res => {
-          this.ProcurementMethodForm.patchValue({          
-
-            procurementMethodId: res.procurementMethodId,
-            name:  res.name,
-            shortName:  res.shortName,
-            remarks:  res.remarks,
-            status:  res.status,
-            menuPosition:  res.menuPosition,
-            isActive:  res.isActive
-          });          
-        }
-      );
-    } else {
-      this.pageTitle = 'Create Procurement Method';
-      this.destination = "Add";
-      this.btnText = 'Save';
-    }
+    this.route.paramMap.subscribe(params=>{
+      const id = params.get('procurementMethodId'); 
+      if (id) {
+        this.pageTitle = 'Edit Procurement Method';
+        this.destination = "Edit";
+        this.btnText = 'Update';
+        this.ProcurementMethodService.find(+id).subscribe(
+          res => {
+            this.ProcurementMethodForm.patchValue({          
+  
+              procurementMethodId: res.procurementMethodId,
+              name:  res.name,
+              shortName:  res.shortName,
+              remarks:  res.remarks,
+              status:  res.status,
+              menuPosition:  res.menuPosition,
+              isActive:  res.isActive
+            });          
+          }
+        );
+      } else {
+        this.pageTitle = 'Create Procurement Method';
+        this.destination = "Add";
+        this.btnText = 'Save';
+      }
+    })
     this.intitializeForm();
     this.getProcurementMethods();
   }

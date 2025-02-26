@@ -132,7 +132,7 @@ export class NewLetterTypeComponent implements OnInit {
   }
   
   onSubmit() {
-    const id = this.LetterTypeForm.get('letterTypeId').value;   
+    const id = this.LetterTypeForm.get('letterTypeId')?.value;   
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         

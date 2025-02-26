@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AcquisitionMethodService } from '../../service/AcquisitionMethod.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
 import { MatTableDataSource } from '@angular/material/table';
-import{MasterData} from 'src/assets/data/master-data';
+import{MasterData} from '../../../../../src/assets/data/master-data';
 import { AcquisitionMethod } from '../../models/AcquisitionMethod';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-acquisition-method',
@@ -44,30 +44,32 @@ export class NewAcquisitionMethodComponent implements OnInit {
   constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private AcquisitionMethodService: AcquisitionMethodService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('acquisitionMethodId'); 
-    if (id) {
-      this.pageTitle = 'Edit AcquisitionMethod';
-      this.destination = "Edit";
-      this.btnText = 'Update';
-      this.AcquisitionMethodService.find(+id).subscribe(
-        res => {
-          this.AcquisitionMethodForm.patchValue({          
-
-            acquisitionMethodId: res.acquisitionMethodId,
-            name:  res.name,
-            shortName:  res.shortName,
-            remarks:  res.remarks,
-           // status:  res.status,
-            menuPosition:  res.menuPosition,
-            isActive:  res.isActive
-          });          
-        }
-      );
-    } else {
-      this.pageTitle = 'Create AcquisitionMethod';
-      this.destination = "Add";
-      this.btnText = 'Save';
-    }
+    this.route.paramMap.subscribe(params=>{
+      const id = params.get('acquisitionMethodId'); 
+      if (id) {
+        this.pageTitle = 'Edit AcquisitionMethod';
+        this.destination = "Edit";
+        this.btnText = 'Update';
+        this.AcquisitionMethodService.find(+id).subscribe(
+          res => {
+            this.AcquisitionMethodForm.patchValue({          
+  
+              acquisitionMethodId: res.acquisitionMethodId,
+              name:  res.name,
+              shortName:  res.shortName,
+              remarks:  res.remarks,
+             // status:  res.status,
+              menuPosition:  res.menuPosition,
+              isActive:  res.isActive
+            });          
+          }
+        );
+      } else {
+        this.pageTitle = 'Create AcquisitionMethod';
+        this.destination = "Add";
+        this.btnText = 'Save';
+      }
+    })
     this.intitializeForm();
     this.getAcquisitionMethods();
   }
@@ -130,7 +132,7 @@ export class NewAcquisitionMethodComponent implements OnInit {
   }
   
   onSubmit() {
-    const id = this.AcquisitionMethodForm.get('acquisitionMethodId').value;   
+    const id = this.AcquisitionMethodForm.get('acquisitionMethodId')?.value;   
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         

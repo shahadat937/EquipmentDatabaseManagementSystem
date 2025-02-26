@@ -44,7 +44,8 @@ export class ReturnTypeComponent implements OnInit {
   constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private ReturnTypeService: ReturnTypeService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('returnTypeId'); 
+    this.route.paramMap.subscribe(params=>{
+      const id = params.get('returnTypeId'); 
     if (id) {
       this.pageTitle = 'Edit ReturnType';
       this.destination = "Edit";
@@ -68,6 +69,7 @@ export class ReturnTypeComponent implements OnInit {
       this.destination = "Add";
       this.btnText = 'Save';
     }
+    })
     this.intitializeForm();
     this.getReturnTypes();
   }
@@ -130,7 +132,7 @@ export class ReturnTypeComponent implements OnInit {
   }
   
   onSubmit() {
-    const id = this.ReturnTypeForm.get('returnTypeId').value;   
+    const id = this.ReturnTypeForm.get('returnTypeId')?.value;   
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         
