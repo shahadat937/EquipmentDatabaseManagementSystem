@@ -181,6 +181,9 @@
                               <th class="cl-nm-rnk" *ngIf="navigationRader">
                                 Satisfactory
                               </th>
+                              <th class="cl-nm-rnk" *ngIf="communicationEquipment">
+                                File
+                              </th>
                              
                               
                             </tr>
@@ -261,6 +264,26 @@
                            
                                 </mat-form-field>
                               </td>
+                              <td class="cl-mrk" *ngIf="communicationEquipment">
+                                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                  <mat-label>File Upload</mat-label>
+                              
+                                  <!-- File Input (Use correct index from main loop) -->
+                                  <ngx-mat-file-input 
+                                    (change)="onFileChanged($event, i)" 
+                                    accept=".txt,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx">
+                                  </ngx-mat-file-input>
+                              
+                                  <mat-icon matSuffix>attachment</mat-icon>
+                                </mat-form-field>
+                              
+                                <!-- Show selected file name -->
+                                <span *ngIf="unit.get('doc').value">
+                                  {{ unit.get('doc').value.name }}
+                                </span>
+                              </td>
+                              
+                              
                             </tr>
 
                           </tbody>

@@ -37,7 +37,7 @@
                   <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Menu Position</mat-label>
-                      <input matInput formControlName="menuPosition" required>
+                      <input type="number" matInput formControlName="menuPosition" required>
                        <mat-error *ngIf="BookTypeForm.get('menuPosition').hasError('required')">
                         Menu Position is required
                       </mat-error>

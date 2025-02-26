@@ -39,6 +39,7 @@ import { NewEnvelopeComponent } from './envelope/new-envelope/new-envelope.compo
 import { NewBookTypeComponent } from './booktype/new-booktype/new-booktype.component';
 import {NewSchoolNameComponent} from './new-schoolname/new-schoolname.component'
 import { ReportingYearComponent } from './reporting-year/reporting-year.component';
+import { NewCommendingAreaComponent } from './new-commendingarea/new-commendingarea.component';
 const routes: Routes = [
   {
     path: '',
@@ -220,6 +221,15 @@ const routes: Routes = [
     path: 'update-fclc/:fcLcId',
     component: NewFcLcComponent,
   },
+    {
+      path: 'new-commandingarea',
+      component: NewCommendingAreaComponent,
+    },
+  
+    {
+      path: 'update-commandingarea/:baseSchoolNameId',
+      component: NewCommendingAreaComponent,
+    },
   {
     path: 'add-controlled',
     component: NewControlledComponent,
@@ -321,6 +331,7 @@ const routes: Routes = [
     path: 'update-baseschool/:baseSchoolNameId',
     component: NewSchoolNameComponent,
   },
+  
 
 
 

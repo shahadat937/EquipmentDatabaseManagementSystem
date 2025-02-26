@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrandService } from '../../service/Brand.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
 import { MatTableDataSource } from '@angular/material/table';
-import{MasterData} from 'src/assets/data/master-data';
+import{MasterData} from '../../../../../src/assets/data/master-data';
 import { Brand } from '../../models/Brand';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-brand',
@@ -44,7 +44,8 @@ export class NewBrandComponent implements OnInit {
   constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private BrandService: BrandService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('brandId'); 
+    this.route.paramMap.subscribe(params=>{
+      const id = params.get('brandId'); 
     if (id) {
       this.pageTitle = 'Edit Brand';
       this.destination = "Edit";
@@ -68,6 +69,7 @@ export class NewBrandComponent implements OnInit {
       this.destination = "Add";
       this.btnText = 'Save';
     }
+    })
     this.intitializeForm();
     this.getBrands();
   }
@@ -130,7 +132,7 @@ export class NewBrandComponent implements OnInit {
   }
   
   onSubmit() {
-    const id = this.BrandForm.get('brandId').value;   
+    const id = this.BrandForm.get('brandId')?.value;   
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         

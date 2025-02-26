@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseSchoolNameService } from '../../service/BaseSchoolName.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+// import { BaseSchoolNameService } from '../../../../ service/BaseSchoolName.service';
+import { BaseSchoolNameService } from '../../security/service/BaseSchoolName.service';
+import { SelectedModel } from '../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
-import { BaseSchoolName } from '../../models/BaseSchoolName';
-import { MasterData } from 'src/assets/data/master-data';
-import { SharedService } from 'src/app/shared/shared.service';
+import { ConfirmService } from '../../../../src/app/core/service/confirm.service';
+import { BaseSchoolName } from '../../security/models/BaseSchoolName';
+import { MasterData } from '../../../../src/assets/data/master-data';
+import { SharedService } from '../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-commendingarea',
@@ -37,21 +38,20 @@ export class NewCommendingAreaComponent implements OnInit {
   constructor(private snackBar: MatSnackBar,private BaseSchoolNameService: BaseSchoolNameService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute,private confirmService:ConfirmService, public SharedService: SharedService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('baseSchoolNameId'); 
-    if (id) {
-      this.pageTitle = 'Edit Commanding Area';
-      this.destination = "Edit";
-      this.btnText = 'Update';
-      this.BaseSchoolNameService.find(+id).subscribe(
-        res => {
-          this.CommendingAreaForm.patchValue({          
-            
+    this.route.paramMap.subscribe(params => {  
+      const id = params.get('baseSchoolNameId');
+      
+      if (id) {
+        this.pageTitle = 'Edit Commanding Area';
+        this.destination = "Edit";
+        this.btnText = 'Update';
+  
+        this.BaseSchoolNameService.find(+id).subscribe(res => {
+          this.CommendingAreaForm.patchValue({
             baseSchoolNameId: res.baseSchoolNameId,
             schoolName: res.schoolName,
             shortName: res.shortName,
             schoolLogo: res.schoolLogo,
-            //status: res.status,
-            //menuPosition:res.menuPosition,
             isActive: res.isActive,
             contactPerson: res.contactPerson,
             address: res.address,
@@ -62,24 +62,20 @@ export class NewCommendingAreaComponent implements OnInit {
             branchLevel: res.branchLevel,
             firstLevel: res.firstLevel,
             secondLevel: res.secondLevel,
-            //thirdLevel: res.thirdLevel,
-            //fourthLevel: res.fourthLevel,
-            //fifthLevel: res.fifthLevel,
             serverName: res.serverName,
-          
-          });          
-        }
-      );
-    } else {
-      this.pageTitle = 'Create Commanding Area';
-      this.destination = "Add";
-      this.btnText = 'Save';
-    }
-    this.intitializeForm();
-    //this.getOrganizationList();
-    this.onOrganizationSelectionChangeGetCommendingAreaList();
+          });  
+        });
+      } else {
+        this.pageTitle = 'Create Commanding Area';
+        this.destination = "Add";
+        this.btnText = 'Save';
+      }
+      
+      this.intitializeForm();
+      this.onOrganizationSelectionChangeGetCommendingAreaList();
+    });
   }
-
+  
   
 
   // getSelectedOrganization(){
@@ -125,24 +121,24 @@ export class NewCommendingAreaComponent implements OnInit {
       menuPosition: [''],
       isActive: [true],
       contactPerson: [],
-      address: [],
-      telephone: [],
-      cellphone: [],
-      email: [],
-      fax: [],
+      address: [''],
+      telephone: [''],
+      cellphone: [''],
+      email: [''],
+      fax: [''],
       branchLevel: [2],
       firstLevel: [this.masterData.UserLevel.navy],
       secondLevel: [""],
       thirdLevel: [""],
       fourthLevel: [""],
       fifthLevel: [""],
-      serverName: [],
+      serverName: [''],
     
     })
   }
   
   onSubmit() {
-    const id = this.CommendingAreaForm.get('baseSchoolNameId').value;
+    const id = this.CommendingAreaForm.get('baseSchoolNameId')?.value;
     ////console.log(id);
     const formData = new FormData();
     for (const key of Object.keys(this.CommendingAreaForm.value)) {

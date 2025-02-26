@@ -60,6 +60,8 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   trackingRader :boolean;
   surveillanceRadar : boolean;
   trueLayingRader : boolean;
+  communicationEquipment: boolean;
+  radioElectricalEquipment: boolean; 
   years: number[] = [];
   currentYear = new Date().getFullYear();
   selectedYear: number = this.currentYear;
@@ -143,8 +145,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       isActive: [true],
       shipEquipmentInfoId: [''],
       reportingMonthId : [''],
-      year : [''],
-      
+      year : [''],  
       shipEquipmentInfoList: this.fb.array([
         this.createHalfYearlyReturnData()
       ]),
@@ -189,10 +190,9 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       yearOfInstallation : [''],
       acquisitionMethodName: [''],
       reportingMonthId : [''],
-      year : ['']
-
-
-
+      year : [''],
+      uploadDocument: [''],
+      doc: ['']
     });
   }
   clearList() {
@@ -254,6 +254,11 @@ export class NewHalfYearlyReturnComponent implements OnInit {
         this.allEqumentStateFalse();
         this.echoSounder = true;
       }
+      else if( equpmentNameId ===this.masterData.equepmentName.radioElectricalEquipment || equpmentNameId === this.masterData.equepmentName.communicationEquipment
+      ){
+        this.allEqumentStateFalse();
+        this.communicationEquipment = true;
+      }
       else {
         this.allEqumentStateFalse()
         this.common = true;
@@ -267,7 +272,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
         });
         this.clearList();
         this.getShipEquipmentInfoListonClick();
-        //console.log(this.selectedShipEquipmentInfoList);
+
       });
       
   
@@ -275,6 +280,21 @@ export class NewHalfYearlyReturnComponent implements OnInit {
     }
 
   }
+
+  onFileChanged(event: any, index: number) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      console.log(index);
+  
+      // Get FormArray using get method
+      const control = (this.HalfYearlyReturnForm.get('shipEquipmentInfoList') as FormArray).at(index);
+  
+      // Set file value in FormGroup
+      control.patchValue({ doc: file });
+    }
+  }
+  
+  
   getSelectedEquipmentCategory() {
     this.HalfYearlyReturnService.getSelectedEquipmentCategory().subscribe(res => {
       this.selectedEquipmentCategory = res;
@@ -284,22 +304,13 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   filterByEquipmentCategory(value: any) {
     this.selectedEquipmentCategory = this.selectEquipmentCategory.filter(x => x.text.toLowerCase().includes(value.toLowerCase()))
   }
-  // getSelectedHalfYearlyRunningTime(){
-  //   this.HalfYearlyReturnService.getSelectedHalfYearlyRunningTime().subscribe(res=>{
-  //     this.selectedHalfYearlyRunningTime=res
-  //   }); 
-  // }
+
   getSelectedBrand() {
     this.HalfYearlyReturnService.getSelectedBrand().subscribe(res => {
       this.selectedBrand = res
     });
   }
-  // getSelectedOperationalStatus(){
-  //   this.HalfYearlyReturnService.getSelectedOperationalStatus().subscribe(res=>{
-  //     this.selectedOperationalStatus=res
-  //   }); 
-  // }
-
+  
   reloadCurrentRoute() {
     let currentUrl = this.router.url;
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {

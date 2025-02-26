@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentStatusService } from '../../service/PaymentStatus.service';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../../src/app/core/models/selectedModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmService } from '../../../core/service/confirm.service';
 import { MatTableDataSource } from '@angular/material/table';
-import{MasterData} from 'src/assets/data/master-data';
+import{MasterData} from '../../../../../src/assets/data/master-data';
 import { PaymentStatus } from '../../models/PaymentStatus';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { SharedService } from 'src/app/shared/shared.service';
+import { SharedService } from '../../../../../src/app/shared/shared.service';
 
 @Component({
   selector: 'app-new-paymentstatus',
@@ -44,30 +44,32 @@ export class NewPaymentStatusComponent implements OnInit {
   constructor(private snackBar: MatSnackBar,private confirmService: ConfirmService,private PaymentStatusService: PaymentStatusService,private fb: FormBuilder, private router: Router,  private route: ActivatedRoute, public SharedService: SharedService) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('paymentStatusId'); 
-    if (id) {
-      this.pageTitle = 'Edit Payment Status';
-      this.destination = "Edit";
-      this.btnText = 'Update';
-      this.PaymentStatusService.find(+id).subscribe(
-        res => {
-          this.PaymentStatusForm.patchValue({          
-
-            paymentStatusId: res.paymentStatusId,
-            name:  res.name,
-            shortName:  res.shortName,
-            remarks:  res.remarks,
-            status:  res.status,
-            menuPosition:  res.menuPosition,
-            isActive:  res.isActive
-          });          
-        }
-      );
-    } else {
-      this.pageTitle = 'Create Payment Status';
-      this.destination = "Add";
-      this.btnText = 'Save';
-    }
+    this.route.paramMap.subscribe(params=>{
+      const id = params.get('paymentStatusId'); 
+      if (id) {
+        this.pageTitle = 'Edit Payment Status';
+        this.destination = "Edit";
+        this.btnText = 'Update';
+        this.PaymentStatusService.find(+id).subscribe(
+          res => {
+            this.PaymentStatusForm.patchValue({          
+  
+              paymentStatusId: res.paymentStatusId,
+              name:  res.name,
+              shortName:  res.shortName,
+              remarks:  res.remarks,
+              status:  res.status,
+              menuPosition:  res.menuPosition,
+              isActive:  res.isActive
+            });          
+          }
+        );
+      } else {
+        this.pageTitle = 'Create Payment Status';
+        this.destination = "Add";
+        this.btnText = 'Save';
+      }
+    })
     this.intitializeForm();
     this.getPaymentStatuses();
   }
@@ -130,7 +132,7 @@ export class NewPaymentStatusComponent implements OnInit {
   }
   
   onSubmit() {
-    const id = this.PaymentStatusForm.get('paymentStatusId').value;   
+    const id = this.PaymentStatusForm.get('paymentStatusId')?.value;   
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
         

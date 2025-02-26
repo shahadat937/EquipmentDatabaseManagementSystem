@@ -29,7 +29,6 @@ import { UserListComponent } from './user/user-list/user-list.component';
 import {NewRoleComponent} from './role/new-role/new-role.component';
 import {RoleListComponent} from './role/role-list/role-list.component';
 import { NewOrganizationComponent } from './baseschoolname/new-organization/new-organization.component';
-import { NewCommendingAreaComponent } from './baseschoolname/new-commendingarea/new-commendingarea.component';
 import { NewBaseNameComponent } from './baseschoolname/new-basename/new-basename.component';
 // import { NewSchoolNameComponent } from './baseschoolname/new-schoolname/new-schoolname.component';
 import { NewUserListComponent } from './user/new-userlist/new-userlist.component';
@@ -47,7 +46,6 @@ import { NewUserListComponent } from './user/new-userlist/new-userlist.component
     RoleFeatureListComponent,
     NewRoleFeatureComponent,
     NewOrganizationComponent,
-    NewCommendingAreaComponent,
     NewBaseNameComponent,
     // NewSchoolNameComponent,
     InstructorListComponent,

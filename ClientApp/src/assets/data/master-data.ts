@@ -182,7 +182,9 @@ export const MasterData = {
         AllSupplyFanMotor: 114,
         WasteDisposerMachine:117,
         PowerConversionEquation : 119,
-        GunSystem: 126
+        GunSystem: 126,
+        communicationEquipment : 128,
+        radioElectricalEquipment : 129
       },
 
       equepmentCategory : {

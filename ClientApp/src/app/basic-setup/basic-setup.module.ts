@@ -55,6 +55,7 @@ import { NewEnvelopeComponent } from './envelope/new-envelope/new-envelope.compo
 import { NewBookTypeComponent } from './booktype/new-booktype/new-booktype.component';
 import { NewSchoolNameComponent } from './new-schoolname/new-schoolname.component';
 import { ReportingYearComponent } from './reporting-year/reporting-year.component';
+import { NewCommendingAreaComponent } from './new-commendingarea/new-commendingarea.component';
 // import {NewSchoolNameComponent} from './new-schoolname/new-schoolname.component'
 
 @NgModule({
@@ -96,7 +97,8 @@ import { ReportingYearComponent } from './reporting-year/reporting-year.componen
     NewPaymentStatusComponent,
     NewEnvelopeComponent,
     NewSchoolNameComponent,
-    ReportingYearComponent
+    ReportingYearComponent,
+    NewCommendingAreaComponent
 
   ],
   imports: [
