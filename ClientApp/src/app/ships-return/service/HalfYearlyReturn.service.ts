@@ -7,6 +7,8 @@ import { map } from 'rxjs';
 import { SelectedModel } from '../../core/models/selectedModel';
 import { ShipEquipmentInfo } from '../../../../src/app/ship-management/models/ShipEquipmentInfo';
 import { shipEquipmentInfoList } from '../models/shipEquipmentInfoList';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -86,10 +88,14 @@ export class HalfYearlyReturnService {
   update(id: number,model: any) {
     return this.http.put(this.baseUrl + '/half-yearly-return/update-HalfYearlyReturn/'+id, model);
   }
-  submit(model: any) {
-    console.log(model);
-    return this.http.post(this.baseUrl + '/half-yearly-return/save-HalfYearlyReturn', model);
-  } 
+  // submit(model: any) {
+  //   console.log(model);
+  //   return this.http.post(this.baseUrl + '/half-yearly-return/save-HalfYearlyReturn', model);
+  // } 
+
+  submit(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/half-yearly-return/save-HalfYearlyReturn`, data);
+}
   delete(id:number){
     return this.http.delete(this.baseUrl + '/half-yearly-return/delete-HalfYearlyReturn/'+id);
   }

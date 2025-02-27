@@ -278,7 +278,6 @@ export class NewMonthlyReturnComponent implements OnInit {
 
   onSubmit() {
     const id = this.MonthlyReturnForm.get('monthlyReturnId')?.value;
-    // this.MonthlyReturnForm.get('reportingDate').setValue((new Date(this.MonthlyReturnForm.get('reportingDate').value)).toUTCString());
 
     const reportingDate = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('reportingDate')?.value);
     this.MonthlyReturnForm.get('reportingDate')?.setValue(reportingDate);
@@ -286,16 +285,10 @@ export class NewMonthlyReturnComponent implements OnInit {
     const timeOfDefect = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('timeOfDefect')?.value);
     this.MonthlyReturnForm.get('timeOfDefect')?.setValue(timeOfDefect);
 
-    // const probableDefectTime = this.sharedService.formatDateTime(this.MonthlyReturnForm.get('probableDefectTime')?.value);
-    // this.MonthlyReturnForm.get('probableDefectTime')?.setValue(probableDefectTime);
-
-
     const formData = new FormData();
-    //console.log('formdata', this.MonthlyReturnForm)
     for (const key of Object.keys(this.MonthlyReturnForm.value)) {
 
       const value = this.MonthlyReturnForm.value[key];
-      //console.log(value)
       if (value !== null && value !== undefined) {
         formData.append(key, value);
       }
@@ -306,7 +299,6 @@ export class NewMonthlyReturnComponent implements OnInit {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
 
         if (result) {
-          //console.log('Proceeding with update');
           this.MonthlyReturnService.update(+id, formData).subscribe(response => {
             //console.log('id with form', id, formData)
             this.router.navigateByUrl('/ships-return/monthlyreturn-list');
@@ -324,14 +316,12 @@ export class NewMonthlyReturnComponent implements OnInit {
     } else {
 
       var returnQty = this.MonthlyReturnForm.value['returnQty'];
-      //console.log(returnQty);
       if(this.totalOplCount< returnQty){
         this.warningMessage = "Return Qty Can't be  getter then total Opl Qty"
         return
       }
 
       this.MonthlyReturnService.submit(formData).subscribe(response => {
-        //console.log('res', response)
         this.router.navigateByUrl('/ships-return/monthlyreturn-list');
         this.snackBar.open('Information Inserted Successfully ', '', {
           duration: 2000,

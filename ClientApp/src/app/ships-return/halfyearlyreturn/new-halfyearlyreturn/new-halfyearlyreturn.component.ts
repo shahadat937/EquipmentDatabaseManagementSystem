@@ -192,7 +192,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
       reportingMonthId : [''],
       year : [''],
       uploadDocument: [''],
-      doc: ['']
+      doc: [''],
     });
   }
   clearList() {
@@ -355,30 +355,46 @@ export class NewHalfYearlyReturnComponent implements OnInit {
   }
 
   onSubmit() {
-
-    // if (this.role == this.userRole.ShipStaff || this.role != this.userRole.LOEO) {
-    //   this.HalfYearlyReturnForm.get('baseSchoolNameId').setValue(this.branchId);
-    // }
     const id = this.HalfYearlyReturnForm.get('halfYearlyReturnId')?.value;
-    // this.MonthlyReturnForm.get('reportingDate').setValue((new Date(this.MonthlyReturnForm.get('reportingDate').value)).toUTCString());
-    // this.MonthlyReturnForm.get('timeOfDefect').setValue((new Date(this.MonthlyReturnForm.get('timeOfDefect').value)).toUTCString());
-
-    // const formData = new FormData();
-    // for (const key of Object.keys(this.MonthlyReturnForm.value)) {
-    //   const value = this.MonthlyReturnForm.value[key];
-    //   formData.append(key, value);
-    // }
+    const formData = new FormData();
+  
+    // Append top-level form fields
+    Object.keys(this.HalfYearlyReturnForm.value).forEach(key => {
+      if (key === 'shipEquipmentInfoList') {
+        // Handle nested form array
+        const shipEquipmentInfoList = this.HalfYearlyReturnForm.get(key) as FormArray;
+        shipEquipmentInfoList.controls.forEach((item, index) => {
+          Object.keys(item.value).forEach(subKey => {
+            // Append each field in the nested object
+            const value = item.value[subKey];
+            if (value !== null && value !== undefined) {
+              formData.append(`${key}[${index}].${subKey}`, value);
+            }
+          });
+        });
+      } else if (key === 'doc') {
+        // Handle file upload
+        const file = this.HalfYearlyReturnForm.get(key)?.value;
+        if (file) {
+          formData.append(key, file);
+        }
+      } else {
+        // Append regular fields
+        const value = this.HalfYearlyReturnForm.value[key];
+        if (value !== null && value !== undefined) {
+          formData.append(key, value);
+        }
+      }
+    });
+  
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+  
     if (id) {
-      this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
-        
-      // this.HalfYearlyReturnForm.value);
-  this.HalfYearlyReturnForm.value.shipEquipmentInfoList.shipEquipmentInfoId =this.shipEquipmentInformationId;
-  // //console.log("result ",this.HalfYearlyReturnForm.value.shipEquipmentInfoList.shipEquipmentInfoId )
-
-
+      this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This Item').subscribe(result => {
         if (result) {
-          //console.log(this.HalfYearlyReturnForm.value);
-          this.HalfYearlyReturnService.update(+id, this.HalfYearlyReturnForm.value).subscribe(response => {
+          this.HalfYearlyReturnService.update(+id, formData).subscribe(response => {
             this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');
             this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,
@@ -388,14 +404,11 @@ export class NewHalfYearlyReturnComponent implements OnInit {
             });
           }, error => {
             this.validationErrors = error;
-          })
+          });
         }
-      })
-    }
-    else {
-      //console.log(this.HalfYearlyReturnForm.value.shipEquipmentInfoList);
-      this.HalfYearlyReturnService.submit(this.HalfYearlyReturnForm.value.shipEquipmentInfoList
-      ).subscribe(response => {
+      });
+    } else {
+      this.HalfYearlyReturnService.submit(formData).subscribe(response => {
         this.router.navigateByUrl('/ships-return/halfyearlyreturn-list');
         this.snackBar.open('Information Inserted Successfully ', '', {
           duration: 2000,
@@ -405,8 +418,7 @@ export class NewHalfYearlyReturnComponent implements OnInit {
         });
       }, error => {
         this.validationErrors = error;
-      })
+      });
     }
-
   }
 }

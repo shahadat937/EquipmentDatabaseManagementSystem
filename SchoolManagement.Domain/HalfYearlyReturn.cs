@@ -28,7 +28,7 @@ namespace SchoolManagement.Domain
         public int? ShipEquipmentInfoId { get; set; }
         public int? Year { get; set; }
         public int? ReportingMonthId { get; set; }
-        public string? DocumentUpload { get; set; }
+        public string? UploadDocument { get; set; }
 
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
         public virtual EquipmentCategory? EquipmentCategory { get; set; }

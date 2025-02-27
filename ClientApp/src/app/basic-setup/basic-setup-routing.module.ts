@@ -332,10 +332,6 @@ const routes: Routes = [
     component: NewSchoolNameComponent,
   },
   
-
-
-
-
   { path: '**', component: Page404Component },
 ];
 
