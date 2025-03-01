@@ -57,6 +57,7 @@ using SchoolManagement.Application.DTOs.UserManual;
 using SchoolManagement.Application.DTOs.ReporingYear;
 using SchoolManagement.Application.DTOs.QuarterlyReturns;
 using SchoolManagement.Application.DTOs.ReportingYear;
+using SchoolManagement.Application.DTOs.FinancialYears;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -108,7 +109,8 @@ namespace SchoolManagement.Application.Profiles
                  .ForMember(d => d.EquipmentCategory, o => o.MapFrom(s => s.EquipmentCategory.Name))
                  .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
                  .ForMember(d => d.BaseSchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
-                 .ForMember(d => d.InputPowerSupply, o => o.MapFrom(s => s.ShipEquipmentInfo.PowerSupply));
+                 .ForMember(d => d.InputPowerSupply, o => o.MapFrom(s => s.ShipEquipmentInfo.PowerSupply))
+                 .ForMember(d => d.UploadDocument, o => o.MapFrom<HalfYearlyReturnFileUrlResolver>());
 
 
             CreateMap<HalfYearlyReturn, CreateHalfYearlyReturnDto>().ReverseMap();
@@ -238,17 +240,11 @@ namespace SchoolManagement.Application.Profiles
             #region Procurement Mapping    
             CreateMap<ProcurementDto, Procurement>().ReverseMap()
                 .ForMember(d => d.SchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
-                .ForMember(d => d.ProcurementMethodName, o => o.MapFrom(s => s.ProcurementMethod.Name))
-                .ForMember(d => d.EnvelopeName, o => o.MapFrom(s => s.Envelope.Name))
-                .ForMember(d => d.ProcurementTypeName, o => o.MapFrom(s => s.ProcurementType.Name))
                 .ForMember(d => d.GroupName, o => o.MapFrom(s => s.GroupName.Name))
                 .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
                 .ForMember(d => d.ControlledName, o => o.MapFrom(s => s.Controlled.Name))
                 .ForMember(d => d.FcLcName, o => o.MapFrom(s => s.FcLc.Name))
-                .ForMember(d => d.DgdpNssdName, o => o.MapFrom(s => s.DgdpNssd.Name))
-                .ForMember(d => d.TenderOpeningDateTypeName, o => o.MapFrom(s => s.TenderOpeningDateType.Name))
-                .ForMember(d => d.TecName, o => o.MapFrom(s => s.Tec.Name))
-                .ForMember(d => d.PaymentStatusName, o => o.MapFrom(s => s.PaymentStatus.Name));
+                .ForMember(d => d.DgdpNssdName, o => o.MapFrom(s => s.DgdpNssd.Name));
             CreateMap<Procurement, CreateProcurementDto>().ReverseMap();
             #endregion
 
@@ -431,6 +427,11 @@ namespace SchoolManagement.Application.Profiles
             #region ReportingYear   
             CreateMap<ReportingYear, ReportingYearDto>().ReverseMap();
             CreateMap<ReportingYear, CreateReportingYearDto>().ReverseMap();
+            #endregion
+
+            #region FinancialYears
+            CreateMap<FinancialYears, FinancialYearsDto>().ReverseMap();
+            CreateMap<FinancialYears, CreateFinancialYearsDto>().ReverseMap();
             #endregion
         }
     }

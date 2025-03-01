@@ -40,19 +40,19 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
             if (request.SearchBy == "shipname")
             {
                 Procurements = _ProcurementRepository.FilterWithInclude(
-                    x => x.BaseSchoolName.ShipInformations.Any(u=> u.AuthorityId == request.AuthorityId) &&  x.ProcurementMethodId == request.ProcureMethodId && (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
+                    x => x.BaseSchoolName.ShipInformations.Any(u=> u.AuthorityId == request.AuthorityId) &&   (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
                     "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
             }
             else if (request.SearchBy == "equipmentname")
             {
                 Procurements = _ProcurementRepository.FilterWithInclude(
-                    x => x.ProcurementMethodId == request.ProcureMethodId && (x.EqupmentName.Name.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
+                    x =>  (x.EqupmentName.Name.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText)),
                     "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
             }
             else
             {
                 Procurements = _ProcurementRepository.FilterWithInclude(
-                    x => x.ProcurementMethodId == request.ProcureMethodId && (string.IsNullOrEmpty(request.QueryParams.SearchText)),
+                    x => (string.IsNullOrEmpty(request.QueryParams.SearchText)),
                     "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
             }
 

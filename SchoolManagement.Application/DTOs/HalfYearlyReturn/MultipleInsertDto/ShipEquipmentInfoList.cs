@@ -24,8 +24,11 @@ namespace SchoolManagement.Application.DTOs.HalfYearlyReturn.MultipleInsertDto
         public double? TotalRunningTime { get; set; }
         public string? HalfYearlyProblem { get; set; }
         public string? PowerSupplyUnit { get; set; }
-        public string? DocumentUpload { get; set; }
+        public string? UploadDocument { get; set; }
+        public int? ShipEquipmentInfoId { get; set; }
+        public bool? IsSatisfactory { get; set; }
         public IFormFile? Doc { get; set; }
+        public string? Remarks { get; set; }
 
     }
 }

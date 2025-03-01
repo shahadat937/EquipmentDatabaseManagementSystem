@@ -59,11 +59,11 @@ public class HalfYearlyReturnController : ControllerBase
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [Route("save-HalfYearlyReturn")]
-    public async Task<ActionResult<BaseCommandResponse>> Post([FromBody] List<CreateHalfYearlyReturnDto> HalfYearlyReturn)
+    public async Task<ActionResult<BaseCommandResponse>> Post([FromForm] CreateHalfYearlyReturnDto HalfYearlyReturn)
     {
         var command = new CreateHalfYearlyReturnCommand { HalfYearlyReturnDto = HalfYearlyReturn };
         var response = await _mediator.Send(command);
-        return Ok(response);
+        return Ok();
     }
 
 
@@ -72,7 +72,7 @@ public class HalfYearlyReturnController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-HalfYearlyReturn/{id}")]
-    public async Task<ActionResult> Put([FromBody] HalfYearlyReturnDto HalfYearlyReturn)
+    public async Task<ActionResult> Put([FromForm] HalfYearlyReturnDto HalfYearlyReturn)
     {
         var command = new UpdateHalfYearlyReturnCommand { HalfYearlyReturnDto = HalfYearlyReturn };
         await _mediator.Send(command);

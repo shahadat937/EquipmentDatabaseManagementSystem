@@ -22,6 +22,8 @@ namespace SchoolManagement.Application.DTOs.HalfYearlyReturn
         public int? ShipEquipmentInfoId { get; set; }
         public int? Year { get; set; }
         public int? ReportingMonthId { get; set; }
+        public string? UploadDocument { get; set; }
+        public IFormFile? Doc { get; set; }
 
         public List<ShipEquipmentInfoList>? ShipEquipmentInfoList { get; set; }
     }

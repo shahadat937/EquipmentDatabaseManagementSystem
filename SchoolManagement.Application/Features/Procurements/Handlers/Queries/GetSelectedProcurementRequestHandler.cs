@@ -21,8 +21,8 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
             ICollection<Procurement> codeValues = await _ProcurementRepository.FilterAsync(x => x.IsActive);
             List<SelectedModel> selectModels = codeValues.Select(x => new SelectedModel
             {
-                Text = x.AIP,
-                Value = x.ProcurementId
+                //Text = x.AIP,
+                //Value = x.ProcurementId
             }).ToList();
             return selectModels;
         }

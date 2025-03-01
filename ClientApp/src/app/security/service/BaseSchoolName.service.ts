@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../src/environments/environment';
 import {IBaseSchoolNamePagination,BaseSchoolNamePagination } from '../models/BaseSchoolNamePagination'
 import { BaseSchoolName } from '../models/BaseSchoolName';
 import { map } from 'rxjs';
