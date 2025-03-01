@@ -251,20 +251,20 @@ namespace SchoolManagement.Persistence
                     .HasForeignKey(d => d.BaseSchoolNameId)
                     .HasConstraintName("FK_Procurement_BaseSchoolName");
 
-                entity.HasOne(d => d.ProcurementMethod)
-                    .WithMany(p => p.Procurements)
-                    .HasForeignKey(d => d.ProcurementMethodId)
-                    .HasConstraintName("FK_Procurement_ProcurementMethod");
+                //entity.HasOne(d => d.ProcurementMethod)
+                //    .WithMany(p => p.Procurements)
+                //    .HasForeignKey(d => d.ProcurementMethodId)
+                //    .HasConstraintName("FK_Procurement_ProcurementMethod");
 
-                entity.HasOne(d => d.PaymentStatus)
-                    .WithMany(p => p.Procurements)
-                    .HasForeignKey(d => d.PaymentStatusId)
-                    .HasConstraintName("FK_Procurement_PaymentStatus");
+                //entity.HasOne(d => d.PaymentStatus)
+                //    .WithMany(p => p.Procurements)
+                //    .HasForeignKey(d => d.PaymentStatusId)
+                //    .HasConstraintName("FK_Procurement_PaymentStatus");
 
-                entity.HasOne(d => d.ProcurementType)
-                    .WithMany(p => p.Procurements)
-                    .HasForeignKey(d => d.ProcurementTypeId)
-                    .HasConstraintName("FK_Procurement_ProcurementType");
+                //entity.HasOne(d => d.ProcurementType)
+                //    .WithMany(p => p.Procurements)
+                //    .HasForeignKey(d => d.ProcurementTypeId)
+                //    .HasConstraintName("FK_Procurement_ProcurementType");
 
                 entity.HasOne(d => d.GroupName)
                     .WithMany(p => p.Procurements)
@@ -287,25 +287,25 @@ namespace SchoolManagement.Persistence
                     .HasForeignKey(d => d.DgdpNssdId)
                     .HasConstraintName("FK_Procurement_DgdpNssd");
 
-                entity.HasOne(d => d.Tec)
-                    .WithMany(p => p.Procurements)
-                    .HasForeignKey(d => d.TecId)
-                    .HasConstraintName("FK_Procurement_Tec");
+                //entity.HasOne(d => d.Tec)
+                //    .WithMany(p => p.Procurements)
+                //    .HasForeignKey(d => d.TecId)
+                //    .HasConstraintName("FK_Procurement_Tec");
 
-                entity.HasOne(d => d.TenderOpeningDateType)
-                    .WithMany(p => p.Procurements)
-                    .HasForeignKey(d => d.TenderOpeningDateTypeId)
-                    .HasConstraintName("FK_Procurement_TenderOpeningDateType");
+                //entity.HasOne(d => d.TenderOpeningDateType)
+                //    .WithMany(p => p.Procurements)
+                //    .HasForeignKey(d => d.TenderOpeningDateTypeId)
+                //    .HasConstraintName("FK_Procurement_TenderOpeningDateType");
 
                 entity.HasOne(d => d.Controlled)
                     .WithMany(p => p.Procurements)
                     .HasForeignKey(d => d.ControlledId)
                     .HasConstraintName("FK_Procurement_Controlled");
 
-                entity.HasOne(d => d.Envelope)
-                    .WithMany(p => p.Procurements)
-                    .HasForeignKey(d => d.EnvelopeId)
-                    .HasConstraintName("FK_Procurement_Envelope");
+                //entity.HasOne(d => d.Envelope)
+                //    .WithMany(p => p.Procurements)
+                //    .HasForeignKey(d => d.EnvelopeId)
+                //    .HasConstraintName("FK_Procurement_Envelope");
 
             });
 

@@ -39,7 +39,7 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
 
             
                 Procurements = _ProcurementRepository.FilterWithInclude(
-                    x => x.ProcurementMethodId == request.ProcureMethodId && (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText) || x.ProcurementType.Name.Contains(request.QueryParams.SearchText) || x.EqupmentName.Name.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText) ),
+                    x =>  (x.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)  || x.EqupmentName.Name.Contains(request.QueryParams.SearchText) || string.IsNullOrEmpty(request.QueryParams.SearchText) ),
                     "BaseSchoolName", "ProcurementMethod", "Envelope", "ProcurementType", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "Tec", "TenderOpeningDateType", "PaymentStatus");
             
 
