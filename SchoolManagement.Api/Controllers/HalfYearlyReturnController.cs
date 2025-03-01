@@ -72,7 +72,7 @@ public class HalfYearlyReturnController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-HalfYearlyReturn/{id}")]
-    public async Task<ActionResult> Put([FromBody] HalfYearlyReturnDto HalfYearlyReturn)
+    public async Task<ActionResult> Put([FromForm] HalfYearlyReturnDto HalfYearlyReturn)
     {
         var command = new UpdateHalfYearlyReturnCommand { HalfYearlyReturnDto = HalfYearlyReturn };
         await _mediator.Send(command);

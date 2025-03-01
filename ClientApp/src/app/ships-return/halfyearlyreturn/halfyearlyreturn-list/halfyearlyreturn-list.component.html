@@ -87,6 +87,7 @@
                         <th class="cl-mrk"><h5>Half Yearly Problem</h5></th>
                         <th class="cl-mrk-opl"><h5> Power Supply Unit</h5></th>
                         <th class="cl-mrk-opl"><h5> Remarks</h5></th>
+                        <th class="cl-mrk-opl"><h5> Files</h5></th>
                         <th [hidden]="isCommandingAreaUsers" class="cl-action"><h5></h5></th>
                       </tr>
                     </thead>
@@ -117,6 +118,17 @@
                           <td>
                             {{number.remarks || "-"}}
                           </td>
+                          <td class="text-center">
+                            <ng-container *ngIf="number.uploadDocument; else noFile">
+                              <a target="_blank" [href]="number.uploadDocument">
+                                <i matTooltip="File" class="far fa-file-pdf tbl-pdf"></i>
+                              </a>
+                            </ng-container>
+                            <ng-template #noFile>
+                              -
+                            </ng-template>
+                          </td>
+                          
                           <td [hidden]="isCommandingAreaUsers" class="cl-action">
                            
                             <button mat-icon-button color="accent" class="btn-tbl-edit" 

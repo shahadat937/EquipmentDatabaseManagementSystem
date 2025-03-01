@@ -373,24 +373,18 @@ export class NewHalfYearlyReturnComponent implements OnInit {
           });
         });
       } else if (key === 'doc') {
-        // Handle file upload
         const file = this.HalfYearlyReturnForm.get(key)?.value;
         if (file) {
           formData.append(key, file);
         }
       } else {
-        // Append regular fields
         const value = this.HalfYearlyReturnForm.value[key];
         if (value !== null && value !== undefined) {
           formData.append(key, value);
         }
       }
     });
-  
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
-  
+
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This Item').subscribe(result => {
         if (result) {

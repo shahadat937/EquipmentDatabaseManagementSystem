@@ -29,6 +29,11 @@ namespace SchoolManagement.Persistence
             {
 
             });
+            
+            modelBuilder.Entity<FinancialYears>(entity =>
+            {
+                entity.HasKey(x => x.FinancialYearId);
+            });
 
             modelBuilder.Entity<BookUserManualBRInfo>(entity =>
             {
@@ -620,5 +625,6 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystem { get; set; }
         public virtual DbSet <ReportingYear> ReportingYear { get; set; }
+        public virtual DbSet <FinancialYears> FinancialYears { get; set; }
     }
 }

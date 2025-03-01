@@ -57,6 +57,7 @@ using SchoolManagement.Application.DTOs.UserManual;
 using SchoolManagement.Application.DTOs.ReporingYear;
 using SchoolManagement.Application.DTOs.QuarterlyReturns;
 using SchoolManagement.Application.DTOs.ReportingYear;
+using SchoolManagement.Application.DTOs.FinancialYears;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -108,7 +109,8 @@ namespace SchoolManagement.Application.Profiles
                  .ForMember(d => d.EquipmentCategory, o => o.MapFrom(s => s.EquipmentCategory.Name))
                  .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
                  .ForMember(d => d.BaseSchoolName, o => o.MapFrom(s => s.BaseSchoolName.SchoolName))
-                 .ForMember(d => d.InputPowerSupply, o => o.MapFrom(s => s.ShipEquipmentInfo.PowerSupply));
+                 .ForMember(d => d.InputPowerSupply, o => o.MapFrom(s => s.ShipEquipmentInfo.PowerSupply))
+                 .ForMember(d => d.UploadDocument, o => o.MapFrom<HalfYearlyReturnFileUrlResolver>());
 
 
             CreateMap<HalfYearlyReturn, CreateHalfYearlyReturnDto>().ReverseMap();
@@ -431,6 +433,11 @@ namespace SchoolManagement.Application.Profiles
             #region ReportingYear   
             CreateMap<ReportingYear, ReportingYearDto>().ReverseMap();
             CreateMap<ReportingYear, CreateReportingYearDto>().ReverseMap();
+            #endregion
+
+            #region FinancialYears
+            CreateMap<FinancialYears, FinancialYearsDto>().ReverseMap();
+            CreateMap<FinancialYears, CreateFinancialYearsDto>().ReverseMap();
             #endregion
         }
     }
