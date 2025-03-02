@@ -57,7 +57,7 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Commands
                     var tenderOpenings = request.ProcurementDto.ProcurementTenderOpeningDto
                         .Select(dto => new ProcurementTenderOpening
                         {
-                            ProcurementId = procurement.ProcurementId, 
+                            ProcurementId = procurement.ProcurementId,
                             TenderOpeningDate = dto.TenderOpeningDate
                         }).ToList();
 

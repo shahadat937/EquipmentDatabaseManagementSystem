@@ -18,6 +18,7 @@
         public DateTime? IndentSentDate { get; set; }
         public int? NumberOfTenderOpening { get; set; }
         public DateTime? TenderOpeningDate { get; set; }
+        public DateTime? TenderFloatedDate { get; set; }
         public DateTime? OfferReceivedDateAndUpdateEvaluation { get; set; }
         public DateTime? SentForContractDate { get; set; }
         public DateTime? ContractSignedDate { get; set; }
