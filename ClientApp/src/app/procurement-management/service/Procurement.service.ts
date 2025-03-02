@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../src/environments/environment';
 import {IProcurementPagination,ProcurementPagination } from '../models/ProcurementPagination'
 import { Procurement } from '../models/Procurement';
 import { map } from 'rxjs';
@@ -124,6 +124,9 @@ export class ProcurementService {
   }
   getSelectedProcurementType(){
     return this.http.get<SelectedModel[]>(this.baseUrl + '/procurement-type/get-selectedProcurementType')
+  }
+  getSelectedFinancialYear(){
+    return this.http.get<SelectedModel[]>(this.baseUrl + '/financial-years/get-selectedFinancialYears')
   }
   getSelectedGroupName(){
     return this.http.get<SelectedModel[]>(this.baseUrl + '/group-name/get-selectedGroupName')

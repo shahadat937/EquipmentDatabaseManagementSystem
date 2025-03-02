@@ -6,10 +6,7 @@ namespace SchoolManagement.Domain
 {
     public class Tec : BaseDomainEntity
     {
-        public Tec()
-        {
-            Procurements = new HashSet<Procurement>();
-        }
+       
         public int TecId { get; set; }
         public string? Name { get; set; }
         public string? ShortName { get; set; }
@@ -18,6 +15,6 @@ namespace SchoolManagement.Domain
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
 
-        public virtual ICollection<Procurement> Procurements { get; set; }
+        //public virtual ICollection<Procurement> Procurements { get; set; }
     }
 }

@@ -27,78 +27,102 @@
                 <div class="row">
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Procurement Method</mat-label>
-                      <mat-select formControlName="procurementMethodId" required>
+                      <mat-label>Name of Equipment</mat-label>
+                      <mat-select formControlName="equpmentNameId" required>
                         <input type="text" 
                         style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
                         id="selectSearch" 
                         (keydown.space)="$event.stopPropagation()"
-                        (input)="filterByProcurementMethod($event.target.value)" placeholder="Search">
+                        (input)="filterByEquipementName($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
-                        <mat-option (onSelectionChange)="onStatus($event)" *ngFor="let dropdown of selectedProcurementMethod" [value]="dropdown.value">
+                        <mat-option *ngFor="let dropdown of selectedEquipmentName" [value]="dropdown.value">
                           {{dropdown.text}}
                         </mat-option>
                       </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('procurementMethodId').hasError('required')">
-                        Procurement Method is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Envelope</mat-label>
-                      <mat-select formControlName="envelopeId" required>
-                        <input type="text" 
-                        style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
-                        id="selectSearch" 
-                        (keydown.space)="$event.stopPropagation()"
-                        (input)="filterByEnvelop($event.target.value)" placeholder="Search">
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedEnvelope" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('envelopeId').hasError('required')">
-                        Envelope is required
+                      <mat-error *ngIf="ProcurementForm.get('equpmentNameId').hasError('required')">
+                        Name of Equipment is required
                       </mat-error>
                     </mat-form-field>
                   </div>
   
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                  <div formArrayName="BaseSchoolNamesDtos" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <div *ngFor="let unit of ProcurementForm.get('BaseSchoolNamesDtos')['controls']; let i = index" [formGroup]="unit">
+                      <div [formGroupName]="i">
+                        <mat-form-field class="example-full-width mb-3" appearance="outline">
+                          <mat-label>Ship Name</mat-label>
+                          <mat-select formControlName="BaseSchoolNameId" required multiple>
+                            <input type="text"
+                              style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                              id="selectSearch"
+                              (keydown.space)="$event.stopPropagation()"
+                              (input)="filterByShip($event.target.value)" placeholder="Search">
+                            <mat-option value="0">--Select--</mat-option>
+                            <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                              {{dropdown.text}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Ship Name </mat-label>
-                      <mat-select formControlName="baseSchoolNameId" required>
-                        <input type="text" 
-                        style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
-                        id="selectSearch" 
-                        (keydown.space)="$event.stopPropagation()"
-                        (input)="filterByShip($event.target.value)" placeholder="Search">
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('baseSchoolNameId').hasError('required')">
-                        Ship Name is required
+                      <mat-label>Qty</mat-label>
+                      <input matInput formControlName="qty" required>
+                      <mat-error *ngIf="ProcurementForm.get('qty').hasError('required')">
+                        Qty is required
                       </mat-error>
                     </mat-form-field>
                   </div>
+
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Procurement Type</mat-label>
-                      <mat-select formControlName="procurementTypeId" required>
+                      <mat-label>Procurement Agency</mat-label>
+                      <mat-select formControlName="dgdpNssdId" required>
                         <input type="text" 
                         style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
                         id="selectSearch" 
                         (keydown.space)="$event.stopPropagation()"
-                        (input)="filterByProcurementType($event.target.value)" placeholder="Search">
+                        (input)="filterByDgdpNssd($event.target.value)" placeholder="Search">
                         <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedProcurementType" [value]="dropdown.value">
+                        <mat-option *ngFor="let dropdown of selectedDgdpNssd" [value]="dropdown.value">
                           {{dropdown.text}}
                         </mat-option>
                       </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('procurementTypeId').hasError('required')">
-                        Procurement Type is required
+                      <mat-error *ngIf="ProcurementForm.get('dgdpNssdId').hasError('required')">
+                        DGDP/NSSD is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>E/Price</mat-label>
+                      <input matInput formControlName="ePrice" required>
+                      <mat-error *ngIf="ProcurementForm.get('ePrice').hasError('required')">
+                        E/Price is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>FC/LC</mat-label>
+                      <mat-select formControlName="fcLcId" required>
+                        <input type="text" 
+                        style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                        id="selectSearch" 
+                        (keydown.space)="$event.stopPropagation()"
+                        (input)="filterByFcLc($event.target.value)" placeholder="Search">
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedFcLc" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="ProcurementForm.get('fcLcId').hasError('required')">
+                        FC/LC is required
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -122,34 +146,31 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Budget Code</mat-label>
+                      <input matInput formControlName="budgetCode" required>
+                    </mat-form-field>
+                  </div>
+
+                   
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Name of Equipment</mat-label>
-                      <mat-select formControlName="equpmentNameId" required>
-                        <input type="text" 
-                        style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
-                        id="selectSearch" 
-                        (keydown.space)="$event.stopPropagation()"
-                        (input)="filterByEquipementName($event.target.value)" placeholder="Search">
+                      <mat-label>Financial Year</mat-label>
+                      <mat-select formControlName="financialYear" required>
                         <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedEquipmentName" [value]="dropdown.value">
+                        <mat-option *ngFor="let dropdown of selectedFinancialYears" [value]="dropdown.value">
                           {{dropdown.text}}
                         </mat-option>
                       </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('equpmentNameId').hasError('required')">
-                        Name of Equipment is required
+                      <mat-error *ngIf="ProcurementForm.get('financialYear').hasError('required')">
+                        FC/LC is required
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Qty</mat-label>
-                      <input matInput formControlName="qty" required>
-                      <mat-error *ngIf="ProcurementForm.get('qty').hasError('required')">
-                        Qty is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+
+
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Controlled</mat-label>
@@ -169,332 +190,74 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+      
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Sent For AIP</mat-label>
+                      <input matInput [matDatepicker]="sentForAIPDate" formControlName="sentForAIPDate" required>
+                      <mat-datepicker-toggle matSuffix [for]="sentForAIPDate"></mat-datepicker-toggle>
+                      <mat-datepicker #sentForAIPDate></mat-datepicker>
+                    </mat-form-field>
+                  </div>
 
                   
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>E/Price</mat-label>
-                      <input matInput formControlName="ePrice" required>
-                      <mat-error *ngIf="ProcurementForm.get('ePrice').hasError('required')">
-                        E/Price is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>FC/LC</mat-label>
-                      <mat-select formControlName="fcLcId" required>
-                        <input type="text" 
-                        style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
-                        id="selectSearch" 
-                        (keydown.space)="$event.stopPropagation()"
-                        (input)="filterByFcLc($event.target.value)" placeholder="Search">
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedFcLc" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('fcLcId').hasError('required')">
-                        FC/LC is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>DGDP/NSSD</mat-label>
-                      <mat-select formControlName="dgdpNssdId" required>
-                        <input type="text" 
-                        style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
-                        id="selectSearch" 
-                        (keydown.space)="$event.stopPropagation()"
-                        (input)="filterByDgdpNssd($event.target.value)" placeholder="Search">
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedDgdpNssd" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('dgdpNssdId').hasError('required')">
-                        DGDP/NSSD is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>TEC</mat-label>
-                      <mat-select formControlName="tecId" required>
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedTec" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('tecId').hasError('required')">
-                       TEC is required
-                      </mat-error>
+                      <mat-label>AIP Approval Date</mat-label>
+                      <input matInput [matDatepicker]="aipApprovalDate" formControlName="aipApprovalDate" >
+                      <mat-datepicker-toggle matSuffix [for]="aipApprovalDate"></mat-datepicker-toggle>
+                      <mat-datepicker #aipApprovalDate></mat-datepicker>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Sent to DGDP/NSSD Date</mat-label>
-                      <input matInput [matDatepicker]="sentToDgdpNssdDate" formControlName="sentToDgdpNssdDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="sentToDgdpNssdDate"></mat-datepicker-toggle>
-                      <mat-datepicker #sentToDgdpNssdDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('sentToDgdpNssdDate').hasError('required')">
-                        Sent to DGDP/NSSD Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Tender Opening Date Type</mat-label>
-                      <mat-select formControlName="tenderOpeningDateTypeId" required>
-                        <input type="text" 
-                        style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
-                        id="selectSearch" 
-                        (keydown.space)="$event.stopPropagation()"
-                        (input)="($event.target.value)" placeholder="Search">
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedTenderOpeningDateType" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('tenderOpeningDateTypeId').hasError('required')">
-                        Tender Opening Date Type is required
-                      </mat-error>
+                      <mat-label>Indent Sent Date</mat-label>
+                      <input matInput [matDatepicker]="indentSentDate" formControlName="indentSentDate" >
+                      <mat-datepicker-toggle matSuffix [for]="indentSentDate"></mat-datepicker-toggle>
+                      <mat-datepicker #indentSentDate></mat-datepicker>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Tender Opening Date</mat-label>
-                      <input matInput [matDatepicker]="tenderOpeningDate" formControlName="tenderOpeningDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="tenderOpeningDate"></mat-datepicker-toggle>
-                      <mat-datepicker #tenderOpeningDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('tenderOpeningDate').hasError('required')">
-                        Tender Opening Date is Required
-                      </mat-error>
+                      <mat-label>Number of Tender</mat-label>
+                      <input matInput formControlName="numberOfTenderOpening">
                     </mat-form-field>
                   </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Tender Floated Date</mat-label>
+                      <input matInput [matDatepicker]="tenderFloatedDate" formControlName="tenderFloatedDate" required>
+                      <mat-datepicker-toggle matSuffix [for]="tenderFloatedDate"></mat-datepicker-toggle>
+                      <mat-datepicker #tenderFloatedDate></mat-datepicker>
+                    
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Tender Floated Date</mat-label>
+                      <input matInput [matDatepicker]="tenderFloatedDate" formControlName="tenderFloatedDate" required>
+                      <mat-datepicker-toggle matSuffix [for]="tenderFloatedDate"></mat-datepicker-toggle>
+                      <mat-datepicker #tenderFloatedDate></mat-datepicker>
+                    
+                    </mat-form-field>
+                  </div> -->
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Offer Received Date/ Evaluation</mat-label>
-                      <input matInput [matDatepicker]="offerReceivedDate" formControlName="offerReceivedDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="offerReceivedDate"></mat-datepicker-toggle>
-                      <mat-datepicker #offerReceivedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('offerReceivedDate').hasError('required')">
-                        Offer Received Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 1" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Contract Min Sent Date</mat-label>
-                      <input matInput [matDatepicker]="contractMinSentDate" formControlName="contractMinSentDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="contractMinSentDate"></mat-datepicker-toggle>
-                      <mat-datepicker #contractMinSentDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('contractMinSentDate').hasError('required')">
-                        Contract Min Sent Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 1" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Contract Min Received Date</mat-label>
-                      <input matInput [matDatepicker]="contractMinReceived" formControlName="contractMinReceived" required>
-                      <mat-datepicker-toggle matSuffix [for]="contractMinReceived"></mat-datepicker-toggle>
-                      <mat-datepicker #contractMinReceived></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('contractMinReceived').hasError('required')">
-                        Contract Min Received Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                 
-                  <div *ngIf="method == 1" class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Payment Status</mat-label>
-                      <mat-select formControlName="paymentStatusId" required>
-                        <mat-option value="0">--Select--</mat-option>
-                        <mat-option *ngFor="let dropdown of selectedPaymentStatus" [value]="dropdown.value">
-                          {{dropdown.text}}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="ProcurementForm.get('paymentStatusId').hasError('required')">
-                        payment Status is required
-                      </mat-error>
+                      <input matInput [matDatepicker]="OfferReceivedDateAndUpdateEvaluation" formControlName="OfferReceivedDateAndUpdateEvaluation" required>
+                      <mat-datepicker-toggle matSuffix [for]="OfferReceivedDateAndUpdateEvaluation"></mat-datepicker-toggle>
+                      <mat-datepicker #OfferReceivedDateAndUpdateEvaluation></mat-datepicker>
+             
                     </mat-form-field>
                   </div>
 
-                  <div *ngIf="method == 1" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>AIP</mat-label>
-                      <input matInput formControlName="aip" required>
-                      <mat-error *ngIf="ProcurementForm.get('aip').hasError('required')">
-                        AIP is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Clarification to OEM Sent Date</mat-label>
-                      <input matInput [matDatepicker]="clarificationToOemSentDate" formControlName="clarificationToOemSentDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="clarificationToOemSentDate"></mat-datepicker-toggle>
-                      <mat-datepicker #clarificationToOemSentDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('clarificationToOemSentDate').hasError('required')">
-                        Clarification to Oem Sent Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Clarification to OEM Received Date</mat-label>
-                      <input matInput [matDatepicker]="clarificationToOemReceivedDate" formControlName="clarificationToOemReceivedDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="clarificationToOemReceivedDate"></mat-datepicker-toggle>
-                      <mat-datepicker #clarificationToOemReceivedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('clarificationToOemReceivedDate').hasError('required')">
-                        Clarification to OEM Received Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Clarification to User Sent Date</mat-label>
-                      <input matInput [matDatepicker]="clarificationToUserSentDate" formControlName="clarificationToUserSentDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="clarificationToUserSentDate"></mat-datepicker-toggle>
-                      <mat-datepicker #clarificationToUserSentDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('clarificationToUserSentDate').hasError('required')">
-                        Clarification to User Sent Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Clarification to User Received Date</mat-label>
-                      <input matInput [matDatepicker]="clarificationToUserReceivedDate" formControlName="clarificationToUserReceivedDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="clarificationToUserReceivedDate"></mat-datepicker-toggle>
-                      <mat-datepicker #clarificationToUserReceivedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('clarificationToUserReceivedDate').hasError('required')">
-                        clarification to User Received Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Tech TEC Sent Date</mat-label>
-                      <input matInput [matDatepicker]="techTecSentDate" formControlName="techTecSentDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="techTecSentDate"></mat-datepicker-toggle>
-                      <mat-datepicker #techTecSentDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('techTecSentDate').hasError('required')">
-                        Tech TEC Sent Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Tech TEC Received Date</mat-label>
-                      <input matInput [matDatepicker]="techTecReceivedDate" formControlName="techTecReceivedDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="techTecReceivedDate"></mat-datepicker-toggle>
-                      <mat-datepicker #techTecReceivedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('techTecReceivedDate').hasError('required')">
-                        Tech TEC Received Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Min for FO Sent Date</mat-label>
-                      <input matInput [matDatepicker]="minForFoSentDate" formControlName="minForFoSentDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="minForFoSentDate"></mat-datepicker-toggle>
-                      <mat-datepicker #minForFoSentDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('minForFoSentDate').hasError('required')">
-                        Min for FO Sent Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label> Min for FO Received Date</mat-label>
-                      <input matInput [matDatepicker]="minForFoReceivedDate" formControlName="minForFoReceivedDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="minForFoReceivedDate"></mat-datepicker-toggle>
-                      <mat-datepicker #minForFoReceivedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('minForFoReceivedDate').hasError('required')">
-                        Min for FO Received Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Sent to DTS Date</mat-label>
-                      <input matInput [matDatepicker]="sentToDtsDate" formControlName="sentToDtsDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="sentToDtsDate"></mat-datepicker-toggle>
-                      <mat-datepicker #sentToDtsDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('sentToDtsDate').hasError('required')">
-                        Sent to DTS Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>FO Received Date</mat-label>
-                      <input matInput [matDatepicker]="foReceivedDate" formControlName="foReceivedDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="foReceivedDate"></mat-datepicker-toggle>
-                      <mat-datepicker #foReceivedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('foReceivedDate').hasError('required')">
-                        FO Received Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>FO TEC Sent Date</mat-label>
-                      <input matInput [matDatepicker]="foTecSentDate" formControlName="foTecSentDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="foTecSentDate"></mat-datepicker-toggle>
-                      <mat-datepicker #foTecSentDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('foTecSentDate').hasError('required')">
-                        FO TEC Sent Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>FO TEC Received Date</mat-label>
-                      <input matInput [matDatepicker]="foTecReceivedDate" formControlName="foTecReceivedDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="foTecReceivedDate"></mat-datepicker-toggle>
-                      <mat-datepicker #foTecReceivedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('foTecReceivedDate').hasError('required')">
-                        FO TEC Received Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Final Contract Min Sent Date</mat-label>
-                      <input matInput [matDatepicker]="finalContractMinSentDate" formControlName="finalContractMinSentDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="finalContractMinSentDate"></mat-datepicker-toggle>
-                      <mat-datepicker #finalContractMinSentDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('finalContractMinSentDate').hasError('required')">
-                        Final Contract Min Sent Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div *ngIf="method == 2" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
-                    <mat-form-field class="example-full-width mb-3" appearance="outline">
-                      <mat-label>Final Contract Min Received Date</mat-label>
-                      <input matInput [matDatepicker]="finalContractMinReceivedDate" formControlName="finalContractMinReceivedDate" required>
-                      <mat-datepicker-toggle matSuffix [for]="finalContractMinReceivedDate"></mat-datepicker-toggle>
-                      <mat-datepicker #finalContractMinReceivedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('finalContractMinReceivedDate').hasError('required')">
-                        Final Contract Min Received Date is Required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
                     <mat-form-field class="example-full-width mb-3" appearance="outline">
                       <mat-label>Sent for Contract Date</mat-label>
                       <input matInput [matDatepicker]="sentForContractDate" formControlName="sentForContractDate" required>
                       <mat-datepicker-toggle matSuffix [for]="sentForContractDate"></mat-datepicker-toggle>
                       <mat-datepicker #sentForContractDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('sentForContractDate').hasError('required')">
-                        Sent for Contract Date is Required
-                      </mat-error>
+
                     </mat-form-field>
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
@@ -503,9 +266,7 @@
                       <input matInput [matDatepicker]="contractSignedDate" formControlName="contractSignedDate" required>
                       <mat-datepicker-toggle matSuffix [for]="contractSignedDate"></mat-datepicker-toggle>
                       <mat-datepicker #contractSignedDate></mat-datepicker>
-                      <mat-error *ngIf="ProcurementForm.get('contractSignedDate').hasError('required')">
-                        Contract Signed Date is Required
-                      </mat-error>
+                  
                     </mat-form-field>
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">

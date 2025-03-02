@@ -21,12 +21,10 @@ public class ProcurementController : ControllerBase
 
     [HttpGet]
     [Route("get-Procurements")]
-    public async Task<ActionResult<List<ProcurementDto>>> Get([FromQuery] QueryParams queryParams, string searchBy)
+    public async Task<ActionResult<List<ProcurementDto>>> Get([FromQuery] QueryParams queryParams)
     {
         var Procurements = await _mediator.Send(new GetProcurementListRequest {
-            QueryParams = queryParams,
-            SearchBy = searchBy
-            
+            QueryParams = queryParams            
         }
 
         );
