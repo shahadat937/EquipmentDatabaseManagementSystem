@@ -6,10 +6,7 @@ namespace SchoolManagement.Domain
 {
     public class TenderOpeningDateType:BaseDomainEntity
     {
-        public TenderOpeningDateType()
-        {
-            Procurements = new HashSet<Procurement>();
-        }
+       
         public int TenderOpeningDateTypeId { get; set; }
         public string? Name { get; set; }
         public string? ShortName { get; set; }
@@ -17,6 +14,6 @@ namespace SchoolManagement.Domain
         public int? Status { get; set; }
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
-        public virtual ICollection<Procurement> Procurements { get; set; }
+        //public virtual ICollection<Procurement> Procurements { get; set; }
     }
 }

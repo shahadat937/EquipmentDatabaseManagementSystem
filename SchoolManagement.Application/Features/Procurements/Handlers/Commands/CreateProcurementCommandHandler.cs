@@ -25,34 +25,60 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Commands
             var validator = new CreateProcurementDtoValidator();
             var validationResult = await validator.ValidateAsync(request.ProcurementDto);
 
-            if (validationResult.IsValid == false)
+            if (!validationResult.IsValid)
             {
                 response.Success = false;
                 response.Message = "Creation Failed";
                 response.Errors = validationResult.Errors.Select(q => q.ErrorMessage).ToList();
+                return response;
             }
-            else
+
+            try
             {
-                var Procurement = _mapper.Map<Procurement>(request.ProcurementDto);
+                var procurement = _mapper.Map<Procurement>(request.ProcurementDto);
+                procurement = await _unitOfWork.Repository<Procurement>().Add(procurement);
+                await _unitOfWork.Save(); 
 
-                Procurement = await _unitOfWork.Repository<Procurement>().Add(Procurement);
-
-                try
+                if (request.ProcurementDto.BaseSchoolNamesDtos != null && request.ProcurementDto.BaseSchoolNamesDtos.Any())
                 {
+                    var baseSchoolNames = request.ProcurementDto.BaseSchoolNamesDtos
+                        .Select(dto => new ProcurementBaseSchoolName
+                        {
+                            ProcurementId = procurement.ProcurementId, 
+                            BaseSchoolNameId = dto.BaseSchoolNameId
+                        }).ToList();
+
+                    await _unitOfWork.Repository<ProcurementBaseSchoolName>().AddRangeAsync(baseSchoolNames);
                     await _unitOfWork.Save();
                 }
-                catch (Exception ex)
+
+                if (request.ProcurementDto.ProcurementTenderOpeningDto != null && request.ProcurementDto.ProcurementTenderOpeningDto.Any())
                 {
-                    System.Console.WriteLine(ex);
+                    var tenderOpenings = request.ProcurementDto.ProcurementTenderOpeningDto
+                        .Select(dto => new ProcurementTenderOpening
+                        {
+                            ProcurementId = procurement.ProcurementId, 
+                            TenderOpeningDate = dto.TenderOpeningDate
+                        }).ToList();
+
+                    await _unitOfWork.Repository<ProcurementTenderOpening>().AddRangeAsync(tenderOpenings);
+                    await _unitOfWork.Save();
                 }
 
 
                 response.Success = true;
                 response.Message = "Creation Successful";
-                response.Id = Procurement.ProcurementId;
+                response.Id = procurement.ProcurementId;
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex);
+                response.Success = false;
+                response.Message = "An error occurred while creating procurement.";
             }
 
             return response;
         }
+
     }
 }

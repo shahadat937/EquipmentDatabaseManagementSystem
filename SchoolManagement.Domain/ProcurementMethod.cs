@@ -8,7 +8,7 @@ namespace SchoolManagement.Domain
     {
         public ProcurementMethod()
         {
-            Procurements = new HashSet<Procurement>();
+            //Procurements = new HashSet<Procurement>();
         }
         public int ProcurementMethodId { get; set; }
         public string? Name { get; set; }
@@ -18,6 +18,6 @@ namespace SchoolManagement.Domain
         public int? MenuPosition { get; set; }
         public bool IsActive { get; set; }
 
-        public virtual ICollection<Procurement> Procurements { get; set; }
+        //public virtual ICollection<Procurement> Procurements { get; set; }
     }
 }

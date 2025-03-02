@@ -31,16 +31,12 @@ namespace SchoolManagement.Domain
         public string? Remarks { get; set; }
         public bool IsActive { get; set; }
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
-        //public virtual ProcurementMethod? ProcurementMethod { get; set; }
-        //public virtual Envelope? Envelope { get; set; }
-        //public virtual ProcurementType? ProcurementType { get; set; }
         public virtual GroupName? GroupName { get; set; }
         public virtual EqupmentName? EqupmentName { get; set; }
         public virtual Controlled? Controlled { get; set; }
         public virtual FcLc? FcLc { get; set; }
         public virtual DgdpNssd? DgdpNssd { get; set; }
-        //public virtual Tec? Tec { get; set; }
+ 
         //public virtual TenderOpeningDateType? TenderOpeningDateType { get; set; }
-        //public virtual PaymentStatus? PaymentStatus { get; set; }
     }
 }

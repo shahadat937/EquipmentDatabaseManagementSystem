@@ -626,5 +626,7 @@ namespace SchoolManagement.Persistence
         public virtual DbSet<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystem { get; set; }
         public virtual DbSet <ReportingYear> ReportingYear { get; set; }
         public virtual DbSet <FinancialYears> FinancialYears { get; set; }
+        public virtual DbSet <ProcurementTenderOpening> ProcurementTenderOpening { get; set; }
+        public virtual DbSet <ProcurementBaseSchoolName> ProcurementBaseSchoolName { get; set; }
     }
 }
