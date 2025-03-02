@@ -31,7 +31,8 @@
         public string? FcLcName { get; set; }
         public string? DgdpNssdName { get; set; }
 
-        public List<ProcurementBaseSchoolNameDto>  baseSchoolNameDtos { get; set; }
+        public List<ProcurementBaseSchoolNameDto>?  BaseSchoolNameDtos { get; set; }
+        public List<ProcurementTenderOpeningDto>? ProcurementTenderOpeningDto { get; set; }
 
     }
 }

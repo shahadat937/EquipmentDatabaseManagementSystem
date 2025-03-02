@@ -11,5 +11,6 @@ namespace SchoolManagement.Application.DTOs.Procurement
         public int ProcurementBaseSchoolNameId { get; set; }
         public int? ProcurementId { get; set; }
         public int? BaseSchoolNameId { get; set; }
+        public string? BaseSchoolName { get; set; }
     }
 }
