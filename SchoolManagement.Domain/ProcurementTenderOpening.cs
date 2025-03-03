@@ -11,6 +11,6 @@ namespace SchoolManagement.Domain
         public int ProcurementTenderOpeningId { get; set; }
         public int? ProcurementId { get; set; }
         public DateTime? TenderOpeningDate { get; set; }
-        public int? TenderOpeningCount { get; set; }
+        public string? TenderOpeningCount { get; set; }
     }
 }

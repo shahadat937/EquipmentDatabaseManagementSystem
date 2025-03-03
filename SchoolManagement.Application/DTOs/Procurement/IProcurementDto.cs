@@ -4,7 +4,7 @@
     {
         public int ProcurementId { get; set; }
         public int? EqupmentNameId { get; set; }
-        public int? BaseSchoolNameId { get; set; }
+        //public int? BaseSchoolNameId { get; set; }
         public double? Qty { get; set; }
         public int? DgdpNssdId { get; set; }
         public double? EPrice { get; set; }

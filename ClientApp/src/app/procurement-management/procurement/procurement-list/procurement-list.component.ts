@@ -11,6 +11,7 @@ import { MasterData } from '../../../../../src/assets/data/master-data';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Role } from '../../../../../src/app/core/models/role';
 import { AuthService } from '../../../../../src/app/core/service/auth.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -53,21 +54,22 @@ export class ProcurementListComponent implements OnInit {
 
   selection = new SelectionModel<Procurement>(true, []);
 
-  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService) { }
+  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.role = this.authService.currentUserValue.role;
     this.branchId = this.authService.currentUserValue.branchId;
-    this.getProcurementMethods()
-    // this.getProcurements();
+
+    this.getProcurements();
 
   }
 
   getProcurements() {
     this.isLoading = true;
-    //console.log(this.searchBy);
-    this.ProcurementService.getProcurements(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.searchBy).subscribe(response => {
+    this.ProcurementService.getProcurements(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+      console.log("X",response)
       this.dataSource.data = response.items;
+      
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
@@ -85,6 +87,18 @@ export class ProcurementListComponent implements OnInit {
     })
   }
 
+  getBaseSchoolNames(baseSchoolNameDtos: any[]): string {
+    return baseSchoolNameDtos && baseSchoolNameDtos.length > 0 
+      ? baseSchoolNameDtos.map(school => school.baseSchoolName).join(', ') 
+      : '-';
+  }
+
+  getTenderOpeingDateAndTenderOpeningCount(tenderOpingdto: any[]): any {
+    return tenderOpingdto && tenderOpingdto.length > 0 
+      ? tenderOpingdto.map(tenderDate => this.datePipe.transform(tenderDate.tenderOpeningDate, 'dd-MMM-yyyy')+`(${tenderDate.tenderOpeningCount})`).join(' ')
+      : '-';
+  }
+
   getProcurementsByPeocureMethodIdAndAuthorityId(procurementMethodId) {
     this.ProcurementService.getProcurementsByProcurementMethodIdAndAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.searchBy, procurementMethodId, this.branchId).subscribe(response => {
       this.dataSource.data = response.items;
@@ -94,43 +108,7 @@ export class ProcurementListComponent implements OnInit {
     })
   }
 
-  getProcurementMethods() {
-    this.isLoading = true;
-    // if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO || this.role === this.userRoles.FLOStaff){
-    //   this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
-    //     this.procurementMethodId1 = response.items[0]?.procurementMethodId;
-    //     this.procurementMethodId2 = response.items[1]?.procurementMethodId;
-    //     this.procurementMethodName1 = response.items[0]?.name;
-    //     this.procurementMethodName2 = response.items[1]?.name;
-    //     this.selectedProcurementTypeId = response.items[0]?.procurementMethodId;
-    //     this.getProcurementsByPeocureMethodIdAndAuthorityId(this.procurementMethodId1)
-  
-    //   })
-    // }
-    // else{
-      this.ProcurementService.getProcurementMethods(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
-        this.procurementMethodId1 = response.items[0]?.procurementMethodId;
-        this.procurementMethodId2 = response.items[1]?.procurementMethodId;
-        this.procurementMethodName1 = response.items[0]?.name;
-        this.procurementMethodName2 = response.items[1]?.name;
-        this.selectedProcurementTypeId = response.items[0]?.procurementMethodId;
-        this.selectedMethod = this.procurementMethodId1;
-        if(this.role === this.userRoles.AreaCommander || this.role === this.userRoles.FLO || this.role === this.userRoles.CSO || this.role === this.userRoles.FLOStaff){
-          this.getProcurementsByPeocureMethodIdAndAuthorityId(this.procurementMethodId1)
-          this.isCommandingAreaUsers = true;
-          
-        }
-        else{
-          //console.log(this.procurementMethodId1);
-          this.getProcurementsByPeocureMethodId(this.procurementMethodId1)
-        }
-        
-  
-      })
-    // }
-    
 
-  }
   pageChanged(event: PageEvent) {
     this.paging.pageIndex = event.pageIndex
     this.paging.pageSize = event.pageSize
