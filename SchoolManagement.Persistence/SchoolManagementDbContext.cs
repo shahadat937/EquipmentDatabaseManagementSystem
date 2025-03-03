@@ -246,10 +246,10 @@ namespace SchoolManagement.Persistence
             modelBuilder.Entity<Procurement>(entity =>
             {
 
-                entity.HasOne(d => d.BaseSchoolName)
-                    .WithMany(p => p.Procurements)
-                    .HasForeignKey(d => d.BaseSchoolNameId)
-                    .HasConstraintName("FK_Procurement_BaseSchoolName");
+                //entity.HasOne(d => d.BaseSchoolName)
+                //    .WithMany(p => p.Procurements)
+                //    .HasForeignKey(d => d.BaseSchoolNameId)
+                //    .HasConstraintName("FK_Procurement_BaseSchoolName");
 
                 //entity.HasOne(d => d.ProcurementMethod)
                 //    .WithMany(p => p.Procurements)

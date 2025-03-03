@@ -140,6 +140,8 @@ export class NewProcurementComponent implements OnInit {
     this.getSelectedPaymentStatus();
     this.getSelectedFinancialYear();
   }
+
+
   initializeForm() {
     this.ProcurementForm = this.fb.group({
       procurementId: [0],
@@ -150,45 +152,67 @@ export class NewProcurementComponent implements OnInit {
       ePrice: [""],
       fcLcId: [""],
       groupNameId: [],
-      budgetCode: [],
-      financialYear: [],
+      budgetCode: [''],
+      financialYearId: [''],
       controlledId: [""],
       sentForAIPDate: [""],
       aipApprovalDate: [""],
       indentSentDate: [""],
       numberOfTenderOpening: [""],
-      tenderOpeningDate: [""],
+      // tenderOpeningDate: [""],
       tenderFloatedDate: [""],
       OfferReceivedDateAndUpdateEvaluation: [""],
       sentForContractDate: [""],
       contractSignedDate: [""],
       remarks: [""],
       isActive: [true],
-      BaseSchoolNamesDtos: this.fb.array([this.createBaseSchoolList()]) 
+      procurementTenderOpeningDto : this.fb.array([this.createTenderOpeningDateList(1)]) 
+    });
+  }  
+
+  private createTenderOpeningDateList(count: number) {
+    return this.fb.group({
+      procurementTenderOpeningId: [0],
+      procurementId: [''],
+      tenderOpeningDate: [''],
+      tenderOpeningCount: [this.getOrdinalSuffix(count)] // Set "1st Time" for first entry
     });
   }
+
+
+  get procurementTenderOpeningDto(): FormArray {
+    return this.ProcurementForm.get("procurementTenderOpeningDto") as FormArray;
+  }
   
-  private createBaseSchoolList() {
-    return this.fb.group({
-      ProcurementBaseSchoolNameId: [0],
-      ProcurementId: [''],
-      BaseSchoolNameId: [''],
-      BaseSchoolName: ['']
+  addTenderOpeningDate() {
+    const tenderOpeningArray = this.ProcurementForm.get('procurementTenderOpeningDto') as FormArray;
+    const count = tenderOpeningArray.length + 1; // Count starts from 1
+    const ordinalSuffix = this.getOrdinalSuffix(count);
+  
+    const newTenderOpening = this.fb.group({
+      procurementTenderOpeningId: [0],
+      procurementId: [''],
+      tenderOpeningDate: [''],
+      tenderOpeningCount: [ordinalSuffix] // Assign ordinal value (e.g., "1st Time", "2nd Time")
     });
+  
+    tenderOpeningArray.push(newTenderOpening);
   }
   
-
-  private createTenderOpeningDateList(){
-    return this.fb.group({
-      ProcurementTenderOpeningId : [0],
-      ProcurementId: [''],
-      TenderOpeningDate: [''],
-      TenderOpeningCount: ['']
-    })
+  removeTenderOpeningDate(index: number) {
+    const tenderOpeningArray = this.ProcurementForm.get('procurementTenderOpeningDto') as FormArray;
+    tenderOpeningArray.removeAt(index);
   }
-
-
-
+  
+  /** Converts number to ordinal format (1st, 2nd, 3rd, etc.) */
+  getOrdinalSuffix(i: number): string {
+    const j = i % 10, k = i % 100;
+    if (j === 1 && k !== 11) return `${i}st`;
+    if (j === 2 && k !== 12) return `${i}nd`;
+    if (j === 3 && k !== 13) return `${i}rd`;
+    return `${i}th`;
+  }
+  
 
   onStatus(dropdown) {
     if (dropdown.isUserInput) {

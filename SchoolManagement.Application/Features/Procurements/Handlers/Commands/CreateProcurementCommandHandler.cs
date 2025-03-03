@@ -37,20 +37,21 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Commands
             {
                 var procurement = _mapper.Map<Procurement>(request.ProcurementDto);
                 procurement = await _unitOfWork.Repository<Procurement>().Add(procurement);
-                await _unitOfWork.Save(); 
+                await _unitOfWork.Save();
 
-                if (request.ProcurementDto.BaseSchoolNamesDtos != null && request.ProcurementDto.BaseSchoolNamesDtos.Any())
+                if (request.ProcurementDto.BaseSchoolNameId != null && request.ProcurementDto.BaseSchoolNameId.Any())
                 {
-                    var baseSchoolNames = request.ProcurementDto.BaseSchoolNamesDtos
-                        .Select(dto => new ProcurementBaseSchoolName
+                    var baseSchoolNames = request.ProcurementDto.BaseSchoolNameId
+                        .Select(baseSchoolId => new ProcurementBaseSchoolName
                         {
-                            ProcurementId = procurement.ProcurementId, 
-                            BaseSchoolNameId = dto.BaseSchoolNameId
+                            ProcurementId = procurement.ProcurementId,
+                            BaseSchoolNameId = baseSchoolId 
                         }).ToList();
 
                     await _unitOfWork.Repository<ProcurementBaseSchoolName>().AddRangeAsync(baseSchoolNames);
                     await _unitOfWork.Save();
                 }
+
 
                 if (request.ProcurementDto.ProcurementTenderOpeningDto != null && request.ProcurementDto.ProcurementTenderOpeningDto.Any())
                 {
@@ -58,7 +59,9 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Commands
                         .Select(dto => new ProcurementTenderOpening
                         {
                             ProcurementId = procurement.ProcurementId,
-                            TenderOpeningDate = dto.TenderOpeningDate
+                            TenderOpeningDate = dto.TenderOpeningDate,
+                            TenderOpeningCount = dto.TenderOpeningCount
+                            
                         }).ToList();
 
                     await _unitOfWork.Repository<ProcurementTenderOpening>().AddRangeAsync(tenderOpenings);
