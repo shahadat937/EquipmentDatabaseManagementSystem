@@ -47,7 +47,7 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
                 procurementsQuery = _ProcurementRepository.FilterWithInclude(
                     x => string.IsNullOrEmpty(request.QueryParams.SearchText) || 
                          x.EqupmentName.Name.Contains(request.QueryParams.SearchText), 
-                    "BaseSchoolName", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd"
+                    "BaseSchoolName", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "FinancialYear"
                 );
             
 

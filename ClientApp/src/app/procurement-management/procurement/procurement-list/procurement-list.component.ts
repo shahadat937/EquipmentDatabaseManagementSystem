@@ -41,7 +41,7 @@ export class ProcurementListComponent implements OnInit {
   isShipNameChecked: boolean = true;
   isEquipmentChecked: boolean;
   ShipNameSelelect = "";
-  searchBy = "shipname"; // by Default Search by Ship Name Selected;
+  searchBy = "shipname"; 
   procurementMethodId1: number
   procurementMethodId2: number
   procurementMethodName1: string
@@ -67,7 +67,6 @@ export class ProcurementListComponent implements OnInit {
   getProcurements() {
     this.isLoading = true;
     this.ProcurementService.getProcurements(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
-      console.log("X",response)
       this.dataSource.data = response.items;
       
       this.paging.length = response.totalItemsCount
@@ -76,16 +75,6 @@ export class ProcurementListComponent implements OnInit {
     })
   }
 
-  getProcurementsByPeocureMethodId(procurementMethodId) {
-    this.selectedMethod = procurementMethodId;
-    this.ProcurementService.getProcurementsByProcurementMethodId(this.paging.pageIndex, this.paging.pageSize, this.searchText,  procurementMethodId).subscribe(response => {
-      this.dataSource.data = response.items;
-      this.paging.length = response.totalItemsCount
-      this.isLoading = false;
-      this.itemCount = response.items.length;
-
-    })
-  }
 
   getBaseSchoolNames(baseSchoolNameDtos: any[]): string {
     return baseSchoolNameDtos && baseSchoolNameDtos.length > 0 
@@ -94,10 +83,17 @@ export class ProcurementListComponent implements OnInit {
   }
 
   getTenderOpeingDateAndTenderOpeningCount(tenderOpingdto: any[]): any {
-    return tenderOpingdto && tenderOpingdto.length > 0 
-      ? tenderOpingdto.map(tenderDate => this.datePipe.transform(tenderDate.tenderOpeningDate, 'dd-MMM-yyyy')+`(${tenderDate.tenderOpeningCount})`).join(' ')
+    return tenderOpingdto && tenderOpingdto.length > 0
+      ? tenderOpingdto.map((tenderDate, index) => {
+          const date = this.datePipe.transform(tenderDate.tenderOpeningDate, 'dd MMM, yyyy');
+          const count = tenderOpingdto.length > 1 && tenderDate.tenderOpeningCount
+            ? ` (${tenderDate.tenderOpeningCount})` : ''; // Add count if more than 1 tender date exists
+          return date + count;
+        }).join('<br>')
       : '-';
   }
+  
+  
 
   getProcurementsByPeocureMethodIdAndAuthorityId(procurementMethodId) {
     this.ProcurementService.getProcurementsByProcurementMethodIdAndAuthorityId(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.searchBy, procurementMethodId, this.branchId).subscribe(response => {
@@ -122,7 +118,7 @@ export class ProcurementListComponent implements OnInit {
     //   this.searchBy = ""
     // this.getProcurementsByPeocureMethodId(this.selectedProcurementTypeId);
     this.paging.pageIndex =  this.masterData.paging.pageIndex
-    this.getProcurementsByPeocureMethodId(this.selectedProcurementTypeId)
+    this.getProcurements();
   }
   toggle() {
     this.showHideDiv = !this.showHideDiv;
@@ -131,78 +127,6 @@ export class ProcurementListComponent implements OnInit {
     this.showHideDiv = false;
     this.print();
   }
-  filterByMethod(methodId: number) {
-    //console.log(methodId);
-    this.selectedProcurementTypeId = methodId;
-    this.getProcurementsByPeocureMethodId(methodId);
-  }
-  // print() {
-  //   let printContents, popupWin;
-  //   printContents = document.getElementById("print-routine").innerHTML;
-  //   popupWin = window.open("top=0,left=0,height=100%,width=auto");
-  //   popupWin.document.open();
-  //   popupWin.document.write(`
-  //     <html>
-  //       <head>
-  //         <style>
-  //         body{  width: 99%;}
-  //           label { font-weight: 400;
-  //                   font-size: 13px;
-  //                   padding: 2px;
-  //                   margin-bottom: 5px;
-  //                 }
-  //           table, td, th {
-  //                 border: 1px solid silver;
-  //                   }
-  //                   table td {
-  //                 font-size: 13px;
-  //                   }
-  //                   .table.table.tbl-by-group.db-li-s-in tr .cl-action{
-  //                     display: none;
-  //                   }
-
-  //                   .table.table.tbl-by-group.db-li-s-in tr td{
-  //                     text-align:center;
-  //                     padding: 0px 5px;
-  //                   }
-
-  //                 }
-  //                 .table.table.tbl-by-group.db-li-s-in tr .btn-tbl-edit {
-  //                   display:none;
-  //                 }
-
-
-  //                   table th {
-  //                 font-size: 13px;
-  //                   }
-  //             table {
-  //                   border-collapse: collapse;
-  //                   width: 98%;
-  //                   }
-  //               th {
-  //                   height: 26px;
-  //                   }
-  //               .header-text{
-  //                 text-align:center;
-  //               }
-  //               .header-text h3{
-  //                 margin:0;
-  //               }
-  //         </style>
-  //       </head>
-  //       <body onload="window.print();window.close()">
-  //         <div class="header-text">
-  //         <h3>Ship Info List</h3>
-
-  //         </div>
-  //         <br>
-  //         <hr>
-  //         ${printContents}
-
-  //       </body>
-  //     </html>`);
-  //   popupWin.document.close();
-  // }
 
   print() {
     const dataSource = this.dataSource.data; // Access your mat-table dataSource
@@ -291,39 +215,25 @@ export class ProcurementListComponent implements OnInit {
             <thead>
               <tr>
                 <th class="vertical-header">Ser.</th>
-                <th class="vertical-header">Ship Name</th>
-                <th class="vertical-header">Procurement Type</th>
-                <th class="vertical-header">Group Name</th>
                 <th class="vertical-header">Equipment Name</th>
-                
+                <th class="vertical-header">Ship Name</th>
                 <th class="vertical-header">Qty</th>
+                <th class="vertical-header">Agency</th>
                 <th class="vertical-header">E-Price</th>
                 <th class="vertical-header">FC/LC</th>
-                <th class="vertical-header">DGDP/NSSD Name</th>
-                <th class="vertical-header">Controlled</th>
-                <th class="vertical-header">TEC</th>
-                <th class="vertical-header">Sent to DGDP/NSSD Date</th>
-                <th class="vertical-header">Tender Opening Date Type</th>   
+                <th class="vertical-header">Group</th>
+                <th class="vertical-header">Budget Code</th>
+                <th class="vertical-header">Financial Year</th>
+                <th class="vertical-header">Controlled</th> 
+
+
+                <th class="vertical-header">Sent For AIP</th>
+                <th class="vertical-header">AIP Approval Date</th>
+                <th class="vertical-header">Indent Sent Date	</th>
+                <th class="vertical-header">Tender Floated Date</th>
                 <th class="vertical-header">Tender Opening Date</th>
-                <th class="vertical-header">Offer Received Date</th>
-                <th class="vertical-header">Clarification to OEM Sent Date</th>
-                <th class="vertical-header">Clarification to OEM Received Date</th>                
-                <th class="vertical-header">Clarification to User Sent Date</th>
-                <th class="vertical-header">Clarification to User Received Date</th>
-
-                <th class="vertical-header">Tech TEC Sent Date</th>
-                <th class="vertical-header">Tech TEC Received Date</th>
-                <th class="vertical-header">Min for FO Sent Date</th>
-                <th class="vertical-header">Min for FO Received Date</th>
-                <th class="vertical-header">Sent to DTS Date</th>
-
-                <th class="vertical-header">FO Received Date</th>
-                <th class="vertical-header">FO TEC Sent Date</th>
-                <th class="vertical-header">FO TEC Received Date</th>
-
-                <th class="vertical-header">Final Contract Min Sent Date</th>
-                <th class="vertical-header">Final Contract Min Received Date</th>
-                <th class="vertical-header">Sent for Contract Date	</th>
+                <th class="vertical-header">Offer Received Date & Under Evaluation</th>
+                <th class="vertical-header">Sent For Contract</th>
                 <th class="vertical-header">Contract Signed Date</th>
                 <th class="vertical-header">Remaks</th>
               </tr>
@@ -331,43 +241,30 @@ export class ProcurementListComponent implements OnInit {
             <tbody>
               ${dataSource
         .map((row, index) => {
+          console.log(row);
           return `
                     <tr>
                       <td class="vertical-header">${index + 1 || '-'}</td>
-                      <td class="vertical-header">${row.schoolName || "-"}</td>
-                      <td class="vertical-header">${row.procurementType || '-'}</td>
-                      <td class="vertical-header">${row.groupName || '-'}</td>
-                      <td class="vertical-header">${row.equpmentName || '-'}</td>
+                      <td class="vertical-header">${row.equpmentName|| '-'}</td>
+                      <td class="vertical-header">${ this.getBaseSchoolNames(row.baseSchoolNameDtos) || "-"}</td>
+                      <td class="vertical-header">${row.qty|| '-'}</td>
+                      <td class="vertical-header">${row.dgdpNssdName|| '-'}</td>
+                      <td class="vertical-header">${row.ePrice|| '-'}</td>
+                      <td class="vertical-header">${row.fcLcId|| '-'}</td>
+                      <td class="vertical-header">${row.groupName|| '-'}</td>
+                      <td class="vertical-header">${row.budgetCode|| '-'}</td>
+                      <td class="vertical-header">${row.financialYearName || '-'}</td>
+                      <td class="vertical-header">${row.controlledName|| '-'}</td>
 
-                      <td class="vertical-header">${row.qty || '-'}</td>
-                      <td class="vertical-header">${row.ePrice || '-'}</td>
-                      <td class="vertical-header">${row.fcLcName || '-'}</td>
-                      <td class="vertical-header">${row.dgdpNssdName || '-'}</td>
-                      <td class="vertical-header">${row.controlledName || '-'}</td>
-                      <td class="vertical-header">${row.tecName || '-'}</td>
-                      <td class="vertical-header">${row.sentToDgdpNssdDate? this.formatDate(row.sentToDgdpNssdDate) : '-' }</td>
-                      <td class="vertical-header">${row.tenderOpeningDateTypeName || '-'}</td>
-                      <td class="vertical-header">${row.tenderOpeningDate? this.formatDate(row.tenderOpeningDate) : '-'}</td>
-                      <td class="vertical-header">${row.offerReceivedDate? this.formatDate(row.offerReceivedDate) : '-'}</td>
-                      <td class="vertical-header">${row.clarificationToOemSentDate? this.formatDate(row.clarificationToOemSentDate) : '-'}</td>
-                      <td class="vertical-header">${row.clarificationToOemReceivedDate? this.formatDate(row.clarificationToOemReceivedDate) : '-'}</td>
-                      <td class="vertical-header">${row.clarificationToUserSentDate? this.formatDate(row.clarificationToUserSentDate) : '-'}</td>
-                      <td class="vertical-header">${row.clarificationToUserReceivedDate? this.formatDate(row.clarificationToUserReceivedDate) : '-'}</td>
 
-                      <td class="vertical-header">${row.techTecSentDate? this.formatDate(row.techTecSentDate) :  '-'}</td>
-                      <td class="vertical-header">${row.techTecReceivedDate?this.formatDate(row.techTecReceivedDate) : '-'}</td>
-                      <td class="vertical-header">${row.minForFoSentDate? this.formatDate(row.minForFoSentDate) : '-'}</td>
-                      <td class="vertical-header">${row.minForFoReceivedDate? this.formatDate(row.minForFoReceivedDate) : '-'}</td>
-                      <td class="vertical-header">${row.sentToDtsDate? this.formatDate(row.sentToDtsDate) : '-'}</td>
-                      
-                      <td class="vertical-header">${row.foReceivedDate? this.formatDate(row.foReceivedDate): '-'}</td>
-                      <td class="vertical-header">${row.foTecSentDate? this.formatDate(row.foTecSentDate) : '-'}</td>
-                      <td class="vertical-header">${row.foTecReceivedDate? this.formatDate(row.foTecReceivedDate) : '-'}</td>
-                      
-                      <td class="vertical-header">${row.finalContractMinSentDate? this.formatDate(row.finalContractMinSentDate): '-'}</td>
-                      <td class="vertical-header">${row.finalContractMinReceivedDate? this.formatDate(row.finalContractMinReceivedDate): '-'}</td>
-                      <td class="vertical-header">${row.sentForContractDate? this.formatDate(row.sentForContractDate): '-'}</td>
-                      <td class="vertical-header">${row.contractSignedDate? this.formatDate(row.contractSignedDate) : '-'}</td>
+                      <td class="vertical-header">${this.formatDate(row.sentForAIPDate) ?? '-'}</td>
+                      <td class="vertical-header">${this.formatDate(row.aipApprovalDate) ??  '-'}</td>
+                      <td class="vertical-header">${ this.formatDate(row.indentSentDate) ?? '-'}</td>
+                      <td class="vertical-header">${this.formatDate(row.tenderFloatedDate) ?? '-'}</td>
+                      <td class="vertical-header">${this.getTenderOpeingDateAndTenderOpeningCount(row.procurementTenderOpeningDto)}</td>
+                      <td class="vertical-header">${ this.formatDate(row.offerReceivedDateAndUpdateEvaluation) ?? '-'}</td>
+                      <td class="vertical-header">${ this.formatDate(row.sentForContractDate) ?? '-'}</td>
+                      <td class="vertical-header">${ this.formatDate(row.sentForContractDate) ?? '-'}</td>
                       <td class="vertical-header">${row.remarks || '-'}</td>
                     </tr>
                   `;
@@ -388,7 +285,7 @@ export class ProcurementListComponent implements OnInit {
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
       if (result) {
         this.ProcurementService.delete(id).subscribe(() => {
-          this.getProcurementsByPeocureMethodId(this.selectedProcurementTypeId);
+         this.getProcurements();
           this.snackBar.open('Information Deleted Successfully ', '', {
             duration: 2000,
             verticalPosition: 'bottom',
@@ -415,19 +312,21 @@ export class ProcurementListComponent implements OnInit {
   //   }
 
   // }
- formatDate(dateString) {
+  formatDate(dateString) {
     const date = new Date(dateString);
   
     if (isNaN(date.getTime())) {
-      
       return '-';
     }
   
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const monthIndex = date.getMonth(); // Month index (0-11)
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const month = monthNames[monthIndex]; // Get the month name in MMM format
     const day = String(date.getDate()).padStart(2, '0');
   
-    return `${day}-${month}-${year}`;
+    return `${day} ${month} ,${year}`;
   }
+  
 
 }

@@ -37,6 +37,7 @@ namespace SchoolManagement.Domain
         public virtual Controlled? Controlled { get; set; }
         public virtual FcLc? FcLc { get; set; }
         public virtual DgdpNssd? DgdpNssd { get; set; }
+        public virtual FinancialYear FinancialYear { get; set; }
  
         //public virtual TenderOpeningDateType? TenderOpeningDateType { get; set; }
     }

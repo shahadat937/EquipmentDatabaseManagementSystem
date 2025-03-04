@@ -2,7 +2,7 @@
 
 namespace SchoolManagement.Application.DTOs.Procurement.Validators
 {
-    public class UpdateProcurementDtoValidator : AbstractValidator<ProcurementDto>
+    public class UpdateProcurementDtoValidator : AbstractValidator<CreateProcurementDto>
     {
         public UpdateProcurementDtoValidator() 
         {

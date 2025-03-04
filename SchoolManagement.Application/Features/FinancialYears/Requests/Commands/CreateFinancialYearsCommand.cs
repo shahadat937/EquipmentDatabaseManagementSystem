@@ -6,6 +6,6 @@ namespace SchoolManagement.Application.Features.YearSetups.Requests.Commands
 {
     public class CreateFinancialYearsCommand : IRequest<BaseCommandResponse>
     {
-        public CreateFinancialYearsDto FinancialYearsDto { get; set; }
+        public CreateFinancialYearDto FinancialYearsDto { get; set; }
     }
 }

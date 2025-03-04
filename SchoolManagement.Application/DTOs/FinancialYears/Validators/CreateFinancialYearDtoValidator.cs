@@ -5,11 +5,11 @@ using System.Text;
 
 namespace SchoolManagement.Application.DTOs.FinancialYears.Validators
 {
-    public class CreateFinancialYearsDtoValidator : AbstractValidator<CreateFinancialYearsDto>
+    public class CreateFinancialYearDtoValidator : AbstractValidator<CreateFinancialYearDto>
     {
-        public CreateFinancialYearsDtoValidator() 
+        public CreateFinancialYearDtoValidator() 
         {
-            Include(new IFinancialYearsValidator());
+            Include(new IFinancialYearValidator());
         }
     }
 } 

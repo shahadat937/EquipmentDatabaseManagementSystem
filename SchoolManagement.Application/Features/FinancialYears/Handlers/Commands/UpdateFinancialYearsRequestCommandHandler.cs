@@ -22,20 +22,20 @@ namespace SchoolManagement.Application.Features.FinancialYearss.Handlers.Command
 
         public async Task<Unit> Handle(UpdateFinancialYearsCommand request, CancellationToken cancellationToken)
         {
-            var validator = new UpdateFinancialYearsDtoValidator(); 
+            var validator = new UpdateFinancialYearDtoValidator(); 
              var validationResult = await validator.ValidateAsync(request.ReporingYearDto);
 
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            var FinancialYears = await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYears>().Get(request.ReporingYearDto.FinancialYearId);
+            var FinancialYears = await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYear>().Get(request.ReporingYearDto.FinancialYearId);
 
             if (FinancialYears is null)
                 throw new NotFoundException(nameof(FinancialYears), request.ReporingYearDto.FinancialYearId);
 
             _mapper.Map(request.ReporingYearDto, FinancialYears);
 
-            await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYears>().Update(FinancialYears);
+            await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYear>().Update(FinancialYears);
             await _unitOfWork.Save();
 
             return Unit.Value;

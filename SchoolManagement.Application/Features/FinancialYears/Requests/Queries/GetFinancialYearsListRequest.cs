@@ -5,7 +5,7 @@ using SchoolManagement.Application.Models;
 
 namespace SchoolManagement.Application.Features.YearSetups.Requests.Queries
 {
-    public class GetFinancialYearsListRequest : IRequest<PagedResult<FinancialYearsDto>>
+    public class GetFinancialYearsListRequest : IRequest<PagedResult<FinancialYearDto>>
     {
         public QueryParams QueryParams { get; set; }
     }

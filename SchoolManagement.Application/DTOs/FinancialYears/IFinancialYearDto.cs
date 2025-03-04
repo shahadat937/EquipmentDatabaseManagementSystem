@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SchoolManagement.Application.DTOs.FinancialYears
 {
-    public interface IFinancialYearsDto
+    public interface IFinancialYearDto
     {
         public string FinancialYearName { get; set; }
 

@@ -244,7 +244,8 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
                 .ForMember(d => d.ControlledName, o => o.MapFrom(s => s.Controlled.Name))
                 .ForMember(d => d.FcLcName, o => o.MapFrom(s => s.FcLc.Name))
-                .ForMember(d => d.DgdpNssdName, o => o.MapFrom(s => s.DgdpNssd.Name));
+                .ForMember(d => d.DgdpNssdName, o => o.MapFrom(s => s.DgdpNssd.Name))
+                .ForMember(d=> d.FinancialYearName, o => o.MapFrom (s=> s.FinancialYear.FinancialYearName));
             CreateMap<Procurement, CreateProcurementDto>().ReverseMap();
             #endregion
 
@@ -430,8 +431,8 @@ namespace SchoolManagement.Application.Profiles
             #endregion
 
             #region FinancialYears
-            CreateMap<FinancialYears, FinancialYearsDto>().ReverseMap();
-            CreateMap<FinancialYears, CreateFinancialYearsDto>().ReverseMap();
+            CreateMap<FinancialYear, FinancialYearDto>().ReverseMap();
+            CreateMap<FinancialYear, CreateFinancialYearDto>().ReverseMap();
             #endregion
         }
     }

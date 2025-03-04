@@ -22,7 +22,7 @@ namespace SchoolManagement.Application.Features.FinancialYearss.Handlers.Command
         public async Task<BaseCommandResponse> Handle(CreateFinancialYearsCommand request, CancellationToken cancellationToken)
         {
             var response = new BaseCommandResponse();
-            var validator = new CreateFinancialYearsDtoValidator();
+            var validator = new CreateFinancialYearDtoValidator();
             var validationResult = await validator.ValidateAsync(request.FinancialYearsDto);
 
             if (validationResult.IsValid == false)
@@ -33,9 +33,9 @@ namespace SchoolManagement.Application.Features.FinancialYearss.Handlers.Command
             }
             else
             {
-                var FinancialYears = _mapper.Map<SchoolManagement.Domain.FinancialYears>(request.FinancialYearsDto);
+                var FinancialYears = _mapper.Map<SchoolManagement.Domain.FinancialYear>(request.FinancialYearsDto);
 
-                FinancialYears = await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYears>().Add(FinancialYears);
+                FinancialYears = await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYear>().Add(FinancialYears);
 
                 try
                 {

@@ -24,7 +24,7 @@ public class FinancialYearsController : ControllerBase
 
     [HttpGet]
     [Route("get-FinancialYearss")]
-    public async Task<ActionResult<List<FinancialYearsDto>>> Get([FromQuery] QueryParams queryParams)
+    public async Task<ActionResult<List<FinancialYearDto>>> Get([FromQuery] QueryParams queryParams)
     {
         var ReporingYears = await _mediator.Send(new GetFinancialYearsListRequest { QueryParams = queryParams });
         return Ok(ReporingYears);
@@ -33,7 +33,7 @@ public class FinancialYearsController : ControllerBase
 
     [HttpGet]
     [Route("get-FinancialYearsDetail/{id}")]
-    public async Task<ActionResult<FinancialYearsDto>> Get(int id)
+    public async Task<ActionResult<FinancialYearDto>> Get(int id)
     {
         var ReporingYear = await _mediator.Send(new GetFinancialYearsDetailRequest { FinancialYearId = id });
         return Ok(ReporingYear);
@@ -44,7 +44,7 @@ public class FinancialYearsController : ControllerBase
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [Route("save-FinancialYears")]
-    public async Task<ActionResult<BaseCommandResponse>> Post([FromBody] CreateFinancialYearsDto ReporingYear)
+    public async Task<ActionResult<BaseCommandResponse>> Post([FromBody] CreateFinancialYearDto ReporingYear)
     {
         var command = new CreateFinancialYearsCommand { FinancialYearsDto = ReporingYear };
         var response = await _mediator.Send(command);
@@ -57,7 +57,7 @@ public class FinancialYearsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-FinancialYears/{id}")]
-    public async Task<ActionResult> Put([FromBody] FinancialYearsDto ReporingYear)
+    public async Task<ActionResult> Put([FromBody] FinancialYearDto ReporingYear)
     {
         var command = new UpdateFinancialYearsCommand { ReporingYearDto = ReporingYear };
         await _mediator.Send(command);

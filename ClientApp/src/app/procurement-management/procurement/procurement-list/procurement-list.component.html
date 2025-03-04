@@ -113,17 +113,25 @@
                     <thead>
                       <tr>
                         <th class="custom-header">Ser.</th>
-                        <th style="width:10%" class="custom-header">Ship Name</th>
-                        <th class="custom-header">Group Name</th>
                         <th class="custom-header">Equipment Name</th>
+                        <th style="width:10%" class="custom-header">Ship Name</th>
                         <th class="custom-header">Qty</th>
+                        <th class="custom-header">Agency</th>
                         <th class="custom-header">E-Price</th>
                         <th class="custom-header">FC/LC</th>
-                        <th class="custom-header">DGDP/NSSD Name</th>
+                        <th class="custom-header">Group Name</th>
+                        <th class="custom-header">Budget Code</th>
+                        <th class="custom-header">Financial Year</th>
                         <th class="custom-header">Controlled</th>
+
+                        
+                        <th class="custom-header">Sent For AIP</th>
+                        <th class="custom-header">AIP Approval Date</th>
+                        <th class="custom-header">Indent Sent Date</th>
+                        <th class="custom-header">Tender Floated Date</th>
                         <th class="custom-header">Tender Opening Date</th>
-                        <th class="custom-header">Offer Received Date</th>
-                        <th class="custom-header">Sent for Contract Date</th>
+                        <th class="custom-header">Offer Received Date & Under Evaluation</th>
+                        <th class="custom-header">Sent For Contract</th>
                         <th class="custom-header">Contract Signed Date</th>
                         <th class="custom-header">Remarks</th>
                         <th [hidden]="isCommandingAreaUsers" class="custom-header">Actions</th>
@@ -132,27 +140,30 @@
                     <tbody>
                       <tr *ngFor="let element of dataSource.data; let i = index">
                         <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                        <td>{{ element.equpmentName }}</td>
                         <td style="min-width: 200px; white-space: wrap;"> 
                           {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
                         </td>
-                        <td>{{ element.groupName }}</td>
-                        <td>{{ element.equpmentName }}</td>
                         <td>{{ element.qty }}</td>
+                        <td>{{ element.dgdpNssdName }}</td>
                         <td>{{ element.ePrice }}</td>
                         <td>{{ element.fcLcName }}</td>
-                        <td>{{ element.dgdpNssdName }}</td>
+                        <td>{{ element.groupName }}</td>
+                        <td>{{ element.budgetCode}}</td>
+                        <td>{{ element.financialYearName}}</td>
                         <td>{{ element.controlledName }}</td>
-                        <td>{{ getTenderOpeingDateAndTenderOpeningCount(element.procurementTenderOpeningDto) }}</td>
-                        <td>{{ element.offerReceivedDate | date: 'dd MMM, yyyy' }}</td>
+                        
+                        <td>{{ element.sentForAIPDate | date: 'dd MMM, yyyy'}}</td>
+                        <td>{{ element.aipApprovalDate | date: 'dd MMM, yyyy'}}</td>
+                        <td>{{ element.indentSentDate | date: 'dd MMM, yyyy'}}</td>
+                        <td>{{ element.tenderFloatedDate | date: 'dd MMM, yyyy'}}</td>
+                        <td [innerHTML]="getTenderOpeingDateAndTenderOpeningCount(element.procurementTenderOpeningDto)"></td>
+                        <td>{{ element.offerReceivedDateAndUpdateEvaluation | date: 'dd MMM, yyyy' }}</td>
                         <td>{{ element.sentForContractDate | date: 'dd MMM, yyyy' }}</td>
                         <td>{{ element.contractSignedDate | date: 'dd MMM, yyyy' }}</td>
 
                         <td>{{ element.remarks }}</td>
                         <td [hidden]="isCommandingAreaUsers" class="cl-action">
-                          <!-- <button class="btn-tbl-edit mb-2" 
-                                [routerLink]="['/procurement-management/update-procurement', element.procurementId]">
-                                <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
-                        </button> -->
                           <button mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
                             [routerLink]="['/procurement-management/update-procurement', element.procurementId]">
                             <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>

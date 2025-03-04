@@ -68,59 +68,50 @@ export class NewProcurementComponent implements OnInit {
       this.pageTitle = 'Edit Procurement';
       this.destination = "Edit";
       this.btnText = 'Update';
-      // this.ProcurementService.find(+id).subscribe(
-      //   res => {
-      //     this.ProcurementForm.patchValue({          
-
-      //       procurementId: res.procurementId,
-      //       baseSchoolNameId: res.baseSchoolNameId,
-      //       procurementMethodId: res.procurementMethodId,
-      //       envelopeId: res.envelopeId,
-      //       paymentStatusId: res.paymentStatusId,
-      //       procurementTypeId: res.procurementTypeId,
-      //       groupNameId: res.groupNameId,
-      //       equpmentNameId: res.equpmentNameId,
-      //       controlledId: res.controlledId,
-      //       fcLcId: res.fcLcId,
-      //       dgdpNssdId: res.dgdpNssdId,
-      //       tecId: res.tecId,
-      //       tenderOpeningDateTypeId: res.tenderOpeningDateTypeId,
-      //       qty: res.qty,
-      //       ePrice: res.ePrice,
-      //       sentToDgdpNssdDate: res.sentToDgdpNssdDate,
-      //       tenderOpeningDate: res.tenderOpeningDate,
-      //       offerReceivedDate: res.offerReceivedDate,
-      //       contractMinSentDate: res.contractMinSentDate,
-      //       contractMinReceived: res.contractMinReceived,
-      //       sentForContractDate: res.sentForContractDate,
-      //       contractSignedDate: res.contractSignedDate,
-      //       aip: res.aip,
-      //       clarificationToOemSentDate: res.clarificationToOemSentDate,
-      //       clarificationToOemReceivedDate: res.clarificationToOemReceivedDate,
-      //       clarificationToUserSentDate: res.clarificationToUserSentDate,
-      //       clarificationToUserReceivedDate: res.clarificationToUserReceivedDate,
-      //       techTecSentDate: res.techTecSentDate,
-      //       techTecReceivedDate: res.techTecReceivedDate,
-      //       minForFoSentDate: res.minForFoSentDate,
-      //       minForFoReceivedDate: res.minForFoReceivedDate,
-      //       sentToDtsDate: res.sentToDtsDate,
-      //       foReceivedDate: res.foReceivedDate,
-      //       foTecSentDate: res.foTecSentDate,
-      //       foTecReceivedDate: res.foTecReceivedDate,
-      //       finalContractMinSentDate: res.finalContractMinSentDate,
-      //       finalContractMinReceivedDate: res.finalContractMinReceivedDate,
-      //       status: res.status,
-      //       menuPosition: res.menuPosition,
-      //       isActive: res.isActive,
-      //       remarks: res.remarks,
-      //     });       
-      //   //console.log("res1");
-      //   //console.log(res);
-      //   //this.onCommendingAreaSelectionChangeGetBaseName();
-      //   //this.onOrganizationSelectionChange();
-      //   }
-      // );
-    } else {
+      this.ProcurementService.find(+id).subscribe(res => {
+        console.log(res);
+    
+        // Patch the simple fields
+        this.ProcurementForm.patchValue({          
+          procurementId: res.procurementId,
+          equpmentNameId: res.equpmentNameId,
+          baseSchoolNameId: res.baseSchoolNameId,
+          qty: res.qty,
+          groupNameId: res.groupNameId,
+          dgdpNssdId: res.dgdpNssdId,
+          ePrice: res.ePrice,
+          budgetCode: res.budgetCode,
+          financialYearId: res.financialYearId,
+          controlledId: res.controlledId,
+          fcLcId: res.fcLcId,
+          sentForAIPDate: res.sentForAIPDate,
+          aipApprovalDate: res.aipApprovalDate,
+          indentSentDate: res.indentSentDate,
+          tenderFloatedDate: res.tenderFloatedDate,
+          offerReceivedDateAndUpdateEvaluation: res.offerReceivedDateAndUpdateEvaluation,
+          sentForContractDate: res.sentForContractDate,
+          contractSignedDate: res.contractSignedDate,
+          isActive: res.isActive,
+          remarks: res.remarks
+        });
+    
+        // Patch the FormArray for procurementTenderOpeningDto
+        const procurementTenderOpeningArray = this.ProcurementForm.get('procurementTenderOpeningDto') as FormArray;
+        procurementTenderOpeningArray.clear(); // Clear existing controls before adding new ones
+    
+        if (res.procurementTenderOpeningDto && res.procurementTenderOpeningDto.length > 0) {
+          res.procurementTenderOpeningDto.forEach(item => {
+            procurementTenderOpeningArray.push(
+              this.fb.group({
+                tenderOpeningDate: [item.tenderOpeningDate],
+                tenderOpeningCount: [item.tenderOpeningCount]
+              })
+            );
+          });
+        }
+      });
+    }
+    else {
       this.pageTitle = 'Create Procurement';
       this.destination = "Add";
       this.btnText = 'Save';
@@ -161,7 +152,7 @@ export class NewProcurementComponent implements OnInit {
       numberOfTenderOpening: [""],
       // tenderOpeningDate: [""],
       tenderFloatedDate: [""],
-      OfferReceivedDateAndUpdateEvaluation: [""],
+      offerReceivedDateAndUpdateEvaluation: [""],
       sentForContractDate: [""],
       contractSignedDate: [""],
       remarks: [""],
@@ -175,7 +166,7 @@ export class NewProcurementComponent implements OnInit {
       procurementTenderOpeningId: [0],
       procurementId: [''],
       tenderOpeningDate: [''],
-      tenderOpeningCount: [this.getOrdinalSuffix(count)] // Set "1st Time" for first entry
+      tenderOpeningCount: [this.getOrdinalSuffix(count)] 
     });
   }
 
@@ -193,7 +184,7 @@ export class NewProcurementComponent implements OnInit {
       procurementTenderOpeningId: [0],
       procurementId: [''],
       tenderOpeningDate: [''],
-      tenderOpeningCount: [ordinalSuffix] // Assign ordinal value (e.g., "1st Time", "2nd Time")
+      tenderOpeningCount: [ordinalSuffix] // Assign ordinal value (e.g., "1st", "2nd")
     });
   
     tenderOpeningArray.push(newTenderOpening);
@@ -313,22 +304,16 @@ export class NewProcurementComponent implements OnInit {
   getSelectedTec(){
     this.ProcurementService.getSelectedTec().subscribe(res=>{
       this.selectedTec=res
-      //console.log(res)
-      //console.log(res)
     }); 
   }
   getSelectedTenderOpeningDateType(){
     this.ProcurementService.getSelectedTenderOpeningDateType().subscribe(res=>{
       this.selectedTenderOpeningDateType=res
-      //console.log(res)
-      //console.log(res)
     }); 
   }
   getSelectedPaymentStatus(){
     this.ProcurementService.getSelectedPaymentStatus().subscribe(res=>{
       this.selectedPaymentStatus=res
-      //console.log(res)
-      //console.log(res)
     }); 
   }
 
