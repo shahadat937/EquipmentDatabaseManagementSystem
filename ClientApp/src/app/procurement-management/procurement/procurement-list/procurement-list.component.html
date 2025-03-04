@@ -153,11 +153,11 @@
                         <td>{{ element.financialYearName}}</td>
                         <td>{{ element.controlledName }}</td>
                         
-                        <td>{{ element.sentForAIPDate}}</td>
-                        <td>{{ element.aipApprovalDate}}</td>
-                        <td>{{ element.indentSentDate}}</td>
-                        <td>{{ element.tenderFloatedDate}}</td>
-                        <td>{{ getTenderOpeingDateAndTenderOpeningCount(element.procurementTenderOpeningDto) }}</td>
+                        <td>{{ element.sentForAIPDate | date: 'dd MMM, yyyy'}}</td>
+                        <td>{{ element.aipApprovalDate | date: 'dd MMM, yyyy'}}</td>
+                        <td>{{ element.indentSentDate | date: 'dd MMM, yyyy'}}</td>
+                        <td>{{ element.tenderFloatedDate | date: 'dd MMM, yyyy'}}</td>
+                        <td [innerHTML]="getTenderOpeingDateAndTenderOpeningCount(element.procurementTenderOpeningDto)"></td>
                         <td>{{ element.offerReceivedDateAndUpdateEvaluation | date: 'dd MMM, yyyy' }}</td>
                         <td>{{ element.sentForContractDate | date: 'dd MMM, yyyy' }}</td>
                         <td>{{ element.contractSignedDate | date: 'dd MMM, yyyy' }}</td>

@@ -43,13 +43,13 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
             try
             {
                 procurementDto.ProcurementTenderOpeningDto = tenderOpenings
-    .Select(x => new ProcurementTenderOpeningDto
-    {
+                .Select(x => new ProcurementTenderOpeningDto
+                {
  
-        ProcurementId = x.ProcurementId,
-        TenderOpeningDate = x.TenderOpeningDate,
-        TenderOpeningCount = x.TenderOpeningCount
-    }).ToList();
+                    ProcurementId = x.ProcurementId,
+                    TenderOpeningDate = x.TenderOpeningDate,
+                    TenderOpeningCount = x.TenderOpeningCount
+                }).ToList();
 
             }
             catch (Exception ex)

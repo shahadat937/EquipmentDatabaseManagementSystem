@@ -304,22 +304,16 @@ export class NewProcurementComponent implements OnInit {
   getSelectedTec(){
     this.ProcurementService.getSelectedTec().subscribe(res=>{
       this.selectedTec=res
-      //console.log(res)
-      //console.log(res)
     }); 
   }
   getSelectedTenderOpeningDateType(){
     this.ProcurementService.getSelectedTenderOpeningDateType().subscribe(res=>{
       this.selectedTenderOpeningDateType=res
-      //console.log(res)
-      //console.log(res)
     }); 
   }
   getSelectedPaymentStatus(){
     this.ProcurementService.getSelectedPaymentStatus().subscribe(res=>{
       this.selectedPaymentStatus=res
-      //console.log(res)
-      //console.log(res)
     }); 
   }
 

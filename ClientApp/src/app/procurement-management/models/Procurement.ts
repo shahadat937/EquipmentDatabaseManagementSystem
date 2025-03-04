@@ -27,4 +27,7 @@ export interface Procurement {
    isActive: boolean,
    remarks: string,
    procurementTenderOpeningDto : any
+   baseSchoolNameDtos: any;
+   financialYearName : string
+
 }
