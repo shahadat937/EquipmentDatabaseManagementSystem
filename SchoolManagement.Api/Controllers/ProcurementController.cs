@@ -92,9 +92,9 @@ public class ProcurementController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesDefaultResponseType]
     [Route("update-Procurement/{id}")]
-    public async Task<ActionResult> Put([FromBody] ProcurementDto Procurement)
+    public async Task<ActionResult> Put([FromBody] CreateProcurementDto procurement)
     {
-        var command = new UpdateProcurementCommand { ProcurementDto = Procurement };
+        var command = new UpdateProcurementCommand { ProcurementDto = procurement };
         await _mediator.Send(command);
         return NoContent();
     }

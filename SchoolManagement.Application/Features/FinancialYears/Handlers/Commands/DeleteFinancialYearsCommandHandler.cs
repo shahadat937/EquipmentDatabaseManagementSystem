@@ -19,12 +19,12 @@ namespace SchoolManagement.Application.Features.FinancialYearss.Handlers.Command
 
         public async Task<Unit> Handle(DeleteFinancialYearsCommand request, CancellationToken cancellationToken)
         {
-            var FinancialYears = await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYears>().Get(request.FinancialYearId);
+            var FinancialYears = await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYear>().Get(request.FinancialYearId);
 
             if (FinancialYears == null)
                 throw new NotFoundException(nameof(FinancialYears), request.FinancialYearId);
 
-            await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYears>().Delete(FinancialYears);
+            await _unitOfWork.Repository<SchoolManagement.Domain.FinancialYear>().Delete(FinancialYears);
             await _unitOfWork.Save();
 
             return Unit.Value;

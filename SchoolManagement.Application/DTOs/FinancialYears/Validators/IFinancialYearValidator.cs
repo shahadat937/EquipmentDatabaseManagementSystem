@@ -6,9 +6,9 @@ using System.Text;
 
 namespace SchoolManagement.Application.DTOs.FinancialYears.Validators
 {
-    public class IFinancialYearsValidator : AbstractValidator<IFinancialYearsDto>
+    public class IFinancialYearValidator : AbstractValidator<IFinancialYearDto>
     {
-        public IFinancialYearsValidator()
+        public IFinancialYearValidator()
         {
             RuleFor(p => p.FinancialYearName)
                 .NotEmpty().WithMessage("{PropertyName} is required.")

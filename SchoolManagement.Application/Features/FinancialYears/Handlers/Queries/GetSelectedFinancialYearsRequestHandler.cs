@@ -8,17 +8,17 @@ namespace SchoolManagement.Application.Features.YearSetups.Handlers.Queries
 {
     public class GetSelectedFinancialYearsRequestHandler : IRequestHandler<GetSelectedFinancialYearsRequest, List<SelectedModel>>
     {
-        private readonly ISchoolManagementRepository<SchoolManagement.Domain.FinancialYears> _YearSetupRepository;
+        private readonly ISchoolManagementRepository<SchoolManagement.Domain.FinancialYear> _YearSetupRepository;
 
 
-        public GetSelectedFinancialYearsRequestHandler(ISchoolManagementRepository<SchoolManagement.Domain.FinancialYears> YearSetupRepository)
+        public GetSelectedFinancialYearsRequestHandler(ISchoolManagementRepository<SchoolManagement.Domain.FinancialYear> YearSetupRepository)
         {
             _YearSetupRepository = YearSetupRepository;
         }
 
         public async Task<List<SelectedModel>> Handle(GetSelectedFinancialYearsRequest request, CancellationToken cancellationToken)
         {
-            ICollection<SchoolManagement.Domain.FinancialYears> yearSetup = await _YearSetupRepository.FilterAsync(x => x.IsActive);
+            ICollection<SchoolManagement.Domain.FinancialYear> yearSetup = await _YearSetupRepository.FilterAsync(x => x.IsActive);
             List<SelectedModel> selectModels = yearSetup.Select(x => new SelectedModel
             {
                 Text = x.FinancialYearName,

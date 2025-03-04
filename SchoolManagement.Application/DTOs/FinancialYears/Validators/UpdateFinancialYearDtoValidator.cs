@@ -3,11 +3,11 @@
 
 namespace SchoolManagement.Application.DTOs.FinancialYears.Validators
 {
-    public class UpdateFinancialYearsDtoValidator : AbstractValidator<IFinancialYearsDto>
+    public class UpdateFinancialYearDtoValidator : AbstractValidator<IFinancialYearDto>
     {
-        public UpdateFinancialYearsDtoValidator()
+        public UpdateFinancialYearDtoValidator()
         {
-            Include(new IFinancialYearsValidator());
+            Include(new IFinancialYearValidator());
 
             RuleFor(p => p.FinancialYearName).NotNull().WithMessage("{PropertyName} must be present");
         }
