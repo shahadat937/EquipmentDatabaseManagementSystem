@@ -48,6 +48,8 @@ export class ProcurementListComponent implements OnInit {
   procurementMethodName2: string
   selectedProcurementTypeId: number;
   isCommandingAreaUsers : boolean;
+  orderBy : string = "";
+  orderDirection : string = 'desc';
   displayedColumns: string[] = ['ser', 'schoolName', 'procurementType', 'groupName', 'equpmentName', 'qty', 'ePrice', 'fcLcName', 'dgdpNssdName', 'controlledName', 'tecName', 'sentToDgdpNssdDate', 'tenderOpeningDateTypeName', 'tenderOpeningDate', 'offerReceivedDate', 'sentForContractDate', 'clarificationToOemSentDate', 'contractSignedDate', 'paymentStatus', 'remarks', 'actions'];
   selectedMethod : any;
   dataSource: MatTableDataSource<Procurement> = new MatTableDataSource();
@@ -66,7 +68,7 @@ export class ProcurementListComponent implements OnInit {
 
   getProcurements() {
     this.isLoading = true;
-    this.ProcurementService.getProcurements(this.paging.pageIndex, this.paging.pageSize, this.searchText).subscribe(response => {
+    this.ProcurementService.getProcurements(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.orderBy, this.orderDirection).subscribe(response => {
       this.dataSource.data = response.items;
       
       this.paging.length = response.totalItemsCount
@@ -114,12 +116,17 @@ export class ProcurementListComponent implements OnInit {
 
   applyFilter(searchText: any) {
     this.searchText = searchText;
-    // if (!this.isEquipmentChecked && !this.isShipNameChecked)
-    //   this.searchBy = ""
-    // this.getProcurementsByPeocureMethodId(this.selectedProcurementTypeId);
     this.paging.pageIndex =  this.masterData.paging.pageIndex
     this.getProcurements();
   }
+
+  sortByKey(key) {
+    this.orderDirection = this.orderDirection === 'desc' ? 'asc' : "desc"
+    this.orderBy = key;
+    this.paging.pageIndex = 1;
+    this.getProcurements();    
+  }
+
   toggle() {
     this.showHideDiv = !this.showHideDiv;
   }

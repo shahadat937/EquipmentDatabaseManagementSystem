@@ -75,8 +75,6 @@ namespace SchoolManagement.Application.Features.ShipEquipmentInfos.Handlers.Quer
         {
             var entityType = typeof(T);
             var parameter = Expression.Parameter(entityType, "x");
-
-            // Mapping UI keys to actual Entity Framework property paths
             var propertyMappings = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     {
         { "SchoolName", "BaseSchoolName.SchoolName" },

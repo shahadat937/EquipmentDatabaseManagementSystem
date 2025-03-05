@@ -8,5 +8,7 @@ namespace SchoolManagement.Application.Features.Procurements.Requests.Queries
     public class GetProcurementListRequest : IRequest<PagedResult<ProcurementDto>>
     {
         public QueryParams QueryParams { get; set; }
+        public string? OrderBy { get; set; }
+        public string? OrderDirection { get; set; }
     }
 }
