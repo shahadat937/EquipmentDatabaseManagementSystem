@@ -22,6 +22,7 @@ namespace SchoolManagement.Domain
             HalfYearlyReturns = new HashSet<HalfYearlyReturn>();
             QuarterlyReturns = new HashSet<QuarterlyReturn>();
             OperationalStatusOfEquipmentSystems = new HashSet<OperationalStatusOfEquipmentSystem>();
+            ProcurementBaseSchoolNames = new HashSet<ProcurementBaseSchoolName>();
         }
         public int BaseSchoolNameId { get; set; }
         public int? BaseNameId { get; set; }
@@ -62,5 +63,6 @@ namespace SchoolManagement.Domain
         public virtual ICollection<QuarterlyReturn> QuarterlyReturns { get; set; }
         public virtual ICollection<StatusOfShip> StatusOfShips { get; set; }
         public virtual ICollection<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystems { get; set; }
+        public virtual ICollection<ProcurementBaseSchoolName> ProcurementBaseSchoolNames { get; set; }
     }
 }

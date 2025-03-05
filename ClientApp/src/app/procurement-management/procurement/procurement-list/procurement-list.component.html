@@ -112,28 +112,28 @@
                   <table class="custom-table">
                     <thead>
                       <tr>
-                        <th class="custom-header">Ser.</th>
-                        <th class="custom-header">Equipment Name</th>
-                        <th style="width:10%" class="custom-header">Ship Name</th>
-                        <th class="custom-header">Qty</th>
-                        <th class="custom-header">Agency</th>
-                        <th class="custom-header">E-Price</th>
-                        <th class="custom-header">FC/LC</th>
-                        <th class="custom-header">Group Name</th>
-                        <th class="custom-header">Budget Code</th>
-                        <th class="custom-header">Financial Year</th>
-                        <th class="custom-header">Controlled</th>
+                        <th class="custom-header" (click)="sortByKey('procurementid')">Ser.</th>
+                        <th class="custom-header" (click)="sortByKey('equpmentname')">Equipment Name</th>
+                        <th style="width:10%" class="custom-header" (click)="sortByKey('baseschoolname')">Ship Name</th>
+                        <th class="custom-header" (click)="sortByKey('qty')">Qty</th>
+                        <th class="custom-header" (click)="sortByKey('agency')">Agency</th>
+                        <th class="custom-header"(click)="sortByKey('eprice')">E-Price</th>
+                        <th class="custom-header" (click)="sortByKey('fclc')">FC/LC</th>
+                        <th class="custom-header" (click)="sortByKey('groupname')">Group Name</th>
+                        <th class="custom-header" (click)="sortByKey('budgetcode')">Budget Code</th>
+                        <th class="custom-header" (click)="sortByKey('financialyear')">Financial Year</th>
+                        <th class="custom-header" (click)="sortByKey('controlled')">Controlled</th>
 
                         
-                        <th class="custom-header">Sent For AIP</th>
-                        <th class="custom-header">AIP Approval Date</th>
-                        <th class="custom-header">Indent Sent Date</th>
-                        <th class="custom-header">Tender Floated Date</th>
-                        <th class="custom-header">Tender Opening Date</th>
-                        <th class="custom-header">Offer Received Date & Under Evaluation</th>
-                        <th class="custom-header">Sent For Contract</th>
-                        <th class="custom-header">Contract Signed Date</th>
-                        <th class="custom-header">Remarks</th>
+                        <th class="custom-header" (click)="sortByKey('sentforaip')">Sent For AIP</th>
+                        <th class="custom-header" (click)="sortByKey('aipapprovaldate')">AIP Approval Date</th>
+                        <th class="custom-header" (click)="sortByKey('indentsentdate')">Indent Sent Date</th>
+                        <th class="custom-header" (click)="sortByKey('tenderfloateddate')">Tender Floated Date</th>
+                        <th class="custom-header" (click)="sortByKey('tenderopeningdate')">Tender Opening Date</th>
+                        <th class="custom-header" (click)="sortByKey('offerreceiveddateunderevaluation')">Offer Received Date & Under Evaluation</th>
+                        <th class="custom-header" (click)="sortByKey('sentforcontract')">Sent For Contract</th>
+                        <th class="custom-header" (click)="sortByKey('contractsigneddate')">Contract Signed Date</th>
+                        <th class="custom-header" (click)="sortByKey('remarks')">Remarks</th>
                         <th [hidden]="isCommandingAreaUsers" class="custom-header">Actions</th>
                       </tr>
                     </thead>

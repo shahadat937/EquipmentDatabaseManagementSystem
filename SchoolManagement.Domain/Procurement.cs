@@ -6,6 +6,12 @@ namespace SchoolManagement.Domain
 {
     public class Procurement : BaseDomainEntity
     {
+
+        public Procurement()
+        {
+            ProcurementBaseSchoolNames = new HashSet<ProcurementBaseSchoolName>();
+            ProcurementTenderOpenings = new HashSet<ProcurementTenderOpening>();
+        }
         public int ProcurementId { get; set; }
         public int? EqupmentNameId { get; set; }
         //public int? BaseSchoolNameId { get; set; }
@@ -40,5 +46,8 @@ namespace SchoolManagement.Domain
         public virtual FinancialYear FinancialYear { get; set; }
  
         //public virtual TenderOpeningDateType? TenderOpeningDateType { get; set; }
+
+        public virtual ICollection<ProcurementBaseSchoolName>? ProcurementBaseSchoolNames { get; set; }
+        public virtual ICollection<ProcurementTenderOpening>? ProcurementTenderOpenings { get; set; }
     }
 }
