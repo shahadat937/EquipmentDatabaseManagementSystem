@@ -2,60 +2,60 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SchoolDashboardService } from '../services/SchoolDashboard.service';
 import { ActivatedRoute,Router } from '@angular/router';
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexDataLabels,
-  ApexTooltip,
-  ApexYAxis,
-  ApexStroke,
-  ApexLegend,
-  ApexMarkers,
-  ApexGrid,
-  ApexFill,
-  ApexTitleSubtitle,
-  ApexNonAxisChartSeries,
-  ApexResponsive,
-} from 'ng-apexcharts';
-import { MasterData } from 'src/assets/data/master-data';
-import { environment } from 'src/environments/environment';
+// import {
+//   ChartComponent,
+//   ApexAxisChartSeries,
+//   ApexChart,
+//   ApexXAxis,
+//   ApexDataLabels,
+//   ApexTooltip,
+//   ApexYAxis,
+//   ApexStroke,
+//   ApexLegend,
+//   ApexMarkers,
+//   ApexGrid,
+//   ApexFill,
+//   ApexTitleSubtitle,
+//   ApexNonAxisChartSeries,
+//   ApexResponsive,
+// } from 'ng-apexcharts';
+import { MasterData } from '../../../../src/assets/data/master-data';
+import { environment } from '../../../../src/environments/environment';
 import { DatePipe } from '@angular/common';
 import { scheduled } from 'rxjs';
-import { SelectedModel } from 'src/app/core/models/selectedModel';
+import { SelectedModel } from '../../../../src/app/core/models/selectedModel';
 // import { ReadingMaterialService } from '../../reading-materials/service/readingmaterial.service';
 // import { StudentDashboardService } from 'src/app/student/services/StudentDashboard.service';
 // import { BaseSchoolNameService } from 'src/app/basic-setup/service/BaseSchoolName.service';
-import { AuthService } from 'src/app/core/service/auth.service';
-import { Role } from 'src/app/core/models/role';
-import { ConfirmService } from 'src/app/core/service/confirm.service';
+import { AuthService } from '../../../../src/app/core/service/auth.service';
+import { Role } from '../../../../src/app/core/models/role';
+import { ConfirmService } from '../../../../src/app/core/service/confirm.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-export type avgLecChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  stroke: ApexStroke;
-  dataLabels: ApexDataLabels;
-  markers: ApexMarkers;
-  colors: string[];
-  yaxis: ApexYAxis;
-  grid: ApexGrid;
-  tooltip: ApexTooltip;
-  legend: ApexLegend;
-  fill: ApexFill;
-  title: ApexTitleSubtitle;
-};
+// export type avgLecChartOptions = {
+//   series: ApexAxisChartSeries;
+//   chart: ApexChart;
+//   xaxis: ApexXAxis;
+//   stroke: ApexStroke;
+//   dataLabels: ApexDataLabels;
+//   markers: ApexMarkers;
+//   colors: string[];
+//   yaxis: ApexYAxis;
+//   grid: ApexGrid;
+//   tooltip: ApexTooltip;
+//   legend: ApexLegend;
+//   fill: ApexFill;
+//   title: ApexTitleSubtitle;
+// };
 
-export type pieChartOptions = {
-  series: ApexNonAxisChartSeries;
-  chart: ApexChart;
-  legend: ApexLegend;
-  dataLabels: ApexDataLabels;
-  responsive: ApexResponsive[];
-  labels: any;
-};
+// export type pieChartOptions = {
+//   series: ApexNonAxisChartSeries;
+//   chart: ApexChart;
+//   legend: ApexLegend;
+//   dataLabels: ApexDataLabels;
+//   responsive: ApexResponsive[];
+//   labels: any;
+// };
 
 @Component({
   selector: 'app-dashboard',
@@ -63,9 +63,9 @@ export type pieChartOptions = {
   styleUrls: ['./dashboard.component.sass'],
 })
 export class DashboardComponent implements OnInit {
-  @ViewChild('chart') chart: ChartComponent;
-  public avgLecChartOptions: Partial<avgLecChartOptions>;
-  public pieChartOptions: Partial<pieChartOptions>;
+  // @ViewChild('chart') chart: ChartComponent;
+  // public avgLecChartOptions: Partial<avgLecChartOptions>;
+  // public pieChartOptions: Partial<pieChartOptions>;
    masterData = MasterData;
   loading = false;
   userRole = Role;

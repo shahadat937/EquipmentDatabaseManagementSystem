@@ -21,12 +21,14 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ProcurementListComponent } from './procurement/procurement-list/procurement-list.component';
 import { NewProcurementComponent } from './procurement/new-procurement/new-procurement.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ProcurementDashboardComponent } from './procurement-dashboard/procurement-dashboard.component';
 
 
 @NgModule({
   declarations: [
      ProcurementListComponent,
      NewProcurementComponent,
+     ProcurementDashboardComponent,
   ],
   imports: [
     CommonModule,
