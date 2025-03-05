@@ -8,6 +8,7 @@ using SchoolManagement.Application.DTOs.Procurement;
 using SchoolManagement.Application.Features.Procurements.Requests.Queries;
 using SchoolManagement.Domain;
 using Microsoft.EntityFrameworkCore;
+using SchoolManagement.Application.Helpers;
 
 namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
 {
@@ -40,21 +41,39 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
             if (validationResult.IsValid == false)
                 throw new ValidationException(validationResult);
 
-            
+
             IQueryable<Procurement> procurementsQuery;
 
-           
-                procurementsQuery = _ProcurementRepository.FilterWithInclude(
-                    x => string.IsNullOrEmpty(request.QueryParams.SearchText) || 
-                         x.EqupmentName.Name.Contains(request.QueryParams.SearchText), 
-                    "BaseSchoolName", "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "FinancialYear"
-                );
-            
+
+            DateTime dateSearch;
+            bool searchDate = DateTime.TryParse(request.QueryParams.SearchText, out dateSearch);
+
+            procurementsQuery = _ProcurementRepository.FilterWithInclude(
+                x => string.IsNullOrEmpty(request.QueryParams.SearchText) ||
+                     x.FcLc.Name.Contains(request.QueryParams.SearchText) ||
+                     x.GroupName.Name.Contains(request.QueryParams.SearchText) ||
+                     x.FinancialYear.FinancialYearName.Contains(request.QueryParams.SearchText) ||
+                     x.DgdpNssd.Name.Contains(request.QueryParams.SearchText) ||
+                     x.Controlled.Name.Contains(request.QueryParams.SearchText) ||
+                     x.EqupmentName.Name.Contains(request.QueryParams.SearchText) ||
+                     x.BudgetCode.Contains(request.QueryParams.SearchText) ||
+                     x.Remarks.Contains(request.QueryParams.SearchText) ||
+                     //(searchDate && x.AIPApprovalDate == dateSearch) || 
+                     //(searchDate && x.SentForAIPDate == dateSearch) || 
+                     //(searchDate && x.TenderFloatedDate == dateSearch) || 
+                     //(searchDate && x.OfferReceivedDateAndUpdateEvaluation == dateSearch) ||
+                     //(searchDate && x.SentForContractDate == dateSearch) ||
+                     //(searchDate && x.ContractSignedDate == dateSearch)  ||
+                     x.ProcurementBaseSchoolNames.Any(b => b.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
+                "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "FinancialYear"
+            );
+
+
 
             var totalCount = await procurementsQuery.CountAsync();
 
             var procurements = await procurementsQuery
-                .OrderByDescending(x => x.ProcurementId)  
+                .OrderByDescending(x => x.ProcurementId)
                 .Skip((request.QueryParams.PageNumber - 1) * request.QueryParams.PageSize)
                 .Take(request.QueryParams.PageSize)
                 .ToListAsync();
@@ -63,7 +82,7 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
             var tenderOpenings = await _ProcurementTenderOpeningRepository.GetAll();
             var allBaseSchool = await _BaseSchoolNameRepository.GetAll();
 
- 
+
             var procurementDtos = _mapper.Map<List<ProcurementDto>>(procurements);
 
             foreach (var procurementDto in procurementDtos)
@@ -75,7 +94,7 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
                     {
                         BaseSchoolNameId = x.BaseSchoolNameId,
                         BaseSchoolName = allBaseSchool.FirstOrDefault(b => b.BaseSchoolNameId == x.BaseSchoolNameId)?.SchoolName
-                       
+
                     }).ToList();
 
 

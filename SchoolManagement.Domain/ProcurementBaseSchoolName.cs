@@ -11,5 +11,7 @@ namespace SchoolManagement.Domain
         public int ProcurementBaseSchoolNameId { get; set; }
         public int? ProcurementId { get; set; }
         public int? BaseSchoolNameId { get; set; }
+        public virtual BaseSchoolName? BaseSchoolName { get; set; } 
+        public virtual Procurement? Procurement { get; set; }
     }
 }
