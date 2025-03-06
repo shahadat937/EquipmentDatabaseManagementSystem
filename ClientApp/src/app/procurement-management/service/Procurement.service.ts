@@ -160,4 +160,90 @@ export class ProcurementService {
     return this.http.delete(this.baseUrl + '/procurement/delete-Procurement/'+id);
   }
 
+  getAIPPendingProcurement(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
+    let params = new HttpParams();
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());    
+    params = params.append('orderBy', orderBy.toString());    
+    params = params.append('orderDirection', orderDirection.toString());    
+    return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-AIP-Pending-Procurements', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.Procurements = [...this.Procurements, ...response.body.items];
+        this.ProcurementPagination = response.body;
+        return this.ProcurementPagination;
+      })
+    );   
+  }
+
+  getOngoingTenderSpecPreparationProcurement(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
+    let params = new HttpParams();
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());    
+    params = params.append('orderBy', orderBy.toString());    
+    params = params.append('orderDirection', orderDirection.toString());    
+    return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-Ongoing-Tender-Spec-Preparation-Procurements', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.Procurements = [...this.Procurements, ...response.body.items];
+        this.ProcurementPagination = response.body;
+        return this.ProcurementPagination;
+      })
+    );   
+  }
+
+  getTenderFloatedProcurement(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
+    let params = new HttpParams();
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());    
+    params = params.append('orderBy', orderBy.toString());    
+    params = params.append('orderDirection', orderDirection.toString());    
+    return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-Tender-Floated-Procurements', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.Procurements = [...this.Procurements, ...response.body.items];
+        this.ProcurementPagination = response.body;
+        return this.ProcurementPagination;
+      })
+    );   
+  }
+
+  getTenderOpeningProcurement(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
+    let params = new HttpParams();
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());    
+    params = params.append('orderBy', orderBy.toString());    
+    params = params.append('orderDirection', orderDirection.toString());    
+    return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-Tender-Opening-Procurements', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.Procurements = [...this.Procurements, ...response.body.items];
+        this.ProcurementPagination = response.body;
+        return this.ProcurementPagination;
+      })
+    );   
+  }
+
+  getOfferUnderEvulationProcurement(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
+    let params = new HttpParams();
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());    
+    params = params.append('orderBy', orderBy.toString());    
+    params = params.append('orderDirection', orderDirection.toString());    
+    return this.http.get<IProcurementPagination>(this.baseUrl + '/procurement/get-Offer-Under-Evaluation-Procurements', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.Procurements = [...this.Procurements, ...response.body.items];
+        this.ProcurementPagination = response.body;
+        return this.ProcurementPagination;
+      })
+    );   
+  }
+
+
 }

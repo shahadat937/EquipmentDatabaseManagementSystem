@@ -1,1 +1,438 @@
-<p>procurement-dashboard works!</p>
+<section class="content">
+  <div class="container-fluid">
+    <div class="block-header">
+      <div class="row">
+        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        
+      <!-- AIP Pending Card -->
+
+        <div class="card my-5">
+          <div class="body">
+            <div class="row mb-3">
+              <div class="icon-button-demo col-12">
+              <h1>AIP Pending</h1>
+              </div>
+            </div>
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ml-0">
+                  
+                      <li class="dropdown">
+                        <input (click)="aipPendingapplyFilter(aipPendingSearchText)"
+                          placeholder="Search: Ship Name, Equipment Name, Procurement Type" type="text"
+                          [(ngModel)]="aipPendingSearchText" #filter class="browser-default search-field" aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="icon-button-demo m-l-10">
+                          <button mat-mini-fab (click)="aipPendingapplyFilter(aipPendingSearchText)" color="accent">
+                            <mat-icon class="col-white">search</mat-icon>
+                          </button>
+                        </div>
+
+                      </li>
+
+                    </ul>
+                  </div>
+                 
+
+                </div>
+              </div>
+              <div>
+
+              </div>
+              <div id="print-routine">
+                
+              
+
+                <div 
+                  style="overflow-x: auto; max-width: 100%;">
+                  <table class="custom-table">
+                    <thead>
+                      <tr>
+                        <th class="custom-header">Ser.</th>
+                        <th class="custom-header">Equipment Name</th>
+                        <th style="width:10%" class="custom-header">Ship Name</th>
+                        <th class="custom-header">Qty</th>
+                        <th class="custom-header">Agency</th>
+                        <th class="custom-header">E-Price</th>
+                        <th class="custom-header">Controlled</th>
+
+                        
+                        <th class="custom-header">Remarks</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let element of AipPending; let i = index">
+                        <td>{{ ((aipPendingpaging.pageIndex - 1) * aipPendingpaging.pageSize) + i + 1 }}</td>
+                        <td>{{ element.equpmentName }}</td>
+                        <td style="min-width: 200px; white-space: wrap;"> 
+                          {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
+                        </td>
+                        <td>{{ element.qty }}</td>
+                        <td>{{ element.dgdpNssdName }}</td>
+                        <td>{{ element.ePrice }}</td>
+                        <td>{{ element.controlledName }}</td>
+                        <td>{{ element.remarks }}</td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <mat-paginator [length]="aipPendingpaging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                [pageSize]="aipPendingpaging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                (page)="aipPendingPageChanged($event)">
+              </mat-paginator>
+            </div>
+
+          </div>
+        </div>
+
+      <!-- Tender Ongoing Card -->
+       
+        <div class="card my-5">
+          <div class="body">
+            <div class="row mb-3">
+              <div class="icon-button-demo col-12">
+              <h1>Ongoing Tender Spec Preparation </h1>
+              </div>
+            </div>
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ml-0">
+                  
+                      <li class="dropdown">
+                        <input (click)="tenderOngoingapplyFilter(tenderOnGoingSearchText)"
+                          placeholder="Search: Ship Name, Equipment Name, Procurement Type" type="text"
+                          [(ngModel)]="tenderOnGoingSearchText" #filter class="browser-default search-field" aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="icon-button-demo m-l-10">
+                          <button mat-mini-fab (click)="tenderOngoingapplyFilter(tenderOnGoingSearchText)" color="accent">
+                            <mat-icon class="col-white">search</mat-icon>
+                          </button>
+                        </div>
+
+                      </li>
+
+                    </ul>
+                  </div>
+                 
+
+                </div>
+              </div>
+              <div>
+
+              </div>
+              <div id="print-routine">
+                
+              
+
+                <div 
+                  style="overflow-x: auto; max-width: 100%;">
+                  <table class="custom-table">
+                    <thead>
+                      <tr>
+                        <th class="custom-header">Ser.</th>
+                        <th class="custom-header">Equipment Name</th>
+                        <th style="width:10%" class="custom-header">Ship Name</th>
+                        <th class="custom-header">Qty</th>
+                        <th class="custom-header">AIP Approved Date</th>
+                        <th class="custom-header">Agency</th>                      
+                        <th class="custom-header">Remarks</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let element of tenderOngoing; let i = index">
+                        <td>{{ ((onGoingTenderpaging.pageIndex - 1) * onGoingTenderpaging.pageSize) + i + 1 }}</td>
+                        <td>{{ element.equpmentName }}</td>
+                        <td style="min-width: 200px; white-space: wrap;"> 
+                          {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
+                        </td>
+                        <td>{{ element.qty }}</td>
+                        <td>{{ element.aipApprovalDate | date: 'dd MMM, yyyy'}}</td>
+                        <td>{{ element.dgdpNssdName }}</td>
+                        <td>{{ element.remarks }}</td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <mat-paginator [length]="onGoingTenderpaging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                [pageSize]="onGoingTenderpaging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                (page)="tenderOngoingPageChanged($event)">
+              </mat-paginator>
+            </div>
+
+          </div>
+        </div>
+
+     <!-- Tender Floated Card -->
+        <div class="card my-5">
+          <div class="body">
+            <div class="row mb-3">
+              <div class="icon-button-demo col-12">
+              <h1>Tender Floated</h1>
+              </div>
+            </div>
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ml-0">
+                  
+                      <li class="dropdown">
+                        <input (click)="tenderFloatingapplyFilter(tenderFloatingSearchText)"
+                          placeholder="Search: Ship Name, Equipment Name, Procurement Type" type="text"
+                          [(ngModel)]="tenderFloatingSearchText" #filter class="browser-default search-field" aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="icon-button-demo m-l-10">
+                          <button mat-mini-fab (click)="tenderFloatingapplyFilter(tenderFloatingSearchText)" color="accent">
+                            <mat-icon class="col-white">search</mat-icon>
+                          </button>
+                        </div>
+
+                      </li>
+
+                    </ul>
+                  </div>
+                 
+
+                </div>
+              </div>
+              <div>
+
+              </div>
+              <div id="print-routine">
+                
+              
+
+                <div 
+                  style="overflow-x: auto; max-width: 100%;">
+                  <table class="custom-table">
+                    <thead>
+                      <tr>
+                        <th class="custom-header">Ser.</th>
+                        <th class="custom-header">Equipment Name</th>
+                        <th style="width:10%" class="custom-header">Ship Name</th>
+                        <th class="custom-header">Qty</th>
+                        <th class="custom-header">Tender Floated Date</th>
+                        <th class="custom-header">Agency</th>                       
+                        <th class="custom-header">Remarks</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let element of tenderFloating; let i = index">
+                        <td>{{ ((tenderFloatingpaging.pageIndex - 1) * tenderFloatingpaging.pageSize) + i + 1 }}</td>
+                        <td>{{ element.equpmentName }}</td>
+                        <td style="min-width: 200px; white-space: wrap;"> 
+                          {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
+                        </td>
+                        <td>{{ element.qty }}</td>
+                        <td>{{ element.tenderFloatedDate | date: 'dd MMM, yyyy' }}</td>
+                        <td>{{ element.dgdpNssdName }}</td>
+                        <td>{{ element.remarks }}</td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <mat-paginator [length]="tenderFloatingpaging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                [pageSize]="tenderFloatingpaging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                (page)="tenderFloatingPageChanged($event)">
+              </mat-paginator>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card my-5">
+          <div class="body">
+            <div class="row mb-3">
+              <div class="icon-button-demo col-12">
+              <h1>Tender Opening</h1>
+              </div>
+            </div>
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ml-0">
+                  
+                      <li class="dropdown">
+                        <input (click)="tenderOpeningapplyFilter(tenderOpeningSearchText)"
+                          placeholder="Search: Ship Name, Equipment Name, Procurement Type" type="text"
+                          [(ngModel)]="tenderOpeningSearchText" #filter class="browser-default search-field" aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="icon-button-demo m-l-10">
+                          <button mat-mini-fab (click)="tenderOpeningapplyFilter(tenderOpeningSearchText)" color="accent">
+                            <mat-icon class="col-white">search</mat-icon>
+                          </button>
+                        </div>
+
+                      </li>
+
+                    </ul>
+                  </div>
+                 
+
+                </div>
+              </div>
+              <div>
+
+              </div>
+              <div id="print-routine">
+                
+              
+
+                <div 
+                  style="overflow-x: auto; max-width: 100%;">
+                  <table class="custom-table">
+                    <thead>
+                      <tr>
+                        <th class="custom-header">Ser.</th>
+                        <th class="custom-header">Equipment Name</th>
+                        <th style="width:10%" class="custom-header">Ship Name</th>
+                        <th class="custom-header">Qty</th>
+                        <th class="custom-header">Agency</th>
+                        <th class="custom-header">E-Price</th>
+                        <th class="custom-header">Controlled</th>
+
+                        
+                        <th class="custom-header">Remarks</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let element of tenderOpening; let i = index">
+                        <td>{{ ((tenderOpeningPageing.pageIndex - 1) * tenderOpeningPageing.pageSize) + i + 1 }}</td>
+                        <td>{{ element.equpmentName }}</td>
+                        <td style="min-width: 200px; white-space: wrap;"> 
+                          {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
+                        </td>
+                        <td>{{ element.qty }}</td>
+                        <td>{{ element.dgdpNssdName }}</td>
+                        <td>{{ element.ePrice }}</td>
+                        <td>{{ element.controlledName }}</td>
+                        <td>{{ element.remarks }}</td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <mat-paginator [length]="tenderOpeningPageing.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                [pageSize]="tenderOpeningPageing.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                (page)="tenderOpeningPageChanged($event)">
+              </mat-paginator>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="card my-5">
+          <div class="body">
+            <div class="row mb-3">
+              <div class="icon-button-demo col-12">
+              <h1>Offer Under Evaluation</h1>
+              </div>
+            </div>
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ml-0">
+                  
+                      <li class="dropdown">
+                        <input (click)="offerUnderEvulationapplyFilter(offerUnderEvulationSearchText)"
+                          placeholder="Search: Ship Name, Equipment Name, Procurement Type" type="text"
+                          [(ngModel)]="offerUnderEvulationSearchText" #filter class="browser-default search-field" aria-label="Search box">
+                      </li>
+                      <li>
+                        <div class="icon-button-demo m-l-10">
+                          <button mat-mini-fab (click)="offerUnderEvulationapplyFilter(offerUnderEvulationSearchText)" color="accent">
+                            <mat-icon class="col-white">search</mat-icon>
+                          </button>
+                        </div>
+
+                      </li>
+
+                    </ul>
+                  </div>
+                 
+
+                </div>
+              </div>
+              <div>
+
+              </div>
+              <div id="print-routine">
+                
+              
+
+                <div 
+                  style="overflow-x: auto; max-width: 100%;">
+                  <table class="custom-table">
+                    <thead>
+                      <tr>
+                        <th class="custom-header">Ser.</th>
+                        <th class="custom-header">Equipment Name</th>
+                        <th style="width:10%" class="custom-header">Ship Name</th>
+                        <th class="custom-header">Qty</th>
+                        <th class="custom-header">Agency</th>
+                        <th class="custom-header">E-Price</th>
+                        <th class="custom-header">Controlled</th>
+
+                        
+                        <th class="custom-header">Remarks</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let element of offerUnderEvaluation; let i = index">
+                        <td>{{ ((offerUnderEvaluationPageing.pageIndex - 1) * offerUnderEvaluationPageing.pageSize) + i + 1 }}</td>
+                        <td>{{ element.equpmentName }}</td>
+                        <td style="min-width: 200px; white-space: wrap;"> 
+                          {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
+                        </td>
+                        <td>{{ element.qty }}</td>
+                        <td>{{ element.dgdpNssdName }}</td>
+                        <td>{{ element.ePrice }}</td>
+                        <td>{{ element.controlledName }}</td>
+                        <td>{{ element.remarks }}</td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <mat-paginator [length]="offerUnderEvaluationPageing.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                [pageSize]="offerUnderEvaluationPageing.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                (page)="offerUnderEvulationPageChanged($event)">
+              </mat-paginator>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
