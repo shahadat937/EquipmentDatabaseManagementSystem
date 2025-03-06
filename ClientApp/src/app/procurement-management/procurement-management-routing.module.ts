@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { Page404Component } from '../authentication/page404/page404.component';
 import { ProcurementListComponent } from './procurement/procurement-list/procurement-list.component';
 import { NewProcurementComponent } from './procurement/new-procurement/new-procurement.component';
+import { ProcurementDashboardComponent } from './procurement-dashboard/procurement-dashboard.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
 
+  {
+    path: 'procurement-dashboard',
+    component: ProcurementDashboardComponent,
+  },
   {
     path: 'procurement-list',
     component: ProcurementListComponent,

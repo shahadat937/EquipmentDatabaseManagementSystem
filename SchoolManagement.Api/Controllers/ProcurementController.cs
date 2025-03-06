@@ -121,5 +121,84 @@ public class ProcurementController : ControllerBase
         var Procurement = await _mediator.Send(new GetSelectedProcurementRequest { });
         return Ok(Procurement);
     }
+
+
+    [HttpGet]
+    [Route("get-AIP-Pending-Procurements")]
+    public async Task<ActionResult<List<ProcurementDto>>> GetAipPendingProcurements([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Procurements = await _mediator.Send(new GetAipPendingProcurementsListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Procurements);
+    }
+    
+    [HttpGet]
+    [Route("get-Ongoing-Tender-Spec-Preparation-Procurements")]
+    public async Task<ActionResult<List<ProcurementDto>>> GetOngoingTenderSpecPreparationProcurements([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Procurements = await _mediator.Send(new GetOngoingTenderSpecPreparationProcurementsListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Procurements);
+    }
+
+
+    [HttpGet]
+    [Route("get-Tender-Floated-Procurements")]
+    public async Task<ActionResult<List<ProcurementDto>>> GetTenderFloatedProcurements([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Procurements = await _mediator.Send(new GetTenderFloatedProcurementsListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Procurements);
+    }
+    
+    [HttpGet]
+    [Route("get-Offer-Under-Evaluation-Procurements")]
+    public async Task<ActionResult<List<ProcurementDto>>> GetOfferUnderEvaluationProcurements([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Procurements = await _mediator.Send(new GetOfferUnderEvaluationProcurementsListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Procurements);
+    }
+    
+    [HttpGet]
+    [Route("get-Tender-Opening-Procurements")]
+    public async Task<ActionResult<List<ProcurementDto>>> GetTenderOpeningProcurements([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Procurements = await _mediator.Send(new GetTenderOpeningProcurementsListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Procurements);
+    }
+
+
 }
 
