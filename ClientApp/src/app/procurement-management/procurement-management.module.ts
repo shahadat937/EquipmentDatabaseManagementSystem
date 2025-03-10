@@ -22,6 +22,10 @@ import { ProcurementListComponent } from './procurement/procurement-list/procure
 import { NewProcurementComponent } from './procurement/new-procurement/new-procurement.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProcurementDashboardComponent } from './procurement-dashboard/procurement-dashboard.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartsModule } from 'ng2-charts';
+import { NgxEchartsDirective } from 'ngx-echarts';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 @NgModule({
@@ -52,7 +56,12 @@ import { ProcurementDashboardComponent } from './procurement-dashboard/procureme
     MatProgressSpinnerModule,
     HttpClientModule,
    MatAutocompleteModule,
-   MatCheckboxModule
+   MatCheckboxModule,
+   NgxChartsModule,
+   ChartsModule,
+   NgxEchartsModule.forRoot({
+    echarts: () => import('echarts') // Lazy-load ECharts
+  })
     
   ]
 })

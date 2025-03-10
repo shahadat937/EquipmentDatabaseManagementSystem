@@ -200,5 +200,26 @@ public class ProcurementController : ControllerBase
     }
 
 
+    [HttpGet]
+    [Route("get-Pie-Chart-Data")]
+    public async Task<ActionResult<List<ProcurementDto>>> GetPieChartData()
+    {
+        var Procurements = await _mediator.Send(new GetPieCharteDataRequest{}
+
+        );
+        return Ok(Procurements);
+    }
+    
+    [HttpGet]
+    [Route("get-bar-Chart-Data")]
+    public async Task<ActionResult<List<ProcurementDto>>> GetBarChartData()
+    {
+        var Procurements = await _mediator.Send(new GetBarCharteDataRequest{}
+
+        );
+        return Ok(Procurements);
+    }
+
+
 }
 

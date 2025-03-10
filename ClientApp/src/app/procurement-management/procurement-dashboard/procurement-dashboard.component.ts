@@ -12,6 +12,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Role } from '../../../../src/app/core/models/role';
 import { AuthService } from '../../../../src/app/core/service/auth.service';
 import { DatePipe } from '@angular/common';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+import * as echarts from 'echarts';
+
 
 interface Paging {
   pageIndex: number;
@@ -22,12 +25,12 @@ interface Paging {
 @Component({
   selector: 'app-procurement-dashboard',
   templateUrl: './procurement-dashboard.component.html',
-  styleUrls: ['./procurement-dashboard.component.sass']
+  styleUrls: ['./procurement-dashboard.component.scss']
 })
 
 
 
-export class ProcurementDashboardComponent  implements OnInit {
+export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  implements OnInit {
   masterData = MasterData;
   ELEMENT_DATA: Procurement[] = [];
   isLoading = false;
@@ -58,8 +61,49 @@ export class ProcurementDashboardComponent  implements OnInit {
   tenderFloating: any;
   tenderOpening: any;
   offerUnderEvaluation : any;
+  pieChartData1: any = { }; // Default initialization
+  pieChartData2: any = {};
 
-  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService, private datePipe: DatePipe) { }
+  width: number = 200;
+  height: number = 200;
+  myData = [5, 20, 36, 10, 10, 300]
+
+  
+ 
+
+  chartOptions = {
+    title: {
+        text: 'Procurement Data'
+    },
+    tooltip: {
+        trigger: 'axis',
+        formatter: function (params) {
+            let tooltipContent = `Month: ${params[0].name}<br/>`;
+            tooltipContent += `Sales: ${params[0].value}<br/>`;
+            tooltipContent += `Additional Info: Custom data for ${params[0].name}`;
+            return tooltipContent;
+        }
+    },
+    xAxis: {
+        data: ['Sent AIP', 'AIP Approved', 'Indent Date', 'Tender Floated Data', 'Offer R & E', 'Date Of Contact'],
+        axisLabel: {
+            rotate: 25, // Rotate labels 
+            interval: 0, // Make sure every label is shown
+            fontSize: 12, // Adjust font size for better visibility
+        }
+    },
+    yAxis: {},
+    series: [
+        {
+            name: 'Sales',
+            type: 'bar', // You can change this to 'line', 'pie', etc.
+            data: this.myData
+        }
+    ]
+};
+
+
+  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService, private datePipe: DatePipe) {  super()}
 
   ngOnInit(): void {
     this.getAipPendingProcurements();
@@ -67,8 +111,176 @@ export class ProcurementDashboardComponent  implements OnInit {
     this.getTenderFloatingProcurements();
     this.getTenderOpeningProcurements();
     this.getOfferUnderEvulationProcurements();
+    this.getPieChartData();
   }
 
+  
+// -------------------- PieChart 1 --------------------------
+
+  
+  pieChartOptions = {
+    title: {
+      text: 'Loading...',  // Indicate that the chart is still loading
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
+    series: [
+      {
+        name: '',
+        type: 'pie',
+        radius: '50%',
+        data: [
+          { value: 0, name: 'Total Procurement' }, 
+          { value: 0, name: 'Contract Signed' }   
+        ],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+  
+
+  getPieChartData() {
+    this.ProcurementService.getPieChartData().subscribe(res => {
+      if (res && res[0]) {
+        this.pieChartData1 = res[0];
+        this.pieChartData2 = res[1];
+        this.updatePieChartOptions();
+        this.updatePieChartOptions2();
+      } else {
+        console.error('Invalid data received');
+      }
+    }, error => {
+      console.error('Error fetching pie chart data', error);
+    });
+  }
+
+  updatePieChartOptions() {
+      this.pieChartOptions = {
+        title: {
+          text: `${this.pieChartData1.financialYear}`,
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: function (params) {
+            // Show only the label, not the count
+            return params.name;
+        }
+        } as echarts.TooltipComponentOption,
+        legend: {
+          orient: 'vertical',
+          left: 'left'
+        },
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            radius: '50%',
+            data: [
+              { value: this.pieChartData1.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData1.totalProcurementCount}` },
+              { value: this.pieChartData1.totalContractSignedProcurementCount || 0, name: `Contract Signed : ${this.pieChartData1.totalContractSignedProcurementCount}` }
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      };    
+  }
+
+
+
+  // -------------------- PieChart 2 --------------------------
+
+  pieChartOptions2 = {
+    title: {
+      text: 'Loading...',  // Indicate that the chart is still loading
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
+    series: [
+      {
+        name: '',
+        type: 'pie',
+        radius: '50%',
+        data: [
+          { value: 0, name: 'Total Procurement' }, 
+          { value: 0, name: 'Contract Signed' }   
+        ],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
+  
+
+
+  updatePieChartOptions2() {
+      this.pieChartOptions2 = {
+        title: {
+          text: `${this.pieChartData2.financialYear}`,
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: function (params) {
+            // Show only the label, not the count
+            return params.name;
+        }
+        } as echarts.TooltipComponentOption,
+        legend: {
+          orient: 'vertical',
+          left: 'left'
+        },
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            radius: '50%',
+            data: [
+              { value: this.pieChartData2.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData2.totalProcurementCount}` },
+              { value: this.pieChartData2.totalContractSignedProcurementCount || 0, name: `Contract Signed : ${this.pieChartData2.totalContractSignedProcurementCount}` }
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      };    
+  }
+  
+  
     //---------------- AIP Pending Procuremnt ---------------
   getAipPendingProcurements() {
     this.isLoading = true;
