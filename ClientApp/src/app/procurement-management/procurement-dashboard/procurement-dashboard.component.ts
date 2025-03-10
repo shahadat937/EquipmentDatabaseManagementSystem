@@ -158,8 +158,12 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
           left: 'center'
         },
         tooltip: {
-          trigger: 'item'
-        },
+          trigger: 'item',
+          formatter: function (params) {
+            // Show only the label, not the count
+            return params.name;
+        }
+        } as echarts.TooltipComponentOption,
         legend: {
           orient: 'vertical',
           left: 'left'
@@ -170,8 +174,8 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
             type: 'pie',
             radius: '50%',
             data: [
-              { value: this.pieChartData1.totalProcurementCount || 0, name: 'Total Procurement' },
-              { value: this.pieChartData1.totalContractSignedProcurementCount || 0, name: 'Contract Signed' }
+              { value: this.pieChartData1.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData1.totalProcurementCount}` },
+              { value: this.pieChartData1.totalContractSignedProcurementCount || 0, name: `Contract Signed : ${this.pieChartData1.totalContractSignedProcurementCount}` }
             ],
             emphasis: {
               itemStyle: {
@@ -230,8 +234,12 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
           left: 'center'
         },
         tooltip: {
-          trigger: 'item'
-        },
+          trigger: 'item',
+          formatter: function (params) {
+            // Show only the label, not the count
+            return params.name;
+        }
+        } as echarts.TooltipComponentOption,
         legend: {
           orient: 'vertical',
           left: 'left'
@@ -242,8 +250,8 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
             type: 'pie',
             radius: '50%',
             data: [
-              { value: this.pieChartData2.totalProcurementCount || 0, name: 'Total Procurement' },
-              { value: this.pieChartData2.totalContractSignedProcurementCount || 0, name: 'Contract Signed' }
+              { value: this.pieChartData2.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData2.totalProcurementCount}` },
+              { value: this.pieChartData2.totalContractSignedProcurementCount || 0, name: `Contract Signed: ${this.pieChartData2.totalContractSignedProcurementCount}` }
             ],
             emphasis: {
               itemStyle: {
