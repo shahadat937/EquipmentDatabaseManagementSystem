@@ -245,5 +245,9 @@ export class ProcurementService {
     );   
   }
 
+  getPieChartData(){
+    return this.http.get(this.baseUrl + '/procurement/get-Pie-Chart-Data');
+  }
+
 
 }

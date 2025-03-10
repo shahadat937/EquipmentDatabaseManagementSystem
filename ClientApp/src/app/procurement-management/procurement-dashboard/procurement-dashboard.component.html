@@ -1,12 +1,27 @@
 <section class="content">
   <div class="container-fluid">
-    <div class="block-header">
-      <div class="row">
-        
-      </div>
-    </div>
+
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="card my-5">
+          <div class="body">
+   
+            <div class="row">
+              <div class="col-6" *ngIf="pieChartData1">
+                <div echarts [options]="pieChartOptions" class="chart-container"></div>
+              </div>
+              <div class="col-6" *ngIf="pieChartData2">
+                <div echarts [options]="pieChartOptions2" class="chart-container"></div>
+              </div>
+              <!-- <div class="col-6">
+                <div echarts [options]="pieChartOptions2" class="chart-container"></div>
+              </div> -->
+          
+            </div>
+
+          </div>
+        </div>
         
       <!-- AIP Pending Card -->
 
@@ -427,6 +442,15 @@
                 (page)="offerUnderEvulationPageChanged($event)">
               </mat-paginator>
             </div>
+
+          </div>
+        </div>
+
+
+        <div class="card my-5">
+          <div class="body">
+            <div echarts [options]="chartOptions" class="chart-container"></div>
+
 
           </div>
         </div>
