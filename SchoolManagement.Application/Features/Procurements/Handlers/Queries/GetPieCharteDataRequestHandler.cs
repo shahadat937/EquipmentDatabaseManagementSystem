@@ -16,14 +16,12 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
     {
         private readonly IMapper _mapper;
         private readonly ISchoolManagementRepository<Procurement> _ProcurementRepository;
-        private readonly ISchoolManagementRepository<ProcurementBaseSchoolName> _ProcurementBaseSchoolName;
-        private readonly ISchoolManagementRepository<ProcurementTenderOpening> _ProcurementTenderOpening;
-        public GetPieCharteDataRequestHandler(ISchoolManagementRepository<Procurement> ProcurementRepository, IMapper mapper, ISchoolManagementRepository<ProcurementBaseSchoolName> procurementBaseSchoolName, ISchoolManagementRepository<ProcurementTenderOpening> procurementTenderOpening)
+
+        public GetPieCharteDataRequestHandler(ISchoolManagementRepository<Procurement> ProcurementRepository, IMapper mapper)
         {
             _ProcurementRepository = ProcurementRepository;
             _mapper = mapper;
-            _ProcurementBaseSchoolName = procurementBaseSchoolName;
-            _ProcurementTenderOpening = procurementTenderOpening;
+
         }
         public Task<List<PieChartDataDto>> Handle(GetPieCharteDataRequest request, CancellationToken cancellationToken)
         {
@@ -56,7 +54,7 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
                 })
                 .ToList();
 
-            // Ensure two items in the result list (if no data found for a year, set default values)
+
             var twoYearResults = new List<PieChartDataDto>();
 
             foreach (var year in financialYears)

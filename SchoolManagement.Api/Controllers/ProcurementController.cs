@@ -209,6 +209,16 @@ public class ProcurementController : ControllerBase
         );
         return Ok(Procurements);
     }
+    
+    [HttpGet]
+    [Route("get-bar-Chart-Data")]
+    public async Task<ActionResult<List<ProcurementDto>>> GetBarChartData()
+    {
+        var Procurements = await _mediator.Send(new GetBarCharteDataRequest{}
+
+        );
+        return Ok(Procurements);
+    }
 
 
 }

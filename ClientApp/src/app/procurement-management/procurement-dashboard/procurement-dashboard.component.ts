@@ -66,27 +66,42 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 
   width: number = 200;
   height: number = 200;
+  myData = [5, 20, 36, 10, 10, 300]
 
   
  
 
   chartOptions = {
     title: {
-      text: 'Sales Data'
+        text: 'Procurement Data'
     },
-    tooltip: {},
+    tooltip: {
+        trigger: 'axis',
+        formatter: function (params) {
+            let tooltipContent = `Month: ${params[0].name}<br/>`;
+            tooltipContent += `Sales: ${params[0].value}<br/>`;
+            tooltipContent += `Additional Info: Custom data for ${params[0].name}`;
+            return tooltipContent;
+        }
+    },
     xAxis: {
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+        data: ['Sent AIP', 'AIP Approved', 'Indent Date', 'Tender Floated Data', 'Offer R & E', 'Date Of Contact'],
+        axisLabel: {
+            rotate: 25, // Rotate labels 
+            interval: 0, // Make sure every label is shown
+            fontSize: 12, // Adjust font size for better visibility
+        }
     },
     yAxis: {},
     series: [
-      {
-        name: 'Sales',
-        type: 'bar', // Change to 'line', 'pie', etc.
-        data: [5, 20, 36, 10, 10]
-      }
+        {
+            name: 'Sales',
+            type: 'bar', // You can change this to 'line', 'pie', etc.
+            data: this.myData
+        }
     ]
-  };
+};
+
 
   constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService, private datePipe: DatePipe) {  super()}
 
@@ -100,7 +115,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   }
 
   
-
+// -------------------- PieChart 1 --------------------------
 
   
   pieChartOptions = {
@@ -251,7 +266,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
             radius: '50%',
             data: [
               { value: this.pieChartData2.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData2.totalProcurementCount}` },
-              { value: this.pieChartData2.totalContractSignedProcurementCount || 0, name: `Contract Signed: ${this.pieChartData2.totalContractSignedProcurementCount}` }
+              { value: this.pieChartData2.totalContractSignedProcurementCount || 0, name: `Contract Signed : ${this.pieChartData2.totalContractSignedProcurementCount}` }
             ],
             emphasis: {
               itemStyle: {
