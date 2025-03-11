@@ -3,8 +3,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../src/environments/environment';
 import {IProcurementPagination,ProcurementPagination } from '../models/ProcurementPagination'
 import { Procurement } from '../models/Procurement';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { SelectedModel } from '../../core/models/selectedModel';
+import {ProcurementDataForBarChart} from '../models/ProcurementDataForBarChart'
 @Injectable({
   providedIn: 'root'
 })
@@ -247,6 +248,9 @@ export class ProcurementService {
 
   getPieChartData(){
     return this.http.get(this.baseUrl + '/procurement/get-Pie-Chart-Data');
+  }
+  getBarChartData() : Observable<ProcurementDataForBarChart>{
+    return this.http.get<ProcurementDataForBarChart>(this.baseUrl + '/procurement/get-bar-Chart-Data');
   }
 
 
