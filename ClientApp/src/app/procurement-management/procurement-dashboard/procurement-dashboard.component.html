@@ -8,11 +8,14 @@
           <div class="body">
 
             <div class="row">
-              <div class="col-6" *ngIf="pieChartData1">
+              <div class="col-3" *ngIf="pieChartData1">
                 <div echarts [options]="pieChartOptions" class="chart-container"></div>
               </div>
-              <div class="col-6" *ngIf="pieChartData2">
+              <div class="col-3" *ngIf="pieChartData2">
                 <div echarts [options]="pieChartOptions2" class="chart-container"></div>
+              </div>
+              <div class="col-6">
+                <div  echarts [options]="barChartOptions" class="chart-container"></div>
               </div>
 
 
@@ -457,15 +460,6 @@
                 (page)="offerUnderEvulationPageChanged($event)">
               </mat-paginator>
             </div>
-
-          </div>
-        </div>
-
-
-        <div class="card my-5">
-          <div class="body">
-            <div class="py-5" echarts [options]="barChartOptions" class="chart-container"></div>
-
 
           </div>
         </div>
