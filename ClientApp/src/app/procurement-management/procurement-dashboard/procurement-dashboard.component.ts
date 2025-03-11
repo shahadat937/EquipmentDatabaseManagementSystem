@@ -171,9 +171,15 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   updatePieChartOptions() {
       this.pieChartOptions = {
         title: {
-          text: `${this.pieChartData1.financialYear}`,
-          left: 'center'
-        },
+          text: `${this.pieChartData1.financialYear}`, 
+          left: 'center',
+          subtextStyle: {
+            fontSize: 14, // Adjust font size
+            fontWeight: 'bold',
+            color: '#555' // Adjust color as needed
+          },
+          bottom: 0 // Position at the bottom
+        } as echarts.TitleComponentOption,
         tooltip: {
           trigger: 'item',
           formatter: function (params) {
@@ -189,11 +195,18 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
           {
             name: '',
             type: 'pie',
-            radius: '50%',
+            radius: '90%',
             data: [
               { value: this.pieChartData1.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData1.totalProcurementCount}` },
               { value: this.pieChartData1.totalContractSignedProcurementCount || 0, name: `Contract Signed : ${this.pieChartData1.totalContractSignedProcurementCount}` }
             ],
+            labelLine: {
+              show: false // ✅ Removes the lines connecting labels to the pie chart
+            },
+            label: {
+              show: false, // Keep labels visible (if needed)
+              position: 'inside' // You can position labels inside the chart to avoid lines
+            },
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -201,7 +214,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
                 shadowColor: 'rgba(0, 0, 0, 0.5)'
               }
             }
-          }
+          } as echarts.SeriesOption 
         ]
       };    
   }
@@ -245,42 +258,55 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 
 
   updatePieChartOptions2() {
-      this.pieChartOptions2 = {
-        title: {
-          text: `${this.pieChartData2.financialYear}`,
-          left: 'center'
+    this.pieChartOptions2 = {
+      title: {
+        text: `${this.pieChartData2.financialYear}`, 
+        left: 'center',
+        subtextStyle: {
+          fontSize: 14, // Adjust font size
+          fontWeight: 'bold',
+          color: '#555' // Adjust color as needed
         },
-        tooltip: {
-          trigger: 'item',
-          formatter: function (params) {
-            // Show only the label, not the count
-            return params.name;
+        bottom: 0 // Position at the bottom
+      } as echarts.TitleComponentOption, // Explicit type casting
+      tooltip: {
+        trigger: 'item',
+        formatter: function (params) {
+          return params.name;
         }
-        } as echarts.TooltipComponentOption,
-        legend: {
-          orient: 'vertical',
-          left: 'left'
-        },
-        series: [
-          {
-            name: '',
-            type: 'pie',
-            radius: '50%',
-            data: [
-              { value: this.pieChartData2.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData2.totalProcurementCount}` },
-              { value: this.pieChartData2.totalContractSignedProcurementCount || 0, name: `Contract Signed : ${this.pieChartData2.totalContractSignedProcurementCount}` }
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
+      } as echarts.TooltipComponentOption,
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [
+        {
+          name: '',
+          type: 'pie',
+          radius: '90%',
+          data: [
+            { value: this.pieChartData2.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData2.totalProcurementCount}` },
+            { value: this.pieChartData2.totalContractSignedProcurementCount || 0, name: `Contract Signed : ${this.pieChartData2.totalContractSignedProcurementCount}` }
+          ],
+          labelLine: {
+            show: false // ✅ Removes the lines connecting labels to the pie chart
+          },
+          label: {
+            show: false, // Keep labels visible (if needed)
+            position: 'inside' // You can position labels inside the chart to avoid lines
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
             }
           }
-        ]
-      };    
+        } as echarts.SeriesOption // ✅ Explicitly cast as echarts.SeriesOption
+      ]
+    };
   }
+  
 
 
   //------------------ Bar Chart -----------------------
