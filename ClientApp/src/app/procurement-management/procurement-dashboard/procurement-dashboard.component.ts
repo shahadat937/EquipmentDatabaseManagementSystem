@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Role } from '../../../../src/app/core/models/role';
 import { AuthService } from '../../../../src/app/core/service/auth.service';
 import { DatePipe } from '@angular/common';
-import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+import { UnsubscribeOnDestroyAdapter } from '../../../../src/app/shared/UnsubscribeOnDestroyAdapter';
 import * as echarts from 'echarts';
 
 
@@ -66,21 +66,22 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 
   width: number = 200;
   height: number = 200;
-  myData = [5, 20, 36, 10, 10, 300]
+  barCharData : any;
+  barCharHoverData : any;
 
   
  
 
-  chartOptions = {
+  barChartOptions = {
     title: {
         text: 'Procurement Data'
     },
     tooltip: {
         trigger: 'axis',
         formatter: function (params) {
-            let tooltipContent = `Month: ${params[0].name}<br/>`;
-            tooltipContent += `Sales: ${params[0].value}<br/>`;
-            tooltipContent += `Additional Info: Custom data for ${params[0].name}`;
+            let tooltipContent = `${params[0].name}<br/>`;
+            tooltipContent += `Total : ${params[0].value}<br/>`;
+            tooltipContent += `Equipment : Custom data for ${params[0].name}`;
             return tooltipContent;
         }
     },
@@ -97,7 +98,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
         {
             name: 'Sales',
             type: 'bar', // You can change this to 'line', 'pie', etc.
-            data: this.myData
+            data: [0,0,0,0,0,0]
         }
     ]
 };
@@ -112,6 +113,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     this.getTenderOpeningProcurements();
     this.getOfferUnderEvulationProcurements();
     this.getPieChartData();
+    this.getBarChartData();
   }
 
   
@@ -279,6 +281,64 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
         ]
       };    
   }
+
+
+  //------------------ Bar Chart -----------------------
+
+  getBarChartData() {
+    this.ProcurementService.getBarChartData().subscribe(res => {
+     this.barCharData = [res.sentAipCount, res.aipApprovedCount, res.indentCount, res.tenderFloatedCount, res.offerReceivedCount, res.countractSingCount];
+     this.barCharHoverData = [res.sentAipItems, res.aipApprovedItems, res.indentItems, res.tenderFloatedItem, res.offerEvulationItems, res.contractSingedItems]
+
+     console.log(this.barCharHoverData);
+     this.updateBarChartOptions();
+      
+    }, error => {
+      console.error('Error fetching pie chart data', error);
+    });
+  }
+
+
+  updateBarChartOptions() {
+    this.barChartOptions = {
+        title: {
+            text: 'Procurement Data'
+        },
+        tooltip: {
+            trigger: 'axis',
+            formatter: (params) => {
+                let categoryName = params[0].name;
+                let dataIndex = params[0].dataIndex; // Get the index of the hovered bar
+                
+                // Retrieve the corresponding equipment data from barCharHoverData
+                let equipmentInfo = this.barCharHoverData?.[dataIndex]?.length
+                    ? this.barCharHoverData[dataIndex].join(', ')
+                    : 'No Data';
+
+                return `${categoryName}<br/>
+                        Total : ${params[0].value}<br/>
+                        Equipment : ${equipmentInfo}`;
+            }
+        },
+        xAxis: {
+            data: ['Sent AIP', 'AIP Approved', 'Indent Date', 'Tender Floated Data', 'Offer R & E', 'Date Of Contact'],
+            axisLabel: {
+                rotate: 25,
+                interval: 0,
+                fontSize: 12,
+            }
+        },
+        yAxis: {},
+        series: [
+            {
+                name: 'Procurement',
+                type: 'bar',
+                data: this.barCharData
+            }
+        ]
+    };
+}
+
   
   
     //---------------- AIP Pending Procuremnt ---------------
@@ -422,6 +482,22 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
         }).join('<br>')
       : '-';
   }
+
+  getLastTenderOpeningCount(tenderOpingdto: any[]): string {
+    return tenderOpingdto && tenderOpingdto.length > 0
+      ? tenderOpingdto[tenderOpingdto.length - 1].tenderOpeningCount || ''
+      : '';
+  }
+
+  getLastTenderOpeningDate(tenderOpingdto: any[]): string {
+    if (tenderOpingdto && tenderOpingdto.length > 0) {
+      const lastTenderDate = tenderOpingdto[tenderOpingdto.length - 1].tenderOpeningDate;
+      return this.datePipe.transform(lastTenderDate, 'dd MMM, yyyy') || '';
+    }
+    return '';
+  }
+  
+  
   
 
 }
