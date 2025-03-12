@@ -572,6 +572,8 @@ namespace SchoolManagement.Persistence
 
 
             });
+
+
         }
 
         public virtual DbSet<AcquisitionMethod> AcquisitionMethod { get; set; } = null!;
@@ -628,5 +630,8 @@ namespace SchoolManagement.Persistence
         public virtual DbSet <FinancialYear> FinancialYear { get; set; }
         public virtual DbSet <ProcurementTenderOpening> ProcurementTenderOpening { get; set; }
         public virtual DbSet <ProcurementBaseSchoolName> ProcurementBaseSchoolName { get; set; }
+        public virtual DbSet <Project> Project { get; set; }
+        public virtual DbSet <ProjectBaseSchoolName> ProjectBaseSchoolName { get; set; }
+
     }
 }
