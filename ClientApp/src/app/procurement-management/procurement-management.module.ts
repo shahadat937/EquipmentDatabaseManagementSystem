@@ -26,6 +26,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ChartsModule } from 'ng2-charts';
 import { NgxEchartsDirective } from 'ngx-echarts';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { NewProjectComponent } from './Project/new-project/new-project.component';
+import { ProjectListComponent } from './Project/project-list/project-list.component';
+import { BudgetListComponent } from './budget/budget-list/budget-list.component';
+import { NewBudgetComponent } from './budget/new-budget/new-budget.component';
 
 
 @NgModule({
@@ -33,6 +37,10 @@ import { NgxEchartsModule } from 'ngx-echarts';
      ProcurementListComponent,
      NewProcurementComponent,
      ProcurementDashboardComponent,
+     NewProjectComponent,
+     ProjectListComponent,
+     BudgetListComponent,
+     NewBudgetComponent,
   ],
   imports: [
     CommonModule,
