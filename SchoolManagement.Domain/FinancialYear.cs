@@ -7,12 +7,14 @@ namespace SchoolManagement.Domain
         public FinancialYear()
         {
             Procurements = new HashSet<Procurement>();
+            Budgets = new HashSet<Budget>();
         }
         public int FinancialYearId { get; set; }
         public string FinancialYearName { get; set; } 
         public string? Remark { get; set; }
         public bool IsActive { get; set; }
         public virtual ICollection<Procurement> Procurements { get; set; }
+        public virtual ICollection<Budget> Budgets { get; set; }
 
     }
 

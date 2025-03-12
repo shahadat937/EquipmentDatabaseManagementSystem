@@ -7,6 +7,7 @@ namespace SchoolManagement.Domain
         public DgdpNssd()
         {
             Procurements = new HashSet<Procurement>();
+            Budgets = new HashSet<Budget>();
         }
         public int DgdpNssdId { get; set; }
         public string? Name { get; set; }
@@ -17,5 +18,7 @@ namespace SchoolManagement.Domain
         public bool IsActive { get; set; }
 
         public virtual ICollection<Procurement> Procurements { get; set; }
+        public virtual ICollection<Budget> Budgets { get; set; }
+
     }
 }
