@@ -38,7 +38,7 @@ namespace SchoolManagement.Domain
         public virtual Controlled? Controlled { get; set; }
         public virtual DgdpNssd? DgdpNssd { get; set; }
         public virtual FinancialYear? FinancialYear { get; set; }
- 
+        public virtual BudgetCode? BudgetCode { get; set; }
 
 
         public virtual ICollection<BudgetBaseSchoolName>? BudgetBaseSchoolNames { get; set; }
