@@ -540,6 +540,10 @@ namespace SchoolManagement.Persistence
             {
 
             });
+            modelBuilder.Entity<BudgetCode>(entity =>
+            {
+
+            });
 
             modelBuilder.Entity<OperationalState>(entity =>
             {
@@ -632,6 +636,7 @@ namespace SchoolManagement.Persistence
         public virtual DbSet <ProcurementBaseSchoolName> ProcurementBaseSchoolName { get; set; }
         public virtual DbSet <Project> Project { get; set; }
         public virtual DbSet <ProjectBaseSchoolName> ProjectBaseSchoolName { get; set; }
+        public virtual DbSet <BudgetCode> BudgetCode { get; set; }
 
     }
 }

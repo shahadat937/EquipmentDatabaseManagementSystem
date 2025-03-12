@@ -58,6 +58,7 @@ using SchoolManagement.Application.DTOs.ReporingYear;
 using SchoolManagement.Application.DTOs.QuarterlyReturns;
 using SchoolManagement.Application.DTOs.ReportingYear;
 using SchoolManagement.Application.DTOs.FinancialYears;
+using SchoolManagement.Application.DTOs.BudgetCode;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -433,6 +434,11 @@ namespace SchoolManagement.Application.Profiles
             #region FinancialYears
             CreateMap<FinancialYear, FinancialYearDto>().ReverseMap();
             CreateMap<FinancialYear, CreateFinancialYearDto>().ReverseMap();
+            #endregion
+
+            #region BudgetCode
+            CreateMap<BudgetCode, BudgetCodeDto>().ReverseMap();
+            CreateMap<BudgetCode, CreateBudgetCodeDto>().ReverseMap();
             #endregion
         }
     }
