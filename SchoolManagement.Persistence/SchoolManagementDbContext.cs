@@ -540,6 +540,10 @@ namespace SchoolManagement.Persistence
             {
 
             });
+            modelBuilder.Entity<BudgetCode>(entity =>
+            {
+
+            });
 
             modelBuilder.Entity<OperationalState>(entity =>
             {
@@ -572,6 +576,42 @@ namespace SchoolManagement.Persistence
 
 
             });
+
+            modelBuilder.Entity<Budget>(entity =>
+            {
+
+
+
+                entity.HasOne(d => d.EqupmentName)
+                    .WithMany(p => p.Budgets)
+                    .HasForeignKey(d => d.EqupmentNameId)
+                    .HasConstraintName("FK_Budget_EqupmentName");
+
+               
+                entity.HasOne(d => d.DgdpNssd)
+                    .WithMany(p => p.Budgets)
+                    .HasForeignKey(d => d.DgdpNssdId)
+                    .HasConstraintName("FK_Budget_DgdpNssd");
+
+                entity.HasOne(d => d.Controlled)
+                    .WithMany(p => p.Budgets)
+                    .HasForeignKey(d => d.ControlledId)
+                    .HasConstraintName("FK_Budget_Controlled");
+
+                entity.HasOne(d => d.BudgetCode)
+                    .WithMany(p => p.Budgets)
+                    .HasForeignKey(d => d.BudgetCodeId)
+                    .HasConstraintName("FK_Budget_BudgetCode");
+
+            });
+
+
+            modelBuilder.Entity<BudgetBaseSchoolName>(entity => {
+
+
+            });
+
+
         }
 
         public virtual DbSet<AcquisitionMethod> AcquisitionMethod { get; set; } = null!;
@@ -628,5 +668,11 @@ namespace SchoolManagement.Persistence
         public virtual DbSet <FinancialYear> FinancialYear { get; set; }
         public virtual DbSet <ProcurementTenderOpening> ProcurementTenderOpening { get; set; }
         public virtual DbSet <ProcurementBaseSchoolName> ProcurementBaseSchoolName { get; set; }
+        public virtual DbSet <Project> Project { get; set; }
+        public virtual DbSet <ProjectBaseSchoolName> ProjectBaseSchoolName { get; set; }
+        public virtual DbSet <BudgetCode> BudgetCode { get; set; }
+        public virtual DbSet <BudgetBaseSchoolName> BudgetBaseSchoolName { get; set; }
+        public virtual DbSet <Budget> Budget { get; set; }
+
     }
 }

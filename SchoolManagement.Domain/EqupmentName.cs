@@ -15,6 +15,7 @@ namespace SchoolManagement.Domain
             OperationalStates = new HashSet<OperationalState>();
             HalfYearlyReturns = new HashSet<HalfYearlyReturn>();
             OperationalStatusOfEquipmentSystems = new HashSet <OperationalStatusOfEquipmentSystem>();
+            Budgets = new HashSet<Budget>();
         }
 
         public int EqupmentNameId { get; set; }
@@ -34,5 +35,6 @@ namespace SchoolManagement.Domain
         public virtual ICollection<HalfYearlyReturn> HalfYearlyReturns { get; set; }
         public virtual ICollection<OperationalState> OperationalStates { get; set; }
         public virtual ICollection<OperationalStatusOfEquipmentSystem> OperationalStatusOfEquipmentSystems { get; set; }
+        public virtual ICollection<Budget> Budgets { get; set; }
     }
 }
