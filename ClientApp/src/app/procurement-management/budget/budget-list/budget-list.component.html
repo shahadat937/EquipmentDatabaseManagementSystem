@@ -1,1 +1,171 @@
-<p>budget-list works!</p>
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">Budget</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Budget</a>
+              </li>
+              <li class="breadcrumb-item active">All</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="body">
+              <div class="row mb-3">
+                <div class="icon-button-demo col-12">
+                  <!-- <button class="btn-success float-end rounded-pill px-4" mat-raised-button
+                    (click)="SharedService.goBack()"> Back
+                    <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                  </button> -->
+                </div>
+              </div>
+              <div class="responsive_table">
+                <div class="materialTableHeader">
+                  <div class="row">
+                    <div class="col-8">
+                      <ul class="header-buttons-left ml-0">
+                        <!-- <li><h5 class="count-value">No of Items: - {{ itemCount }}</h5></li> -->
+  
+  
+                        <li class="dropdown">
+                          <input (click)="applyFilter(searchText)"
+                            placeholder="Search: Ship Name, Equipment Name, Procurement Type" type="text"
+                            [(ngModel)]="searchText" #filter class="browser-default search-field" aria-label="Search box">
+                        </li>
+                        <li>
+                          <div class="icon-button-demo m-l-10">
+                            <button mat-mini-fab (click)="applyFilter(searchText)" color="accent">
+                              <mat-icon class="col-white">search</mat-icon>
+                            </button>
+                          </div>
+  
+                        </li>
+  
+                      </ul>
+                    </div>
+                    <div class="col-4">
+                      <ul class="header-buttons">
+                        <li>
+                          <div class="icon-button-demo">
+                            <button  class="btn-space" mat-raised-button color="primary"
+                              routerLink="/procurement-management/add-budget"> Add
+                              <mat-icon class="col-white">add</mat-icon>
+                            </button>
+
+                          </div>
+  
+                        </li>
+                        <li>
+                          <div class="icon-button-demo">
+                            <button class="btn-space" mat-raised-button color="primary" (click)="printSingle()">
+                              <mat-icon class="col-white">print</mat-icon>
+                            </button>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+  
+                  </div>
+                </div>
+                <div>
+  
+                </div>
+                <h2>All Budet Info</h2>
+                <div id="print-routine">
+                  
+                
+                 
+  
+                <div 
+                    style="overflow-x: auto; max-width: 100%;">
+                    <table class="custom-table">
+                      <thead>
+                        <tr>
+                          <th class="custom-header">Ser.</th>
+                          <th class="custom-header">Equipment Name</th>
+                          <th style="width:10%" class="custom-header">Ship Name</th>
+                          <th class="custom-header">Qty</th>
+                          <th class="custom-header" >Agency</th>
+                          <th class="custom-header" >Contractual Price LC</th>
+                          <th class="custom-header" >Contractual Price FC</th>
+                          <th class="custom-header">Budget Code</th>
+                          <th class="custom-header">Financial Year</th>
+                          <th class="custom-header">Controlled</th>
+                          <th class="custom-header">Delivery Date</th>
+                          <th class="custom-header">FAT</th>
+                          <th class="custom-header">Foreign Training</th>
+                        
+                          <th class="custom-header" (click)="sortByKey('remarks')">Remarks</th>
+                          <th [hidden]="isCommandingAreaUsers" class="custom-header">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let element of dataSource.data; let i = index">
+                          <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                          <td>{{ element.equpmentName }}</td>
+                          <td style="min-width: 200px; white-space: wrap;"> 
+                            {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
+                          </td>
+                          <td>{{ element.qty }}</td>
+                          <td>{{ element.dgdpNssdName }}</td>
+                          <td>{{ element.contractualPriceFC }}</td>
+                          <td>{{ element.contractualPriceLC }}</td>
+                          
+
+                          <td>{{ element.budgetCode + ' ( ' + element.budgetCodeName + ' )' }}</td>
+                          <td>{{ element.financialYearName}}</td>
+                          <td>{{ element.controlledName }}</td>
+                          <td>{{ element.deliveryDate }}</td>
+                          <td>{{ element.fat }}</td>
+                          <td>{{ element.foreignTraining }}</td>
+                          
+                         
+  
+                          <td>{{ element.remarks }}</td>
+                          <td class="cl-action">
+                            <button mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
+                              [routerLink]="['/procurement-management/update-procurement', element.procurementId]">
+                              <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+                            </button>
+                            <button (click)="deleteItem(element)" mat-icon-button color="accent" class="btn-tbl-delete">
+                              <mat-icon aria-label="Delete" class="col-white">delete</mat-icon>
+                            </button>
+  
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                 
+  
+  
+  
+  
+                </div>
+  
+  
+                <mat-paginator [length]="paging.length" [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                  [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                  (page)="pageChanged($event)">
+                </mat-paginator>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../src/environments/environment';
 import {IProcurementPagination,ProcurementPagination } from '../models/ProcurementPagination'
+import {IBudgetPagination,BudgetPagination } from '../models/BudgetPagination'
 import { Procurement } from '../models/Procurement';
+import { Budget } from '../models/Budget';
 import { map, Observable } from 'rxjs';
 import { SelectedModel } from '../../core/models/selectedModel';
 import {ProcurementDataForBarChart} from '../models/ProcurementDataForBarChart'
@@ -13,6 +15,8 @@ export class ProcurementService {
   baseUrl = environment.apiUrl;
   Procurements: Procurement[] = [];
   ProcurementPagination = new ProcurementPagination();
+  Budget: Budget[] = [];
+  BudgetPagination = new BudgetPagination();
   constructor(private http: HttpClient) { }
 
   getProcurements(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
@@ -150,6 +154,9 @@ export class ProcurementService {
   getSelectedPaymentStatus(){
     return this.http.get<SelectedModel[]>(this.baseUrl + '/payment-status/get-selectedPaymentStatus')
   }
+  getSelectedBudgetCode(){
+    return this.http.get<SelectedModel[]>(this.baseUrl + '/budget-code/get-selectedBudgetCode')
+  }
 
   update(id: number,model: any) {
     return this.http.put(this.baseUrl + '/procurement/update-Procurement/'+id, model);
@@ -251,6 +258,26 @@ export class ProcurementService {
   }
   getBarChartData() : Observable<ProcurementDataForBarChart>{
     return this.http.get<ProcurementDataForBarChart>(this.baseUrl + '/procurement/get-bar-Chart-Data');
+  }
+
+  // --------------- Budget -------------------------------
+
+  getBudget(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
+    let params = new HttpParams();
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());    
+    params = params.append('orderBy', orderBy.toString());    
+    params = params.append('orderDirection', orderDirection.toString());    
+    return this.http.get<IBudgetPagination>(this.baseUrl + '/budget/get-Budget', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.Budget = [...this.Budget, ...(response.body?.items || [])];
+        this.BudgetPagination = response.body ?? {} as BudgetPagination;
+        return this.BudgetPagination;
+      })
+    );
+   
   }
 
 

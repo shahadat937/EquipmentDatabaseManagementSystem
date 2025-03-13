@@ -1,0 +1,31 @@
+export interface Budget {
+   budgetId: number;
+   equpmentNameId: number;
+   qty: number;
+   dgdpNssdId: number;
+   contractualPriceLC: number;
+   contractualPriceFC: number;
+   budgetCodeId: number;
+   financialYearId: number;
+   controlledId: number;
+   deliveryDate: Date;
+   fat: string;
+   foreignTraining: string;
+   allocatedBudget: number;
+   allocatedBudgetDate: Date;
+   revisedAllocatedBudget: number;
+   revisedAllocatedBudgetDate: Date;
+   billPainDNWEEFC: number;
+   billPainDNWEELC: number;
+   billPaidOther: string;
+   termsOfPayment: number;
+   remarks: string;
+   baseSchoolNameId: any
+   dgdpNssdName: string;
+   controlledName: string;
+   equpmentName: string;
+   budgetCodeName: string;
+   budgetCode: string;
+   financialYearName: string;
+   baseSchoolNameDtos: any;
+}
