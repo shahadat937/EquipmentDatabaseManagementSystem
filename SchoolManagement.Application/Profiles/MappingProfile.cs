@@ -59,6 +59,7 @@ using SchoolManagement.Application.DTOs.QuarterlyReturns;
 using SchoolManagement.Application.DTOs.ReportingYear;
 using SchoolManagement.Application.DTOs.FinancialYears;
 using SchoolManagement.Application.DTOs.BudgetCode;
+using SchoolManagement.Application.DTOs.Budget;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -440,6 +441,19 @@ namespace SchoolManagement.Application.Profiles
             CreateMap<BudgetCode, BudgetCodeDto>().ReverseMap();
             CreateMap<BudgetCode, CreateBudgetCodeDto>().ReverseMap();
             #endregion
+
+            #region Budget Mapping    
+            CreateMap<BudgetDto, Budget>().ReverseMap()
+
+                .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
+                .ForMember(d => d.ControlledName, o => o.MapFrom(s => s.Controlled.Name))
+                .ForMember(d => d.DgdpNssdName, o => o.MapFrom(s => s.DgdpNssd.Name))
+                .ForMember(d => d.FinancialYearName, o => o.MapFrom(s => s.FinancialYear.FinancialYearName))
+                .ForMember(d => d.BudgetCodeName, o => o.MapFrom(s => s.BudgetCode.BudgetCodeName))
+                .ForMember(d => d.BudgetCode, o => o.MapFrom(s => s.BudgetCode.Code));
+            CreateMap<Budget, CreateBudgetDto>().ReverseMap();
+            #endregion
+
         }
     }
 

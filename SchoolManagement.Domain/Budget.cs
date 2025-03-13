@@ -14,7 +14,7 @@ namespace SchoolManagement.Domain
         }
         public int BudgetId { get; set; }
         public int? EqupmentNameId { get; set; }
-        public int? BaseSchoolNameId { get; set; }
+        //public int? BaseSchoolNameId { get; set; }
         public double? Qty { get; set; }
         public int? DgdpNssdId { get; set; }
         public decimal? ContractualPriceLC { get; set; }
@@ -34,6 +34,7 @@ namespace SchoolManagement.Domain
         public string? BillPaidOther { get; set; }
         public int? TermsOfPayment { get; set; }
         public string? Remarks { get; set; }
+        public bool IsActive { get; set; }
         public virtual EqupmentName? EqupmentName { get; set; }
         public virtual Controlled? Controlled { get; set; }
         public virtual DgdpNssd? DgdpNssd { get; set; }

@@ -62,6 +62,7 @@ namespace SchoolManagement.Application
         public const string QuarterlyReturn = SMSRoutePrefixBase + "quarterly-returns";
         public const string FinancialYears = SMSRoutePrefixBase + "financial-years";
         public const string BudgetCode = SMSRoutePrefixBase + "budget-code";
+        public const string Budget = SMSRoutePrefixBase + "budget";
     }
 }
  

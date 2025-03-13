@@ -1,1 +1,290 @@
-<p>new-budget works!</p>
+<section class="content">
+    <div class="container-fluid">
+      <div class="block-header">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <ul class="breadcrumb breadcrumb-style ">
+              <li class="breadcrumb-item">
+                <h4 class="page-title">{{pageTitle}}</h4>
+              </li>
+              <li class="breadcrumb-item bcrumb-1">
+                <a routerLink="/admin/dashboard/main">
+                  <i class="fas fa-home"></i> </a>
+              </li>
+              <li class="breadcrumb-item bcrumb-2">
+                <a href="#" onClick="return false;">Budget</a>
+              </li>
+              <li class="breadcrumb-item active">{{destination}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="BudgetForm" (ngSubmit)="onSubmit()">
+                <h1 class="text-center my-3">Basic Information</h1>
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Name of Equipment</mat-label>
+                      <mat-select formControlName="equpmentNameId" required>
+                        <input type="text"
+                          style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                          id="selectSearch" (keydown.space)="$event.stopPropagation()"
+                          (input)="filterByEquipementName($event.target.value)" placeholder="Search">
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedEquipmentName" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="BudgetForm.get('equpmentNameId').hasError('required')">
+                        Name of Equipment is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Ship Name</mat-label>
+                      <mat-select formControlName="baseSchoolNameId" required multiple>
+                        <!-- <input type="text"
+                          style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                          id="selectSearch" (keydown.space)="$event.stopPropagation()"
+                          (input)="filterByShip($event.target.value)" placeholder="Search"> -->
+                        <mat-option value="" disabled>--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedBaseSchoolName" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+  
+  
+  
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Qty</mat-label>
+                      <input type="number" matInput formControlName="qty" required>
+                      <mat-error *ngIf="BudgetForm.get('qty').hasError('required')">
+                        Qty is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Procurement Agency</mat-label>
+                      <mat-select formControlName="dgdpNssdId" required>
+                        <input type="text"
+                          style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                          id="selectSearch" (keydown.space)="$event.stopPropagation()"
+                          (input)="filterByDgdpNssd($event.target.value)" placeholder="Search">
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedDgdpNssd" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="BudgetForm.get('dgdpNssdId').hasError('required')">
+                        DGDP/NSSD is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Contracual Price LC</mat-label>
+                      <input type="number" matInput formControlName="contractualPriceLC" required>
+                      <mat-error *ngIf="BudgetForm.get('contractualPriceLC').hasError('required')">
+                        Contracual Price LC is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Contracual Price FC</mat-label>
+                      <input type="number" matInput formControlName="contractualPriceLC" required>
+                      <mat-error *ngIf="BudgetForm.get('contractualPriceFC').hasError('required')">
+                        Contracual Price FC is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+              
+  
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Budget Code</mat-label>
+                      <mat-select formControlName="budgetCodeId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedBudgetCode" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="BudgetForm.get('budgetCodeId').hasError('required')">
+                        Financial Year is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Financial Year</mat-label>
+                      <mat-select formControlName="financialYearId" required>
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedFinancialYears" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="BudgetForm.get('financialYearId').hasError('required')">
+                        Financial Year is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Controlled</mat-label>
+                      <mat-select formControlName="controlledId" required>
+                        <input type="text"
+                          style="width:100%; height:50px; padding:10px; border: 1px solid #ccc; position: sticky; top:0; background-color: white; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"
+                          id="selectSearch" (keydown.space)="$event.stopPropagation()"
+                          (input)="filterByControlled($event.target.value)" placeholder="Search">
+                        <mat-option value="0">--Select--</mat-option>
+                        <mat-option *ngFor="let dropdown of selectedControlled" [value]="dropdown.value">
+                          {{dropdown.text}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="BudgetForm.get('controlledId').hasError('required')">
+                        Controlled is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Delivery Date</mat-label>
+                      <input matInput [matDatepicker]="deliveryDate" formControlName="deliveryDate" required >
+                      <mat-datepicker-toggle matSuffix [for]="deliveryDate"></mat-datepicker-toggle>
+                      <mat-datepicker #deliveryDate></mat-datepicker>
+  
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>FAT</mat-label>
+                      <input  matInput formControlName="fat" required>
+                      <mat-error *ngIf="BudgetForm.get('fat').hasError('required')">
+                        FAT is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Foreign Training</mat-label>
+                      <input  matInput formControlName="foreignTraining" required>
+                      <mat-error *ngIf="BudgetForm.get('foreignTraining').hasError('required')">
+                        Foreign Training is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+  
+                  <h1 class="text-center my-3">Progress Report</h1>
+
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2 d-flex">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Allocated Budget & Date</mat-label>
+                      
+                
+                      <input matInput formControlName="allocatedBudget" type="number" placeholder="Enter budget & Select date">
+                  
+                      <mat-datepicker-toggle matSuffix [for]="allocatedBudgetDate"></mat-datepicker-toggle>
+                      <input matInput [matDatepicker]="allocatedBudgetDate" formControlName="allocatedBudgetDate" placeholder="">
+                      <mat-datepicker #allocatedBudgetDate></mat-datepicker>
+                  
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2 d-flex">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Revised Allocated Budget & Date</mat-label>
+                      
+                
+                      <input matInput formControlName="revisedAllocatedBudget" type="number" placeholder="Enter budget & Select date">
+                  
+                      <mat-datepicker-toggle matSuffix [for]="revisedAllocatedBudgetDate"></mat-datepicker-toggle>
+                      <input matInput [matDatepicker]="revisedAllocatedBudgetDate" formControlName="revisedAllocatedBudgetDate" placeholder="">
+                      <mat-datepicker #revisedAllocatedBudgetDate></mat-datepicker>
+                  
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Bill Paid FC (DNW&EE)</mat-label>
+                      <input type="number" matInput formControlName="billPainDNWEEFC" >
+
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Bill Paid LC (DNW&EE)</mat-label>
+                      <input type="number" matInput formControlName="billPainDNWEELC" >
+
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Bill Paid Others</mat-label>
+                      <input type="number" matInput formControlName="billPaidOther" >
+
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Terms of Payment (%)</mat-label>
+                      <input 
+                        matInput 
+                        formControlName="termsOfPayment" 
+                        type="text"
+                        (input)="onInput($event)"
+                      >
+                    </mat-form-field>
+                  </div>
+                  
+                  
+                  
+                  
+                  
+
+                  
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Remarks</mat-label>
+                      <input matInput formControlName="remarks">
+                    </mat-form-field>
+                  </div>
+  
+  
+  
+  
+                </div>
+  
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <button class="btn-space" [disabled]="!BudgetForm.valid " mat-raised-button
+                      color="primary">{{btnText}}</button>
+                    <button type="button" mat-button routerLink="/procurement-management/budget-list">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

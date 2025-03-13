@@ -24,9 +24,10 @@ namespace SchoolManagement.Application.DTOs.Budget
         public decimal? BillPainDNWEEFC { get; set; }
         public decimal? BillPainDNWEELC { get; set; }
         public string? BillPaidOther { get; set; }
-        public int? TermsOfPayment { get; set; }
+        public double? TermsOfPayment { get; set; }
         public string? Remarks { get; set; }
-       
+        public bool IsActive { get; set; }
+
     }
 }
  
