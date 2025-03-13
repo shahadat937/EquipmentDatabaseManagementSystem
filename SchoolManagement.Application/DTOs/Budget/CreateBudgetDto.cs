@@ -26,7 +26,8 @@ namespace SchoolManagement.Application.DTOs.Budget
         public string? BillPaidOther { get; set; }
         public int? TermsOfPayment { get; set; }
         public string? Remarks { get; set; }
-       
+        public bool IsActive { get; set; }
+
     }
 }
  

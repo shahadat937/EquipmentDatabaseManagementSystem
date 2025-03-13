@@ -26,6 +26,12 @@ namespace SchoolManagement.Application.DTOs.Budget
         public int? TermsOfPayment { get; set; }
         public string? Remarks { get; set; }
         public List<int?> BaseSchoolNameId { get; set; }
+        public  string? DgdpNssdName { get; set; }
+        public  string? ControlledName { get; set; }
+        public  string? EqupmentName { get; set; }
+        public  string? BudgetCodeName { get; set; }
+        public  string? BudgetCode { get; set; }
+        public  string? FinancialYearName { get; set; }
 
 
         public List<BudgetBaseSchoolNameDto>?  BaseSchoolNameDtos { get; set; }

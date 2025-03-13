@@ -5,6 +5,8 @@ import { Page404Component } from '../authentication/page404/page404.component';
 import { ProcurementListComponent } from './procurement/procurement-list/procurement-list.component';
 import { NewProcurementComponent } from './procurement/new-procurement/new-procurement.component';
 import { ProcurementDashboardComponent } from './procurement-dashboard/procurement-dashboard.component';
+import { BudgetListComponent } from './budget/budget-list/budget-list.component';
+import { NewBudgetComponent } from './budget/new-budget/new-budget.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,17 @@ const routes: Routes = [
   {
     path: 'add-procurement',
     component: NewProcurementComponent,
+  },
+  {
+    path: 'budget-list',
+    component: BudgetListComponent,
+  },
+  { path: 'update-budget/:budgetId', 
+  component: NewBudgetComponent, 
+  },
+  {
+    path: 'add-budget',
+    component: NewBudgetComponent,
   },
   
 
