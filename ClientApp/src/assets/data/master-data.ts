@@ -189,6 +189,10 @@ export const MasterData = {
 
       equepmentCategory : {
         combatSystem : 8
+      },
+      budgetCode:  {
+        electricalEquipment : 4112303,
+        militaryHardware : 4112308
       }
       
     }

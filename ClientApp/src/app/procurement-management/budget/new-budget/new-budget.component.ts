@@ -55,49 +55,51 @@ export class NewBudgetComponent implements OnInit {
   commendingAreaId: any;
   method: any;
   selectedFinancialYears: any;
-  selectedBudgetCode : any;
+  selectedBudgetCode: any;
 
-  constructor(private snackBar: MatSnackBar, private BaseSchoolNameService: BaseSchoolNameService, private authService: AuthService, private confirmService: ConfirmService, private ProcurementService: ProcurementService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private sharedService: SharedService, private BudgetService : BudgetService) { }
+  constructor(private snackBar: MatSnackBar, private BaseSchoolNameService: BaseSchoolNameService, private authService: AuthService, private confirmService: ConfirmService, private ProcurementService: ProcurementService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private sharedService: SharedService, private BudgetService: BudgetService) { }
 
   ngOnInit(): void {
 
     this.role = this.authService.currentUserValue.role.trim();
     this.traineeId = this.authService.currentUserValue.traineeId.trim();
     this.branchId = this.authService.currentUserValue.branchId.trim();
-    //console.log(this.role, this.traineeId,  this.branchId)
 
-    const id = this.route.snapshot.paramMap.get('procurementId');
+    const id = this.route.snapshot.paramMap.get('budgetId');
     if (id) {
       this.pageTitle = 'Edit Procurement';
       this.destination = "Edit";
       this.btnText = 'Update';
-      this.ProcurementService.find(+id).subscribe(res => {
+      this.BudgetService.find(+id).subscribe(res => {
         console.log(res);
 
         this.BudgetForm.patchValue({
-          procurementId: res.procurementId,
+          budgetId: res.budgetId,
           equpmentNameId: res.equpmentNameId,
-          baseSchoolNameId: res.baseSchoolNameId,
+          baseSchoolNameId: res.baseSchoolNameId || [], 
           qty: res.qty,
-          groupNameId: res.groupNameId,
           dgdpNssdId: res.dgdpNssdId,
-          ePrice: res.ePrice,
-          budgetCode: res.budgetCode,
+          contractualPriceLC: res.contractualPriceLC,
+          contractualPriceFC: res.contractualPriceFC,
+          budgetCodeId: res.budgetCodeId,
           financialYearId: res.financialYearId,
           controlledId: res.controlledId,
-          fcLcId: res.fcLcId,
-          sentForAIPDate: res.sentForAIPDate,
-          aipApprovalDate: res.aipApprovalDate,
-          indentSentDate: res.indentSentDate,
-          tenderFloatedDate: res.tenderFloatedDate,
-          offerReceivedDateAndUpdateEvaluation: res.offerReceivedDateAndUpdateEvaluation,
-          sentForContractDate: res.sentForContractDate,
-          contractSignedDate: res.contractSignedDate,
-          isActive: res.isActive,
-          remarks: res.remarks
+          deliveryDate: res.deliveryDate,
+          fat: res.fat || '', // Ensuring default value
+          foreignTraining: res.foreignTraining || '',
+          allocatedBudget: res.allocatedBudget,
+          allocatedBudgetDate: res.allocatedBudgetDate,
+          revisedAllocatedBudget: res.revisedAllocatedBudget,
+          revisedAllocatedBudgetDate: res.revisedAllocatedBudgetDate,
+          billPainDNWEEFC: res.billPainDNWEEFC,
+          billPainDNWEELC: res.billPainDNWEELC,
+          billPaidOther: res.billPaidOther || '',
+          termsOfPayment: res.termsOfPayment,
+          remarks: res.remarks || '',
+          isActive: true
         });
 
-       
+
       });
     }
     else {
@@ -120,7 +122,7 @@ export class NewBudgetComponent implements OnInit {
   }
 
 
-  
+
   initializeForm() {
     this.BudgetForm = this.fb.group({
       budgetId: [0, Validators.required],
@@ -148,7 +150,7 @@ export class NewBudgetComponent implements OnInit {
       isActive: [true], // Default to true
     });
   }
-  
+
 
   getSelectedSchoolByBranchLevelAndThirdLevel() {
     this.ProcurementService.getSelectedSchoolByBranchLevelAndThirdLevel().subscribe(res => {
@@ -255,42 +257,38 @@ export class NewBudgetComponent implements OnInit {
 
   onInput(event: Event): void {
     const input = event.target as HTMLInputElement;
-  
+
     input.value = input.value.replace(/[^0-9.]/g, '');
-  
+
     const parts = input.value.split('.');
     if (parts.length > 2) {
       input.value = parts[0] + '.' + parts.slice(1).join('');
     }
-  
+
     const numericValue = parseFloat(input.value);
     if (numericValue > 100) {
       input.value = '100'; // or null, based on your requirement
     }
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
   onSubmit() {
-    const id = this.BudgetForm.get('procurementId')?.value;
-    
+    const id = this.BudgetForm.get('budgetId')?.value;
+
     // 🔹 format dates
     const fieldsToFormat = [
-      'sentForAIPDate',
-      'aipApprovalDate',
-      'indentSentDate',
-      'tenderFloatedDate',
-      'offerReceivedDateAndUpdateEvaluation',
-      'sentForContractDate',
-      'contractSignedDate'
+      'deliveryDate',
+      'allocatedBudgetDate',
+      'revisedAllocatedBudgetDate'      
     ];
 
     fieldsToFormat.forEach(field => {
@@ -300,24 +298,16 @@ export class NewBudgetComponent implements OnInit {
       }
     });
 
-    // 🔹 Format tender opening dates
-    const procurementTenderOpeningArray = this.BudgetForm.get('procurementTenderOpeningDto') as FormArray;
-    if (procurementTenderOpeningArray) {
-      procurementTenderOpeningArray.controls.forEach(group => {
-        const dateControl = group.get('tenderOpeningDate');
-        if (dateControl?.value) {
-          dateControl.setValue(this.sharedService.formatDateTime(dateControl.value));
-        }
-      });
-    }
+   
 
 
     if (id) {
       this.confirmService.confirm('Confirm Update message', 'Are You Sure Update This  Item').subscribe(result => {
+        console.log(this.BudgetForm.value);
 
         if (result) {
-          this.ProcurementService.update(+id, this.BudgetForm.value).subscribe(response => {
-            this.router.navigateByUrl('/procurement-management/procurement-list');
+          this.BudgetService.update(+id, this.BudgetForm.value).subscribe(response => {
+            this.router.navigateByUrl('/procurement-management/budget-list');
             this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,
               verticalPosition: 'bottom',

@@ -280,5 +280,24 @@ export class ProcurementService {
    
   }
 
+  getLeatestFyBudget(pageNumber, pageSize, searchText, orderBy, orderDirection, budgetCode) { 
+    let params = new HttpParams();
+    params = params.append('searchText', searchText.toString());
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());    
+    params = params.append('orderBy', orderBy.toString());    
+    params = params.append('orderDirection', orderDirection.toString());    
+    params = params.append('budgetCode', budgetCode.toString());    
+    return this.http.get<IBudgetPagination>(this.baseUrl + '/budget/get-leatest-fy-budget', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        this.Budget = [...this.Budget, ...(response.body?.items || [])];
+        this.BudgetPagination = response.body ?? {} as BudgetPagination;
+        return this.BudgetPagination;
+      })
+    );
+   
+  }
+
 
 }
