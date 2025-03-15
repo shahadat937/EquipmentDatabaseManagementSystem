@@ -33,10 +33,21 @@ public class BudgetController : ControllerBase
         return Ok(Budget);
     }
 
+    [HttpGet]
+    [Route("get-leatest-fy-budget")]
+    public async Task<ActionResult<List<BudgetDto>>> GetLeatestFinanciYearBuget([FromQuery] QueryParams queryParams, string orderBy, string orderDirection, string budgetCode)
+    {
+        var Budget = await _mediator.Send(new GetLeatestFinanciYearBugetRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection,
+            BudgetCode = budgetCode
+        }
 
-
-
-
+        );
+        return Ok(Budget);
+    }
 
     [HttpGet]
     [Route("get-BudgetDetail/{id}")]

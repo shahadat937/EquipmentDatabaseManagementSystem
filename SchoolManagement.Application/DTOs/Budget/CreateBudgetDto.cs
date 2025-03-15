@@ -23,8 +23,8 @@ namespace SchoolManagement.Application.DTOs.Budget
         public DateTime? RevisedAllocatedBudgetDate { get; set; }
         public decimal? BillPainDNWEEFC { get; set; }
         public decimal? BillPainDNWEELC { get; set; }
-        public string? BillPaidOther { get; set; }
-        public double? TermsOfPayment { get; set; }
+        public decimal? BillPaidOther { get; set; }
+        public decimal? TermsOfPayment { get; set; }
         public string? Remarks { get; set; }
         public bool IsActive { get; set; }
 

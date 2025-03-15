@@ -13,7 +13,7 @@ import { Role } from '../../../../../src/app/core/models/role';
 import { AuthService } from '../../../../../src/app/core/service/auth.service';
 import { DatePipe } from '@angular/common';
 import { Budget } from '../../models/Budget';
-
+import { BudgetService } from '../../service/budget.service';
 
 @Component({
   selector: 'app-budget-list',
@@ -33,38 +33,56 @@ export class BudgetListComponent implements OnInit {
     pageSize: 5,
     length: 1
   }
-  userRoles  = Role
-  role : string;
-  branchId : string;
-  isCommandingAreaId : boolean;
+  ElectricalEqipmentpaging = {
+    pageIndex: this.masterData.paging.pageIndex,
+    pageSize: 5,
+    length: 1
+  }
+  hardwarelEqipmentpaging = {
+    pageIndex: this.masterData.paging.pageIndex,
+    pageSize: 5,
+    length: 1
+  }
+  userRoles = Role
+  role: string;
+  branchId: string;
+  isCommandingAreaId: boolean;
   searchByOptions = ["shipname", "equipmentname"]
   searchText = "";
   isShipNameChecked: boolean = true;
   isEquipmentChecked: boolean;
   ShipNameSelelect = "";
-  searchBy = "shipname"; 
+  searchBy = "shipname";
   procurementMethodId1: number
   procurementMethodId2: number
   procurementMethodName1: string
   procurementMethodName2: string
   selectedProcurementTypeId: number;
-  isCommandingAreaUsers : boolean;
-  orderBy : string = "";
-  orderDirection : string = 'desc';
+  isCommandingAreaUsers: boolean;
+  orderBy: string = "";
+  orderDirection: string = 'desc';
+  electricalEquipmentBudget: any;
+  electricalEquipmentBudgetName: any;
+  electricalEquipmentBudgetCode: any;
+  militaryHardwareBudget: any;
+  militaryHardwareBudgetName: any;
+  militaryHardwareBudgetCode: any;
+  financialYearName: string
 
-  selectedMethod : any;
+  selectedMethod: any;
   dataSource: MatTableDataSource<Budget> = new MatTableDataSource();
 
   selection = new SelectionModel<Budget>(true, []);
 
-  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService, private datePipe: DatePipe) { }
+  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService: AuthService, private datePipe: DatePipe, private BudgetService: BudgetService) { }
 
   ngOnInit() {
     this.role = this.authService.currentUserValue.role;
     this.branchId = this.authService.currentUserValue.branchId;
 
     this.getBudget();
-
+    this.getLeastestFyElectrialEquipmentBudget();
+    this.getLeastestFyMilitaryHardwareBudget();
   }
 
   getBudget() {
@@ -72,25 +90,44 @@ export class BudgetListComponent implements OnInit {
     this.ProcurementService.getBudget(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.orderBy, this.orderDirection).subscribe(response => {
       this.dataSource.data = response.items;
 
-      console.log(this.dataSource.data);
-      
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
     })
   }
+  getLeastestFyElectrialEquipmentBudget() {
+    this.isLoading = true;
+    this.ProcurementService.getLeatestFyBudget(this.ElectricalEqipmentpaging.pageIndex, this.ElectricalEqipmentpaging.pageSize, "", this.orderBy, this.orderDirection, this.masterData.budgetCode.electricalEquipment).subscribe(response => {
+      this.electricalEquipmentBudget = response.items;
+      
+      this.ElectricalEqipmentpaging.length = response.totalItemsCount
+      this.isLoading = false;
+      this.electricalEquipmentBudgetName = this.electricalEquipmentBudget[0]?.budgetCodeName ?? "-"
+      this.electricalEquipmentBudgetCode = this.electricalEquipmentBudget[0]?.budgetCode ?? "-"
+      this.financialYearName = this.electricalEquipmentBudget[0]?.financialYearName ? this.militaryHardwareBudget[0].financialYearName : "-";
 
+    })
+  
+  }
+  getLeastestFyMilitaryHardwareBudget() {
+    this.isLoading = true;
+    this.ProcurementService.getLeatestFyBudget(this.hardwarelEqipmentpaging.pageIndex, this.hardwarelEqipmentpaging.pageSize, "", this.orderBy, this.orderDirection, this.masterData.budgetCode.militaryHardware).subscribe(response => {
+      this.militaryHardwareBudget = response.items;
+      this.hardwarelEqipmentpaging.length = response.totalItemsCount
+      this.isLoading = false;
+      this.militaryHardwareBudgetName = this.militaryHardwareBudget[0]?.budgetCodeName ?? "-"
+      this.militaryHardwareBudgetCode = this.militaryHardwareBudget[0]?.budgetCode ?? "-"
+      this.financialYearName = this.militaryHardwareBudget[0].financialYearName ? this.militaryHardwareBudget[0].financialYearName : "-";
 
-  getBaseSchoolNames(baseSchoolNameDtos: any[]): string {
-    return baseSchoolNameDtos && baseSchoolNameDtos.length > 0 
-      ? baseSchoolNameDtos.map(school => school.baseSchoolName).join(', ') 
-      : '-';
+    })
   }
 
 
-  
-
-
+  getBaseSchoolNames(baseSchoolNameDtos: any[]): string {
+    return baseSchoolNameDtos && baseSchoolNameDtos.length > 0
+      ? baseSchoolNameDtos.map(school => school.baseSchoolName).join(', ')
+      : '-';
+  }
 
 
   pageChanged(event: PageEvent) {
@@ -99,10 +136,22 @@ export class BudgetListComponent implements OnInit {
     this.paging.pageIndex = this.paging.pageIndex + 1
     this.getBudget();
   }
+  ElectricalEquipmentpageChanged(event: PageEvent) {
+    this.ElectricalEqipmentpaging.pageIndex = event.pageIndex
+    this.ElectricalEqipmentpaging.pageSize = event.pageSize
+    this.ElectricalEqipmentpaging.pageIndex = this.ElectricalEqipmentpaging.pageIndex + 1
+    this.getLeastestFyElectrialEquipmentBudget();
+  }
+  militaryHardwarepageChanged(event: PageEvent) {
+    this.hardwarelEqipmentpaging.pageIndex = event.pageIndex
+    this.hardwarelEqipmentpaging.pageSize = event.pageSize
+    this.hardwarelEqipmentpaging.pageIndex = this.hardwarelEqipmentpaging.pageIndex + 1
+    this.getLeastestFyMilitaryHardwareBudget();
+  }
 
   applyFilter(searchText: any) {
     this.searchText = searchText;
-    this.paging.pageIndex =  this.masterData.paging.pageIndex
+    this.paging.pageIndex = this.masterData.paging.pageIndex
     this.getBudget();
   }
 
@@ -110,7 +159,7 @@ export class BudgetListComponent implements OnInit {
     this.orderDirection = this.orderDirection === 'desc' ? 'asc' : "desc"
     this.orderBy = key;
     this.paging.pageIndex = 1;
-    this.getBudget();    
+    this.getBudget();
   }
 
   toggle() {
@@ -137,148 +186,144 @@ export class BudgetListComponent implements OnInit {
 
     // Write the content to the popup
     popupWin.document.open();
-    // popupWin.document.write(`
-    //   <html>
-    //     <head>
-    //       <title>Print</title>
-    //       <style>
-    //         body {
-    //           font-family: Arial, sans-serif;
-    //         }
-    //         table {
-    //           border-collapse: collapse;
-    //           width: 100%;
-    //         }
-    //         th, td {
-    //           border: 1px solid #ddd;
-    //           text-align: left;
-    //           padding: 8px;
-    //         }
-    //          td {
-    //           font-size: 0.8rem;
-    //           }
-    //         th {
-    //           background-color: #f2f2f2;
-    //           font-weight: bold;
-    //         }
-    //         .header-text {
-    //           text-align: center;
-    //           margin-bottom: 20px;
-    //         }
-    //         .header-text h3 {
-    //           margin: 0;
-    //         }
-    
-    //         /* Custom Table */
-    //         .custom-table {
-    //           width: 100%;
-    //           border-collapse: collapse;
-    //           table-layout: auto;
-    //         }
-    
-    //         /* Vertical Header */
-    //         .vertical-header {
-    //           writing-mode: vertical-rl;
-    //           transform: rotate(180deg);
-    //           text-align: center;
-    //           max-height: 150px;
-    //           border: 1px solid rgba(0, 0, 0, 0.1);
-    //           padding: 3px;
-    //           word-wrap: break-word;
-    //           max-height: 150px;
-    //         }
-    
-          
-    //         .btn-tbl-edit, .btn-tbl-delete {
-    //           margin: 5px;
-    //         }
-    
-    //         .col-white {
-    //           color: white;
-    //         }
-    
-    //       </style>
-    //     </head>
-    //     <body onload="window.print();window.close()">
-    //       <div class="header-text">
-    //         <h3>Procurement List</h3>
-    //       </div>
-    //       <hr>
-    //       <table class="custom-table">
-    //         <thead>
-    //           <tr>
-    //             <th class="vertical-header">Ser.</th>
-    //             <th class="vertical-header">Equipment Name</th>
-    //             <th class="vertical-header">Ship Name</th>
-    //             <th class="vertical-header">Qty</th>
-    //             <th class="vertical-header">Agency</th>
-    //             <th class="vertical-header">E-Price</th>
-    //             <th class="vertical-header">FC/LC</th>
-    //             <th class="vertical-header">Group</th>
-    //             <th class="vertical-header">Budget Code</th>
-    //             <th class="vertical-header">Financial Year</th>
-    //             <th class="vertical-header">Controlled</th> 
+    popupWin.document.write(`
+      <html>
+        <head>
+          <title>Print</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+            }
+            table {
+              border-collapse: collapse;
+              width: 100%;
+            }
+            th, td {
+              border: 1px solid #ddd;
+              text-align: left;
+              padding: 8px;
+            }
+             td {
+              font-size: 0.8rem;
+              }
+            th {
+              background-color: #f2f2f2;
+              font-weight: bold;
+            }
+            .header-text {
+              text-align: center;
+              margin-bottom: 20px;
+            }
+            .header-text h3 {
+              margin: 0;
+            }
+
+            /* Custom Table */
+            .custom-table {
+              width: 100%;
+              border-collapse: collapse;
+              table-layout: auto;
+            }
+
+            /* Vertical Header */
+            .vertical-header {
+              writing-mode: vertical-rl;
+              transform: rotate(180deg);
+              text-align: center;
+              max-height: 150px;
+              border: 1px solid rgba(0, 0, 0, 0.1);
+              padding: 3px;
+              word-wrap: break-word;
+              max-height: 150px;
+            }
 
 
-    //             <th class="vertical-header">Sent For AIP</th>
-    //             <th class="vertical-header">AIP Approval Date</th>
-    //             <th class="vertical-header">Indent Sent Date	</th>
-    //             <th class="vertical-header">Tender Floated Date</th>
-    //             <th class="vertical-header">Tender Opening Date</th>
-    //             <th class="vertical-header">Offer Received Date & Under Evaluation</th>
-    //             <th class="vertical-header">Sent For Contract</th>
-    //             <th class="vertical-header">Contract Signed Date</th>
-    //             <th class="vertical-header">Remaks</th>
-    //           </tr>
-    //         </thead>
-    //         <tbody>
-    //           ${dataSource
-    //     .map((row, index) => {
-    //       console.log(row);
-    //       return `
-    //                 <tr>
-    //                   <td class="vertical-header">${index + 1 || '-'}</td>
-    //                   <td class="vertical-header">${row.equpmentName|| '-'}</td>
-    //                   <td class="vertical-header">${ this.getBaseSchoolNames(row.baseSchoolNameDtos) || "-"}</td>
-    //                   <td class="vertical-header">${row.qty|| '-'}</td>
-    //                   <td class="vertical-header">${row.dgdpNssdName|| '-'}</td>
-    //                   <td class="vertical-header">${row.ePrice|| '-'}</td>
-    //                   <td class="vertical-header">${row.fcLcId|| '-'}</td>
-    //                   <td class="vertical-header">${row.groupName|| '-'}</td>
-    //                   <td class="vertical-header">${row.budgetCode|| '-'}</td>
-    //                   <td class="vertical-header">${row.financialYearName || '-'}</td>
-    //                   <td class="vertical-header">${row.controlledName|| '-'}</td>
+            .btn-tbl-edit, .btn-tbl-delete {
+              margin: 5px;
+            }
 
+            .col-white {
+              color: white;
+            }
 
-    //                   <td class="vertical-header">${this.formatDate(row.sentForAIPDate) ?? '-'}</td>
-    //                   <td class="vertical-header">${this.formatDate(row.aipApprovalDate) ??  '-'}</td>
-    //                   <td class="vertical-header">${ this.formatDate(row.indentSentDate) ?? '-'}</td>
-    //                   <td class="vertical-header">${this.formatDate(row.tenderFloatedDate) ?? '-'}</td>
-    //                   <td class="vertical-header">${this.getTenderOpeingDateAndTenderOpeningCount(row.procurementTenderOpeningDto)}</td>
-    //                   <td class="vertical-header">${ this.formatDate(row.offerReceivedDateAndUpdateEvaluation) ?? '-'}</td>
-    //                   <td class="vertical-header">${ this.formatDate(row.sentForContractDate) ?? '-'}</td>
-    //                   <td class="vertical-header">${ this.formatDate(row.sentForContractDate) ?? '-'}</td>
-    //                   <td class="vertical-header">${row.remarks || '-'}</td>
-    //                 </tr>
-    //               `;
-    //     })
-    //     .join('')}
-    //         </tbody>
-    //       </table>
-    //     </body>
-    //   </html>
-    // `);
+          </style>
+        </head>
+        <body onload="window.print();window.close()">
+          <div class="header-text">
+            <h3>Procurement List</h3>
+          </div>
+          <hr>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th class="vertical-header">Ser.</th>
+                <th class="vertical-header">Equipment Name</th>
+                <th class="vertical-header">Ship Name</th>
+                <th class="vertical-header">Qty</th>
+                <th class="vertical-header">Agency</th>
+                <th class="vertical-header">Contractual Price FC</th>
+                <th class="vertical-header">Contractual Price LC</th>
+                <th class="vertical-header">Budget Code</th>
+                <th class="vertical-header">Financial Year</th>
+                <th class="vertical-header">Controlled</th> 
+                <th class="vertical-header">Delivery Date</th> 
+                <th class="vertical-header">FAT</th> 
+                <th class="vertical-header">Foreign Training</th> 
+
+                <th class="vertical-header">Allocated Budget and Date </th>
+                <th class="vertical-header">Revised Allocated Budget and Date </th>
+                <th class="vertical-header">Bill Paid FC (DNW&EE) </th>
+                <th class="vertical-header">Bill Paid LC (DNW&EE) </th>
+                <th class="vertical-header">Bill Paid Others</th>
+                <th class="vertical-header">Terms Of Payment (%)</th>
+                <th class="vertical-header">Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${dataSource
+        .map((row, index) => {
+          return `
+                    <tr>
+                      <td class="vertical-header">${index + 1 || '-'}</td>
+                      <td class="vertical-header">${row.equpmentName|| '-'}</td>
+                      <td class="vertical-header">${ this.getBaseSchoolNames(row.baseSchoolNameDtos) || "-"}</td>
+                      <td class="vertical-header">${row.qty|| '-'}</td>
+                      <td class="vertical-header">${row.dgdpNssdName|| '-'}</td>                     
+                      <td class="vertical-header">${row.contractualPriceFC|| '-'}</td>                     
+                      <td class="vertical-header">${row.contractualPriceLC|| '-'}</td>                     
+                      <td class="vertical-header">${row.budgetCode|| '-'}</td>
+                      <td class="vertical-header">${row.financialYearName || '-'}</td>
+                      <td class="vertical-header">${row.controlledName|| '-'}</td>
+                      <td class="vertical-header">${this.formatDate(row.deliveryDate)|| '-'}</td>
+                      <td class="vertical-header">${row.fat || '-'}</td>
+                      <td class="vertical-header">${row.foreignTraining || '-'}</td>
+                      <td class="vertical-header">${row.allocatedBudget || '-' + row.allocatedBudgetDate? this.formatDate(row.allocatedBudgetDate): ''}</td>
+                      <td class="vertical-header">${row.revisedAllocatedBudget || '-'}</td>
+                      <td class="vertical-header">${row.billPainDNWEEFC || '-'}</td>
+                      <td class="vertical-header">${row.billPainDNWEELC || '-'}</td>
+                      <td class="vertical-header">${row.billPaidOther || '-'}</td>
+                      <td class="vertical-header">${row.termsOfPayment || '-'}</td>
+                      <td class="vertical-header">${row.remarks || '-'}</td>
+                    </tr>
+                  `;
+        })
+        .join('')}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `);
 
 
 
     popupWin.document.close();
   }
   deleteItem(row) {
-    const id = row.procurementId;
+    const id = row.budgetId;
     this.confirmService.confirm('Confirm delete message', 'Are You Sure Delete This  Item?').subscribe(result => {
       if (result) {
-        this.ProcurementService.delete(id).subscribe(() => {
-         this.getBudget();
+        this.BudgetService.delete(id).subscribe(() => {
+          this.getBudget();
           this.snackBar.open('Information Deleted Successfully ', '', {
             duration: 2000,
             verticalPosition: 'bottom',
@@ -289,21 +334,21 @@ export class BudgetListComponent implements OnInit {
       }
     })
   }
-  
+
   formatDate(dateString) {
     const date = new Date(dateString);
-  
+
     if (isNaN(date.getTime())) {
       return '-';
     }
-  
+
     const year = date.getFullYear();
-    const monthIndex = date.getMonth(); // Month index (0-11)
+    const monthIndex = date.getMonth();
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const month = monthNames[monthIndex]; // Get the month name in MMM format
+    const month = monthNames[monthIndex];
     const day = String(date.getDate()).padStart(2, '0');
-  
+
     return `${day} ${month} ,${year}`;
   }
-  
+
 }
