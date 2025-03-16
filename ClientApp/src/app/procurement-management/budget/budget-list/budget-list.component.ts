@@ -104,7 +104,7 @@ export class BudgetListComponent implements OnInit {
       this.isLoading = false;
       this.electricalEquipmentBudgetName = this.electricalEquipmentBudget[0]?.budgetCodeName ?? "-"
       this.electricalEquipmentBudgetCode = this.electricalEquipmentBudget[0]?.budgetCode ?? "-"
-      this.financialYearName = this.electricalEquipmentBudget[0]?.financialYearName ? this.militaryHardwareBudget[0].financialYearName : "-";
+      this.financialYearName = this.electricalEquipmentBudget[0]?.financialYearName ? this.militaryHardwareBudget[0]?.financialYearName : "-";
 
     })
   
@@ -117,7 +117,7 @@ export class BudgetListComponent implements OnInit {
       this.isLoading = false;
       this.militaryHardwareBudgetName = this.militaryHardwareBudget[0]?.budgetCodeName ?? "-"
       this.militaryHardwareBudgetCode = this.militaryHardwareBudget[0]?.budgetCode ?? "-"
-      this.financialYearName = this.militaryHardwareBudget[0].financialYearName ? this.militaryHardwareBudget[0].financialYearName : "-";
+      this.financialYearName = this.militaryHardwareBudget[0]?.financialYearName ? this.militaryHardwareBudget[0]?.financialYearName : "-";
 
     })
   }
@@ -161,6 +161,27 @@ export class BudgetListComponent implements OnInit {
     this.paging.pageIndex = 1;
     this.getBudget();
   }
+
+isEditable(financialName) {
+  // console.log(financialName)
+
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // Months are 0-based
+    let fyStartYear = currentMonth >= 7 ? currentYear : currentYear - 1;
+    let fyEndYear = fyStartYear + 1;
+
+    // Expected FY format (short)
+    let currentFY = `FY ${fyStartYear % 100}-${fyEndYear % 100}`;
+
+    // Normalize input: remove extra spaces and format to "FY XX-XX"
+    financialName = financialName
+        .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
+        .trim() // Remove leading and trailing spaces
+        .replace(/\d{4}/g, match => match.slice(-2)); // Convert full years to last two digits
+console.log(currentFY)
+    return financialName !== currentFY;
+}
 
   toggle() {
     this.showHideDiv = !this.showHideDiv;
@@ -250,7 +271,7 @@ export class BudgetListComponent implements OnInit {
         </head>
         <body onload="window.print();window.close()">
           <div class="header-text">
-            <h3>Procurement List</h3>
+            <h3>Budget List</h3>
           </div>
           <hr>
           <table class="custom-table">
@@ -270,8 +291,10 @@ export class BudgetListComponent implements OnInit {
                 <th class="vertical-header">FAT</th> 
                 <th class="vertical-header">Foreign Training</th> 
 
-                <th class="vertical-header">Allocated Budget and Date </th>
-                <th class="vertical-header">Revised Allocated Budget and Date </th>
+                <th class="vertical-header">Allocated Budget</th>
+                <th class="vertical-header">Allocated Budget Date</th>
+                <th class="vertical-header">Revised Allocated Budget </th>
+                <th class="vertical-header">Revised Allocated Budget Date </th>
                 <th class="vertical-header">Bill Paid FC (DNW&EE) </th>
                 <th class="vertical-header">Bill Paid LC (DNW&EE) </th>
                 <th class="vertical-header">Bill Paid Others</th>
@@ -297,8 +320,10 @@ export class BudgetListComponent implements OnInit {
                       <td class="vertical-header">${this.formatDate(row.deliveryDate)|| '-'}</td>
                       <td class="vertical-header">${row.fat || '-'}</td>
                       <td class="vertical-header">${row.foreignTraining || '-'}</td>
-                      <td class="vertical-header">${row.allocatedBudget || '-' + row.allocatedBudgetDate? this.formatDate(row.allocatedBudgetDate): ''}</td>
+                      <td class="vertical-header">${row.allocatedBudget || '-'}</td>
+                      <td class="vertical-header">${row.allocatedBudgetDate? this.formatDate(row.allocatedBudgetDate): '-'}</td>
                       <td class="vertical-header">${row.revisedAllocatedBudget || '-'}</td>
+                      <td class="vertical-header">${row.revisedAllocatedBudgetDate? this.formatDate(row.revisedAllocatedBudgetDate): '-'}</td>
                       <td class="vertical-header">${row.billPainDNWEEFC || '-'}</td>
                       <td class="vertical-header">${row.billPainDNWEELC || '-'}</td>
                       <td class="vertical-header">${row.billPaidOther || '-'}</td>
