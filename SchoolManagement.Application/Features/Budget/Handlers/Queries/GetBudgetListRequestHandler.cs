@@ -53,6 +53,8 @@ namespace SchoolManagement.Application.Features.Budget.Handlers.Queries
                      x.Controlled.Name.Contains(request.QueryParams.SearchText) ||
                      x.EqupmentName.Name.Contains(request.QueryParams.SearchText) ||
                      x.Remarks.Contains(request.QueryParams.SearchText) ||
+                     x.BudgetCode.BudgetCodeName.Contains(request.QueryParams.SearchText) || 
+                     x.BudgetCode.Code.Contains(request.QueryParams.SearchText) || 
                      x.BudgetBaseSchoolNames.Any(b => b.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
                  "EqupmentName", "BudgetCode", "Controlled",  "DgdpNssd", "FinancialYear",  "BudgetBaseSchoolNames.BaseSchoolName"
             );

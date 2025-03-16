@@ -202,7 +202,7 @@
                         <th class="custom-header">Bill Paid FC (DNW&EE) </th>
                         <th class="custom-header">Bill Paid LC (DNW&EE) </th>
                         <th class="custom-header">Bill Paid Others</th>
-                        <th class="custom-header">Terms Of Payment</th>
+                        <th class="custom-header">Terms Of Payment (%)</th>
                         <th class="custom-header">Remarks</th>
                         <th class="custom-header">Actions</th>
                       </tr>
@@ -243,7 +243,7 @@
                         <td>{{ element.termsOfPayment }}</td>
                         <td>{{ element.remarks }}</td>
                         <td class="cl-action">
-                          <button mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
+                          <button [disabled]="isEditable(element.financialYearName)" mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
                             [routerLink]="['/procurement-management/update-budget', element.budgetId]">
                             <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
                           </button>
