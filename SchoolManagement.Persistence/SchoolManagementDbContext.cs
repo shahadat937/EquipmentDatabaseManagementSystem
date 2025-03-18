@@ -580,8 +580,6 @@ namespace SchoolManagement.Persistence
             modelBuilder.Entity<Budget>(entity =>
             {
 
-
-
                 entity.HasOne(d => d.EqupmentName)
                     .WithMany(p => p.Budgets)
                     .HasForeignKey(d => d.EqupmentNameId)
@@ -607,6 +605,52 @@ namespace SchoolManagement.Persistence
 
 
             modelBuilder.Entity<BudgetBaseSchoolName>(entity => {
+
+
+            });
+
+            modelBuilder.Entity<Project>(entity =>
+            {
+
+                entity.HasOne(d => d.EqupmentName)
+                    .WithMany(p => p.Projects)
+                    .HasForeignKey(d => d.EqupmentNameId)
+                    .HasConstraintName("FK_Project_EqupmentName");
+
+
+                entity.HasOne(d => d.DgdpNssd)
+                    .WithMany(p => p.Projects)
+                    .HasForeignKey(d => d.DgdpNssdId)
+                    .HasConstraintName("FK_Project_DgdpNssd");
+
+                entity.HasOne(d => d.Controlled)
+                    .WithMany(p => p.Projects)
+                    .HasForeignKey(d => d.ControlledId)
+                    .HasConstraintName("FK_Project_Controlled");
+
+                entity.HasOne(d => d.BudgetCode)
+                    .WithMany(p => p.Projects)
+                    .HasForeignKey(d => d.BudgetCodeId)
+                    .HasConstraintName("FK_Project_BudgetCode");
+
+                entity.HasOne(d => d.FinancialYear)
+                    .WithMany(p => p.Projects)
+                    .HasForeignKey(d => d.FinancialYearId)
+                    .HasConstraintName("FK_Project_FinancialYears");
+
+                entity.HasOne(d => d.GroupName)
+                    .WithMany(p => p.Projects)
+                    .HasForeignKey(d => d.GroupNameId)
+                    .HasConstraintName("FK_Project_GroupName");
+
+                entity.HasOne(d => d.FcLc)
+                  .WithMany(p => p.Projects)
+                  .HasForeignKey(d => d.FcLcId)
+                  .HasConstraintName("FK_Project_FcLc");
+
+            });
+
+            modelBuilder.Entity<ProjectBaseSchoolName>(entity => {
 
 
             });

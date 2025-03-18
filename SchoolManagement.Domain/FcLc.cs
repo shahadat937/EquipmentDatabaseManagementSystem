@@ -7,6 +7,7 @@ namespace SchoolManagement.Domain
         public FcLc()
         {
             Procurements = new HashSet<Procurement>();
+            Projects = new HashSet<Project>();
         }
         public int FcLcId { get; set; }
         public string? Name { get; set; }
@@ -17,5 +18,6 @@ namespace SchoolManagement.Domain
         public bool IsActive { get; set; }
 
         public virtual ICollection<Procurement> Procurements { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }
