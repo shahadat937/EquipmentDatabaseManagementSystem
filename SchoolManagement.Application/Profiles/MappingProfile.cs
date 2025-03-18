@@ -466,7 +466,7 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(d => d.BudgetCodeName, o=> o.MapFrom(s=> s.BudgetCode.BudgetCodeName))
                 .ForMember(d => d.BudgetCode, o=> o.MapFrom(s=> s.BudgetCode.Code))
                 .ForMember(d => d.FinancialYearName, o => o.MapFrom(s => s.FinancialYear.FinancialYearName));
-            CreateMap<Procurement, CreateProcurementDto>().ReverseMap();
+            CreateMap<Project, CreateProjectDto>().ReverseMap();
             #endregion
 
         }
