@@ -60,6 +60,7 @@ using SchoolManagement.Application.DTOs.ReportingYear;
 using SchoolManagement.Application.DTOs.FinancialYears;
 using SchoolManagement.Application.DTOs.BudgetCode;
 using SchoolManagement.Application.DTOs.Budget;
+using SchoolManagement.Application.DTOs.Project;
 
 namespace SchoolManagement.Application.Profiles
 {
@@ -452,6 +453,20 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(d => d.BudgetCodeName, o => o.MapFrom(s => s.BudgetCode.BudgetCodeName))
                 .ForMember(d => d.BudgetCode, o => o.MapFrom(s => s.BudgetCode.Code));
             CreateMap<Budget, CreateBudgetDto>().ReverseMap();
+            #endregion
+
+
+            #region Project Mapping    
+            CreateMap<ProjectDto, Project>().ReverseMap()
+                .ForMember(d => d.GroupName, o => o.MapFrom(s => s.GroupName.Name))
+                .ForMember(d => d.EqupmentName, o => o.MapFrom(s => s.EqupmentName.Name))
+                .ForMember(d => d.ControlledName, o => o.MapFrom(s => s.Controlled.Name))
+                .ForMember(d => d.FcLcName, o => o.MapFrom(s => s.FcLc.Name))
+                .ForMember(d => d.DgdpNssdName, o => o.MapFrom(s => s.DgdpNssd.Name))
+                .ForMember(d => d.BudgetCodeName, o=> o.MapFrom(s=> s.BudgetCode.BudgetCodeName))
+                .ForMember(d => d.BudgetCode, o=> o.MapFrom(s=> s.BudgetCode.Code))
+                .ForMember(d => d.FinancialYearName, o => o.MapFrom(s => s.FinancialYear.FinancialYearName));
+            CreateMap<Project, CreateProjectDto>().ReverseMap();
             #endregion
 
         }

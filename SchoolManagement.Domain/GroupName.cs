@@ -10,6 +10,7 @@ namespace SchoolManagement.Domain
         {
             EquipmentCategories = new HashSet<EquipmentCategory>();
             Procurements = new HashSet<Procurement>();
+            Projects = new HashSet<Project>();
         }
 
         public int GroupNameId { get; set; }
@@ -22,5 +23,6 @@ namespace SchoolManagement.Domain
 
         public virtual ICollection<EquipmentCategory> EquipmentCategories { get; set; }
         public virtual ICollection<Procurement> Procurements { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }
