@@ -9,7 +9,7 @@ namespace SchoolManagement.Domain
 
         public Project()
         {
-            ProjectBaseSchoolNames = new HashSet<ProjectBaseSchoolName>();
+            ProjectBaseSchoolName = new HashSet<ProjectBaseSchoolName>();
         }
         public int ProjectId { get; set; }
         public int? EqupmentNameId { get; set; }
@@ -41,7 +41,7 @@ namespace SchoolManagement.Domain
         public DateTime? FinalAcceptance { get; set; }
         public string? InstallationRemarks { get; set; }
         public bool IsActive { get; set; }
-        public virtual BaseSchoolName? BaseSchoolName { get; set; }
+        //public virtual BaseSchoolName? BaseSchoolName { get; set; }
         public virtual GroupName? GroupName { get; set; }
         public virtual EqupmentName? EqupmentName { get; set; }
         public virtual Controlled? Controlled { get; set; }
@@ -49,7 +49,7 @@ namespace SchoolManagement.Domain
         public virtual DgdpNssd? DgdpNssd { get; set; }
         public virtual FinancialYear? FinancialYear { get; set; }
         public virtual BudgetCode? BudgetCode { get; set; }
-        public virtual ICollection<ProjectBaseSchoolName>? ProjectBaseSchoolNames { get; set; }
+        public virtual ICollection<ProjectBaseSchoolName>? ProjectBaseSchoolName { get; set; }
 
 
     }

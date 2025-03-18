@@ -37,9 +37,9 @@ namespace SchoolManagement.Application.Features.Project.Handlers.Commands
                 throw new NotFoundException(nameof(Project), request.ProjectDto.ProjectId);
 
             _mapper.Map(request.ProjectDto, Project);
-
-            await _unitOfWork.Repository<SchoolManagement.Domain.Project>().Update(Project);
-            await _unitOfWork.Save();
+          
+                await _unitOfWork.Repository<SchoolManagement.Domain.Project>().Update(Project);
+                await _unitOfWork.Save();
 
             var ProjectBaseSchool = _procuremenetBaseSchoolNameRepository.FilterWithInclude(x => x.ProjectId == request.ProjectDto.ProjectId);
 

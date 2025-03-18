@@ -54,9 +54,9 @@ namespace SchoolManagement.Application.Features.Project.Handlers.Queries
                      x.EqupmentName.Name.Contains(request.QueryParams.SearchText) ||
                   
                      x.BudgetCode.BudgetCodeName.Contains(request.QueryParams.SearchText) || 
-                     x.BudgetCode.Code.Contains(request.QueryParams.SearchText) || 
-                     x.ProjectBaseSchoolNames.Any(b => b.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
-                 "EqupmentName", "BudgetCode", "Controlled",  "DgdpNssd", "FinancialYear",  "ProjectBaseSchoolNames.BaseSchoolName"
+                     x.BudgetCode.Code.Contains(request.QueryParams.SearchText) ,
+                     //||                      x.ProjectBaseSchoolNames.Any(b => b.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
+                 "EqupmentName", "BudgetCode", "Controlled",  "DgdpNssd", "FinancialYear",  "ProjectBaseSchoolName.BaseSchoolName"
             );
 
             // Apply custom ordering
@@ -93,11 +93,11 @@ namespace SchoolManagement.Application.Features.Project.Handlers.Queries
 
                     case "baseschoolname":
                         orderedQuery = request.OrderDirection?.ToLower() == "desc"
-                            ? orderedQuery.OrderByDescending(x => x.ProjectBaseSchoolNames
+                            ? orderedQuery.OrderByDescending(x => x.ProjectBaseSchoolName
                                 .OrderByDescending(b => b.BaseSchoolName.SchoolName)
                                 .Select(b => b.BaseSchoolName.SchoolName)
                                 .FirstOrDefault())
-                            : orderedQuery.OrderBy(x => x.ProjectBaseSchoolNames
+                            : orderedQuery.OrderBy(x => x.ProjectBaseSchoolName
                                 .OrderBy(b => b.BaseSchoolName.SchoolName)
                                 .Select(b => b.BaseSchoolName.SchoolName)
                                 .FirstOrDefault());
