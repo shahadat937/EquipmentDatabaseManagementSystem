@@ -40,7 +40,6 @@ namespace SchoolManagement.Domain
         public DateTime? LocalTraining { get; set; }
         public DateTime? FinalAcceptance { get; set; }
         public string? InstallationRemarks { get; set; }
-
         public bool IsActive { get; set; }
         public virtual BaseSchoolName? BaseSchoolName { get; set; }
         public virtual GroupName? GroupName { get; set; }
