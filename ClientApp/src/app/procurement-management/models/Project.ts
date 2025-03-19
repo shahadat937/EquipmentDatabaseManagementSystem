@@ -1,0 +1,42 @@
+export interface Project {
+   projectId: number;
+  equpmentNameId?: number;
+  equpmentName?: string;
+  qty?: number;
+  dgdpNssdId?: number;
+  dgdpNssdName?: string;
+  ePrice?: number;
+  fcLcId?: number;
+  fcLcName?: string;
+  groupNameId?: number;
+  groupName?: string;
+  budgetCodeId?: number;
+  budgetCodeName?: string;
+  budgetCode?: string;
+  financialYearId?: number;
+  financialYearName?: string;
+  controlledId?: number;
+  controlledName?: string;
+  contractSigningDate?: Date;
+  foreignTrainingScheduleAndContractReceived?: Date;
+  foreignTrainingApprovalForOfficerNomination?: Date;
+  foreignTrainingGoApproval?: Date;
+  foreignTraningDate?: Date;
+  foreignTrainingRemark?: string;
+  fatSchedule?: Date;
+  fatAcceptance?: Date;
+  fatApprovalForOfficerNomination?: Date;
+  fatGoApproval?: Date;
+  fatDate?: Date;
+  fatRemarks?: string;
+  shipmentAndDelivery?: Date;
+  stw?: Date;
+  hat?: Date;
+  sat?: Date;
+  localTraining?: Date;
+  finalAcceptance?: Date;
+  installationRemarks?: string;
+  isActive: boolean;
+  baseSchoolNameId: (number | null)[];
+  baseSchoolNameDtos: any
+}

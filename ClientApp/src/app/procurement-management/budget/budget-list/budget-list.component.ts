@@ -14,13 +14,14 @@ import { AuthService } from '../../../../../src/app/core/service/auth.service';
 import { DatePipe } from '@angular/common';
 import { Budget } from '../../models/Budget';
 import { BudgetService } from '../../service/budget.service';
+import { UnsubscribeOnDestroyAdapter } from '../../../shared/UnsubscribeOnDestroyAdapter';
 
 @Component({
   selector: 'app-budget-list',
   templateUrl: './budget-list.component.html',
   styleUrls: ['./budget-list.component.sass']
 })
-export class BudgetListComponent implements OnInit {
+export class BudgetListComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
 
   masterData = MasterData;
   ELEMENT_DATA: Procurement[] = [];
@@ -74,7 +75,9 @@ export class BudgetListComponent implements OnInit {
 
   selection = new SelectionModel<Budget>(true, []);
 
-  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService: AuthService, private datePipe: DatePipe, private BudgetService: BudgetService) { }
+  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService: AuthService, private datePipe: DatePipe, private BudgetService: BudgetService) { 
+    super();
+  }
 
   ngOnInit() {
     this.role = this.authService.currentUserValue.role;

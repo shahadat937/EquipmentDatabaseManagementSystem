@@ -8,7 +8,7 @@ namespace SchoolManagement.Api.Controllers;
 
 [Route(SMSRoutePrefix.Project)]
 [ApiController]
-//[Authorize]
+[Authorize]
 public class ProjectController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -80,7 +80,52 @@ public class ProjectController : ControllerBase
         return NoContent();
     }
 
-   
+    [HttpGet]
+    [Route("get-Installation-Project")]
+    public async Task<ActionResult<List<ProjectDto>>> GetInstallationProjectList([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Project = await _mediator.Send(new GetInstallationProjectListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Project);
+    }
+    
+    [HttpGet]
+    [Route("get-Fat-Project")]
+    public async Task<ActionResult<List<ProjectDto>>> GetFatProjectList([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Project = await _mediator.Send(new GetFatProjectListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Project);
+    }  
+    
+    [HttpGet]
+    [Route("get-Foreign-Training-Project")]
+    public async Task<ActionResult<List<ProjectDto>>> GetForeignTrainingProjectList([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Project = await _mediator.Send(new GetForeignTrainingProjectListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Project);
+    }
+
+
 
 }
 
