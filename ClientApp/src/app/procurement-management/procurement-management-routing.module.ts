@@ -7,6 +7,8 @@ import { NewProcurementComponent } from './procurement/new-procurement/new-procu
 import { ProcurementDashboardComponent } from './procurement-dashboard/procurement-dashboard.component';
 import { BudgetListComponent } from './budget/budget-list/budget-list.component';
 import { NewBudgetComponent } from './budget/new-budget/new-budget.component';
+import { ProjectListComponent } from './Project/project-list/project-list.component';
+import { NewProjectComponent } from './Project/new-project/new-project.component';
 
 const routes: Routes = [
   {
@@ -40,6 +42,17 @@ const routes: Routes = [
   {
     path: 'add-budget',
     component: NewBudgetComponent,
+  },
+  {
+    path: 'project-list',
+    component: ProjectListComponent,
+  },
+  { path: 'update-project/:projectId', 
+  component: NewProjectComponent, 
+  },
+  {
+    path: 'add-budget',
+    component: NewProjectComponent,
   },
   
 

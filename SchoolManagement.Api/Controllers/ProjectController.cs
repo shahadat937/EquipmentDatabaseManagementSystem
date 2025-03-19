@@ -8,7 +8,7 @@ namespace SchoolManagement.Api.Controllers;
 
 [Route(SMSRoutePrefix.Project)]
 [ApiController]
-//[Authorize]
+[Authorize]
 public class ProjectController : ControllerBase
 {
     private readonly IMediator _mediator;
