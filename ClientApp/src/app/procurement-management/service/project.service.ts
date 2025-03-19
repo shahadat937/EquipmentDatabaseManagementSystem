@@ -47,4 +47,56 @@ export class ProjectService {
    find(id: number) {
       return this.http.get<Project>(this.baseUrl + '/project/get-ProjectDetail/' + id);
     }
+
+    getForeignTrainingProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
+      let params = new HttpParams();
+      params = params.append('searchText', searchText.toString());
+      params = params.append('pageNumber', pageNumber.toString());
+      params = params.append('pageSize', pageSize.toString());    
+      params = params.append('orderBy', orderBy.toString());    
+      params = params.append('orderDirection', orderDirection.toString());    
+      return this.http.get<IProjectPagination>(this.baseUrl + '/project/get-Foreign-Training-Project', { observe: 'response', params })
+      .pipe(
+        map(response => {
+          this.Project = [...this.Project, ...(response.body?.items || [])];
+          this.ProjectPagination = response.body ?? {} as ProjectPagination;
+          return this.ProjectPagination;
+        })
+      );
+     
+    }
+    getFatTrainingProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
+      let params = new HttpParams();
+      params = params.append('searchText', searchText.toString());
+      params = params.append('pageNumber', pageNumber.toString());
+      params = params.append('pageSize', pageSize.toString());    
+      params = params.append('orderBy', orderBy.toString());    
+      params = params.append('orderDirection', orderDirection.toString());    
+      return this.http.get<IProjectPagination>(this.baseUrl + '/project/get-Fat-Project', { observe: 'response', params })
+      .pipe(
+        map(response => {
+          this.Project = [...this.Project, ...(response.body?.items || [])];
+          this.ProjectPagination = response.body ?? {} as ProjectPagination;
+          return this.ProjectPagination;
+        })
+      );
+     
+    }
+    getInstallationTrainingProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
+      let params = new HttpParams();
+      params = params.append('searchText', searchText.toString());
+      params = params.append('pageNumber', pageNumber.toString());
+      params = params.append('pageSize', pageSize.toString());    
+      params = params.append('orderBy', orderBy.toString());    
+      params = params.append('orderDirection', orderDirection.toString());    
+      return this.http.get<IProjectPagination>(this.baseUrl + '/project/get-Installation-Project', { observe: 'response', params })
+      .pipe(
+        map(response => {
+          this.Project = [...this.Project, ...(response.body?.items || [])];
+          this.ProjectPagination = response.body ?? {} as ProjectPagination;
+          return this.ProjectPagination;
+        })
+      );
+     
+    }
 }

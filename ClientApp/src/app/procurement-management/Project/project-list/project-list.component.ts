@@ -15,6 +15,11 @@ import { DatePipe } from '@angular/common';
 import { Project } from '../../models/Project';
 import { ProjectService } from '../../service/project.service';
 import { UnsubscribeOnDestroyAdapter } from '../../../shared/UnsubscribeOnDestroyAdapter';
+interface Paging {
+  pageIndex: number;
+  pageSize: number;
+  length: number;
+}
 
 @Component({
   selector: 'app-project-list',
@@ -34,16 +39,27 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
     pageSize: 5,
     length: 1
   }
-  ElectricalEqipmentpaging = {
+ 
+
+  pagingConfig: Paging = {
     pageIndex: this.masterData.paging.pageIndex,
     pageSize: 5,
     length: 1
-  }
-  hardwarelEqipmentpaging = {
-    pageIndex: this.masterData.paging.pageIndex,
-    pageSize: 5,
-    length: 1
-  }
+  };
+
+  foreignTrainingPageing: Paging = { ...this.pagingConfig };
+  fatPageing: Paging = { ...this.pagingConfig };
+  installationPageing: Paging = {...this.pagingConfig}
+
+  foreignTrainingProject : any;
+  fatProject : any;
+  installationProject : any;
+
+  foreignTrainingProjectSearch = ""
+  fatProjectSearch = ""
+  installationProjectSearch = ""
+
+
   userRoles = Role
   role: string;
   branchId: string;
@@ -84,14 +100,15 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
     this.branchId = this.authService.currentUserValue.branchId;
 
     this.getProject();
+    this.getForeignTraingProject();
+    this.getFatProject();
+    this.getInstallationProject();
   }
 
   getProject() {
     this.isLoading = true;
     this.ProjectService.getProject(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.orderBy, this.orderDirection).subscribe(response => {
       this.dataSource.data = response.items;
-      console.log(this.dataSource.data);
-
       this.paging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
@@ -114,13 +131,51 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
     this.paging.pageIndex = this.paging.pageIndex + 1
     this.getProject();
   }
-
-
   applyFilter(searchText: any) {
     this.searchText = searchText;
     this.paging.pageIndex = this.masterData.paging.pageIndex
     this.getProject();
   }
+
+
+  foreignTrainingApplyFilter(searchText: any) {
+    this.foreignTrainingProjectSearch = searchText;
+    this.foreignTrainingPageing.pageIndex = this.masterData.paging.pageIndex
+    this.getForeignTraingProject();
+  }
+  foreignTrainingPageChanged(event: PageEvent) {
+    this.foreignTrainingPageing.pageIndex = event.pageIndex
+    this.foreignTrainingPageing.pageSize = event.pageSize
+    this.foreignTrainingPageing.pageIndex = this.foreignTrainingPageing.pageIndex + 1
+    this.getForeignTraingProject();
+  }
+
+  fatApplyFilter(searchText: any) {
+    this.fatProjectSearch = searchText;
+    this.fatPageing.pageIndex = this.masterData.paging.pageIndex
+    this.fatProject();
+  }
+  fatTrainingPageChanged(event: PageEvent) {
+    this.fatPageing.pageIndex = event.pageIndex
+    this.fatPageing.pageSize = event.pageSize
+    this.fatPageing.pageIndex = this.fatPageing.pageIndex + 1
+    this.fatProject();
+  }
+
+  installationApplyFilter(searchText: any) {
+    this.installationProjectSearch = searchText;
+    this.installationPageing.pageIndex = this.masterData.paging.pageIndex
+    this.getInstallationProject();
+  }
+  installationPageChanged(event: PageEvent) {
+    this.installationPageing.pageIndex = event.pageIndex
+    this.installationPageing.pageSize = event.pageSize
+    this.installationPageing.pageIndex = this.installationPageing.pageIndex + 1
+    this.getInstallationProject();
+  }
+
+
+
 
   sortByKey(key) {
     this.orderDirection = this.orderDirection === 'desc' ? 'asc' : "desc"
@@ -149,9 +204,37 @@ isEditable(financialName) {
     return financialName !== currentFY;
 }
 
-  toggle() {
-    this.showHideDiv = !this.showHideDiv;
-  }
+getForeignTraingProject() {
+  this.isLoading = true;
+  this.ProjectService.getForeignTrainingProject(this.foreignTrainingPageing.pageIndex, this.foreignTrainingPageing.pageSize, this.foreignTrainingProjectSearch, this.orderBy, this.orderDirection).subscribe(response => {
+    this.foreignTrainingProject = response.items;
+    console.log(response.items)
+    this.foreignTrainingPageing.length = response.totalItemsCount
+    this.isLoading = false;
+  })
+}
+
+getFatProject() {
+  this.isLoading = true;
+  this.ProjectService.getFatTrainingProject(this.fatPageing.pageIndex, this.fatPageing.pageSize, this.fatProjectSearch, this.orderBy, this.orderDirection).subscribe(response => {
+    this.fatProject = response.items;
+    console.log(response.items)
+    this.fatPageing.length = response.totalItemsCount
+    this.isLoading = false;
+  })
+}
+
+getInstallationProject() {
+  this.isLoading = true;
+  this.ProjectService.getInstallationTrainingProject(this.installationPageing.pageIndex, this.installationPageing.pageSize, this.installationProjectSearch, this.orderBy, this.orderDirection).subscribe(response => {
+    this.installationProject = response.items;
+    console.log(response.items)
+    this.installationPageing.length = response.totalItemsCount
+    this.isLoading = false;
+  })
+}
+
+ 
   printSingle() {
     this.showHideDiv = false;
     this.print();

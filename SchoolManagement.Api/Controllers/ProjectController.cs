@@ -94,6 +94,36 @@ public class ProjectController : ControllerBase
         );
         return Ok(Project);
     }
+    
+    [HttpGet]
+    [Route("get-Fat-Project")]
+    public async Task<ActionResult<List<ProjectDto>>> GetFatProjectList([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Project = await _mediator.Send(new GetFatProjectListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Project);
+    }  
+    
+    [HttpGet]
+    [Route("get-Foreign-Training-Project")]
+    public async Task<ActionResult<List<ProjectDto>>> GetForeignTrainingProjectList([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Project = await _mediator.Send(new GetForeignTrainingProjectListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Project);
+    }
 
 
 
