@@ -51,7 +51,7 @@ const routes: Routes = [
   component: NewProjectComponent, 
   },
   {
-    path: 'add-budget',
+    path: 'add-project',
     component: NewProjectComponent,
   },
   
