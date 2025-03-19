@@ -80,7 +80,22 @@ public class ProjectController : ControllerBase
         return NoContent();
     }
 
-   
+    [HttpGet]
+    [Route("get-Installation-Project")]
+    public async Task<ActionResult<List<ProjectDto>>> GetInstallationProjectList([FromQuery] QueryParams queryParams, string orderBy, string orderDirection)
+    {
+        var Project = await _mediator.Send(new GetInstallationProjectListRequest
+        {
+            QueryParams = queryParams,
+            OrderBy = orderBy,
+            OrderDirection = orderDirection
+        }
+
+        );
+        return Ok(Project);
+    }
+
+
 
 }
 

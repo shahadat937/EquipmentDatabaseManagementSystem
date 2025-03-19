@@ -38,4 +38,5 @@ export interface Project {
   installationRemarks?: string;
   isActive: boolean;
   baseSchoolNameId: (number | null)[];
+  baseSchoolNameDtos: any
 }

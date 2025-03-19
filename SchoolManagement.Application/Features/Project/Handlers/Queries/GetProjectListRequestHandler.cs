@@ -52,11 +52,16 @@ namespace SchoolManagement.Application.Features.Project.Handlers.Queries
                      x.DgdpNssd.Name.Contains(request.QueryParams.SearchText) ||
                      x.Controlled.Name.Contains(request.QueryParams.SearchText) ||
                      x.EqupmentName.Name.Contains(request.QueryParams.SearchText) ||
+                     x.FinancialYear.FinancialYearName.Contains(request.QueryParams.SearchText) ||
+                     x.EPrice.ToString().Contains(request.QueryParams.SearchText) ||
+                     x.FatRemarks.Contains(request.QueryParams.SearchText) ||
+                     x.InstallationRemarks.Contains(request.QueryParams.SearchText) ||
+                     x.ForeignTrainingRemark.Contains(request.QueryParams.SearchText) ||
                   
                      x.BudgetCode.BudgetCodeName.Contains(request.QueryParams.SearchText) || 
-                     x.BudgetCode.Code.Contains(request.QueryParams.SearchText) ,
-                     //||                      x.ProjectBaseSchoolNames.Any(b => b.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
-                 "EqupmentName", "BudgetCode", "Controlled",  "DgdpNssd", "FinancialYear",  "ProjectBaseSchoolName.BaseSchoolName"
+                     x.BudgetCode.Code.Contains(request.QueryParams.SearchText) 
+                     || x.ProjectBaseSchoolName.Any(b => b.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
+                 "EqupmentName", "GroupName", "FcLc", "BudgetCode", "Controlled",  "DgdpNssd", "FinancialYear",  "ProjectBaseSchoolName.BaseSchoolName"
             );
 
             // Apply custom ordering

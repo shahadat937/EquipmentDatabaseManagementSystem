@@ -1,1 +1,204 @@
-<p>project-list works!</p>
+<section class="content">
+    <div class="container-fluid">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="breadcrumb breadcrumb-style ">
+                        <li class="breadcrumb-item">
+                            <h4 class="page-title">Project List</h4>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-1">
+                            <a routerLink="/admin/dashboard/main">
+                                <i class="fas fa-home"></i> </a>
+                        </li>
+                        <li class="breadcrumb-item bcrumb-2">
+                            <a href="#" onClick="return false;">Project</a>
+                        </li>
+                        <li class="breadcrumb-item active">All</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="row mb-3">
+                            <div class="icon-button-demo col-12">
+                                <!-- <button mat-raised-button color="warn" class="float-end rounded-pill px-4" (click)="SharedService.goBack()">
+                                    Back
+                                    <mat-icon class="col-white">keyboard_backspace</mat-icon>
+                                  </button> -->
+                            </div>
+                        </div>
+                        <div class="responsive_table">
+                            <div class="materialTableHeader">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <ul class="header-buttons-left ml-0">
+  
+                                            <li class="dropdown">
+                                                <input (click)="applyFilter(searchText)"
+                                                    placeholder="Search: Ship Name, Equipment Name, Project Type"
+                                                    type="text" [(ngModel)]="searchText" #filter
+                                                    class="browser-default search-field" aria-label="Search box">
+                                            </li>
+                                            <li>
+                                                <div class="icon-button-demo m-l-10">
+                                                    <button mat-mini-fab (click)="applyFilter(searchText)"
+                                                        color="accent">
+                                                        <mat-icon class="col-white">search</mat-icon>
+                                                    </button>
+                                                </div>
+
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="col-4">
+                                        <ul class="header-buttons">
+                                            <li>
+                                                <div class="icon-button-demo">
+                                                    <button class="btn-space" mat-raised-button color="primary"
+                                                        routerLink="/procurement-management/add-project"> Add
+                                                        <mat-icon class="col-white">add</mat-icon>
+                                                    </button>
+
+                                                </div>
+
+                                            </li>
+                                            <li>
+                                                <div class="icon-button-demo">
+                                                    <button class="btn-space" mat-raised-button color="primary"
+                                                        (click)="printSingle()">
+                                                        <mat-icon class="col-white">print</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+
+                            </div>
+                            <h3 class="my-3">All Project Information</h3>
+                            <div id="print-routine">
+
+
+
+                                <div style="overflow-x: auto; max-width: 100%;">
+                                    <table class="custom-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="custom-header">Ser.</th>
+                                                <th class="custom-header">Equipment Name</th>
+                                                <th style="width:10%" class="custom-header">Ship Name</th>
+                                                <th class="custom-header">Qty</th>
+                                                <th class="custom-header">Agency</th>
+                                                <th class="custom-header">E-Price</th>
+                                                <th class="custom-header">FC/LC</th>
+                                                <th class="custom-header">Group Name</th>
+                                                <th class="custom-header">Budget Code</th>
+                                                <th class="custom-header">Financial Year</th>
+                                                <th class="custom-header">Controlled</th>
+                                                <th class="custom-header">Contract Signing Date</th>
+                                                <th class="custom-header">Foreign Traininging Sehedule & Contents Date
+                                                </th>
+                                                <th class="custom-header">Foreign Training Approval For Officer
+                                                    Nomination (CNS)</th>
+                                                <th class="custom-header">Foreign Training Go Approval</th>
+                                                <th class="custom-header">Foreign Training Date</th>
+                                                <th class="custom-header">Foreign Training Remarks</th>
+                                                <th class="custom-header">FAT Schedule</th>
+                                                <th class="custom-header">FAT Acceptance</th>
+                                                <th class="custom-header">FAT Approval for Officer nomination(CNS)</th>
+                                                <th class="custom-header">FAT Go Approval</th>
+                                                <th class="custom-header">FAT Date</th>
+                                                <th class="custom-header">FAT Remarks</th>
+                                                <th class="custom-header">Shipment & Delivery</th>
+                                                <th class="custom-header">STW</th>
+                                                <th class="custom-header">HAT</th>
+                                                <th class="custom-header">SAT</th>
+                                                <th class="custom-header">Local Training</th>
+                                                <th class="custom-header">Final Acceptance</th>
+                                                <th class="custom-header">Installation Remarks</th>
+
+
+
+                                                <th class="custom-header">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let element of dataSource.data; let i = index">
+                                                <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                                                <td>{{ element.equpmentName }}</td>
+                                                <td style="min-width: 200px; white-space: wrap;">
+                                                    {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
+                                                </td>
+                                                <td>{{ element.qty }}</td>
+                                                <td>{{ element.dgdpNssdName }}</td>
+                                                <td>{{ element.ePrice }}</td>
+                                                <td>{{ element.fcLcName }}</td>
+                                                <td>{{ element.groupName }}</td>
+                                                <td>{{ element.budgetCode}} ({{element.budgetCodeName}})</td>
+                                                <td>{{ element.financialYearName}}</td>
+                                                <td>{{ element.controlledName }}</td>
+                                                <td>{{ element.contractSigningDate | date : 'dd MMM, yyyy' }}</td>
+                                                <td>{{ element.foreignTrainingScheduleAndContractReceived | date: "dd
+                                                    MMM, yyyy" }}</td>
+                                                <td>{{ element.foreignTrainingApprovalForOfficerNomination | date: "dd
+                                                    MMM, yyyy" }}</td>
+                                                <td>{{ element.foreignTrainingGoApproval | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.foreignTraningDate | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.foreignTrainingRemark}}</td>
+                                                <td>{{ element.fatSchedule | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.fatAcceptance | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.fatApprovalForOfficerNomination | date: "dd MMM, yyyy" }}
+                                                </td>
+                                                <td>{{ element.fatGoApproval | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.fatDate | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.fatRemarks }}</td>
+                                                <td>{{ element.shipmentAndDelivery | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.stw | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.hat | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.sat | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.localTraining | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.finalAcceptance | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.installationRemarks }}</td>
+
+
+                                                <td class="cl-action">
+                                                    <button mat-icon-button color="accent" title="Edit"
+                                                        class="btn-tbl-edit"
+                                                        [routerLink]="['/procurement-management/update-project', element.projectId]">
+                                                        <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
+                                                    </button>
+                                                    <button (click)="deleteItem(element)" mat-icon-button color="accent"
+                                                        class="btn-tbl-delete">
+                                                        <mat-icon aria-label="Delete"
+                                                            class="col-white">delete</mat-icon>
+                                                    </button>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <mat-paginator [length]="paging.length"
+                                [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
+                                [pageSize]="paging.pageSize" [pageSizeOptions]="masterData.paging.pageSizeOptions"
+                                (page)="pageChanged($event)">
+                            </mat-paginator>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
