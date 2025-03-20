@@ -164,7 +164,7 @@
 
                         <td>{{ element.remarks }}</td>
                         <td [hidden]="isCommandingAreaUsers" class="cl-action">
-                          <button mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
+                          <button [disabled]="isEditable(element.financialYearName)" mat-icon-button color="accent" title="Edit" class="btn-tbl-edit"
                             [routerLink]="['/procurement-management/update-procurement', element.procurementId]">
                             <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
                           </button>

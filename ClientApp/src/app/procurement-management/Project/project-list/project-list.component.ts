@@ -221,25 +221,32 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
     this.getProject();
   }
 
-isEditable(financialName) {
-  // console.log(financialName)
-
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1; // Months are 0-based
-    let fyStartYear = currentMonth >= 7 ? currentYear : currentYear - 1;
-    let fyEndYear = fyStartYear + 1;
-
-    // Expected FY format (short)
-    let currentFY = `FY ${fyStartYear % 100}-${fyEndYear % 100}`;
-
-    // Normalize input: remove extra spaces and format to "FY XX-XX"
-    financialName = financialName
-        .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
-        .trim() // Remove leading and trailing spaces
-        .replace(/\d{4}/g, match => match.slice(-2)); // Convert full years to last two digits
-    return financialName !== currentFY;
-}
+  isEditable(financialName) {
+    // console.log(financialName)
+  
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1; // Months are 0-based
+      let fyStartYear = currentMonth >= 7 ? currentYear : currentYear - 1;
+      let fyEndYear = fyStartYear + 1;
+  
+      // Expected FY format (short)
+      let currentFY = `FY ${fyStartYear % 100}-${fyEndYear % 100}`;
+  
+      // Normalize input: remove extra spaces and format to "FY XX-XX"
+      financialName = financialName
+          .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
+          .trim() // Remove leading and trailing spaces
+          .replace(/\d{4}/g, match => match.slice(-2)); // Convert full years to last two digits
+  console.log(currentFY)
+      if(this.role === Role.MasterAdmin){
+        return false;
+      }
+      else{
+     
+        return financialName !== currentFY;
+      }
+  }
 
 getForeignTraingProject() {
   this.isLoading = true;

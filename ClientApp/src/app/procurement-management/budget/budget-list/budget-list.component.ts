@@ -183,7 +183,13 @@ isEditable(financialName) {
         .trim() // Remove leading and trailing spaces
         .replace(/\d{4}/g, match => match.slice(-2)); // Convert full years to last two digits
 console.log(currentFY)
-    return financialName !== currentFY;
+    if(this.role === Role.MasterAdmin){
+      return false;
+    }
+    else{
+   
+      return financialName !== currentFY;
+    }
 }
 
   toggle() {

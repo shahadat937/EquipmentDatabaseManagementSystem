@@ -132,7 +132,7 @@
 
 
                       <li class="dropdown">
-                        <input (click)="applyFilter(searchText)"
+                        <input (input)="applyFilter(searchText)"
                           placeholder="Search: Ship Name, Equipment Name, Procurement Type" type="text"
                           [(ngModel)]="searchText" #filter class="browser-default search-field" aria-label="Search box">
                       </li>
