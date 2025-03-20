@@ -40,6 +40,7 @@ import { NewBookTypeComponent } from './booktype/new-booktype/new-booktype.compo
 import {NewSchoolNameComponent} from './new-schoolname/new-schoolname.component'
 import { ReportingYearComponent } from './reporting-year/reporting-year.component';
 import { NewCommendingAreaComponent } from './new-commendingarea/new-commendingarea.component';
+import { BudgetCodeComponent } from './budgetCode/budget-code/budget-code.component';
 const routes: Routes = [
   {
     path: '',
@@ -321,6 +322,13 @@ const routes: Routes = [
   {
     path: 'add-booktype',
     component: NewBookTypeComponent,
+  },
+  { path: 'update-budget-code/:budgetCodeId', 
+  component: BudgetCodeComponent, 
+  },
+  {
+    path: 'add-budget-code',
+    component: BudgetCodeComponent,
   },
   {
     path: 'new-baseschool',
