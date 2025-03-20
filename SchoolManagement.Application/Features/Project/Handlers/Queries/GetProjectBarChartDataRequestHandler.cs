@@ -45,12 +45,12 @@ namespace SchoolManagement.Application.Features.Project.Handlers.Queries
             var installationCount = ProjectQuery.Where(x => (x.ShipmentAndDelivery != null || x.SAT != null || x.HAT != null || x.SAT != null || x.LocalTraining != null || x.FinalAcceptance != null)).Count();
 
 
-            var foreiginTrainingItems = ProjectQuery.Where(x => (x.ForeignTrainingScheduleAndContractReceived != null || x.ForeignTrainingApprovalForOfficerNomination != null || x.ForeignTrainingGoApproval != null && x.ForeignTraningDate != null) && (x.FatSchedule == null && x.FatAcceptance == null && x.FatApprovalForOfficerNomination == null && x.FatGoApproval == null && x.FatDate == null) && (x.ShipmentAndDelivery == null && x.SAT == null && x.HAT == null && x.SAT == null && x.LocalTraining == null && x.FinalAcceptance == null)).Select(x => x.EqupmentName.Name).ToList();
+            var foreiginTrainingItems = ProjectQuery.Where(x => (x.ForeignTrainingScheduleAndContractReceived != null || x.ForeignTrainingApprovalForOfficerNomination != null || x.ForeignTrainingGoApproval != null && x.ForeignTraningDate != null) && (x.FatSchedule == null && x.FatAcceptance == null && x.FatApprovalForOfficerNomination == null && x.FatGoApproval == null && x.FatDate == null) && (x.ShipmentAndDelivery == null && x.SAT == null && x.HAT == null && x.SAT == null && x.LocalTraining == null && x.FinalAcceptance == null)).OrderByDescending(x=>x.LastModifiedDate).Select(x => x.EqupmentName.Name).ToList();
 
 
-            var fatItems = ProjectQuery.Where(x => (x.FatSchedule != null || x.FatAcceptance != null || x.FatApprovalForOfficerNomination != null || x.FatGoApproval != null || x.FatDate != null) && (x.ShipmentAndDelivery == null && x.SAT == null && x.HAT == null && x.SAT == null && x.LocalTraining == null && x.FinalAcceptance == null)).Select(x=> x.EqupmentName.Name).ToList();
+            var fatItems = ProjectQuery.Where(x => (x.FatSchedule != null || x.FatAcceptance != null || x.FatApprovalForOfficerNomination != null || x.FatGoApproval != null || x.FatDate != null) && (x.ShipmentAndDelivery == null && x.SAT == null && x.HAT == null && x.SAT == null && x.LocalTraining == null && x.FinalAcceptance == null)).OrderByDescending(x => x.LastModifiedDate).Select(x=> x.EqupmentName.Name).ToList();
 
-            var installationItmes = ProjectQuery.Where(x => (x.ShipmentAndDelivery != null || x.SAT != null || x.HAT != null || x.SAT != null || x.LocalTraining != null || x.FinalAcceptance != null)).Select(x => x.EqupmentName.Name).ToList();
+            var installationItmes = ProjectQuery.Where(x => (x.ShipmentAndDelivery != null || x.SAT != null || x.HAT != null || x.SAT != null || x.LocalTraining != null || x.FinalAcceptance != null)).OrderByDescending(x => x.LastModifiedDate).Select(x => x.EqupmentName.Name).ToList();
 
             var result = new ProjectBarChartDto
             {

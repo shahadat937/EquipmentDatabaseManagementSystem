@@ -248,6 +248,8 @@ namespace SchoolManagement.Application.Profiles
                 .ForMember(d => d.ControlledName, o => o.MapFrom(s => s.Controlled.Name))
                 .ForMember(d => d.FcLcName, o => o.MapFrom(s => s.FcLc.Name))
                 .ForMember(d => d.DgdpNssdName, o => o.MapFrom(s => s.DgdpNssd.Name))
+                .ForMember(d => d.BudgetCodeName, o => o.MapFrom(s => s.BudgetCode.BudgetCodeName))
+                .ForMember(d => d.BudgetCode, o => o.MapFrom(s => s.BudgetCode.Code))
                 .ForMember(d=> d.FinancialYearName, o => o.MapFrom (s=> s.FinancialYear.FinancialYearName));
             CreateMap<Procurement, CreateProcurementDto>().ReverseMap();
             #endregion

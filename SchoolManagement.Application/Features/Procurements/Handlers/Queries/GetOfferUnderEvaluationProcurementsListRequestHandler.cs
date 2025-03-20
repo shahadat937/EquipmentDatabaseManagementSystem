@@ -59,10 +59,11 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
                      x.DgdpNssd.Name.Contains(request.QueryParams.SearchText) ||
                      x.Controlled.Name.Contains(request.QueryParams.SearchText) ||
                      x.EqupmentName.Name.Contains(request.QueryParams.SearchText) ||
-                     x.BudgetCode.Contains(request.QueryParams.SearchText) ||
+                     x.BudgetCode.Code.Contains(request.QueryParams.SearchText) ||
+                     x.BudgetCode.BudgetCodeName.Contains(request.QueryParams.SearchText) ||
                      x.Remarks.Contains(request.QueryParams.SearchText) ||
                      x.ProcurementBaseSchoolNames.Any(b => b.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText))),
-                "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "FinancialYear", "ProcurementBaseSchoolNames", "ProcurementBaseSchoolNames.BaseSchoolName"
+                "GroupName", "EqupmentName", "BudgetCode", "Controlled", "FcLc", "DgdpNssd", "FinancialYear", "ProcurementBaseSchoolNames", "ProcurementBaseSchoolNames.BaseSchoolName"
             );
 
             // Apply custom ordering
@@ -193,7 +194,7 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
 
 
                     default:
-                        orderedQuery = orderedQuery.OrderByDescending(x => x.ProcurementId);
+                        orderedQuery = orderedQuery.OrderByDescending(x => x.LastModifiedDate);
                         break;
                 }
 
@@ -201,7 +202,7 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
             else
             {
                 // Default ordering
-                orderedQuery = orderedQuery.OrderByDescending(x => x.ProcurementId);
+                orderedQuery = orderedQuery.OrderByDescending(x => x.LastModifiedDate);
             }
 
             var totalCount = await orderedQuery.CountAsync();

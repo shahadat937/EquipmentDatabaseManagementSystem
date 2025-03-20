@@ -13,6 +13,7 @@ namespace SchoolManagement.Domain
         {
             Budgets = new HashSet<Budget>();
             Projects = new HashSet<Project>();
+            Procurements = new HashSet<Procurement>();
         }
         public int BudgetCodeId { get; set; }
         public string BudgetCodeName { get; set; }
@@ -21,6 +22,7 @@ namespace SchoolManagement.Domain
         public bool IsActive { get; set; }
         public virtual ICollection<Budget> Budgets { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<Procurement> Procurements { get; set; }
     }
 
 }

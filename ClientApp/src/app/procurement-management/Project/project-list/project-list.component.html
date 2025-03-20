@@ -133,7 +133,7 @@
                                                 </td>
                                               </tr>
                                             <tr *ngFor="let element of foreignTrainingProject; let i = index">
-                                                <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                                                <td>{{ ((foreignTrainingPageing.pageIndex - 1) * foreignTrainingPageing.pageSize) + i + 1 }}</td>
                                                 <td>{{ element.equpmentName }}</td>
                                                 <td style="min-width: 200px; white-space: wrap;">
                                                     {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
@@ -246,7 +246,7 @@
                                                 </td>
                                               </tr>
                                             <tr *ngFor="let element of fatProject; let i = index">
-                                                <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                                                <td>{{ ((fatPageing.pageIndex - 1) * fatPageing.pageSize) + i + 1 }}</td>
                                                 <td>{{ element.equpmentName }}</td>
                                                 <td style="min-width: 200px; white-space: wrap;">
                                                     {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
@@ -359,7 +359,7 @@
                                                 </td>
                                               </tr>
                                             <tr *ngFor="let element of installationProject; let i = index">
-                                                <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                                                <td>{{ ((installationPageing.pageIndex - 1) * installationPageing.pageSize) + i + 1 }}</td>
                                                 <td>{{ element.equpmentName }}</td>
                                                 <td style="min-width: 200px; white-space: wrap;">
                                                     {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
