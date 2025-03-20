@@ -59,6 +59,9 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
   fatProjectSearch = ""
   installationProjectSearch = ""
 
+  barCharData : any;
+  barCharHoverData : any;
+
 
   userRoles = Role
   role: string;
@@ -91,6 +94,39 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
 
   selection = new SelectionModel<Project>(true, []);
 
+  
+  barChartOptions = {
+    title: {
+        text: 'Project'
+    },
+    tooltip: {
+        trigger: 'axis',
+        formatter: function (params) {
+            let tooltipContent = `${params[0].name}<br/>`;
+            tooltipContent += `Total : ${params[0].value}<br/>`;
+            tooltipContent += `Equipment : Custom data for ${params[0].name}`;
+            return tooltipContent;
+        }
+    },
+    xAxis: {
+        data: ['Foreign Training', 'FAT', 'Installation Name'],
+        axisLabel: {
+            rotate: 0, // Rotate labels 
+            interval: 0, // Make sure every label is shown
+            fontSize: 12, // Adjust font size for better visibility
+        }
+    },
+    yAxis: {},
+    series: [
+        {
+            name: 'Sales',
+            type: 'bar', // You can change this to 'line', 'pie', etc.
+            data: [0,0,0,0,0,0]
+        }
+    ]
+};
+
+
   constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService: AuthService, private datePipe: DatePipe, private ProjectService: ProjectService) { 
     super();
    }
@@ -103,6 +139,7 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
     this.getForeignTraingProject();
     this.getFatProject();
     this.getInstallationProject();
+    this.getBarChartData();
   }
 
   getProject() {
@@ -153,13 +190,13 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
   fatApplyFilter(searchText: any) {
     this.fatProjectSearch = searchText;
     this.fatPageing.pageIndex = this.masterData.paging.pageIndex
-    this.fatProject();
+    this.getFatProject();
   }
   fatTrainingPageChanged(event: PageEvent) {
     this.fatPageing.pageIndex = event.pageIndex
     this.fatPageing.pageSize = event.pageSize
     this.fatPageing.pageIndex = this.fatPageing.pageIndex + 1
-    this.fatProject();
+    this.getFatProject();
   }
 
   installationApplyFilter(searchText: any) {
@@ -234,6 +271,58 @@ getInstallationProject() {
   })
 }
 
+
+getBarChartData() {
+  this.ProjectService.getBarChartData().subscribe(res => {
+   this.barCharData = [res.foreignTrainingCount, res.fatCount, res.installationCount];
+   this.barCharHoverData = [res.foreignTrainingItems, res.fatItems, res.installationItems]
+
+   this.updateBarChartOptions();
+    
+  }, error => {
+    console.error('Error fetching pie chart data', error);
+  });
+}
+updateBarChartOptions() {
+  this.barChartOptions = {
+      title: {
+          text: 'Project'
+      },
+      tooltip: {
+          trigger: 'axis',
+          formatter: (params) => {
+              let categoryName = params[0].name;
+              let dataIndex = params[0].dataIndex; // Get the index of the hovered bar
+              
+              // Retrieve the corresponding equipment data from barCharHoverData
+              let equipmentInfo = this.barCharHoverData?.[dataIndex]?.length
+                  ? this.barCharHoverData[dataIndex].join(', ')
+                  : '-';
+
+              return `${categoryName}<br/>
+                      Total : ${params[0].value}<br/>
+                      Equipment : ${equipmentInfo}`;
+          }
+      },
+      xAxis: {
+        data: ['Foreign Training', 'FAT', 'Installation Name'],
+        axisLabel: {
+            rotate: 0, // Rotate labels 
+            interval: 0, // Make sure every label is shown
+            fontSize: 12, // Adjust font size for better visibility
+        }
+      },
+      yAxis: {},
+      series: [
+          {
+              name: 'Project',
+              type: 'bar',
+              data: this.barCharData
+          }
+      ]
+  };
+}
+
  
   printSingle() {
     this.showHideDiv = false;
@@ -252,6 +341,8 @@ getInstallationProject() {
       console.error('Failed to open popup for printing!');
       return;
     }
+
+    
 
 
     // Write the content to the popup

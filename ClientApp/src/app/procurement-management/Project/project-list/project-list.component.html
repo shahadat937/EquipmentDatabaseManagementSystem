@@ -21,6 +21,23 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+
+
+                <div class="card">
+                    <div class="body">
+                        <div class="row mb-3">
+                        <div class="col-lg-12">
+                            <div  echarts [options]="barChartOptions" class="chart-container"></div>
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
                 <div class="card">
                     <div class="body">
                         <div class="row mb-3">
@@ -44,7 +61,7 @@
                                             <li>
                                                 <div class="icon-button-demo m-l-10">
                                                     <button mat-mini-fab
-                                                        (click)="applyFilter(foreignTrainingProjectSearch)"
+                                                        (click)="foreignTrainingApplyFilter(foreignTrainingProjectSearch)"
                                                         color="accent">
                                                         <mat-icon class="col-white">search</mat-icon>
                                                     </button>
@@ -122,10 +139,8 @@
                                                     {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
                                                 </td>
 
-                                                <td>{{ element.foreignTrainingScheduleAndContractReceived | date: "dd
-                                                    MMM, yyyy" }}</td>
-                                                <td>{{ element.foreignTrainingApprovalForOfficerNomination | date: "dd
-                                                    MMM, yyyy" }}</td>
+                                                <td>{{ element.foreignTrainingScheduleAndContractReceived | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.foreignTrainingApprovalForOfficerNomination | date: "dd MMM, yyyy" }}</td>
                                                 <td>{{ element.foreignTrainingGoApproval | date: "dd MMM, yyyy" }}</td>
                                                 <td>{{ element.foreignTraningDate | date: "dd MMM, yyyy" }}</td>
                                                 <td>{{ element.foreignTrainingRemark}}</td>
@@ -148,7 +163,7 @@
                             </div>
 
 
-                            <mat-paginator [length]="fatPageing.length"
+                            <mat-paginator [length]="foreignTrainingPageing.length"
                                 [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
                                 [pageSize]="foreignTrainingPageing.pageSize"
                                 [pageSizeOptions]="masterData.paging.pageSizeOptions"
@@ -181,7 +196,7 @@
                                             </li>
                                             <li>
                                                 <div class="icon-button-demo m-l-10">
-                                                    <button mat-mini-fab (click)="applyFilter(fatProjectSearch)"
+                                                    <button mat-mini-fab (click)="fatApplyFilter(fatProjectSearch)"
                                                         color="accent">
                                                         <mat-icon class="col-white">search</mat-icon>
                                                     </button>
@@ -292,7 +307,7 @@
                                             </li>
                                             <li>
                                                 <div class="icon-button-demo m-l-10">
-                                                    <button mat-mini-fab (click)="applyFilter(installationProjectSearch)"
+                                                    <button mat-mini-fab (click)="installationApplyFilter(installationProjectSearch)"
                                                         color="accent">
                                                         <mat-icon class="col-white">search</mat-icon>
                                                     </button>
@@ -336,7 +351,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngIf="fatProject?.length === 0">
+                                            <tr *ngIf="installationProject?.length === 0">
                                                 <td colspan="10" class="text-center">
                                                   <div class="warning-message">
                                                     No data available.

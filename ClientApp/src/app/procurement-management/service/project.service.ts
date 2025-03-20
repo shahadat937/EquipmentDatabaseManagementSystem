@@ -3,7 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../src/environments/environment';
 import { Project } from '../models/Project';
 import {IProjectPagination,ProjectPagination } from '../models/ProjectPagination'
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import {ProjectDataForBarChart} from '../models/ProjectDataForBarChart'
 
 @Injectable({
   providedIn: 'root'
@@ -99,4 +100,9 @@ export class ProjectService {
       );
      
     }
+
+      getBarChartData() : Observable<ProjectDataForBarChart>{
+        return this.http.get<ProjectDataForBarChart>(this.baseUrl + '/project/get-project-barchat-data');
+      }
+    
 }
