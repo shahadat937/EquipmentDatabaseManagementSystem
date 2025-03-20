@@ -53,7 +53,7 @@
 
                                             <li class="dropdown">
                                                 <input
-                                                    (click)="foreignTrainingApplyFilter(foreignTrainingProjectSearch)"
+                                                    (input)="foreignTrainingApplyFilter(foreignTrainingProjectSearch)"
                                                     placeholder="Search: Ship Name, Equipment Name, Agency ..."
                                                     type="text" [(ngModel)]="foreignTrainingProjectSearch" #filter
                                                     class="browser-default search-field" aria-label="Search box">
@@ -148,7 +148,8 @@
 
 
                                                 <td class="cl-action">
-                                                    <button mat-icon-button color="accent" title="Edit"
+                                                    <button mat-icon-button color="accent" title="Edit" 
+                                                    [disabled]="isEditable(element.financialYearName)"
                                                         class="btn-tbl-edit"
                                                         [routerLink]="['/procurement-management/update-project', element.projectId]">
                                                         <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
@@ -189,7 +190,7 @@
                                         <ul class="header-buttons-left ml-0">
 
                                             <li class="dropdown">
-                                                <input (click)="fatApplyFilter(fatProjectSearch)"
+                                                <input (input)="fatApplyFilter(fatProjectSearch)"
                                                     placeholder="Search: Ship Name, Equipment Name, Agency ..." type="text"
                                                     [(ngModel)]="fatProjectSearch" #filter
                                                     class="browser-default search-field" aria-label="Search box">
@@ -261,6 +262,7 @@
                                                 <td>{{ element.fatRemarks }}</td>
                                                 <td class="cl-action">
                                                     <button mat-icon-button color="accent" title="Edit"
+                                                    [disabled]="isEditable(element.financialYearName)"
                                                         class="btn-tbl-edit"
                                                         [routerLink]="['/procurement-management/update-project', element.projectId]">
                                                         <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
@@ -300,7 +302,7 @@
                                         <ul class="header-buttons-left ml-0">
 
                                             <li class="dropdown">
-                                                <input (click)="installationApplyFilter(installationProjectSearch)"
+                                                <input (input)="installationApplyFilter(installationProjectSearch)"
                                                     placeholder="Search: Ship Name, Equipment Name, Agency" type="text"
                                                     [(ngModel)]="installationProjectSearch" #filter
                                                     class="browser-default search-field" aria-label="Search box">
@@ -373,6 +375,7 @@
                                                 <td>{{ element.installationRemarks }}</td>
                                                 <td class="cl-action">
                                                     <button mat-icon-button color="accent" title="Edit"
+                                                    [disabled]="isEditable(element.financialYearName)"
                                                         class="btn-tbl-edit"
                                                         [routerLink]="['/procurement-management/update-project', element.projectId]">
                                                         <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
@@ -418,7 +421,7 @@
                                         <ul class="header-buttons-left ml-0">
 
                                             <li class="dropdown">
-                                                <input (click)="applyFilter(searchText)"
+                                                <input (input)="applyFilter(searchText)"
                                                     placeholder="Search: Ship Name, Equipment Name, Agency"
                                                     type="text" [(ngModel)]="searchText" #filter
                                                     class="browser-default search-field" aria-label="Search box">
@@ -550,7 +553,7 @@
 
 
                                                 <td class="cl-action">
-                                                    <button mat-icon-button color="accent" title="Edit"
+                                                    <button mat-icon-button color="accent" [disabled]="isEditable(element.financialYearName)" title="Edit"
                                                         class="btn-tbl-edit"
                                                         [routerLink]="['/procurement-management/update-project', element.projectId]">
                                                         <mat-icon aria-label="Edit" class="col-white">edit</mat-icon>
