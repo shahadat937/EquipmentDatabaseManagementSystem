@@ -21,6 +21,23 @@
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+
+
+                <div class="card">
+                    <div class="body">
+                        <div class="row mb-3">
+                        <div class="col-lg-12">
+                            <div  echarts [options]="barChartOptions" class="chart-container"></div>
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
                 <div class="card">
                     <div class="body">
                         <div class="row mb-3">
@@ -37,14 +54,14 @@
                                             <li class="dropdown">
                                                 <input
                                                     (click)="foreignTrainingApplyFilter(foreignTrainingProjectSearch)"
-                                                    placeholder="Search: Ship Name, Equipment Name, Project Type"
+                                                    placeholder="Search: Ship Name, Equipment Name, Agency ..."
                                                     type="text" [(ngModel)]="foreignTrainingProjectSearch" #filter
                                                     class="browser-default search-field" aria-label="Search box">
                                             </li>
                                             <li>
                                                 <div class="icon-button-demo m-l-10">
                                                     <button mat-mini-fab
-                                                        (click)="applyFilter(foreignTrainingProjectSearch)"
+                                                        (click)="foreignTrainingApplyFilter(foreignTrainingProjectSearch)"
                                                         color="accent">
                                                         <mat-icon class="col-white">search</mat-icon>
                                                     </button>
@@ -116,16 +133,14 @@
                                                 </td>
                                               </tr>
                                             <tr *ngFor="let element of foreignTrainingProject; let i = index">
-                                                <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                                                <td>{{ ((foreignTrainingPageing.pageIndex - 1) * foreignTrainingPageing.pageSize) + i + 1 }}</td>
                                                 <td>{{ element.equpmentName }}</td>
                                                 <td style="min-width: 200px; white-space: wrap;">
                                                     {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
                                                 </td>
 
-                                                <td>{{ element.foreignTrainingScheduleAndContractReceived | date: "dd
-                                                    MMM, yyyy" }}</td>
-                                                <td>{{ element.foreignTrainingApprovalForOfficerNomination | date: "dd
-                                                    MMM, yyyy" }}</td>
+                                                <td>{{ element.foreignTrainingScheduleAndContractReceived | date: "dd MMM, yyyy" }}</td>
+                                                <td>{{ element.foreignTrainingApprovalForOfficerNomination | date: "dd MMM, yyyy" }}</td>
                                                 <td>{{ element.foreignTrainingGoApproval | date: "dd MMM, yyyy" }}</td>
                                                 <td>{{ element.foreignTraningDate | date: "dd MMM, yyyy" }}</td>
                                                 <td>{{ element.foreignTrainingRemark}}</td>
@@ -148,7 +163,7 @@
                             </div>
 
 
-                            <mat-paginator [length]="fatPageing.length"
+                            <mat-paginator [length]="foreignTrainingPageing.length"
                                 [showFirstLastButtons]="masterData.paging.showFirstLastButtons"
                                 [pageSize]="foreignTrainingPageing.pageSize"
                                 [pageSizeOptions]="masterData.paging.pageSizeOptions"
@@ -175,13 +190,13 @@
 
                                             <li class="dropdown">
                                                 <input (click)="fatApplyFilter(fatProjectSearch)"
-                                                    placeholder="Search: Ship Name, Equipment Name ..." type="text"
+                                                    placeholder="Search: Ship Name, Equipment Name, Agency ..." type="text"
                                                     [(ngModel)]="fatProjectSearch" #filter
                                                     class="browser-default search-field" aria-label="Search box">
                                             </li>
                                             <li>
                                                 <div class="icon-button-demo m-l-10">
-                                                    <button mat-mini-fab (click)="applyFilter(fatProjectSearch)"
+                                                    <button mat-mini-fab (click)="fatApplyFilter(fatProjectSearch)"
                                                         color="accent">
                                                         <mat-icon class="col-white">search</mat-icon>
                                                     </button>
@@ -231,7 +246,7 @@
                                                 </td>
                                               </tr>
                                             <tr *ngFor="let element of fatProject; let i = index">
-                                                <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                                                <td>{{ ((fatPageing.pageIndex - 1) * fatPageing.pageSize) + i + 1 }}</td>
                                                 <td>{{ element.equpmentName }}</td>
                                                 <td style="min-width: 200px; white-space: wrap;">
                                                     {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
@@ -286,13 +301,13 @@
 
                                             <li class="dropdown">
                                                 <input (click)="installationApplyFilter(installationProjectSearch)"
-                                                    placeholder="Search: Ship Name, Equipment Name ..." type="text"
+                                                    placeholder="Search: Ship Name, Equipment Name, Agency" type="text"
                                                     [(ngModel)]="installationProjectSearch" #filter
                                                     class="browser-default search-field" aria-label="Search box">
                                             </li>
                                             <li>
                                                 <div class="icon-button-demo m-l-10">
-                                                    <button mat-mini-fab (click)="applyFilter(installationProjectSearch)"
+                                                    <button mat-mini-fab (click)="installationApplyFilter(installationProjectSearch)"
                                                         color="accent">
                                                         <mat-icon class="col-white">search</mat-icon>
                                                     </button>
@@ -336,7 +351,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngIf="fatProject?.length === 0">
+                                            <tr *ngIf="installationProject?.length === 0">
                                                 <td colspan="10" class="text-center">
                                                   <div class="warning-message">
                                                     No data available.
@@ -344,7 +359,7 @@
                                                 </td>
                                               </tr>
                                             <tr *ngFor="let element of installationProject; let i = index">
-                                                <td>{{ ((paging.pageIndex - 1) * paging.pageSize) + i + 1 }}</td>
+                                                <td>{{ ((installationPageing.pageIndex - 1) * installationPageing.pageSize) + i + 1 }}</td>
                                                 <td>{{ element.equpmentName }}</td>
                                                 <td style="min-width: 200px; white-space: wrap;">
                                                     {{ getBaseSchoolNames(element.baseSchoolNameDtos) }}
@@ -404,7 +419,7 @@
 
                                             <li class="dropdown">
                                                 <input (click)="applyFilter(searchText)"
-                                                    placeholder="Search: Ship Name, Equipment Name, Project Type"
+                                                    placeholder="Search: Ship Name, Equipment Name, Agency"
                                                     type="text" [(ngModel)]="searchText" #filter
                                                     class="browser-default search-field" aria-label="Search box">
                                             </li>

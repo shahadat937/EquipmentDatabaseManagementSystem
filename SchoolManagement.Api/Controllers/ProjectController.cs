@@ -123,6 +123,17 @@ public class ProjectController : ControllerBase
 
         );
         return Ok(Project);
+    }    
+    
+    [HttpGet]
+    [Route("get-project-barchat-data")]
+    public async Task<ActionResult<ProjectBarChartDto>> GetProjectBarChartData()
+    {
+        var Project = await _mediator.Send(new GetProjectBarChartDataRequest
+        {
+          
+        });
+        return Ok(Project);
     }
 
 

@@ -11,6 +11,8 @@ export interface Procurement {
    fcLcId: number,
    fcLcName: string,
    dgdpNssdId: number,
+   budgetCodeId: number
+   budgetCodeName: string
    budgetCode: string
    financialYearId: number
    dgdpNssdName: string,

@@ -10,7 +10,7 @@
         public double? EPrice { get; set; }
         public int? FcLcId { get; set; }
         public int? GroupNameId { get; set; }
-        public string? BudgetCode { get; set; }
+        public int? BudgetCodeId { get; set; }
         public int? FinancialYearId { get; set; }
         public int? ControlledId { get; set; }
         public DateTime? SentForAIPDate { get; set; }

@@ -55,7 +55,8 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
                      x.DgdpNssd.Name.Contains(request.QueryParams.SearchText) ||
                      x.Controlled.Name.Contains(request.QueryParams.SearchText) ||
                      x.EqupmentName.Name.Contains(request.QueryParams.SearchText) ||
-                     x.BudgetCode.Contains(request.QueryParams.SearchText) ||
+                     x.BudgetCode.Code.Contains(request.QueryParams.SearchText) ||
+                     x.BudgetCode.BudgetCodeName.Contains(request.QueryParams.SearchText) ||
                      x.Remarks.Contains(request.QueryParams.SearchText) ||
                      (searchDate && x.AIPApprovalDate == dateSearch) ||
                      (searchDate && x.SentForAIPDate == dateSearch) ||
@@ -64,7 +65,7 @@ namespace SchoolManagement.Application.Features.Procurements.Handlers.Queries
                      (searchDate && x.SentForContractDate == dateSearch) ||
                      (searchDate && x.ContractSignedDate == dateSearch) ||
                      x.ProcurementBaseSchoolNames.Any(b => b.BaseSchoolName.SchoolName.Contains(request.QueryParams.SearchText)),
-                "GroupName", "EqupmentName", "Controlled", "FcLc", "DgdpNssd", "FinancialYear", "ProcurementBaseSchoolNames", "ProcurementBaseSchoolNames.BaseSchoolName"
+                "GroupName", "EqupmentName", "BudgetCode", "Controlled", "FcLc", "DgdpNssd", "FinancialYear", "ProcurementBaseSchoolNames", "ProcurementBaseSchoolNames.BaseSchoolName"
             );
 
             // Apply custom ordering

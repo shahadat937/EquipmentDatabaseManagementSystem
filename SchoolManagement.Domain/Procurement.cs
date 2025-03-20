@@ -20,7 +20,7 @@ namespace SchoolManagement.Domain
         public double? EPrice { get; set; }
         public int? FcLcId { get; set; }
         public int? GroupNameId { get; set; }
-        public string? BudgetCode { get; set; }
+        public int? BudgetCodeId { get; set; }
         public int? FinancialYearId { get; set; }
         public int? ControlledId { get; set; }
 
@@ -44,6 +44,7 @@ namespace SchoolManagement.Domain
         public virtual FcLc? FcLc { get; set; }
         public virtual DgdpNssd? DgdpNssd { get; set; }
         public virtual FinancialYear? FinancialYear { get; set; }
+        public virtual BudgetCode? BudgetCode { get; set; }
  
         //public virtual TenderOpeningDateType? TenderOpeningDateType { get; set; }
 

@@ -122,7 +122,7 @@ namespace SchoolManagement.Application.Features.Project.Handlers.Queries
                         break;
 
                     default:
-                        orderedQuery = orderedQuery.OrderByDescending(x => x.ProjectId);
+                        orderedQuery = orderedQuery.OrderByDescending(x => x.LastModifiedDate);
                         break;
                 }
 
@@ -130,7 +130,7 @@ namespace SchoolManagement.Application.Features.Project.Handlers.Queries
             else
             {
                 // Default ordering
-                orderedQuery = orderedQuery.OrderByDescending(x => x.ProjectId);
+                orderedQuery = orderedQuery.OrderByDescending(x => x.LastModifiedDate);
             }
 
             var totalCount = await orderedQuery.CountAsync();

@@ -90,7 +90,7 @@ export class BudgetListComponent extends UnsubscribeOnDestroyAdapter implements 
 
   getBudget() {
     this.isLoading = true;
-    this.ProcurementService.getBudget(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.orderBy, this.orderDirection).subscribe(response => {
+    this.BudgetService.getBudget(this.paging.pageIndex, this.paging.pageSize, this.searchText, this.orderBy, this.orderDirection).subscribe(response => {
       this.dataSource.data = response.items;
 
       this.paging.length = response.totalItemsCount
@@ -100,7 +100,7 @@ export class BudgetListComponent extends UnsubscribeOnDestroyAdapter implements 
   }
   getLeastestFyElectrialEquipmentBudget() {
     this.isLoading = true;
-    this.ProcurementService.getLeatestFyBudget(this.ElectricalEqipmentpaging.pageIndex, this.ElectricalEqipmentpaging.pageSize, "", this.orderBy, this.orderDirection, this.masterData.budgetCode.electricalEquipment).subscribe(response => {
+    this.BudgetService.getLeatestFyBudget(this.ElectricalEqipmentpaging.pageIndex, this.ElectricalEqipmentpaging.pageSize, "", this.orderBy, this.orderDirection, this.masterData.budgetCode.electricalEquipment).subscribe(response => {
       this.electricalEquipmentBudget = response.items;
       
       this.ElectricalEqipmentpaging.length = response.totalItemsCount
@@ -114,7 +114,7 @@ export class BudgetListComponent extends UnsubscribeOnDestroyAdapter implements 
   }
   getLeastestFyMilitaryHardwareBudget() {
     this.isLoading = true;
-    this.ProcurementService.getLeatestFyBudget(this.hardwarelEqipmentpaging.pageIndex, this.hardwarelEqipmentpaging.pageSize, "", this.orderBy, this.orderDirection, this.masterData.budgetCode.militaryHardware).subscribe(response => {
+    this.BudgetService.getLeatestFyBudget(this.hardwarelEqipmentpaging.pageIndex, this.hardwarelEqipmentpaging.pageSize, "", this.orderBy, this.orderDirection, this.masterData.budgetCode.militaryHardware).subscribe(response => {
       this.militaryHardwareBudget = response.items;
       this.hardwarelEqipmentpaging.length = response.totalItemsCount
       this.isLoading = false;

@@ -3,7 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../src/environments/environment';
 import { Project } from '../models/Project';
 import {IProjectPagination,ProjectPagination } from '../models/ProjectPagination'
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import {ProjectDataForBarChart} from '../models/ProjectDataForBarChart'
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ProjectService {
 
   getProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
     let params = new HttpParams();
-    params = params.append('searchText', searchText.toString());
+    params = params.append('searchText', searchText.toString().trim());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());    
     params = params.append('orderBy', orderBy.toString());    
@@ -50,7 +51,7 @@ export class ProjectService {
 
     getForeignTrainingProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
       let params = new HttpParams();
-      params = params.append('searchText', searchText.toString());
+      params = params.append('searchText', searchText.toString().trim());
       params = params.append('pageNumber', pageNumber.toString());
       params = params.append('pageSize', pageSize.toString());    
       params = params.append('orderBy', orderBy.toString());    
@@ -67,7 +68,7 @@ export class ProjectService {
     }
     getFatTrainingProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
       let params = new HttpParams();
-      params = params.append('searchText', searchText.toString());
+      params = params.append('searchText', searchText.toString().trim());
       params = params.append('pageNumber', pageNumber.toString());
       params = params.append('pageSize', pageSize.toString());    
       params = params.append('orderBy', orderBy.toString());    
@@ -84,7 +85,7 @@ export class ProjectService {
     }
     getInstallationTrainingProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
       let params = new HttpParams();
-      params = params.append('searchText', searchText.toString());
+      params = params.append('searchText', searchText.toString().trim());
       params = params.append('pageNumber', pageNumber.toString());
       params = params.append('pageSize', pageSize.toString());    
       params = params.append('orderBy', orderBy.toString());    
@@ -99,4 +100,9 @@ export class ProjectService {
       );
      
     }
+
+      getBarChartData() : Observable<ProjectDataForBarChart>{
+        return this.http.get<ProjectDataForBarChart>(this.baseUrl + '/project/get-project-barchat-data');
+      }
+    
 }
