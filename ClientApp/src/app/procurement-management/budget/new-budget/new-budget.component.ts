@@ -67,7 +67,7 @@ export class NewBudgetComponent implements OnInit {
 
     const id = this.route.snapshot.paramMap.get('budgetId');
     if (id) {
-      this.pageTitle = 'Edit Procurement';
+      this.pageTitle = 'Edit Budget';
       this.destination = "Edit";
       this.btnText = 'Update';
       this.BudgetService.find(+id).subscribe(res => {
@@ -103,7 +103,7 @@ export class NewBudgetComponent implements OnInit {
       });
     }
     else {
-      this.pageTitle = 'Create Procurement';
+      this.pageTitle = 'Create Budget';
       this.destination = "Add";
       this.btnText = 'Save';
     }

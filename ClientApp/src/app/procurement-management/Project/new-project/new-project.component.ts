@@ -66,7 +66,7 @@ export class NewProjectComponent implements OnInit {
 
     const id = this.route.snapshot.paramMap.get('projectId');
     if (id) {
-      this.pageTitle = 'Edit Procurement';
+      this.pageTitle = 'Edit Project';
       this.destination = "Edit";
       this.btnText = 'Update';
       this.ProjectService.find(+id).subscribe(res => {
@@ -117,7 +117,7 @@ export class NewProjectComponent implements OnInit {
       });
     }
     else {
-      this.pageTitle = 'Create Procurement';
+      this.pageTitle = 'Create Project';
       this.destination = "Add";
       this.btnText = 'Save';
     }
