@@ -53,6 +53,7 @@ export class NewProcurementComponent implements OnInit {
   commendingAreaId: any;
   method: any;
   selectedFinancialYears: any;
+  selectedBudgetCode : SelectedModel[];
 
   constructor(private snackBar: MatSnackBar, private BaseSchoolNameService: BaseSchoolNameService, private authService: AuthService, private confirmService: ConfirmService, private ProcurementService: ProcurementService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private sharedService: SharedService) { }
 
@@ -80,7 +81,7 @@ export class NewProcurementComponent implements OnInit {
           groupNameId: res.groupNameId,
           dgdpNssdId: res.dgdpNssdId,
           ePrice: res.ePrice,
-          budgetCode: res.budgetCode,
+          budgetCodeId: res.budgetCodeId,
           financialYearId: res.financialYearId,
           controlledId: res.controlledId,
           fcLcId: res.fcLcId,
@@ -142,6 +143,7 @@ export class NewProcurementComponent implements OnInit {
     this.getSelectedTenderOpeningDateType();
     this.getSelectedPaymentStatus();
     this.getSelectedFinancialYear();
+    this.getSelectedBudgetCode();
   }
 
 
@@ -155,7 +157,7 @@ export class NewProcurementComponent implements OnInit {
       ePrice: [""],
       fcLcId: [""],
       groupNameId: [],
-      budgetCode: [''],
+      budgetCodeId: [''],
       financialYearId: [''],
       controlledId: [""],
       sentForAIPDate: [""],
@@ -329,6 +331,11 @@ export class NewProcurementComponent implements OnInit {
     });
   }
 
+  getSelectedBudgetCode() {
+    this.ProcurementService.getSelectedBudgetCode().subscribe(res => {
+      this.selectedBudgetCode = res
+    });
+  }
   onSubmit() {
     const id = this.ProcurementForm.get('procurementId')?.value;
     

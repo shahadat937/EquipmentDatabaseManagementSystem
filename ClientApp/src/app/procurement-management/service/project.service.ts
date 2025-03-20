@@ -19,7 +19,7 @@ export class ProjectService {
 
   getProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
     let params = new HttpParams();
-    params = params.append('searchText', searchText.toString());
+    params = params.append('searchText', searchText.toString().trim());
     params = params.append('pageNumber', pageNumber.toString());
     params = params.append('pageSize', pageSize.toString());    
     params = params.append('orderBy', orderBy.toString());    
@@ -51,7 +51,7 @@ export class ProjectService {
 
     getForeignTrainingProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
       let params = new HttpParams();
-      params = params.append('searchText', searchText.toString());
+      params = params.append('searchText', searchText.toString().trim());
       params = params.append('pageNumber', pageNumber.toString());
       params = params.append('pageSize', pageSize.toString());    
       params = params.append('orderBy', orderBy.toString());    
@@ -68,7 +68,7 @@ export class ProjectService {
     }
     getFatTrainingProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
       let params = new HttpParams();
-      params = params.append('searchText', searchText.toString());
+      params = params.append('searchText', searchText.toString().trim());
       params = params.append('pageNumber', pageNumber.toString());
       params = params.append('pageSize', pageSize.toString());    
       params = params.append('orderBy', orderBy.toString());    
@@ -85,7 +85,7 @@ export class ProjectService {
     }
     getInstallationTrainingProject(pageNumber, pageSize, searchText, orderBy, orderDirection) { 
       let params = new HttpParams();
-      params = params.append('searchText', searchText.toString());
+      params = params.append('searchText', searchText.toString().trim());
       params = params.append('pageNumber', pageNumber.toString());
       params = params.append('pageSize', pageSize.toString());    
       params = params.append('orderBy', orderBy.toString());    
