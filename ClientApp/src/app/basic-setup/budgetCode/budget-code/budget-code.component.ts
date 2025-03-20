@@ -135,7 +135,7 @@ export class BudgetCodeComponent implements OnInit {
 
         if (result) {
           this.BudgetCodeService.update(+id, this.BudgetCodeForm.value).subscribe(response => {
-            this.router.navigateByUrl('/basic-setup/add-budget-code');
+            this.router.navigateByUrl('/basic-setup/add-budget-coden');
             this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,
               verticalPosition: 'bottom',
