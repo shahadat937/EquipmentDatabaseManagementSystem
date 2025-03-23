@@ -251,7 +251,7 @@ getForeignTraingProject() {
   this.isLoading = true;
   this.ProjectService.getForeignTrainingProject(this.foreignTrainingPageing.pageIndex, this.foreignTrainingPageing.pageSize, this.foreignTrainingProjectSearch, this.orderBy, this.orderDirection).subscribe(response => {
     this.foreignTrainingProject = response.items;
-    console.log(response.items)
+
     this.foreignTrainingPageing.length = response.totalItemsCount
     this.isLoading = false;
   })
@@ -261,7 +261,7 @@ getFatProject() {
   this.isLoading = true;
   this.ProjectService.getFatTrainingProject(this.fatPageing.pageIndex, this.fatPageing.pageSize, this.fatProjectSearch, this.orderBy, this.orderDirection).subscribe(response => {
     this.fatProject = response.items;
-    console.log(response.items)
+
     this.fatPageing.length = response.totalItemsCount
     this.isLoading = false;
   })
@@ -271,7 +271,6 @@ getInstallationProject() {
   this.isLoading = true;
   this.ProjectService.getInstallationTrainingProject(this.installationPageing.pageIndex, this.installationPageing.pageSize, this.installationProjectSearch, this.orderBy, this.orderDirection).subscribe(response => {
     this.installationProject = response.items;
-    console.log(response.items)
     this.installationPageing.length = response.totalItemsCount
     this.isLoading = false;
   })

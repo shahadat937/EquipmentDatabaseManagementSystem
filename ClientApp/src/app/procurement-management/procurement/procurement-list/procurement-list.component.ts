@@ -274,7 +274,6 @@ export class ProcurementListComponent implements OnInit {
             <tbody>
               ${dataSource
         .map((row, index) => {
-          console.log(row);
           return `
                     <tr>
                       <td class="vertical-header">${index + 1 || '-'}</td>
