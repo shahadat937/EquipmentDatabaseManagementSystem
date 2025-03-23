@@ -111,11 +111,10 @@ export class NewSchoolNameComponent implements OnInit {
     this.baseNameId=this.BaseSchoolForm.value['secondLevel'];
     //console.log(this.baseNameId);
     this.BaseSchoolNameService.getSelectedBaseName(this.baseNameId).subscribe(res=>{
-      //console.log(res);
+      console.log(res);
       this.selectedBaseName=res
       
     });  
-    //this.getBaseNameList(this.commendingAreaId);
             
   }
   
@@ -129,8 +128,7 @@ export class NewSchoolNameComponent implements OnInit {
   getBaseSchoolList(baseNameId){
     this.isShown=true;
     this.BaseSchoolNameService.getBaseSchoolList(baseNameId).subscribe(res=>{
-      this.baseSchoolList=res
-      
+      this.baseSchoolList=res      
     });
   }
   onFileChanged(event) {
@@ -154,19 +152,19 @@ export class NewSchoolNameComponent implements OnInit {
       status: [''],
       menuPosition: [''],
       isActive: [true],
-      contactPerson: [],
-      address: [],
-      telephone: [],
-      cellphone: [],
-      email: [],
-      fax: [],
+      contactPerson: [''],
+      address: [''],
+      telephone: [''],
+      cellphone: [''],
+      email: [''],
+      fax: [''],
       branchLevel: [4],
       firstLevel: [this.masterData.UserLevel.navy],
       secondLevel: [""],
       thirdLevel: [""],
       fourthLevel: [""],
       fifthLevel: [""],
-      serverName: [],
+      serverName: [''],
     
     })
   }
@@ -188,8 +186,7 @@ export class NewSchoolNameComponent implements OnInit {
         if (result) {
           
           this.BaseSchoolNameService.update(+id,formData).subscribe(response => {
-            this.router.navigateByUrl('/security/new-baseschool');
-            this.getBaseSchoolList(this.baseNameId);
+            this.router.navigateByUrl('/basic-setup/new-baseschool');
             this.BaseSchoolForm.reset();
               this.snackBar.open('Information Updated Successfully ', '', {
               duration: 2000,
@@ -204,7 +201,6 @@ export class NewSchoolNameComponent implements OnInit {
       })
     } else {      
       this.BaseSchoolNameService.submit(formData).subscribe(response => {
-        //this.router.navigateByUrl('/basic-setup/baseschoolname-list');
         this.getBaseSchoolList(this.baseNameId);
         this.BaseSchoolForm.reset();
           this.snackBar.open('Information Inserted Successfully ', '', {
