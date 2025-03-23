@@ -137,7 +137,6 @@ export class ProcurementListComponent implements OnInit {
           .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
           .trim() // Remove leading and trailing spaces
           .replace(/\d{4}/g, match => match.slice(-2)); // Convert full years to last two digits
-  console.log(currentFY)
       if(this.role === Role.MasterAdmin){
         return false;
       }
@@ -275,7 +274,6 @@ export class ProcurementListComponent implements OnInit {
             <tbody>
               ${dataSource
         .map((row, index) => {
-          console.log(row);
           return `
                     <tr>
                       <td class="vertical-header">${index + 1 || '-'}</td>

@@ -238,7 +238,6 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
           .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
           .trim() // Remove leading and trailing spaces
           .replace(/\d{4}/g, match => match.slice(-2)); // Convert full years to last two digits
-  console.log(currentFY)
       if(this.role === Role.MasterAdmin){
         return false;
       }
@@ -252,7 +251,7 @@ getForeignTraingProject() {
   this.isLoading = true;
   this.ProjectService.getForeignTrainingProject(this.foreignTrainingPageing.pageIndex, this.foreignTrainingPageing.pageSize, this.foreignTrainingProjectSearch, this.orderBy, this.orderDirection).subscribe(response => {
     this.foreignTrainingProject = response.items;
-    console.log(response.items)
+
     this.foreignTrainingPageing.length = response.totalItemsCount
     this.isLoading = false;
   })
@@ -262,7 +261,7 @@ getFatProject() {
   this.isLoading = true;
   this.ProjectService.getFatTrainingProject(this.fatPageing.pageIndex, this.fatPageing.pageSize, this.fatProjectSearch, this.orderBy, this.orderDirection).subscribe(response => {
     this.fatProject = response.items;
-    console.log(response.items)
+
     this.fatPageing.length = response.totalItemsCount
     this.isLoading = false;
   })
@@ -272,7 +271,6 @@ getInstallationProject() {
   this.isLoading = true;
   this.ProjectService.getInstallationTrainingProject(this.installationPageing.pageIndex, this.installationPageing.pageSize, this.installationProjectSearch, this.orderBy, this.orderDirection).subscribe(response => {
     this.installationProject = response.items;
-    console.log(response.items)
     this.installationPageing.length = response.totalItemsCount
     this.isLoading = false;
   })
