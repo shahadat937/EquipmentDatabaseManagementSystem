@@ -14,6 +14,10 @@ import { AuthService } from '../../../../src/app/core/service/auth.service';
 import { DatePipe } from '@angular/common';
 import { UnsubscribeOnDestroyAdapter } from '../../../../src/app/shared/UnsubscribeOnDestroyAdapter';
 import * as echarts from 'echarts';
+import { EChartsOption } from 'echarts';
+import type { PieSeriesOption } from 'echarts/charts';
+import type { TitleComponentOption, TooltipComponentOption } from 'echarts/components';
+
 
 
 interface Paging {
@@ -122,16 +126,16 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   
   pieChartOptions = {
     title: {
-      text: 'Loading...',  // Indicate that the chart is still loading
+      text: 'Loading...',  
       left: 'center'
     },
     tooltip: {
       trigger: 'item'
     },
-    legend: {
-      orient: 'vertical',
-      left: 'left'
-    },
+    // legend: {
+    //   orient: 'vertical',
+    //   left: 'left'
+    // },
     series: [
       {
         name: '',
@@ -168,56 +172,90 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     });
   }
 
-  updatePieChartOptions() {
-      this.pieChartOptions = {
-        title: {
-          text: `${this.pieChartData1.financialYear}`, 
-          left: 'center',
-          subtextStyle: {
-            fontSize: 14, // Adjust font size
-            fontWeight: 'bold',
-            color: '#555' // Adjust color as needed
-          },
-          bottom: 0 // Position at the bottom
-        } as echarts.TitleComponentOption,
-        tooltip: {
-          trigger: 'item',
-          formatter: function (params) {
-            // Show only the label, not the count
-            return params.name;
-        }
-        } as echarts.TooltipComponentOption,
-        legend: {
-          orient: 'vertical',
-          left: 'left'
+ updatePieChartOptions(): void {
+  const title: TitleComponentOption = {
+    text: `${this.pieChartData1.financialYear}`,
+    left: 'center',
+    subtextStyle: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: '#555'
+    },
+    bottom: 0
+  };
+
+  const tooltip: TooltipComponentOption = {
+    trigger: 'item',
+    formatter: (params: any) => params.name // Only show the label
+  };
+
+  const series: PieSeriesOption = {
+    name: '',
+    type: 'pie',
+    radius: '90%',
+    data: [
+      {
+        value: this.pieChartData1.totalProcurementCount || 0,
+        name: `Total Procurement : ${this.pieChartData1.totalProcurementCount}`
+      },
+      {
+        value: this.pieChartData1.totalContractSignedProcurementCount || 0,
+        name: `Contract Signed : ${this.pieChartData1.totalContractSignedProcurementCount}`
+      }
+    ],
+    labelLine: { show: false },
+    label: {
+      show: false,
+      position: 'inside'
+    },
+    emphasis: {
+      itemStyle: {
+        shadowBlur: 10,
+        shadowOffsetX: 0,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+      }
+    }
+  };
+
+  this.pieChartOptions = {
+  title: {
+    text: `${this.pieChartData1.financialYear}`,
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  // legend: {
+  //   orient: 'vertical',
+  //   left: 'left'
+  // },
+  series: [
+    {
+      name: '',
+      type: 'pie',
+      radius: '90%',
+      data: [
+        {
+          value: this.pieChartData1.totalProcurementCount || 0,
+          name: `Total Procurement : ${this.pieChartData1.totalProcurementCount}`
         },
-        series: [
-          {
-            name: '',
-            type: 'pie',
-            radius: '90%',
-            data: [
-              { value: this.pieChartData1.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData1.totalProcurementCount}` },
-              { value: this.pieChartData1.totalContractSignedProcurementCount || 0, name: `Contract Signed : ${this.pieChartData1.totalContractSignedProcurementCount}` }
-            ],
-            labelLine: {
-              show: false // ✅ Removes the lines connecting labels to the pie chart
-            },
-            label: {
-              show: false, // Keep labels visible (if needed)
-              position: 'inside' // You can position labels inside the chart to avoid lines
-            },
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
-          } as echarts.SeriesOption 
-        ]
-      };    
-  }
+        {
+          value: this.pieChartData1.totalContractSignedProcurementCount || 0,
+          name: `Contract Signed : ${this.pieChartData1.totalContractSignedProcurementCount}`
+        }
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+
+}
 
 
 
@@ -225,16 +263,16 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 
   pieChartOptions2 = {
     title: {
-      text: 'Loading...',  // Indicate that the chart is still loading
+      text: 'Loading...',  
       left: 'center'
     },
     tooltip: {
       trigger: 'item'
     },
-    legend: {
-      orient: 'vertical',
-      left: 'left'
-    },
+    // legend: {
+    //   orient: 'vertical',
+    //   left: 'left'
+    // },
     series: [
       {
         name: '',
@@ -257,55 +295,90 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   
 
 
-  updatePieChartOptions2() {
-    this.pieChartOptions2 = {
-      title: {
-        text: `${this.pieChartData2.financialYear}`, 
-        left: 'center',
-        subtextStyle: {
-          fontSize: 14, // Adjust font size
-          fontWeight: 'bold',
-          color: '#555' // Adjust color as needed
-        },
-        bottom: 0 // Position at the bottom
-      } as echarts.TitleComponentOption, // Explicit type casting
-      tooltip: {
-        trigger: 'item',
-        formatter: function (params) {
-          return params.name;
-        }
-      } as echarts.TooltipComponentOption,
-      legend: {
-        orient: 'vertical',
-        left: 'left'
+  updatePieChartOptions2(): void {
+  const title: TitleComponentOption = {
+    text: `${this.pieChartData2.financialYear}`,
+    left: 'center',
+    subtextStyle: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: '#555'
+    },
+    bottom: 0
+  };
+
+  const tooltip: TooltipComponentOption = {
+    trigger: 'item',
+    formatter: (params: any) => params.name
+  };
+
+  const series: PieSeriesOption = {
+    name: '',
+    type: 'pie',
+    radius: '90%',
+    data: [
+      {
+        value: this.pieChartData2.totalProcurementCount || 0,
+        name: `Total Procurement : ${this.pieChartData2.totalProcurementCount}`
       },
-      series: [
+      {
+        value: this.pieChartData2.totalContractSignedProcurementCount || 0,
+        name: `Contract Signed : ${this.pieChartData2.totalContractSignedProcurementCount}`
+      }
+    ],
+    labelLine: { show: false },
+    label: {
+      show: false,
+      position: 'inside'
+    },
+    emphasis: {
+      itemStyle: {
+        shadowBlur: 10,
+        shadowOffsetX: 0,
+        shadowColor: 'rgba(0, 0, 0, 0.5)'
+      }
+    }
+  };
+
+  this.pieChartOptions2 = {
+  title: {
+    text: `${this.pieChartData1.financialYear}`,
+    left: 'center',
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  // legend: {
+  //   orient: 'vertical',
+  //   left: 'left'
+  // },
+  series: [
+    {
+      name: '',
+      type: 'pie',
+      radius: '90%',
+      data: [
         {
-          name: '',
-          type: 'pie',
-          radius: '90%',
-          data: [
-            { value: this.pieChartData2.totalProcurementCount || 0, name: `Total Procurement : ${this.pieChartData2.totalProcurementCount}` },
-            { value: this.pieChartData2.totalContractSignedProcurementCount || 0, name: `Contract Signed : ${this.pieChartData2.totalContractSignedProcurementCount}` }
-          ],
-          labelLine: {
-            show: false // ✅ Removes the lines connecting labels to the pie chart
-          },
-          label: {
-            show: false, // Keep labels visible (if needed)
-            position: 'inside' // You can position labels inside the chart to avoid lines
-          },
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
-          }
-        } as echarts.SeriesOption // ✅ Explicitly cast as echarts.SeriesOption
-      ]
-    };
-  }
+          value: this.pieChartData1.totalProcurementCount || 0,
+          name: `Total Procurement : ${this.pieChartData1.totalProcurementCount}`
+        },
+        {
+          value: this.pieChartData1.totalContractSignedProcurementCount || 0,
+          name: `Contract Signed : ${this.pieChartData1.totalContractSignedProcurementCount}`
+        }
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+
+}
   
 
 

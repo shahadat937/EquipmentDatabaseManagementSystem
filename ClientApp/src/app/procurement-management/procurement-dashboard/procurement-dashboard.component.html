@@ -6,39 +6,31 @@
 
         <div class="card my-5">
           <div class="body">
-
             <div class="row">
-              <div class="col-3" *ngIf="pieChartData1">
+              <div class="col-2" *ngIf="pieChartData1">
                 <div echarts [options]="pieChartOptions" class="chart-container"></div>
               </div>
-              <div class="col-3" *ngIf="pieChartData2">
+              <div class="col-2" *ngIf="pieChartData2">
                 <div echarts [options]="pieChartOptions2" class="chart-container"></div>
               </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div  echarts [options]="barChartOptions" class="chart-container"></div>
               </div>
-
-
             </div>
-
-          </div>
-        </div>
-
-        <!-- AIP Pending Card -->
-
-        <div class="card my-5">
+            <div class="row">
+          <div class="col-4">
+              <div class="card my-4">
           <div class="body">
             <div class="row mb-3">
               <div class="icon-button-demo col-12">
-                <h1>AIP Pending</h1>
+                <h3>AIP Pending</h3>
               </div>
             </div>
             <div class="responsive_table">
               <div class="materialTableHeader">
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-8">
                     <ul class="header-buttons-left ml-0">
-
                       <li class="dropdown">
                         <input (click)="aipPendingapplyFilter(aipPendingSearchText)"
                           placeholder="Search: Ship Name, Equipment Name, Procurement Type" type="text"
@@ -51,22 +43,14 @@
                             <mat-icon class="col-white">search</mat-icon>
                           </button>
                         </div>
-
                       </li>
-
                     </ul>
                   </div>
-
-
-                </div>
+                </div> -->
               </div>
               <div>
-
               </div>
               <div id="print-routine">
-
-
-
                 <div style="overflow-x: auto; max-width: 100%;">
                   <table class="custom-table">
                     <thead>
@@ -110,19 +94,18 @@
 
           </div>
         </div>
-
-        <!-- Tender Ongoing Card -->
-
-        <div class="card my-5">
+          </div>
+          <div class="col-4">
+             <div class="card my-4">
           <div class="body">
             <div class="row mb-3">
               <div class="icon-button-demo col-12">
-                <h1>Ongoing Tender Spec Preparation </h1>
+                <h3>Ongoing Tender Spec Preparation </h3>
               </div>
             </div>
             <div class="responsive_table">
               <div class="materialTableHeader">
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-8">
                     <ul class="header-buttons-left ml-0">
 
@@ -146,7 +129,7 @@
                   </div>
 
 
-                </div>
+                </div> -->
               </div>
               <div>
 
@@ -196,18 +179,18 @@
 
           </div>
         </div>
-
-        <!-- Tender Floated Card -->
-        <div class="card my-5">
+          </div>
+          <div class="col-4">
+          <div class="card my-4">
           <div class="body">
             <div class="row mb-3">
               <div class="icon-button-demo col-12">
-                <h1>Tender Floated</h1>
+                <h3>Tender Floated</h3>
               </div>
             </div>
             <div class="responsive_table">
               <div class="materialTableHeader">
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-8">
                     <ul class="header-buttons-left ml-0">
 
@@ -231,7 +214,7 @@
                   </div>
 
 
-                </div>
+                </div> -->
               </div>
               <div>
 
@@ -281,12 +264,16 @@
 
           </div>
         </div>
-
-        <div class="card my-5">
+        </div>
+        </div>
+         <div class="row">
+        
+        <div class="col-6">
+          <div class="card my-4">
           <div class="body">
             <div class="row mb-3">
               <div class="icon-button-demo col-12">
-                <h1>Tender Opening</h1>
+                <h3>Tender Opening</h3>
               </div>
             </div>
             <div class="responsive_table">
@@ -369,13 +356,15 @@
 
           </div>
         </div>
-
-
-        <div class="card my-5">
+        </div>
+       </div>
+       <div class="row">
+        <div class="col-6">
+          <div class="card my-2">
           <div class="body">
             <div class="row mb-3">
               <div class="icon-button-demo col-12">
-                <h1>Offer Under Evaluation</h1>
+                <h3>Offer Under Evaluation</h3>
               </div>
             </div>
             <div class="responsive_table">
@@ -402,8 +391,6 @@
 
                     </ul>
                   </div>
-
-
                 </div>
               </div>
               <div>
@@ -463,6 +450,27 @@
 
           </div>
         </div>
+        </div>
+       </div>
+          </div>
+          
+        </div>
+        
+        <!-- AIP Pending Card -->
+
+      
+
+        <!-- Tender Ongoing Card -->
+
+      
+
+        <!-- Tender Floated Card -->
+        
+       
+        
+
+
+        
       </div>
     </div>
   </div>

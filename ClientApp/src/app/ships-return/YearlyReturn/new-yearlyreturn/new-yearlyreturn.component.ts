@@ -123,7 +123,7 @@ export class YearlyReturnComponent implements OnInit {
     this.YearlyReturnService.getSelectedReportingYears().subscribe(
       (res: SelectedModel[]) => {
         this.selectedReportingYears = res;
-        //console.log(res);
+      
 
       },
       (error) => {
