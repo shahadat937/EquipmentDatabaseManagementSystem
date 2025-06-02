@@ -98,6 +98,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
         }
     },
     yAxis: {},
+    color: [],
     series: [
         {
             name: 'Sales',
@@ -136,6 +137,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     //   orient: 'vertical',
     //   left: 'left'
     // },
+     color: ['#3f51b5', '#4caf50'],
     series: [
       {
         name: '',
@@ -179,7 +181,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     subtextStyle: {
       fontSize: 14,
       fontWeight: 'bold',
-      color: '#555'
+      color: '#fff'
     },
     bottom: 0
   };
@@ -229,6 +231,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   //   orient: 'vertical',
   //   left: 'left'
   // },
+ color: ['#4d4fff','#000e5e'],
   series: [
     {
       name: '',
@@ -273,6 +276,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     //   orient: 'vertical',
     //   left: 'left'
     // },
+    color: ['#4d4fff','#000e5e'],
     series: [
       {
         name: '',
@@ -302,7 +306,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     subtextStyle: {
       fontSize: 14,
       fontWeight: 'bold',
-      color: '#555'
+      color: '#fff'
     },
     bottom: 0
   };
@@ -342,16 +346,13 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 
   this.pieChartOptions2 = {
   title: {
-    text: `${this.pieChartData1.financialYear}`,
+    text: `${this.pieChartData2.financialYear}`,
     left: 'center',
   },
   tooltip: {
     trigger: 'item'
   },
-  // legend: {
-  //   orient: 'vertical',
-  //   left: 'left'
-  // },
+  color: ['#4d4fff','#000e5e'],
   series: [
     {
       name: '',
@@ -359,12 +360,12 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
       radius: '90%',
       data: [
         {
-          value: this.pieChartData1.totalProcurementCount || 0,
-          name: `Total Procurement : ${this.pieChartData1.totalProcurementCount}`
+          value: this.pieChartData2.totalProcurementCount || 0,
+          name: `Total Procurement : ${this.pieChartData2.totalProcurementCount}`
         },
         {
-          value: this.pieChartData1.totalContractSignedProcurementCount || 0,
-          name: `Contract Signed : ${this.pieChartData1.totalContractSignedProcurementCount}`
+          value: this.pieChartData2.totalContractSignedProcurementCount || 0,
+          name: `Contract Signed : ${this.pieChartData2.totalContractSignedProcurementCount}`
         }
       ],
       emphasis: {
@@ -377,6 +378,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     }
   ]
 };
+
 
 }
   
@@ -428,6 +430,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
             }
         },
         yAxis: {},
+        color:['#7154ff'],
         series: [
             {
                 name: 'Procurement',
