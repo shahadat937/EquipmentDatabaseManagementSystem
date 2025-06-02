@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 import { Project } from '../../models/Project';
 import { ProjectService } from '../../service/project.service';
 import { UnsubscribeOnDestroyAdapter } from '../../../shared/UnsubscribeOnDestroyAdapter';
+import { color } from 'echarts';
 interface Paging {
   pageIndex: number;
   pageSize: number;
@@ -117,6 +118,7 @@ export class ProjectListComponent extends UnsubscribeOnDestroyAdapter implements
         }
     },
     yAxis: {},
+    color: [],
     series: [
         {
             name: 'Sales',
@@ -318,6 +320,7 @@ updateBarChartOptions() {
         }
       },
       yAxis: {},
+      color:['#7154ff'],
       series: [
           {
               name: 'Project',
