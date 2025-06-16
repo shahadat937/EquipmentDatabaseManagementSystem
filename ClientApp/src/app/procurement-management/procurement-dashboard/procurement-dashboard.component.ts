@@ -17,7 +17,9 @@ import * as echarts from 'echarts';
 import { EChartsOption } from 'echarts';
 import type { PieSeriesOption } from 'echarts/charts';
 import type { TitleComponentOption, TooltipComponentOption } from 'echarts/components';
-
+import { MatDialog } from '@angular/material/dialog';
+import { AipPendingViewDialogComponent } from '../aip-pending-view-dialog/aip-pending-view-dialog.component';
+import { OngoingTenderSpecPrepComponent } from '../ongoing-tender-spec-prep/ongoing-tender-spec-prep.component';
 
 
 interface Paging {
@@ -109,7 +111,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 };
 
 
-  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService, private datePipe: DatePipe) {  super()}
+  constructor(private snackBar: MatSnackBar, private ProcurementService: ProcurementService, private router: Router, private confirmService: ConfirmService, public SharedService: SharedService, private authService : AuthService, private datePipe: DatePipe, private dialog: MatDialog) {  super()}
 
   ngOnInit(): void {
     this.getAipPendingProcurements();
@@ -598,8 +600,19 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     }
     return '';
   }
-  
-  
+  openAipPendingDialog(element: any) {
+  this.dialog.open(AipPendingViewDialogComponent, {
+    width: '500px',
+    data: element
+  });
+}
+
+  openOngoingTenderDialog(element: any) {
+  this.dialog.open(OngoingTenderSpecPrepComponent, {
+    width: '500px',
+    data: element
+  });
+}
   
 
 }
