@@ -1,0 +1,12 @@
+ <h2 mat-dialog-title>Offer Under Evaluation</h2>
+    <mat-dialog-content>
+      <p><strong>Equipment Name:</strong> {{ data.equpmentName }}</p>
+      <p><strong>Ship Name:</strong> {{ getBaseSchoolNames(data.baseSchoolNameDtos) }}</p>
+      <p><strong>Controlled:</strong> {{ data.controlledName }}</p>
+      <p><strong>Agency:</strong> {{ data.dgdpNssdName }}</p>
+      <p><strong>E-Price:</strong> {{ data.ePrice }}</p>
+      <p><strong>Remarks:</strong> {{ data.remarks }}</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>

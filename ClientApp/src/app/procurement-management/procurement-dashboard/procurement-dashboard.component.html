@@ -242,7 +242,7 @@
                         <th class="custom-header">Tender Floated Date</th>
                         <th class="custom-header">Agency</th>
                         <th class="custom-header">Remarks</th>
-
+                        <th class="custom-header">View</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -258,7 +258,11 @@
                         <td>{{ element.tenderFloatedDate | date: 'dd MMM, yyyy' }}</td>
                         <td>{{ element.dgdpNssdName }}</td>
                         <td>{{ element.remarks }}</td>
-
+                        <td>
+                           <button mat-icon-button color="accent" (click)="openTenderFlotedDialog(element)">
+                            <mat-icon aria-label="View" class="col-white">visibility</mat-icon>
+                          </button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -418,7 +422,7 @@
                         <th class="custom-header">Offer Receive Date</th>
                         <th class="custom-header">Agency</th>
                         <th class="custom-header">Remarks</th>
-
+                        <th class="custom-header">View</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -442,7 +446,9 @@
 
                         <td>{{ element.dgdpNssdName }}</td>
                         <td>{{ element.remarks }}</td>
-
+                         <button mat-icon-button color="accent" (click)="openOfferUnderEvaluationDialog(element)">
+                            <mat-icon aria-label="View" class="col-white">visibility</mat-icon>
+                          </button>
                       </tr>
                     </tbody>
                   </table>

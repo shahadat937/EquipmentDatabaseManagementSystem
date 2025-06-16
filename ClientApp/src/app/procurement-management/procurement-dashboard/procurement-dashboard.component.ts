@@ -20,6 +20,8 @@ import type { TitleComponentOption, TooltipComponentOption } from 'echarts/compo
 import { MatDialog } from '@angular/material/dialog';
 import { AipPendingViewDialogComponent } from '../aip-pending-view-dialog/aip-pending-view-dialog.component';
 import { OngoingTenderSpecPrepComponent } from '../ongoing-tender-spec-prep/ongoing-tender-spec-prep.component';
+import { TenderFlotedDialogComponent } from '../tender-floted-dialog/tender-floted-dialog.component';
+import { OfferUnderEvaluationDialogComponent } from '../offer-under-evaluation-dialog/offer-under-evaluation-dialog.component';
 
 
 interface Paging {
@@ -609,6 +611,18 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 
   openOngoingTenderDialog(element: any) {
   this.dialog.open(OngoingTenderSpecPrepComponent, {
+    width: '500px',
+    data: element
+  });
+}
+openTenderFlotedDialog(element: any) {
+  this.dialog.open(TenderFlotedDialogComponent, {
+    width: '500px',
+    data: element
+  });
+}
+openOfferUnderEvaluationDialog(element: any) {
+  this.dialog.open(OfferUnderEvaluationDialogComponent, {
     width: '500px',
     data: element
   });
