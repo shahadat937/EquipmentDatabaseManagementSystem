@@ -15,4 +15,9 @@ export class AipPendingViewDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getBaseSchoolNames(baseSchoolNameDtos: any[]): string {
+    return baseSchoolNameDtos && baseSchoolNameDtos.length > 0 
+      ? baseSchoolNameDtos.map(school => school.baseSchoolName).join(', ') 
+      : '-';
+  }
 }
