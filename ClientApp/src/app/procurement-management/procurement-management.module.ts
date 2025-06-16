@@ -30,6 +30,12 @@ import { NewProjectComponent } from './Project/new-project/new-project.component
 import { ProjectListComponent } from './Project/project-list/project-list.component';
 import { BudgetListComponent } from './budget/budget-list/budget-list.component';
 import { NewBudgetComponent } from './budget/new-budget/new-budget.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AipPendingViewDialogComponent } from './aip-pending-view-dialog/aip-pending-view-dialog.component';
+import { OngoingTenderSpecPrepComponent } from './ongoing-tender-spec-prep/ongoing-tender-spec-prep.component';
+import { TenderFlotedDialogComponent } from './tender-floted-dialog/tender-floted-dialog.component';
+import { OfferUnderEvaluationDialogComponent } from './offer-under-evaluation-dialog/offer-under-evaluation-dialog.component';
+// import { MatDialogActions } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -41,6 +47,11 @@ import { NewBudgetComponent } from './budget/new-budget/new-budget.component';
      ProjectListComponent,
      BudgetListComponent,
      NewBudgetComponent,
+     AipPendingViewDialogComponent,
+     OngoingTenderSpecPrepComponent,
+     TenderFlotedDialogComponent,
+     OfferUnderEvaluationDialogComponent,
+     
   ],
   imports: [
     CommonModule,
@@ -67,6 +78,8 @@ import { NewBudgetComponent } from './budget/new-budget/new-budget.component';
    MatCheckboxModule,
    NgxChartsModule,
    ChartsModule,
+   MatDialogModule,
+  //  MatDialogActions,
    NgxEchartsModule.forRoot({
     echarts: () => import('echarts') // Lazy-load ECharts
   })
