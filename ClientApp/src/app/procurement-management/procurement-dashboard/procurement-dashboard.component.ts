@@ -1,5 +1,5 @@
 import { SharedService } from '../../../../src/app/shared/shared.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef,AfterViewInit, OnDestroy  } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Procurement } from '../models/Procurement';
@@ -38,7 +38,8 @@ interface Paging {
 
 
 
-export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  implements OnInit {
+
+export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  implements OnInit, AfterViewInit, OnDestroy {
   masterData = MasterData;
   ELEMENT_DATA: Procurement[] = [];
   isLoading = false;
@@ -125,7 +126,28 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     this.getBarChartData();
   }
 
-  
+   ngAfterViewInit(): void {
+  if (this.router.url === '/procurement-management/procurement-dashboard') {
+    document.body.style.transform = 'scale(0.75)';
+    document.body.style.transformOrigin = 'top left';
+    document.body.style.width = '133.33vw';
+    document.body.style.height = '100%';
+    document.body.style.margin = '0';
+    document.body.style.overflow = 'hidden'; // Prevent scroll
+  }
+}
+
+ngOnDestroy(): void {
+  document.body.style.transform = '';
+  document.body.style.transformOrigin = '';
+  document.body.style.width = '';
+  document.body.style.height = '';
+  document.body.style.margin = '';
+  document.body.style.overflow = '';
+}
+
+
+   
 // -------------------- PieChart 1 --------------------------
 
   
@@ -434,7 +456,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
             }
         },
         yAxis: {},
-        color:['#7154ff'],
+        color:['#7154ff'] as any,
         series: [
             {
                 name: 'Procurement',
