@@ -56,7 +56,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   tenderFloatingpaging: Paging = {...this.pagingConfig}
   tenderOpeningPageing: Paging = {...this.pagingConfig}
   offerUnderEvaluationPageing: Paging = {...this.pagingConfig}
-  
+
   aipPendingSearchText = "";
   tenderOnGoingSearchText = "";
   tenderFloatingSearchText = ""
@@ -77,8 +77,8 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   barCharData : any;
   barCharHoverData : any;
 
-  
- 
+
+
 
   barChartOptions = {
     title: {
@@ -96,7 +96,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     xAxis: {
         data: ['Sent AIP', 'AIP Approved', 'Indent Date', 'Tender Floated Data', 'Offer R & E', 'Date Of Contact'],
         axisLabel: {
-            rotate: 25, // Rotate labels 
+            rotate: 25, // Rotate labels
             interval: 0, // Make sure every label is shown
             fontSize: 12, // Adjust font size for better visibility
         }
@@ -125,13 +125,13 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     this.getBarChartData();
   }
 
-  
+
 // -------------------- PieChart 1 --------------------------
 
-  
+
   pieChartOptions = {
     title: {
-      text: 'Loading...',  
+      text: 'Loading...',
       left: 'center'
     },
     tooltip: {
@@ -148,8 +148,8 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
         type: 'pie',
         radius: '50%',
         data: [
-          { value: 0, name: 'Total Procurement' }, 
-          { value: 0, name: 'Contract Signed' }   
+          { value: 0, name: 'Total Procurement' },
+          { value: 0, name: 'Contract Signed' }
         ],
         emphasis: {
           itemStyle: {
@@ -161,7 +161,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
       }
     ]
   };
-  
+
 
   getPieChartData() {
     this.ProcurementService.getPieChartData().subscribe(res => {
@@ -270,7 +270,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 
   pieChartOptions2 = {
     title: {
-      text: 'Loading...',  
+      text: 'Loading...',
       left: 'center'
     },
     tooltip: {
@@ -287,8 +287,8 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
         type: 'pie',
         radius: '50%',
         data: [
-          { value: 0, name: 'Total Procurement' }, 
-          { value: 0, name: 'Contract Signed' }   
+          { value: 0, name: 'Total Procurement' },
+          { value: 0, name: 'Contract Signed' }
         ],
         emphasis: {
           itemStyle: {
@@ -300,7 +300,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
       }
     ]
   };
-  
+
 
 
   updatePieChartOptions2(): void {
@@ -385,7 +385,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 
 
 }
-  
+
 
 
   //------------------ Bar Chart -----------------------
@@ -397,7 +397,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
 
      console.log(this.barCharHoverData);
      this.updateBarChartOptions();
-      
+
     }, error => {
       console.error('Error fetching pie chart data', error);
     });
@@ -414,7 +414,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
             formatter: (params) => {
                 let categoryName = params[0].name;
                 let dataIndex = params[0].dataIndex; // Get the index of the hovered bar
-                
+
                 // Retrieve the corresponding equipment data from barCharHoverData
                 let equipmentInfo = this.barCharHoverData?.[dataIndex]?.length
                     ? this.barCharHoverData[dataIndex].join(', ')
@@ -445,20 +445,20 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     };
 }
 
-  
-  
+
+
     //---------------- AIP Pending Procuremnt ---------------
   getAipPendingProcurements() {
     this.isLoading = true;
     this.ProcurementService.getAIPPendingProcurement(this.aipPendingpaging.pageIndex, this.aipPendingpaging.pageSize, this.aipPendingSearchText, this.orderBy, this.orderDirection).subscribe(response => {
       console.log(response)
-      this.AipPending = response.items;      
+      this.AipPending = response.items;
       this.aipPendingpaging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
     })
-  } 
-  
+  }
+
   aipPendingPageChanged(event: PageEvent) {
     this.aipPendingpaging.pageIndex = event.pageIndex
     this.aipPendingpaging.pageSize = event.pageSize
@@ -475,13 +475,13 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   getTenderOngoingProcurements() {
     this.isLoading = true;
     this.ProcurementService.getOngoingTenderSpecPreparationProcurement(this.onGoingTenderpaging.pageIndex, this.onGoingTenderpaging.pageSize, this.tenderOnGoingSearchText, this.orderBy, this.orderDirection).subscribe(response => {
-      this.tenderOngoing = response.items;      
+      this.tenderOngoing = response.items;
       this.onGoingTenderpaging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
     })
-  } 
-  
+  }
+
   tenderOngoingPageChanged(event: PageEvent) {
     this.onGoingTenderpaging.pageIndex = event.pageIndex
     this.onGoingTenderpaging.pageSize = event.pageSize
@@ -500,13 +500,13 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   getTenderFloatingProcurements() {
     this.isLoading = true;
     this.ProcurementService.getTenderFloatedProcurement(this.tenderFloatingpaging.pageIndex, this.tenderFloatingpaging.pageSize, this.tenderFloatingSearchText, this.orderBy, this.orderDirection).subscribe(response => {
-      this.tenderFloating = response.items;      
+      this.tenderFloating = response.items;
       this.tenderFloatingpaging.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
     })
-  } 
-  
+  }
+
   tenderFloatingPageChanged(event: PageEvent) {
     this.tenderFloatingpaging.pageIndex = event.pageIndex
     this.tenderFloatingpaging.pageSize = event.pageSize
@@ -524,13 +524,13 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
   getTenderOpeningProcurements() {
     this.isLoading = true;
     this.ProcurementService.getTenderOpeningProcurement(this.tenderOpeningPageing.pageIndex, this.tenderOpeningPageing.pageSize, this.tenderOpeningSearchText, this.orderBy, this.orderDirection).subscribe(response => {
-      this.tenderOpening = response.items;      
+      this.tenderOpening = response.items;
       this.tenderOpeningPageing.length = response.totalItemsCount
       this.isLoading = false;
       this.itemCount = response.items.length;
     })
-  } 
-  
+  }
+
   tenderOpeningPageChanged(event: PageEvent) {
     this.tenderOpeningPageing.pageIndex = event.pageIndex
     this.tenderOpeningPageing.pageSize = event.pageSize
@@ -549,32 +549,32 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
     getOfferUnderEvulationProcurements() {
       this.isLoading = true;
       this.ProcurementService.getOfferUnderEvulationProcurement(this.offerUnderEvaluationPageing.pageIndex, this.offerUnderEvaluationPageing.pageSize, this.offerUnderEvulationSearchText, this.orderBy, this.orderDirection).subscribe(response => {
-        this.offerUnderEvaluation = response.items;      
+        this.offerUnderEvaluation = response.items;
         this.offerUnderEvaluationPageing.length = response.totalItemsCount
         this.isLoading = false;
         this.itemCount = response.items.length;
       })
-    } 
-    
+    }
+
     offerUnderEvulationPageChanged(event: PageEvent) {
       this.offerUnderEvaluationPageing.pageIndex = event.pageIndex
       this.offerUnderEvaluationPageing.pageSize = event.pageSize
       this.offerUnderEvaluationPageing.pageIndex = this.offerUnderEvaluationPageing.pageIndex + 1
       this.getOfferUnderEvulationProcurements();
     }
-  
+
     offerUnderEvulationapplyFilter(searchText: any) {
       this.offerUnderEvulationSearchText = searchText.trim();
       this.offerUnderEvaluationPageing.pageIndex =  this.masterData.paging.pageIndex
       this.getOfferUnderEvulationProcurements();
     }
-  
+
 
 
 
   getBaseSchoolNames(baseSchoolNameDtos: any[]): string {
-    return baseSchoolNameDtos && baseSchoolNameDtos.length > 0 
-      ? baseSchoolNameDtos.map(school => school.baseSchoolName).join(', ') 
+    return baseSchoolNameDtos && baseSchoolNameDtos.length > 0
+      ? baseSchoolNameDtos.map(school => school.baseSchoolName).join(', ')
       : '-';
   }
 
@@ -583,7 +583,7 @@ export class ProcurementDashboardComponent extends UnsubscribeOnDestroyAdapter  
       ? tenderOpingdto.map((tenderDate, index) => {
           const date = this.datePipe.transform(tenderDate.tenderOpeningDate, 'dd MMM, yyyy');
           const count = tenderOpingdto.length > 1 && tenderDate.tenderOpeningCount
-            ? ` (${tenderDate.tenderOpeningCount})` : ''; 
+            ? ` (${tenderDate.tenderOpeningCount})` : '';
           return date + count;
         }).join('<br>')
       : '-';
@@ -627,6 +627,6 @@ openOfferUnderEvaluationDialog(element: any) {
     data: element
   });
 }
-  
+
 
 }
